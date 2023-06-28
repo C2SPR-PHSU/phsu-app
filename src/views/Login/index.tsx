@@ -16,29 +16,29 @@ const Login = () => {
           }}
         >
           <h1>LOGIN</h1>
-          
+
         </section>
         <div>
-        <section
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            marginBottom: "2rem",
-          }}
-        >
-          <button
-            style={{ marginRight: "1rem" }}
-            onClick={() =>
-              dispatchGlobal({
-                type: "ACTIVATE"
-              })
-            }
+          <section
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              marginBottom: "2rem",
+            }}
           >
-            LOGIN
-          </button>
-          <p>{`${globalState.activate}`}</p>
-        </section>
-      </div>
+            <button
+              style={{ marginRight: "1rem" }}
+              onClick={() =>
+                dispatchGlobal({
+                  type: "ACTIVATE"
+                })
+              }
+            >
+              LOGIN
+            </button>
+            <p>{`${globalState.activate}`}</p>
+          </section>
+        </div>
       </div>
     </>
   );
