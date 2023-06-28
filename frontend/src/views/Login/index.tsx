@@ -11,7 +11,7 @@ const Login = () => {
         <section
           style={{
             display: "flex",
-            justifyContent: "flex-end",
+            justifyContent: "center",
             marginBottom: "2rem",
           }}
         >
@@ -22,7 +22,7 @@ const Login = () => {
         <section
           style={{
             display: "flex",
-            justifyContent: "flex-end",
+            justifyContent: "center",
             marginBottom: "2rem",
           }}
         >

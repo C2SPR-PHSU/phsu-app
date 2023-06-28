@@ -7,8 +7,7 @@ import { PATH } from './constants';
 import { useGlobalContext } from "@/contexts/MainContext";
 
 const Root = () => {
-  const { globalState } = useGlobalContext();
-  const isAuthenticated = globalState.activate
+  const { globalState: { activate: isAuthenticated} } = useGlobalContext();
 
   return (
     <Routes>
