@@ -115,8 +115,4 @@ class ApiRequest {
   }
 }
 
-module.exports.AxiosInstance = CreateAxiosInstance;
-module.exports.responseParser = responseParser;
-module.exports.errorParser = errorParser;
-
 export default ApiRequest;
