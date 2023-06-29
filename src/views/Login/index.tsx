@@ -1,52 +1,10 @@
-import { styled, Grid } from '@mui/material';
+import { Grid } from '@mui/material';
 import Navigator from '../../components/Navigator';
 import Navbar from '@/components/Navbar/Navbar';
-import WelcomeImage from '../../assets/welcomeImage.png';
+import WelcomeImage from '../../assets/welcome.png';
 import List_item from '@/components/ListItem/ListItem';
-import './Login.sass';
+import stylesLogin from './Login.module.sass'
 
-
-
-const WelcomeImageContainer = styled('div')({
-  position: 'relative',
-  maxWidth: '100%',
-  maxHeight: '100%',
-});
-
-const Welcome_text = styled('div')({
-  position: 'absolute',
-  top: '39%',
-  left: '52%',
-  transform: 'translate(-50%, -50%)',
-  color: 'white',
-  fontSize: '70px',
-  fontWeight: 'bold',
-  textShadow: '2px 2px 4px rgba(0, 0, 0, 0.5)',
-  fontFamily: 'title',
-});
-
-const Welcome_descritions = styled('div')({
-  position: 'absolute',
-  top: '50%',
-  left: '48%',
-  transform: 'translate(-50%, -50%)',
-  color: 'white',
-  fontSize: '20px',
-  fontWeight: 'bold',
-  textShadow: '2px 2px 4px rgba(0, 0, 0, 0.5)',
-  fontFamily: 'title',
-});
-
-
-const Title = styled('div')({
-
-  marginTop: '1rem',  
-  marginLeft: '4rem',
-  color: '#f7941d',
-  fontSize: '42px',
-  fontWeight: 'bold',
-  fontFamily: 'title',
-});
 
 
 
@@ -67,26 +25,26 @@ const Login = () => {
           <Grid item xs={12} md={6}>
 
 
-            <WelcomeImageContainer>
-                <img src={WelcomeImage} alt="Imagen" />
+            <div className={stylesLogin.welcomeImageContainer }>
+                <img src={WelcomeImage} alt="ImagenTheWelcome" />
 
-                <Welcome_text>
+                <div className={stylesLogin.welcomeText }>
                   Welcome
-                </Welcome_text>
+                </div>
 
-                <Welcome_descritions>
+                <div className={stylesLogin.welcomeDescritions}>
                   The PHSU Student Portal is a one-stop for services request. Avoid lines, recive updates on the status of your request, and maintain access to documents and certifications. 
-                </Welcome_descritions>
-
-            </WelcomeImageContainer>
+                </div>
+              </div>
           </Grid>
 
           <Grid item xs={12} md={6}>
 
-            <Grid container className="Request_service_container">
+            <Grid container className={stylesLogin.requestServiceContainer}>
 
               <Grid item xs={12}>
-                <Title>Request Service</Title>
+
+                <div className={stylesLogin.title}>Request Service</div>
                   
               </Grid>
 
@@ -143,7 +101,14 @@ const Login = () => {
               </Grid>
             </Grid>
           </Grid>
+
+          
         </Grid>
+        
+
+          <div className={stylesLogin.footer}></div>
+
+          
       
     </>
   );

@@ -1,6 +1,5 @@
 import { Grid } from '@mui/material';
-import './ListItem.sass'
-
+import stylesItem from './ListItem.module.sass'
 
 interface ResponsiveComponentProps {
   number: string;
@@ -13,13 +12,13 @@ const List_item: React.FC<ResponsiveComponentProps> = ({ number, listItem, descr
   return (
     <Grid item xs={12}>
         
-        <a href={url} className="a">
-            <div className="circle"><p className="number">{number}</p></div>
+        <a href={url} className={stylesItem.a}>
+            <div className={stylesItem.circle}><p className={stylesItem.number}>{number}</p></div>
             
-            <div className="two_elements">
+            <div className={stylesItem.two_elements}>
             
-                <div className="list_item">{listItem}</div>
-                <div className="descriptions">{descriptions}</div>
+                <div className={stylesItem.list_item}>{listItem}</div>
+                <div className={stylesItem.descriptionsLogin}>{descriptions}</div>
             
             </div>
         </a>
