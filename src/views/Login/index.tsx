@@ -25,7 +25,7 @@ const Login = () => {
           <Grid item xs={12} md={6}>
 
 
-            <div className={stylesLogin.welcomeImageContainer }>
+             <div className={stylesLogin.welcomeImageContainer }>
                 <img src={WelcomeImage} alt="ImagenTheWelcome" />
 
                 <div className={stylesLogin.welcomeText }>
@@ -35,7 +35,9 @@ const Login = () => {
                 <div className={stylesLogin.welcomeDescritions}>
                   The PHSU Student Portal is a one-stop for services request. Avoid lines, recive updates on the status of your request, and maintain access to documents and certifications. 
                 </div>
-              </div>
+              </div> 
+
+
           </Grid>
 
           <Grid item xs={12} md={6}>
