@@ -33,7 +33,11 @@ const Navbar = () => {
                 <Lock className={stylesDashboard.iconLogIn} />
                 <input type="text" placeholder="Password" className={stylesDashboard.inputStyle} />
 
-                <Button variant="contained" className={`${stylesDashboard.signUpButton} customSignUpButton`}>Log In</Button>
+                {/* <Button variant="contained" className={`${stylesDashboard.signUpButton} customSignUpButton`}>Log In</Button> */}
+
+                <button type="submit" className={stylesDashboard.signUpButton}>
+                  Log In
+                </button>
 
                 <div className={stylesDashboard.circleRestoresPassword}>
                 <HttpsRoundedIcon className={stylesDashboard.iconRecovery} />
