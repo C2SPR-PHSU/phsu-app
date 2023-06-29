@@ -5,13 +5,13 @@ export const initialMainState = {
 };
 
 export type MainState = {
-  activate: Boolean;
+  activate: boolean;
 };
 
 type Actions = "ACTIVATE"
 
 interface Payload {
-  activate?: Boolean;
+  activate?: boolean;
 }
 
 export interface GlobalAction {

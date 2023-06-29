@@ -1,13 +1,8 @@
 @font-face 
-  font-family: list_item
-  src: url('../../Fonts/GothamBlack_Regular.otf') format('opentype')
+  font-family: list_item 
+  src: url('../../Fonts/GarageGothic-Bold-Regular.ttf') format('truetype')
 
 
-
-.container
-    display: flex
-    flex-direction: row
-    margin-top: 40px
 
 $size: 40px
 $color-primary: #f7941d
@@ -21,24 +16,37 @@ $color-primary: #f7941d
     width: $size
 
 .number
-    margin-left: 29%
+    margin-left: 26%
     margin-bottom: 15%
     color: #ffff
     font-size: 35px
     font-weight: bold
+    font-family: GarageGothic-Bold-Regular, sans-serif
+
     
 .descriptions
     color: #333333
-    font-family: "Gotham Medium"
+    font-family: GarageGothic-Bold-Regular, sans-serif
     font-weight: bold
 
 .two_elements
     margin-left: 40px
 
-.list_item
-    font-size: 30px
-    font: bold
-    color: #009999
-    text-decoration: underline
-    font-family: GothamBlack_Regular, sans-serif
+.list_item 
+  font-size: 30px
+  font-weight: bold
+  color: #009999
+  text-decoration: none
+  font-family: GarageGothic-Bold-Regular, sans-serif
 
+
+.list_item:hover 
+  text-decoration: underline
+  cursor: pointer
+
+.a 
+  text-decoration: none
+  display: flex
+  flex-direction: row
+  margin-top: 40px
+  margin-left: 2rem

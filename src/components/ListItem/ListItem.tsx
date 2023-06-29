@@ -12,20 +12,17 @@ interface ResponsiveComponentProps {
 const List_item: React.FC<ResponsiveComponentProps> = ({ number, listItem, descriptions, url }) => {
   return (
     <Grid item xs={12}>
-        <div className="container">
-
+        
+        <a href={url} className="a">
             <div className="circle"><p className="number">{number}</p></div>
             
-            {/* --------------------------------------------------------- */}
             <div className="two_elements">
             
-            <a href={url}>
                 <div className="list_item">{listItem}</div>
-            </a>
                 <div className="descriptions">{descriptions}</div>
+            
             </div>
-
-        </div>
+        </a>
     </Grid>
   );
 };

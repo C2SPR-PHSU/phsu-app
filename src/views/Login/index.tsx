@@ -6,13 +6,57 @@ import List_item from '@/components/ListItem/ListItem';
 import './Login.sass';
 
 
-const WelcomeImageContainer = styled('img')({
-  // Estilos para la imagen de bienvenida
+
+const WelcomeImageContainer = styled('div')({
+  position: 'relative',
   maxWidth: '100%',
   maxHeight: '100%',
 });
 
+const Welcome_text = styled('div')({
+  position: 'absolute',
+  top: '39%',
+  left: '52%',
+  transform: 'translate(-50%, -50%)',
+  color: 'white',
+  fontSize: '70px',
+  fontWeight: 'bold',
+  textShadow: '2px 2px 4px rgba(0, 0, 0, 0.5)',
+  fontFamily: 'title',
+});
+
+const Welcome_descritions = styled('div')({
+  position: 'absolute',
+  top: '46%',
+  left: '48%',
+  transform: 'translate(-50%, -50%)',
+  color: 'white',
+  fontSize: '20px',
+  fontWeight: 'bold',
+  textShadow: '2px 2px 4px rgba(0, 0, 0, 0.5)',
+  fontFamily: 'title',
+});
+
+
+const Title = styled('div')({
+
+  marginTop: '1rem',  
+  marginLeft: '4rem',
+  color: '#f7941d',
+  fontSize: '42px',
+  fontWeight: 'bold',
+  fontFamily: 'title',
+});
+
+
+
 const Login = () => {
+
+
+
+
+
+
   return (
     <>
         <Navigator />
@@ -21,7 +65,24 @@ const Login = () => {
 
           {/* <------------------GRID PARA LA IMAGEN-------------------> */}
           <Grid item xs={12} md={6}>
-            <WelcomeImageContainer src={WelcomeImage} alt="fondo" className="WelcomeImageContainer" />
+
+
+            <WelcomeImageContainer>
+                <img src={WelcomeImage} alt="Imagen" />
+
+                <Welcome_text>
+                  Welcome
+                </Welcome_text>
+
+                <Welcome_descritions>
+                  The PHSU Student Portal is a one-stop for services request. Avoid lines, recive updates on the status of your request 
+                </Welcome_descritions>
+
+            </WelcomeImageContainer>
+
+
+          
+
           </Grid>
 
           <Grid item xs={12} md={6}>
@@ -29,9 +90,8 @@ const Login = () => {
             <Grid container className="Request_service_container">
 
               <Grid item xs={12}>
-                <h2 className="Request_service_title">
-                  Request Service
-                </h2>
+                <Title>Request Service</Title>
+                  
               </Grid>
 
               {/* <--------------------Cuerpo de la Seccion  */}

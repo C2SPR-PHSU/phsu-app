@@ -1,25 +1,23 @@
 import { Route, Routes } from 'react-router-dom';
-import {
-  Home,
-  Login
-} from '@/views';
+import { Home, Login } from '@/views';
 import { PATH } from './constants';
-import { useGlobalContext } from "@/contexts/MainContext";
+import { useGlobalContext } from '@/contexts/MainContext';
 
 const Root = () => {
-  const { globalState: { activate: isAuthenticated} } = useGlobalContext();
+  const { globalState: { activate: isAuthenticated } } = useGlobalContext();
 
   return (
     <Routes>
-    {
-      !isAuthenticated ? (
-        <Route path={PATH.ROOT} element={<Login />}></Route>
+      {!isAuthenticated ? (
+        <Route path={PATH.ROOT} element={<Login />} />
       ) : (
-        <Route path={PATH.ROOT} element={<Home />}></Route>
-      )
-    }
+        <>
+          <Route path={PATH.ROOT} element={<Home />} />
+          <Route path={PATH.REGISTRO} element={<Home />} />
+        </>
+      )}
     </Routes>
   );
 };
-  
+
 export default Root;
