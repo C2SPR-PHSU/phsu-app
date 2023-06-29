@@ -1,7 +1,7 @@
 import { Route, Routes } from 'react-router-dom';
 import {
   Home,
-  Login
+  Login,
 } from '@/views';
 import { PATH } from './constants';
 import { useGlobalContext } from "@/contexts/MainContext";
@@ -14,8 +14,11 @@ const Root = () => {
     {
       !isAuthenticated ? (
         <Route path={PATH.ROOT} element={<Login />}></Route>
+        
       ) : (
-        <Route path={PATH.ROOT} element={<Home />}></Route>
+       <Route path={PATH.ROOT} element={<Home />}></Route>
+      
+       
       )
     }
     </Routes>

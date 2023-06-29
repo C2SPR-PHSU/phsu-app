@@ -5,6 +5,7 @@ import { BrowserRouter } from 'react-router-dom';
 import Root from '@/routes'
 import { GlobalProvider } from '@/contexts/MainContext';
 
+
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <BrowserRouter>
     <GlobalProvider>

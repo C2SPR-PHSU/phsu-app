@@ -1,5 +1,6 @@
 import styles from "./styles.module.scss";
 
+
 const Navigator = () => {
   return (
     <div
