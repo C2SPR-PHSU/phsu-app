@@ -1,24 +1,24 @@
-import { Container, Grid, Stack, Button} from "@mui/material"
+import { Container, Grid,Button} from "@mui/material"
 import Input from "@/components/Input/Input"
-import './Registro.sass'
-import Navbar from "@/components/Navbar/Navbar"
+import stylesRegister from './Register.module.sass'
+
 import { VisibilityOff as VisibilityOffIcon } from '@mui/icons-material';
 
 
-const Registro = () => {
+const Register = () => {
   const size = '245px'
   return (
-    <>
-    <Navbar />
-   <Container className="container_registro">
-        {/*Header */}
+    <div className="principalDivRegister">
+   
+   <Container className={stylesRegister.registerContainer}>
+        {/*Header */} 
       
-      <div className="view_register">
+      <div className={stylesRegister.contentRegister}>
         
         {/*Titulo */}
-        <Grid className="titulo">
-          <h1 className="title">Registration</h1>
-          <div className="separator_style">
+        <Grid className={stylesRegister.titleDiv}>
+          <h1 className={stylesRegister.titleRegister}>Registration</h1>
+          <div className={stylesRegister.subtitleRegister}>
             Peronal Information
           </div>
         </Grid>
@@ -80,7 +80,7 @@ const Registro = () => {
                 htmlFor='Cell Phone *'
                 placeholder='Jhon'
                 size={size}
-                type="number"
+                type="text"
                 />
             </Grid>
         </Grid>
@@ -104,7 +104,7 @@ const Registro = () => {
                 htmlFor='Student ID *'
                 placeholder='05686100'
                 size={size}
-                type="number"
+                type="text"
                 />
             </Grid>
     
@@ -113,7 +113,7 @@ const Registro = () => {
 
         {/*Cuarto Campo */}
         <form>
-        <div className="separator_style">
+        <div className={stylesRegister.separatorDivTitles}>
             Adress
           </div>
           <Grid container spacing={1}>
@@ -123,7 +123,7 @@ const Registro = () => {
                 htmlFor='Adress Line 1 *'
                 placeholder='889668900'
                 size={size}
-                type="number"
+                type="text"
                 />
             </Grid>
             <Grid item>
@@ -132,7 +132,7 @@ const Registro = () => {
                 htmlFor='Adress Line 2 *'
                 placeholder='889668900'
                 size={size}
-                type="number"
+                type="text"
                 />
             </Grid>
             <Grid item>
@@ -149,23 +149,23 @@ const Registro = () => {
 
         {/*Quinto campo */}      
         <form>
-        <Grid container >
-          <Grid className="state_code">
+        <Grid container className={stylesRegister.campoRegistro} >
+          <Grid className={stylesRegister.separateStateCode}>
             
             <Input 
                 id='state'
                 htmlFor='State *'
                 placeholder='+1 000 0000'
-                size="384px"
-                type="number"
+                size="24rem"
+                type="text"
                 />
           
             <Input 
                 id='zipcode'
                 htmlFor='Zip Code *'
                 placeholder='05686100'
-                size="384px"
-                type="number"
+                size="24rem"
+                type="text"
                 />      
           </Grid>  
         </Grid>
@@ -174,17 +174,17 @@ const Registro = () => {
         {/*Sexto Campos */}
   
         <form>
-        <Grid container >
-          <div className="separator_style">
+        <Grid container className={stylesRegister.campoRegistro} >
+          <div className={stylesRegister.separatorDivTitles}>
             Creation Of Password
           </div>
-          <Grid className="state_code">
-            
+          <Grid className={stylesRegister.separateStateCode} >
+      
             <Input 
                 id='password'
                 htmlFor='Password *'
                 placeholder='**************'
-                size="360px"
+                size="22.5rem"
                 type="password"
                 icon={<VisibilityOffIcon />}
                 />
@@ -193,7 +193,7 @@ const Registro = () => {
                 id='password'
                 htmlFor='Confirm Password *'
                 placeholder='**************'
-                size="360px"
+                size="22.5rem"
                 type="password"
                 icon={<VisibilityOffIcon />}
                 />      
@@ -203,23 +203,27 @@ const Registro = () => {
 
 
         {/*Seccion de botones */}
-      <Stack spacing={2} direction='row'>
-      <Button variant="outlined" className="cancel_button" 
-      sx={{ color: '#009999', borderColor:'#009999', fontSize:12  }}
-      >Cancel</Button>
-      <Button variant="contained"  className="sign_up_button"
-      sx={{ color: 'white', backgroundColor: '#009999' }}>Sign Up</Button>
+      <Grid container className={stylesRegister.btnRegister}>
+      <Button variant="outlined" className={stylesRegister.cancelButton}>Cancel</Button>
+      <Button variant="contained" className={`${stylesRegister.signUpButton} customSignUpButton`}>Sign Up</Button>
      
-      </Stack>
+      </Grid>
+
 
 
       </div>
+
     </Container>
 
 
+    <footer className={stylesRegister.footerRegister}>
+    <div className={stylesRegister.footerContent}>
+        <p>© {new Date().getFullYear()} Tu Compañía. Todos los derechos reservados.</p>
+    </div>
+</footer>
 
-   </>
+   </div>
   )
 }
 
-export default Registro
+export default Register

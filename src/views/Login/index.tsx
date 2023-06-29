@@ -1,8 +1,9 @@
-import Registro from "../Registro";
+
+import Register from "../Register";
 const Login = () => {
 
   return (
-   <Registro />
+   <Register />
   );
 };
 

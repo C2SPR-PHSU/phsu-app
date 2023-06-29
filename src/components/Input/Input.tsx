@@ -1,6 +1,6 @@
 import React from 'react';
 import { Grid, TextField, InputAdornment } from '@mui/material';
-import './input.sass';
+import stylesInput from './Input.module.sass'
 
 interface Props {
   id: string;
@@ -18,16 +18,16 @@ const Input: React.FC<Props> = ({ id, htmlFor, placeholder, size, type, icon }) 
 
   return (
     <Grid item>
-      <div className="forms">
-        <div className='label_style'>
-          <label htmlFor={htmlFor} className='text_label'>{htmlFor}</label>
+      <div className={stylesInput.imputForms}>
+        <div className={stylesInput.inputTextUp}>
+          <label htmlFor={htmlFor} className={stylesInput.inputLabeldiv}>{htmlFor}</label>
         </div>
         <div>
           <TextField
             id={id}
             placeholder={placeholder}
             variant="outlined"
-            className="texinput"
+            className={stylesInput.inputTextUp}
             type={type}
             inputProps={inputProps}
             InputProps={{
