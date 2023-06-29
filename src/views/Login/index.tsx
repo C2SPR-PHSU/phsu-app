@@ -27,7 +27,7 @@ const Welcome_text = styled('div')({
 
 const Welcome_descritions = styled('div')({
   position: 'absolute',
-  top: '46%',
+  top: '50%',
   left: '48%',
   transform: 'translate(-50%, -50%)',
   color: 'white',
@@ -52,18 +52,18 @@ const Title = styled('div')({
 
 const Login = () => {
 
-
-
-
-
-
   return (
     <>
+
+      <Grid item xs={12} md={6}>
         <Navigator />
         <Navbar />
+      </Grid>
+
+      
         <Grid container className="body">
 
-          {/* <------------------GRID PARA LA IMAGEN-------------------> */}
+         
           <Grid item xs={12} md={6}>
 
 
@@ -75,14 +75,10 @@ const Login = () => {
                 </Welcome_text>
 
                 <Welcome_descritions>
-                  The PHSU Student Portal is a one-stop for services request. Avoid lines, recive updates on the status of your request 
+                  The PHSU Student Portal is a one-stop for services request. Avoid lines, recive updates on the status of your request, and maintain access to documents and certifications. 
                 </Welcome_descritions>
 
             </WelcomeImageContainer>
-
-
-          
-
           </Grid>
 
           <Grid item xs={12} md={6}>
