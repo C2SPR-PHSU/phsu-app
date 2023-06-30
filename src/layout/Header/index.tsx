@@ -1,4 +1,4 @@
-// import { useState } from "react";
+import { useState } from "react";
 import {
   AppBar,
   Toolbar,
@@ -24,9 +24,11 @@ export default function Header() {
   const theme = useTheme();
   const isScreenSmall = useMediaQuery(theme.breakpoints.down("md"));
 
-  // const [email, setEmail] = useState("");
-  // const [password, setPassword] = useState("");
-  // const setLogin = useAuthStore((state) => state.setLogin);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const setLogin = useAuthStore((state) => state.setLogin);
+
+
 
   return (
     <AppBar position="static">
@@ -82,7 +84,7 @@ export default function Header() {
                 color: primaryColor,
               },
             }}
-            // onChange={(e) => setEmail(e.target.value)}
+            onChange={(e) => setEmail(e.target.value)}
           />
           <LockRounded className={styles["header-icons"]} />
           <TextField
@@ -111,12 +113,12 @@ export default function Header() {
                 color: primaryColor,
               },
             }}
-            // onChange={(e) => setPassword(e.target.value)}
+            onChange={(e) => setPassword(e.target.value)}
           />
           <Button
             variant="contained"
             className={styles["header-button"]}
-            // onClick={() => setLogin(email, password)}
+            onClick={() => setLogin(email, password)}
           >
             Log In
           </Button>
