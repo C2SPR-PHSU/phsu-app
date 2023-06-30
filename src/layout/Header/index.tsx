@@ -9,6 +9,10 @@ export default function Header() {
     const placeholderColor = 'rgba(51, 51, 51, 0.4)';
     return (
         <AppBar position="static">
+            <Box className={styles['upper-header']}>
+                <Typography className={styles['upper-text']}>Home</Typography>
+                <Typography className={styles['upper-text']}>Register</Typography>
+            </Box>
             <Toolbar className={styles['auth-header']}>
                 <Box className={styles['brand']} sx={{ gap: 3 }}>
                     <img src={Logo} alt="logo" className={styles['brand-img']} />
@@ -69,6 +73,6 @@ export default function Header() {
                     </div>
                 </Box>
             </Toolbar>
-        </AppBar>
+        </AppBar >
     );
 }
