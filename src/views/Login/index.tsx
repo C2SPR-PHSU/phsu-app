@@ -27,7 +27,10 @@ const Login = () => {
             <Typography className={styles["upper-text-title"]}>
               {serviceTitle}
             </Typography>
+
+            {/* Iteramdo la lista de componentes */}
             {servicesList.map((service) => {
+
               return (
                 <ListItem
                   key={service.number}
