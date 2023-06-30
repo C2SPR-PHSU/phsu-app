@@ -13,6 +13,8 @@ import styles from "./Header.module.scss";
 import PersonIcon from "@mui/icons-material/Person";
 import LockRounded from "@mui/icons-material/LockRounded";
 import useAuthStore from "@/hooks/useAuthStore";
+import { PATH } from "@/routes/constants";
+import { Link } from "react-router-dom";
 
 export default function Header() {
   const primaryColor = "#009999";
@@ -25,8 +27,12 @@ export default function Header() {
   return (
     <AppBar position="static">
       <Box className={styles["upper-header"]}>
-        <Typography className={styles["upper-text"]}>Home</Typography>
-        <Typography className={styles["upper-text"]}>Register</Typography>
+        <Typography className={styles["upper-text"]}>
+          <Link to={PATH.ROOT}>Home</Link>
+        </Typography>
+        <Typography className={styles["upper-text"]}>
+          <Link to={PATH.REGISTER}>Register</Link>
+        </Typography>
       </Box>
       <Toolbar className={styles["auth-header"]}>
         <Box className={styles["brand"]} sx={{ gap: 3 }}>
