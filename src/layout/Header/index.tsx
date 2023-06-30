@@ -1,4 +1,4 @@
-import { useState } from "react";
+// import { useState } from "react";
 import {
   AppBar,
   Toolbar,
@@ -6,6 +6,7 @@ import {
   TextField,
   Button,
   Box,
+  Container,
   // InputAdornment,
 } from "@mui/material";
 import Logo from "../../assets/images/logo-phsu.png";
@@ -17,18 +18,27 @@ import { useTheme } from "@mui/material/styles";
 import MenuIcon from '@mui/icons-material/Menu';
 import IconButton from '@mui/material/IconButton';
 // import useAuthStore from "@/hooks/useAuthStore";
+import { useState } from "react";
 
 export default function Header() {
   const primaryColor = "#009999";
   const placeholderColor = "rgba(51, 51, 51, 0.4)";
   const theme = useTheme();
   const isScreenSmall = useMediaQuery(theme.breakpoints.down("md"));
-
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const setLogin = useAuthStore((state) => state.setLogin);
+  const isVeryScreenSmall = useMediaQuery(theme.breakpoints.down("sm"));
 
 
+
+
+  // const [email, setEmail] = useState("");
+  // const [password, setPassword] = useState("");
+  // const setLogin = useAuthStore((state) => state.setLogin);
+  const [menuOpen, setMenuOpen] = useState(false);
+
+
+  const toggleMenu = () => {
+    setMenuOpen((prevMenuOpen) => !prevMenuOpen);
+  };
 
   return (
     <AppBar position="static">
@@ -36,7 +46,9 @@ export default function Header() {
         <Typography className={styles["upper-text"]}>Home</Typography>
         <Typography className={styles["upper-text"]}>Register</Typography>
       </Box>
-      <Toolbar className={styles["auth-header"]}>
+      <Toolbar className={styles["auth-header"]} sx= {{
+        
+      }}>
 
         <Box className={styles["brand"]} sx={{ 
           gap: 3,
@@ -45,7 +57,7 @@ export default function Header() {
       }}
         >
           <img src={Logo} alt="logo" className={styles["brand-img"]} />
-          <Typography variant="h6" className={styles["header-text"]}>
+          <Typography variant="h6" className={styles["header-text"]} sx={{...(isVeryScreenSmall && { display: "none" })}}>
             Student Portal
           </Typography>
         </Box>
@@ -84,7 +96,7 @@ export default function Header() {
                 color: primaryColor,
               },
             }}
-            onChange={(e) => setEmail(e.target.value)}
+            // onChange={(e) => setEmail(e.target.value)}
           />
           <LockRounded className={styles["header-icons"]} />
           <TextField
@@ -113,12 +125,12 @@ export default function Header() {
                 color: primaryColor,
               },
             }}
-            onChange={(e) => setPassword(e.target.value)}
+            // onChange={(e) => setPassword(e.target.value)}
           />
           <Button
             variant="contained"
             className={styles["header-button"]}
-            onClick={() => setLogin(email, password)}
+            // onClick={() => setLogin(email, password)}
           >
             Log In
           </Button>
@@ -138,18 +150,126 @@ export default function Header() {
               height: "3rem",
               Width: "rem",
               paddingTop: "0",
-              ...(isScreenSmall && {display: "block"})
+              ...(isScreenSmall && {
+                display: "block",
+                flexDirection: "column",
+            })
              }}
+
+             onClick={toggleMenu}
           >
             <MenuIcon sx={{
+              paddingTop: "23%",
               color: "#9c9c9c",
               width: "3rem",
               height: "3rem",
+              ...(menuOpen && {
+                color: "#009999",
+              })
             }}
-            ></MenuIcon>
+            >
+            </MenuIcon>
+
           </IconButton>
 
       </Toolbar>
+
+      <Toolbar
+      sx={{
+        display: "none",
+        justifyContent: "end",
+  
+        backgroundColor: "#ffff",
+        ...(menuOpen && {
+          display: "flex",
+          height: "200px",
+          transition: "height 0.9s ease",
+          justifyContent: "end",
+        }),
+      }}
+    >
+        <Container
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            width: "60%",
+            gap: "1.2rem",
+            }}
+        >
+        <TextField
+          id="username"
+          label="Username"
+          variant="outlined"
+          size="small"
+          sx={{
+            "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
+              borderColor: primaryColor,
+            },
+            "&:hover .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
+              borderColor: primaryColor,
+            },
+            "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline": {
+              borderColor: primaryColor,
+            },
+            "& .MuiInputLabel-outlined": {
+              fontSize: "1rem",
+              color: placeholderColor,
+            },
+            "& .MuiInputLabel-outlined.Mui-focused": {
+              color: primaryColor,
+            },
+          }}
+          // onChange={(e) => setEmail(e.target.value)}
+        />
+
+        <TextField
+          id="password"
+          label="Password"
+          type="password"
+          variant="outlined"
+          size="small"
+          sx={{
+            "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
+              borderColor: primaryColor,
+            },
+            "&:hover .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
+              borderColor: primaryColor,
+            },
+            "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline": {
+              borderColor: primaryColor,
+            },
+            "& .MuiInputLabel-outlined": {
+              fontSize: "1rem",
+              color: placeholderColor,
+            },
+            "& .MuiInputLabel-outlined.Mui-focused": {
+              color: primaryColor,
+            },
+            
+          }}
+          // onChange={(e) => setPassword(e.target.value)}
+        />
+        <Container sx={{display:"flex",flexDirection:"row", gap: "1rem",}}>
+
+            <Button
+              variant="contained"
+              className={styles["toggle-button"]}
+              // onClick={() => setLogin(email, password)}
+              sx={{marginTop:"1rem"}}
+            >
+              Log In
+            </Button>
+
+          
+            <div className={styles["icon-container-toggle"]}>
+              <LockRounded className={styles["header-button-variant"]} />
+            </div>
+
+        </Container>
+
+      </Container>
+        </Toolbar>
+
     </AppBar>
   );
 }

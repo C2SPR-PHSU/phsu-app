@@ -68,6 +68,23 @@
 }
 
 
-menu-icon {
-  display: none;
+.toggle-button{
+  background-color: $primary !important;
+  width: 6rem;
+
 }
+
+.icon-container-toggle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: $primary;
+  width: 27px;
+  height: 27px;
+  border-radius: 50%;
+
+}
+
+
+
+
