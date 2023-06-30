@@ -1,0 +1,88 @@
+.main {
+  display: flex;
+  justify-content: center;
+  width: 100% !important;
+  height: 100% !important;
+  margin-bottom: 10rem;
+}
+
+.test {
+  display: flex;
+  background-color: red;
+}
+
+.contentRegister {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.titleContainer {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
+
+.title {
+
+  color: #f7941d;
+  font-weight: bold;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+.subtitleRegister {
+  margin-top: 6rem;
+}
+
+.separatorDivTitles {
+  font-size: 13px;
+  margin-top: 1rem;
+}
+
+.separateStateCode {
+  display: flex;
+  gap: 1.2rem;
+}
+
+.cancelButton {
+  width: 20%;
+  border-color: #009999;
+  color: #009999;
+  font-size: 14px;
+
+  &:hover {
+    border-color: rgba(0, 153, 153, 0.5);
+    color: rgba(0, 153, 153, 0.5);
+  }
+}
+
+.signUpButton {
+  background-color: #009999;
+  width: 20%;
+  color: white;
+  font-size: 14px;
+
+  &:hover {
+    background-color: rgba(0, 153, 153, 0.5);
+  }
+}
+
+.btnRegister {
+  gap: 2rem;
+  margin-top: 3rem;
+}
+
+.footerRegister {
+  margin-top: 1px;
+  background-color: rgba(51, 51, 51, 0.8);
+  height: 9rem;
+  width: 100%;
+  text-align: center;
+}
+
+.footerContent {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
