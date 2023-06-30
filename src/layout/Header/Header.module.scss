@@ -1,0 +1,49 @@
+@import '../../assets/styles/base/variables';
+
+.auth-header {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
+  background-color: $tertiary-neutral;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  padding-left: 5rem;
+}
+
+.brand-img {
+  max-width: 150px;
+
+}
+
+.header-text {
+  font-family: 'GothamBlack';
+  font-size: 1.5rem !important;
+  color: $warning;
+}
+
+.header-icons {
+  font-size: 1.2rem !important;
+  color: $warning;
+}
+
+.header-button {
+  background-color: $primary !important;
+}
+
+.header-button-variant {
+  font-size: 1.2rem !important;
+  color: $tertiary-neutral;
+}
+
+
+.icon-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  padding: 5px;
+  background-color: $primary;
+}
