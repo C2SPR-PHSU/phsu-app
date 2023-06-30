@@ -1,20 +1,16 @@
-import { useEffect } from 'react';
-import { useGlobalContext } from "../../contexts/MainContext";
+import { Grid, Typography, Box } from "@mui/material";
+import styles from "./styles.module.scss";
 
 const Home = () => {
-  const { globalState } = useGlobalContext();
-  
   return (
-    <section style={{
-      display: "flex",
-      flexDirection: 'column',
-      alignItems: 'center',
-      justifyContent: "center",
-      marginBottom: "2rem",
-    }}>
-      <h1>HOME</h1>
-      <p>{`${globalState.activate}`}</p>
-    </section>
+    <Grid container>
+      <Grid item xs={12} className={styles["image-banner"]}>
+        <Box className={styles["text-container"]}>
+          <Typography variant="h3">Services Dashboard</Typography>
+        </Box>
+      </Grid>
+      <Grid item xs={12}></Grid>
+    </Grid>
   );
 };
 
