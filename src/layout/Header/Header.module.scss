@@ -1,4 +1,4 @@
-@import '../../assets/styles/base/variables';
+@import "../../assets/styles/base/variables";
 
 .auth-header {
   display: flex;
@@ -15,13 +15,13 @@
 
 .brand-img {
   max-width: 150px;
-
 }
 
 .header-text {
-  font-family: 'GothamBlack';
+  font-family: $gothamBlack !important;
   font-size: 1.5rem !important;
   color: $warning;
+  font-weight: bolder;
 }
 
 .header-icons {
@@ -37,7 +37,6 @@
   font-size: 1.2rem !important;
   color: $tertiary-neutral;
 }
-
 
 .icon-container {
   display: flex;
@@ -64,7 +63,13 @@
   padding-left: 3.2rem;
   color: $tertiary-neutral;
   font-size: 0.9rem !important;
-  font-family: 'GothamMedium';
+  font-family: "GothamMedium";
+  cursor: pointer;
+
+  a {
+    text-decoration: none !important;
+    color: inherit;
+  }
 }
 
 

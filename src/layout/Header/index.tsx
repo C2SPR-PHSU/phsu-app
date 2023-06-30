@@ -1,4 +1,4 @@
-// import { useState } from "react";
+import { useState } from "react";
 import {
   AppBar,
   Toolbar,
@@ -6,7 +6,6 @@ import {
   TextField,
   Button,
   Box,
-  Container,
   // InputAdornment,
 } from "@mui/material";
 import Logo from "../../assets/images/logo-phsu.png";
@@ -17,8 +16,13 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
 import MenuIcon from '@mui/icons-material/Menu';
 import IconButton from '@mui/material/IconButton';
-// import useAuthStore from "@/hooks/useAuthStore";
-import { useState } from "react";
+import useAuthStore from "@/hooks/useAuthStore";
+import Container from '@mui/material/Container';
+import { Link } from 'react-router-dom';
+import { PATH } from "@/routes/constants";
+
+
+
 
 export default function Header() {
 
@@ -51,9 +55,9 @@ export default function Header() {
   };
 
 
-  // const [email, setEmail] = useState("");
-  // const [password, setPassword] = useState("");
-  // const setLogin = useAuthStore((state) => state.setLogin);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const setLogin = useAuthStore((state) => state.setLogin);
   const [menuOpen, setMenuOpen] = useState(false);
 
 
@@ -66,8 +70,12 @@ export default function Header() {
   return (
     <AppBar position="static">
       <Box className={styles["upper-header"]}>
-        <Typography className={styles["upper-text"]}>Home</Typography>
-        <Typography className={styles["upper-text"]}>Register</Typography>
+        <Typography className={styles["upper-text"]}>
+          <Link to={PATH.ROOT}>Home</Link>
+        </Typography>
+        <Typography className={styles["upper-text"]}>
+          <Link to={PATH.REGISTER}>Register</Link>
+        </Typography>
       </Box>
       <Toolbar className={styles["auth-header"]} sx= {{
         
@@ -100,8 +108,27 @@ export default function Header() {
             label="Username"
             variant="outlined"
             size="small"
-            sx={styleTextfield}
-            // onChange={(e) => setEmail(e.target.value)}
+            sx={{
+              "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
+                borderColor: primaryColor,
+              },
+              "&:hover .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline":
+                {
+                  borderColor: primaryColor,
+                },
+              "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline":
+                {
+                  borderColor: primaryColor,
+                },
+              "& .MuiInputLabel-outlined": {
+                fontSize: "1rem",
+                color: placeholderColor,
+              },
+              "& .MuiInputLabel-outlined.Mui-focused": {
+                color: primaryColor,
+              },
+            }}
+            onChange={(e) => setEmail(e.target.value)}
           />
           <LockRounded className={styles["header-icons"]} />
           <TextField
@@ -110,8 +137,27 @@ export default function Header() {
             type="password"
             variant="outlined"
             size="small"
-            sx={styleTextfield}
-            // onChange={(e) => setPassword(e.target.value)}
+            sx={{
+              "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
+                borderColor: primaryColor,
+              },
+              "&:hover .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline":
+                {
+                  borderColor: primaryColor,
+                },
+              "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline":
+                {
+                  borderColor: primaryColor,
+                },
+              "& .MuiInputLabel-outlined": {
+                fontSize: "1rem",
+                color: placeholderColor,
+              },
+              "& .MuiInputLabel-outlined.Mui-focused": {
+                color: primaryColor,
+              },
+            }}
+            onChange={(e) => setPassword(e.target.value)}
           />
           <Button
             variant="contained"
@@ -188,7 +234,7 @@ export default function Header() {
           variant="outlined"
           size="small"
           sx={styleTextfield}
-          // onChange={(e) => setEmail(e.target.value)}
+          onChange={(e) => setEmail(e.target.value)}
         />
 
         <TextField
@@ -198,14 +244,14 @@ export default function Header() {
           variant="outlined"
           size="small"
           sx={styleTextfield}
-          // onChange={(e) => setPassword(e.target.value)}
+          onChange={(e) => setPassword(e.target.value)}
         />
         <Container sx={{display:"flex",flexDirection:"row", gap: "1rem",}}>
 
             <Button
               variant="contained"
               className={styles["toggle-button"]}
-              // onClick={() => setLogin(email, password)}
+              onClick={() => setLogin(email, password)}
               sx={{marginBottom:"10px"}}
             >
               Log In
