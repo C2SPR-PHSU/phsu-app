@@ -1,10 +1,10 @@
 import { Route, Routes } from 'react-router-dom';
 import { Home, Login, Register, NotFound } from '@/views';
 import { PATH } from './constants';
-import { useGlobalContext } from "@/contexts/MainContext";
+import useAuthStore from '@/views/Login/useAuthStore'
 
 const Root = () => {
-  const { globalState: { activate: isAuthenticated } } = useGlobalContext();
+  const isAuthenticated = useAuthStore(state => state.isAuthenticated)
 
   return (
     <Routes>

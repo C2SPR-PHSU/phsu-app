@@ -6,7 +6,7 @@ const BASE_URL = DEV_URI;
 
 const MakeHeaders = () => {
   const headers = {
-    'Content-Type': 'application/json',
+    'Content-Type': 'multipart/form-data',
     Accept: 'application/json',
   };
   return { ...headers };

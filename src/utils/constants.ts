@@ -1,4 +1,3 @@
+export const DEV_URI = "http://apiphsu.lobsys.net:8080/";
 
-export const DEV_URI = 'https://dummyjson.com/'
-
-export const test = '/products'
+export const login = "/login";

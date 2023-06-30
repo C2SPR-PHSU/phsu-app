@@ -1,15 +1,8 @@
 import { useEffect } from 'react';
 import { useGlobalContext } from "../../contexts/MainContext";
-import { getTest } from './functions';
 
 const Home = () => {
   const { globalState } = useGlobalContext();
-  const testing = async () => await getTest()
-  
-  useEffect(() => {
-    const response = testing()
-    console.log(response)
-  }, [])
   
   return (
     <section style={{
