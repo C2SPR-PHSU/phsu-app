@@ -21,6 +21,9 @@ import IconButton from '@mui/material/IconButton';
 import { useState } from "react";
 
 export default function Header() {
+
+  
+
   const primaryColor = "#009999";
   const placeholderColor = "rgba(51, 51, 51, 0.4)";
   const theme = useTheme();
@@ -28,6 +31,24 @@ export default function Header() {
   const isVeryScreenSmall = useMediaQuery(theme.breakpoints.down("sm"));
 
 
+  const styleTextfield = {
+    "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
+      borderColor: primaryColor,
+    },
+    "&:hover .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
+      borderColor: primaryColor,
+    },
+    "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline": {
+      borderColor: primaryColor,
+    },
+    "& .MuiInputLabel-outlined": {
+      fontSize: "1rem",
+      color: placeholderColor,
+    },
+    "& .MuiInputLabel-outlined.Mui-focused": {
+      color: primaryColor,
+    }
+  };
 
 
   // const [email, setEmail] = useState("");
@@ -39,6 +60,8 @@ export default function Header() {
   const toggleMenu = () => {
     setMenuOpen((prevMenuOpen) => !prevMenuOpen);
   };
+
+
 
   return (
     <AppBar position="static">
@@ -69,6 +92,7 @@ export default function Header() {
           pr: 5,
           ...(isScreenSmall && { display: "none" }),
         }}
+
       >
           <PersonIcon className={styles["header-icons"]} />
           <TextField
@@ -76,26 +100,7 @@ export default function Header() {
             label="Username"
             variant="outlined"
             size="small"
-            sx={{
-              "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
-                borderColor: primaryColor,
-              },
-              "&:hover .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline":
-                {
-                  borderColor: primaryColor,
-                },
-              "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline":
-                {
-                  borderColor: primaryColor,
-                },
-              "& .MuiInputLabel-outlined": {
-                fontSize: "1rem",
-                color: placeholderColor,
-              },
-              "& .MuiInputLabel-outlined.Mui-focused": {
-                color: primaryColor,
-              },
-            }}
+            sx={styleTextfield}
             // onChange={(e) => setEmail(e.target.value)}
           />
           <LockRounded className={styles["header-icons"]} />
@@ -105,26 +110,7 @@ export default function Header() {
             type="password"
             variant="outlined"
             size="small"
-            sx={{
-              "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
-                borderColor: primaryColor,
-              },
-              "&:hover .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline":
-                {
-                  borderColor: primaryColor,
-                },
-              "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline":
-                {
-                  borderColor: primaryColor,
-                },
-              "& .MuiInputLabel-outlined": {
-                fontSize: "1rem",
-                color: placeholderColor,
-              },
-              "& .MuiInputLabel-outlined.Mui-focused": {
-                color: primaryColor,
-              },
-            }}
+            sx={styleTextfield}
             // onChange={(e) => setPassword(e.target.value)}
           />
           <Button
@@ -151,7 +137,7 @@ export default function Header() {
               Width: "rem",
               paddingTop: "0",
               ...(isScreenSmall && {
-                display: "block",
+                display: "flex",
                 flexDirection: "column",
             })
              }}
@@ -201,24 +187,7 @@ export default function Header() {
           label="Username"
           variant="outlined"
           size="small"
-          sx={{
-            "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
-              borderColor: primaryColor,
-            },
-            "&:hover .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
-              borderColor: primaryColor,
-            },
-            "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline": {
-              borderColor: primaryColor,
-            },
-            "& .MuiInputLabel-outlined": {
-              fontSize: "1rem",
-              color: placeholderColor,
-            },
-            "& .MuiInputLabel-outlined.Mui-focused": {
-              color: primaryColor,
-            },
-          }}
+          sx={styleTextfield}
           // onChange={(e) => setEmail(e.target.value)}
         />
 
@@ -228,25 +197,7 @@ export default function Header() {
           type="password"
           variant="outlined"
           size="small"
-          sx={{
-            "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
-              borderColor: primaryColor,
-            },
-            "&:hover .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
-              borderColor: primaryColor,
-            },
-            "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline": {
-              borderColor: primaryColor,
-            },
-            "& .MuiInputLabel-outlined": {
-              fontSize: "1rem",
-              color: placeholderColor,
-            },
-            "& .MuiInputLabel-outlined.Mui-focused": {
-              color: primaryColor,
-            },
-            
-          }}
+          sx={styleTextfield}
           // onChange={(e) => setPassword(e.target.value)}
         />
         <Container sx={{display:"flex",flexDirection:"row", gap: "1rem",}}>
@@ -255,13 +206,14 @@ export default function Header() {
               variant="contained"
               className={styles["toggle-button"]}
               // onClick={() => setLogin(email, password)}
-              sx={{marginTop:"1rem"}}
+              sx={{marginBottom:"10px"}}
             >
               Log In
             </Button>
 
           
             <div className={styles["icon-container-toggle"]}>
+            
               <LockRounded className={styles["header-button-variant"]} />
             </div>
 
