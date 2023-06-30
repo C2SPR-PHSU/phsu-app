@@ -41,7 +41,7 @@ const Login = () => {
           </section>
         </div>
 
-        <Footer></Footer>
+        <Footer />
       </div>
     </>
   );
