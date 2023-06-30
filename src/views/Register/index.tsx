@@ -7,16 +7,17 @@ export default function Register() {
   const size = '245px'
   return (
     <>
+      <Header />
       <div className={stylesRegister.main} >
-        <Header />
+
 
         <div className={stylesRegister.test}>
           testing something
         </div>
 
-        <Footer />
-      </div>
 
+      </div>
+      <Footer />
 
     </>
 

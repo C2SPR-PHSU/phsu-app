@@ -2,15 +2,14 @@
 
 
 .footer {
+    flex-shrink: 0;
     height: 10vh;
     padding-left: 5rem;
     padding-top: 1.2rem;
     align-items: center;
     display: block;
-    position: absolute;
     justify-content: start;
     color: white;
-    bottom: 0;
-    width: 100% !important;
+    width: 100%;
     background: $secondary;
 }

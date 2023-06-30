@@ -2,13 +2,14 @@
   display: flex;
   justify-content: center;
   width: 100% !important;
-  height: 100% !important;
-  margin-bottom: 10rem;
+  min-height: 100vh !important;
 }
 
 .test {
   display: flex;
-  background-color: red;
+  width: 100px;
+  height: 100px;
+  background-color: blue;
 }
 
 .contentRegister {
