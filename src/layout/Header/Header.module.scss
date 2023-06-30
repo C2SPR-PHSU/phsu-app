@@ -18,9 +18,10 @@
 }
 
 .header-text {
-  font-family: "GothamBlack";
+  font-family: $gothamBlack !important;
   font-size: 1.5rem !important;
   color: $warning;
+  font-weight: bolder;
 }
 
 .header-icons {

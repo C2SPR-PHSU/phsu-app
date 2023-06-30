@@ -1,3 +1,18 @@
+@font-face {
+    font-family: "Gotham-Black";
+    src: url("../../fonts/Gotham-Black.otf") format("opentype");
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Gotham-Medium";
+    src: url("../../fonts/GothamMedium.otf") format("opentype");
+    font-weight: normal;
+    font-style: normal;
+}
+
+
 // Main
 $black: black;
 $white: #ffff;
@@ -61,3 +76,7 @@ $bigTitle: 60px;
 $light: 300;
 $heavy: 700;
 $superHeavy: 800;
+
+
+$gothamBlack: 'Gotham-Black';
+$gotham: 'Gotham-Medium';

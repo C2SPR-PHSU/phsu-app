@@ -1,12 +1,12 @@
 @font-face {
-  font-family: "GothamBlack";
-  src: url("./assets/fonts/GothamBlack.otf") format("opentype");
+  font-family: "Gotham-Black";
+  src: url("./assets/fonts/Gotham-Black.otf") format("opentype");
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
-  font-family: "GothamMedium";
+  font-family: "Gotham-Medium";
   src: url("./assets/fonts/GothamMedium.otf") format("opentype");
   font-weight: normal;
   font-style: normal;
@@ -16,4 +16,12 @@ html,
 body {
   width: 100%;
   height: 100%;
+}
+
+.p {
+  font-family: "Gotham-Medium" !important;
+}
+
+h6 {
+  font-family: "Gotham-Medium" !important;
 }
