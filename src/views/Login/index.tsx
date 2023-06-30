@@ -1,6 +1,5 @@
 import { Grid, Box, Typography } from "@mui/material";
 import { ListItem } from "@/components";
-import { Header } from "@/layout";
 import styles from "./login.module.scss";
 import {
   servicesList,
@@ -12,9 +11,6 @@ import {
 const Login = () => {
   return (
     <>
-      <Grid item xs={12} md={6}>
-        <Header />
-      </Grid>
       <Grid container>
         <Grid item xs={12} md={6}>
           <Box className={styles["welcome-container"]}>
