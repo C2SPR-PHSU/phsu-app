@@ -1,5 +1,6 @@
 import { Grid } from "@mui/material";
 import { Navigator, Navbar, ListItem } from "@/components";
+import { Header } from "@/layout";
 import styles from "./login.module.scss";
 import {
   servicesList,
@@ -12,8 +13,7 @@ const Login = () => {
   return (
     <>
       <Grid item xs={12} md={6}>
-        <Navigator />
-        <Navbar />
+        <Header />
       </Grid>
       <Grid container>
         <Grid item xs={12} md={6}>
