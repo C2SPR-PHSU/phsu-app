@@ -58,15 +58,17 @@ export default function Header() {
             sx={{
               "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
                 borderColor: primaryColor,
+                borderRadius: 0,
+                border: '2px solid ' + primaryColor
               },
               "&:hover .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline":
-                {
-                  borderColor: primaryColor,
-                },
+              {
+                borderColor: primaryColor,
+              },
               "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline":
-                {
-                  borderColor: primaryColor,
-                },
+              {
+                borderColor: primaryColor,
+              },
               "& .MuiInputLabel-outlined": {
                 fontSize: "1rem",
                 color: placeholderColor,
@@ -87,15 +89,17 @@ export default function Header() {
             sx={{
               "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
                 borderColor: primaryColor,
+                borderRadius: 0,
+                border: '2px solid ' + primaryColor
               },
               "&:hover .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline":
-                {
-                  borderColor: primaryColor,
-                },
+              {
+                borderColor: primaryColor,
+              },
               "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline":
-                {
-                  borderColor: primaryColor,
-                },
+              {
+                borderColor: primaryColor,
+              },
               "& .MuiInputLabel-outlined": {
                 fontSize: "1rem",
                 color: placeholderColor,

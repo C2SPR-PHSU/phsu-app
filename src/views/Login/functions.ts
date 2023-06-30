@@ -11,7 +11,7 @@ export const requestLogin = async ({ email, password }: IUserLoginParams) => {
   try {
     api.resource = login;
 
-    const res = await api.post<IUserLogin>({ body: { email, password }});
+    const res = await api.post<IUserLogin>({ body: { email, password } });
     return res;
 
   } catch (error) {
