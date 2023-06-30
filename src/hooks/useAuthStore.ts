@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { requestLogin } from './functions';
+import { requestLogin } from '@/views/Login/functions';
 import { persist } from 'zustand/middleware'
 
 const useAuthStore = create(

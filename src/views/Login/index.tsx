@@ -1,41 +1,46 @@
-import Footer from "@/layout/Footer";
-import { Header } from "../../layout";
-import useAuthStore from "./useAuthStore";
-import { body } from "./testData";
+import { Grid, Box, Typography } from "@mui/material";
+import { ListItem } from "@/components";
+import styles from "./login.module.scss";
+import {
+  servicesList,
+  description,
+  welcomeTitle,
+  serviceTitle,
+} from "./constants";
 
 const Login = () => {
   return (
     <>
-      <div>
-        <Header />
-        <section
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            marginBottom: "2rem",
-          }}
-        >
-          <h1>LOGIN</h1>
-
-        </section>
-        <div>
-          <section
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              marginBottom: "2rem",
-            }}
-          >
-            <button
-              style={{ marginRight: "1rem" }}
-            >
-              LOGIN
-            </button>
-          </section>
-        </div>
-
-        <Footer />
-      </div>
+      <Grid container>
+        <Grid item xs={12} md={6}>
+          <Box className={styles["welcome-container"]}>
+            <Box className={styles["background-image"]}>
+              <Typography className={styles["text"]}>{welcomeTitle}</Typography>
+              <Typography className={styles["description"]}>
+                {description}
+              </Typography>
+            </Box>
+          </Box>
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <Grid item xs={12} className={styles["services-container"]}>
+            <Typography className={styles["upper-text-title"]}>
+              {serviceTitle}
+            </Typography>
+            {servicesList.map((service) => {
+              return (
+                <ListItem
+                  key={service.number}
+                  number={service.number}
+                  listItem={service.listItem}
+                  description={service.description}
+                  url={service.url}
+                />
+              );
+            })}
+          </Grid>
+        </Grid>
+      </Grid>
     </>
   );
 };
