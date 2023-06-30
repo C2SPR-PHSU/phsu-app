@@ -1,7 +1,7 @@
 import { Route, Routes } from 'react-router-dom';
 import { Home, Login, Register, NotFound } from '@/views';
 import { PATH } from './constants';
-import useAuthStore from '@/views/Login/useAuthStore'
+import useAuthStore from '@/hooks/useAuthStore'
 
 const Root = () => {
   const isAuthenticated = useAuthStore(state => state.isAuthenticated)
