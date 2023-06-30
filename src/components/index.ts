@@ -1,2 +1,1 @@
-export { default as Navigator } from "./Navigator";
-export { default as Header } from "./Navigator";
+export { default as ListItem } from "./ListItem";
