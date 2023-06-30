@@ -1,0 +1,52 @@
+@import "../../assets/styles";
+
+@mixin commonTextStyles {
+  color: $white;
+  font-weight: $heavy;
+  font-family: title;
+}
+
+.welcome-container {
+  position: relative;
+  max-width: 100%;
+  max-height: 100%;
+
+  .background-image {
+    background: linear-gradient(to bottom, rgba(0, 153, 153, 0.5),rgba(0, 153, 153, 0.5)), url("../../assets/welcome.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position-x: right;
+    height: 85vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .text {
+    @include commonTextStyles;
+    font-size: $bigTitle;
+    margin-bottom: 2rem;
+  }
+
+  .description {
+    @include commonTextStyles;
+    font-size: $bigDescription;
+    width: 60%;
+  }
+}
+
+.title {
+  color: $mainOrange;
+  font-size: $mainTitle;
+  font-weight: bold;
+  font-family: title;
+  margin-bottom: 2rem;
+}
+
+.footer {
+  background-color: #333333;
+  height: 15rem;
+  max-height: 15rem;
+}

@@ -7,11 +7,7 @@ import Logo from '../../assets/logo.png';
 // import Button from '@mui/material/Button';
 import stylesDashboard from './Navbar.module.sass';
 
-
-
 const Navbar = () => {
-
-
   return (
     <header className={stylesDashboard.containerDashboard}>
       <Grid container spacing={2} alignItems="center" justifyContent="space-between">
