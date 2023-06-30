@@ -5,6 +5,7 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
+import { Button } from "@mui/material";
 
 function createData(
   service: string,
@@ -20,10 +21,10 @@ const rows = [
   createData(
     "Admissions Compliance Certification",
     "0/27/2022",
-    "Approved",
+    "In-Review",
     ""
   ),
-  createData("Credit Transcript", "08/27/2022", "Approved", ""),
+  createData("Credit Transcript", "08/27/2022", "In-Review", ""),
 ];
 
 export default function BasicTable() {
@@ -48,7 +49,14 @@ export default function BasicTable() {
                 {row.service}
               </TableCell>
               <TableCell align="center">{row.time}</TableCell>
-              <TableCell align="center">{row.status}</TableCell>
+              <TableCell align="center">
+                <Button
+                  variant="outlined"
+                  sx={{ color: "#333333", borderColor: "#333333" }}
+                >
+                  {row.status}
+                </Button>
+              </TableCell>
               <TableCell align="center">{row.action}</TableCell>
             </TableRow>
           ))}
