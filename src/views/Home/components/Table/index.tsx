@@ -6,6 +6,8 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { Button } from "@mui/material";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import DownloadIcon from "@mui/icons-material/Download";
 
 function createData(
   service: string,
@@ -57,7 +59,10 @@ export default function BasicTable() {
                   {row.status}
                 </Button>
               </TableCell>
-              <TableCell align="center">{row.action}</TableCell>
+              <TableCell align="center">
+                <VisibilityIcon sx={{ color: "#009999" }} />
+                <DownloadIcon sx={{ color: "rgba(0, 168, 168, 0.42)" }} />
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>
