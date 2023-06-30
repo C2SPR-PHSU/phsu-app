@@ -1,9 +1,20 @@
 import { Grid } from "@mui/material";
 import { Navigator, Navbar, ListItem } from "@/components";
+import useAuthStore from "./useAuthStore";
+import { body } from "./testData";
 import styles from "./login.module.scss";
 import { servicesList, description, welcomeTitle, serviceTitle } from "./constants";
 
 const Login = () => {
+  const setLogin = useAuthStore((state) => state.setLogin);
+
+  const login = async() => {
+    try {
+      const { email, password } = body
+      const response = setLogin(email, password)
+    } catch (error) {}
+  }
+
   return (
     <>
       <Grid item xs={12} md={6}>
