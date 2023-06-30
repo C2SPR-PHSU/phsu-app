@@ -1,0 +1,14 @@
+@import '../../assets/styles/base/variables';
+
+
+.footer {
+    height: 300px;
+    display: flex;
+    justify-content: start;
+    color: white;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background: $secondary;
+}
