@@ -1,5 +1,5 @@
-import { Grid } from '@mui/material';
-import styles from './styles.module.scss';
+import { Grid, Box, Typography, Link } from "@mui/material";
+import styles from "./styles.module.scss";
 
 interface ResponsiveComponentProps {
   number: string;
@@ -8,16 +8,27 @@ interface ResponsiveComponentProps {
   url: string;
 }
 
-const ListItem: React.FC<ResponsiveComponentProps> = ({ number, listItem, description, url }) => {
+const ListItem: React.FC<ResponsiveComponentProps> = ({
+  number,
+  listItem,
+  description,
+  url,
+}) => {
   return (
-    <Grid item xs={12} sx={{paddingBottom: '2rem'}}>
-      <a href={url} className={styles['link']}>
-        <div className={styles['circle']}><p className={styles['number']}>{number}</p></div>
-        <div className={styles['services']}>
-          <div className={styles['list-item']}>{listItem}</div>
-          <div className={styles['list-item-description']}>{description}</div>
-        </div>
-      </a>
+    <Grid item xs={12} className={styles["container"]}>
+      <Box className={styles["circle"]}>
+        <Typography className={styles["number"]}>{number}</Typography>
+      </Box>
+      <Box className={styles["services"]}>
+        <Link href={url} className={styles["link"]}>
+          <Typography variant="h5" className={styles["list-item"]}>
+            {listItem}
+          </Typography>
+        </Link>
+        <Typography className={styles["list-item-description"]}>
+          {description}
+        </Typography>
+      </Box>
     </Grid>
   );
 };

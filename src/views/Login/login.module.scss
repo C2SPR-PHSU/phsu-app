@@ -12,7 +12,12 @@
   max-height: 100%;
 
   .background-image {
-    background: linear-gradient(to bottom, rgba(0, 153, 153, 0.5),rgba(0, 153, 153, 0.5)), url("../../assets/welcome.png");
+    background: linear-gradient(
+        to bottom,
+        rgba(0, 153, 153, 0.5),
+        rgba(0, 153, 153, 0.5)
+      ),
+      url("../../assets/welcome.png");
     background-repeat: no-repeat;
     background-size: cover;
     background-position-x: right;
@@ -37,16 +42,14 @@
   }
 }
 
-.title {
-  color: $mainOrange;
-  font-size: $mainTitle;
-  font-weight: bold;
-  font-family: title;
-  margin-bottom: 2rem;
+.services-container {
+  padding: 2rem 4rem 0 6rem;
 }
 
-.footer {
-  background-color: #333333;
-  height: 15rem;
-  max-height: 15rem;
+.upper-text-title {
+  color: $warning;
+  font-size: $mainTitle !important;
+  font-weight: bolder !important;
+  font-family: "GothamMedium";
+  margin-bottom: 2rem !important;
 }

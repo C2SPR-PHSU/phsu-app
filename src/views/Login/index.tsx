@@ -1,5 +1,5 @@
-import { Grid } from "@mui/material";
-import { Navigator, Navbar, ListItem } from "@/components";
+import { Grid, Box, Typography } from "@mui/material";
+import { ListItem } from "@/components";
 import { Header } from "@/layout";
 import styles from "./login.module.scss";
 import {
@@ -17,16 +17,20 @@ const Login = () => {
       </Grid>
       <Grid container>
         <Grid item xs={12} md={6}>
-          <section className={styles["welcome-container"]}>
-            <div className={styles["background-image"]}>
-              <div className={styles["text"]}>{welcomeTitle}</div>
-              <div className={styles["description"]}>{description}</div>
-            </div>
-          </section>
+          <Box className={styles["welcome-container"]}>
+            <Box className={styles["background-image"]}>
+              <Typography className={styles["text"]}>{welcomeTitle}</Typography>
+              <Typography className={styles["description"]}>
+                {description}
+              </Typography>
+            </Box>
+          </Box>
         </Grid>
         <Grid item xs={12} md={6}>
-          <Grid item xs={12} sx={{ padding: "2rem 3rem" }}>
-            <div className={styles["title"]}>{serviceTitle}</div>
+          <Grid item xs={12} className={styles["services-container"]}>
+            <Typography className={styles["upper-text-title"]}>
+              {serviceTitle}
+            </Typography>
             {servicesList.map((service) => {
               return (
                 <ListItem
