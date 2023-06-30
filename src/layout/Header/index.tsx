@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   AppBar,
   Toolbar,
@@ -13,6 +13,7 @@ import styles from "./Header.module.scss";
 import PersonIcon from "@mui/icons-material/Person";
 import LockRounded from "@mui/icons-material/LockRounded";
 import useAuthStore from "@/hooks/useAuthStore";
+import useAlert from "@/hooks/useAlert";
 
 export default function Header() {
   const primaryColor = "#009999";
@@ -21,6 +22,12 @@ export default function Header() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const setLogin = useAuthStore((state) => state.setLogin);
+  const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
+  const { setAlert } = useAlert();
+
+  useEffect(() => {
+    if (isAuthenticated) setAlert("Login success!", "success");
+  }, [isAuthenticated]);
 
   return (
     <AppBar position="static">
