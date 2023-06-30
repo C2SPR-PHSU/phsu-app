@@ -15,7 +15,23 @@
     align-items: center;
     height: inherit;
     color: $white;
-    font-weight: $heavy;
+
+    .title {
+      font-weight: $heavy;
+      font-family: "GothamMedium";
+    }
+  }
+}
+
+.information-container {
+  .subtitle {
+    font-weight: $heavy !important;
+    font-family: "GothamMedium";
+    color: $warning;
+  }
+
+  .description {
+    color: $secondary;
     font-family: "GothamMedium";
   }
 }
