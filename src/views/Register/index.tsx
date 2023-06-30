@@ -1,10 +1,6 @@
-import { Container, Grid, Button, Box, Typography } from "@mui/material"
-import Input from "@/components/Register-Input/Input"
-import stylesRegister from './Register.module.scss'
-import { Header, Footer } from "@/layout";
-import { VisibilityOff as VisibilityOffIcon } from '@mui/icons-material';
+import styles from "./Register.module.scss";
+
 export default function Register() {
-  const size = '245px'
   return (
     <>
       <Header />
@@ -20,6 +16,5 @@ export default function Register() {
       <Footer />
 
     </>
-
-  )
+  );
 }
