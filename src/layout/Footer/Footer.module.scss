@@ -3,12 +3,13 @@
 
 .footer {
     height: 300px;
+    padding-left: 15%;
+    align-items: center;
     display: flex;
+    position: absolute;
     justify-content: start;
     color: white;
-    position: fixed;
-    left: 0;
     bottom: 0;
-    width: 100%;
+    width: 100% !important;
     background: $secondary;
 }

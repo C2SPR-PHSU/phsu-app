@@ -1,3 +1,4 @@
+import Footer from "@/layout/Footer";
 import { Navigator } from "../../components";
 import { useGlobalContext } from "@/contexts/MainContext";
 
@@ -39,6 +40,8 @@ const Login = () => {
             <p>{`${globalState.activate}`}</p>
           </section>
         </div>
+
+        <Footer></Footer>
       </div>
     </>
   );
