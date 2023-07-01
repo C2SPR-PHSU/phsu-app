@@ -12,17 +12,36 @@
   background-color: $primary !important;
 }
 
-
-
-.cancelButton {
-  color: $primary !important;
-  border-color: gray !important;
-  margin-top: 0.5rem !important;
+.imgProfileStyle{
   width: 10rem;
+  height: 10rem;
+  border-radius: 50%;
+ margin-bottom: 2rem;
 }
 
+.buttons-profile{
+  display: flex;
+  margin-top: 1.5rem !important;
+  flex-direction: column;
+
+}
+
+.profilesButton {
+  color: $primary !important;
+  border-color:$primary !important;
+  margin-top: 0.7rem !important;
+  width: 10rem;
+  height: 2.5rem;
+ 
+}
+
+
 .titlePersonalInformation{
-  color: $primary
+  font-family: $gothamBlack !important;
+  color: $primary;
+  font-size: 1.3rem;
+  padding: 2rem 1.5rem 0rem; 
+ 
 }
 
 .title {
@@ -30,4 +49,6 @@
   font-size: 2rem;
   color: $warning;
   padding-left: 1rem;
+  padding-top: 4.5rem;
+  padding-bottom: 1.3rem;
 }

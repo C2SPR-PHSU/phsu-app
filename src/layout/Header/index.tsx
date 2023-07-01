@@ -6,7 +6,6 @@ import {
   TextField,
   Button,
   Box,
-  InputAdornment,
 } from "@mui/material";
 import Logo from "../../assets/images/logo-phsu.png";
 import styles from "./Header.module.scss";
@@ -59,16 +58,16 @@ export default function Header() {
               "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
                 borderColor: primaryColor,
                 borderRadius: 0,
-                border: '2px solid ' + primaryColor
+                border: "2px solid " + primaryColor,
               },
               "&:hover .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline":
-              {
-                borderColor: primaryColor,
-              },
+                {
+                  borderColor: primaryColor,
+                },
               "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline":
-              {
-                borderColor: primaryColor,
-              },
+                {
+                  borderColor: primaryColor,
+                },
               "& .MuiInputLabel-outlined": {
                 fontSize: "1rem",
                 color: placeholderColor,
@@ -90,16 +89,16 @@ export default function Header() {
               "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
                 borderColor: primaryColor,
                 borderRadius: 0,
-                border: '2px solid ' + primaryColor
+                border: "2px solid " + primaryColor,
               },
               "&:hover .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline":
-              {
-                borderColor: primaryColor,
-              },
+                {
+                  borderColor: primaryColor,
+                },
               "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline":
-              {
-                borderColor: primaryColor,
-              },
+                {
+                  borderColor: primaryColor,
+                },
               "& .MuiInputLabel-outlined": {
                 fontSize: "1rem",
                 color: placeholderColor,
