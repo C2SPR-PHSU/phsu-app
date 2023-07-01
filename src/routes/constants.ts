@@ -3,4 +3,5 @@ export const PATH = {
   LOGIN: '/login',
   REGISTER: '/register',
   NOT_FOUND: '/not-found',
+  PASSWORDRECOVERY: '/recovery',
 }

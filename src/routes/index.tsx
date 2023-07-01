@@ -1,5 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import { Home, Login, Register, NotFound } from "@/views";
+import Recovery from "@/views/Recovey";
 import { UnauthorizedLayout, AuthorizedLayout } from "@/layout";
 import { PATH } from "./constants";
 import useAuthStore from "@/hooks/useAuthStore";
@@ -13,6 +14,7 @@ const Root = () => {
         <Route path={PATH.ROOT} element={<UnauthorizedLayout />}>
           <Route path={PATH.ROOT} element={<Login />} />
           <Route path={PATH.REGISTER} element={<Register />} />
+          <Route path={PATH.PASSWORDRECOVERY} element={<Recovery />} />
         </Route>
       ) : (
         <Route path={PATH.ROOT} element={<AuthorizedLayout />}>

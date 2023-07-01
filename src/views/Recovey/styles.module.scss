@@ -1,0 +1,50 @@
+@import "../../assets/styles";
+
+@mixin commonTextStyles {
+  color: $white;
+  font-weight: $heavy;
+  font-family: title;
+}
+
+.recovery-container {
+    position: relative;
+    max-width: 100%;
+    max-height: 40%;
+    padding-left: 20%;
+    padding-top: 5%;
+    padding-bottom: 5%;
+    padding-right: 10%;
+    border-radius: 10px;
+  
+    .background-image {
+      background: linear-gradient(
+          to bottom,
+          rgba(0, 153, 153, 0.5),
+          rgba(0, 153, 153, 0.5)
+        ),
+        url("../../assets/RecoveryImage.png");
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position-x: right;
+      height: 85vh;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+}
+
+.container-recovey{
+    display: flex;
+    flex-direction: row;
+    padding-left: 3%;
+    padding-top: 12%;
+}
+
+.title-recovery{
+    color: $warning;
+    font-size: $mainTitle !important;
+    font-family: "GothamMedium";
+}
