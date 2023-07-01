@@ -6,15 +6,28 @@
   font-family: title;
 }
 
+
+
+
+$primaryColor: #ff0000;
+$placeholderColor: #999999;
+
+.customTextField{
+  border-color: $primary;
+
+}
+
+
+
+
 .recovery-container {
     position: relative;
-    max-width: 100%;
-    max-height: 40%;
-    padding-left: 20%;
-    padding-top: 5%;
-    padding-bottom: 5%;
-    padding-right: 10%;
+    max-width: 100% !important;
+    max-height: 50% !important;
+
     border-radius: 10px;
+    margin-left: 10% !important;
+    margin-right: 10% !important;
   
     .background-image {
       background: linear-gradient(
@@ -39,12 +52,45 @@
 .container-recovey{
     display: flex;
     flex-direction: row;
-    padding-left: 3%;
-    padding-top: 12%;
+    margin-top: 10% !important;
+    margin-left: 10% !important;
+    margin-bottom: 10% !important;
 }
 
 .title-recovery{
+    font-weight: bolder !important;
     color: $warning;
-    font-size: $mainTitle !important;
-    font-family: "GothamMedium";
+    font-size: $textMedium !important;
+    font-family: $gothamBlack !important;
+}
+
+.descriptions-recovery{
+  width: 68% !important;
+  margin-top: 1rem !important;
+}
+
+.box-recovery{
+  margin-top: 1rem !important;
+}
+
+.box-buttons{
+  margin-top: 10rem !important;
+}
+
+
+.button-cancel{
+  border-color: $primary !important;
+  height: 40% !important;
+  width: 40% !important;
+  color: $primary !important;
+}
+
+
+.button-recover{
+  margin-left: 1rem !important;
+  background-color: $primary !important;
+  height: 40% !important;
+  width: 40% !important;
+  color: white !important;
+  font-weight: bold !important;
 }

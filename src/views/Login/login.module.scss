@@ -6,6 +6,7 @@
   font-family: title;
 }
 
+
 .welcome-container {
   position: relative;
   max-width: 100%;
@@ -33,11 +34,16 @@
     @include commonTextStyles;
     font-size: $bigTitle;
     margin-bottom: 2rem;
+    font-family: $gothamBlack !important;
+
   }
 
   .description {
     @include commonTextStyles;
     font-size: $bigDescription;
+    font-family: $gotham !important;
+
+
     width: 60%;
   }
 }
@@ -50,6 +56,7 @@
   color: $warning;
   font-size: $mainTitle !important;
   font-weight: bolder !important;
-  font-family: "GothamMedium";
   margin-bottom: 2rem !important;
+  font-family: $gothamBlack !important;
+  
 }
