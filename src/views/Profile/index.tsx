@@ -1,184 +1,195 @@
 import {
-  Grid,
   Container,
+  Grid,
   Box,
   Typography,
   Button,
-  List,
   ListItem,
+  List,
   ListItemText,
   Divider,
 } from "@mui/material";
 
-import styles from "./Profile.module.scss";
-import { Height } from "@mui/icons-material";
-
-const sxStyles = {
-  container: {
-    flex: 1,
-    backgroundColor: "green",
-    width: "45%",
-    display: "flex",
-    alignItems: "center",
-  },
-  imgStyle: {
-    mr: 2,
-    width: "11rem",
-    height: "11rem",
-    borderRadius: "50%",
-  },
-
-  gridContainer: {
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "end",
-    backgroundColor: "yellow",
-    height: "76vh",
-    alignItems: "center",
-  },
-
-  btContain: {
-    display: "flex",
-    flexDirection: "column",
-  },
-};
-
 const Profile = () => {
   return (
-    <Box className={styles.wrapper}>
-      {/*Image and buttons contain */}
-
-      <Container sx={{ display: "flex" }}>
-        <Grid container sx={sxStyles.gridContainer}>
-          {/*Image */}
-          <Grid item xs={12} sm={6} md={6} textAlign="center">
-            <Typography variant="h5">Profile</Typography>
-
-            <img
-              src="https://randomuser.me/api/portraits/men/16.jpg"
-              alt="uwu"
-              style={sxStyles.imgStyle}
-            />
-
-            {/*Butons */}
-            <Grid item xs={12} sm={6} md={12}>
-              <Box>
-                <Button variant="outlined" className={styles.cancelButton}>
-                  Edit Profile
-                </Button>
-                <Button variant="outlined" className={styles.cancelButton}>
-                  Change
-                </Button>
-              </Box>
-            </Grid>
-          </Grid>
-        </Grid>
-
-        {/*Information Conrains */}
-
-        <Container
+    <>
+      <Box
+        sx={{
+          display: "flex",
+          backgroundColor: "green",
+          padding: 0,
+          margin: 0,
+          height: "100vh",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <Grid
+          container
           sx={{
-            display: "flex",
-            width: "100%",
-            height: "80%",
-            //  backgroundColor: "green",
-            alignItems: "center",
+            backgroundColor: "pink",
+            height: "85vh",
+            width: "180vh",
           }}
         >
+          {/*Photo */}
           <Grid
-            container
+            item
             sx={{
-              //backgroundColor: "red",
-              height: "60%",
-              width: "100%",
-              alignItems: "center",
+              backgroundColor: "yellow",
+              justifyContent: "center",
+              display: "flex",
             }}
+            xs={12}
+            sm={4}
+            md={4}
           >
-            <Grid item xs={12} sm={6} md={6} sx={{ py: 0 }}>
-              <List>
-                <ListItem sx={{ py: 0.7 }}>
-                  <ListItemText primary={`First Name: `} />
-                </ListItem>
+            {/*Image and Buttons */}
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+              }}
+            >
+              <Typography>Profile</Typography>
+              <img
+                src="https://randomuser.me/api/portraits/men/83.jpg"
+                alt="uwu"
+              />
 
-                <ListItem sx={{ py: 0.7 }}>
-                  <ListItemText primary={`Middle Name: `} />
-                </ListItem>
+              {/*Button section */}
 
-                <ListItem sx={{ py: 0.7 }}>
-                  <ListItemText primary={`Last Name: `} />
-                </ListItem>
-
-                <ListItem sx={{ py: 0.7 }}>
-                  <ListItemText primary={`Second Last Name: `} />
-                </ListItem>
-
-                <ListItem sx={{ py: 0.7 }}>
-                  <ListItemText primary={`Student ID: `} />
-                </ListItem>
-              </List>
-            </Grid>
-
-            <Grid item>
-              <List>
-                <ListItem sx={{ py: 0.7 }}>
-                  <ListItemText primary={`Date or Birth: `} />
-                </ListItem>
-
-                <ListItem sx={{ py: 0.7 }}>
-                  <ListItemText primary={`Phone Number: `} />
-                </ListItem>
-
-                <ListItem sx={{ py: 0.7 }}>
-                  <ListItemText primary={`Alternative Phone Number: `} />
-                </ListItem>
-
-                <ListItem sx={{ py: 0.7 }}>
-                  <ListItemText primary={`Email: `} />
-                </ListItem>
-
-                <ListItem sx={{ py: 0.7 }}>
-                  <ListItemText primary={`Institucional Email: `} />
-                </ListItem>
-              </List>
-            </Grid>
-
-            <Divider sx={{ backgroundColor: "blue" }} />
-
-            <Grid item>
-              <List>
-                <ListItem sx={{ py: 0.7 }}>
-                  <ListItemText primary={`Entrance Academic Year: `} />
-                </ListItem>
-
-                <ListItem sx={{ py: 0.7 }}>
-                  <ListItemText primary={`Campus Main: `} />
-                </ListItem>
-
-                <ListItem sx={{ py: 0.7 }}>
-                  <ListItemText primary={`Entarnce Term: `} />
-                </ListItem>
-              </List>
-            </Grid>
-
-            <Grid item>
-              <List>
-                <ListItem sx={{ py: 0.7 }}>
-                  <ListItemText primary={`Entrance Academic Year: `} />
-                </ListItem>
-
-                <ListItem sx={{ py: 0.7 }}>
-                  <ListItemText primary={`Campus Main: `} />
-                </ListItem>
-
-                <ListItem sx={{ py: 0.7 }}>
-                  <ListItemText primary={`Entarnce Term: `} />
-                </ListItem>
-              </List>
-            </Grid>
+              <Button>Edit Profile</Button>
+              <Button>Change</Button>
+            </Box>
           </Grid>
-        </Container>
-      </Container>
-    </Box>
+
+          {/*Personal Information */}
+          <Grid
+            item
+            sx={{
+              backgroundColor: "gray",
+              flexDirection: "column",
+              display: "flex",
+            }}
+            xs={12}
+            sm={8}
+            md={8}
+          >
+            {/*Personal Information */}
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+              }}
+            >
+              <Grid item sm={6} md={6} xs={12} sx={{ backgroundColor: "blue" }}>
+                <List>
+                  <ListItem sx={{ py: 0 }}>
+                    <ListItemText primary={`First Name: `} />
+                  </ListItem>
+
+                  <ListItem sx={{ py: 0 }}>
+                    <ListItemText primary={`Middle Name: `} />
+                  </ListItem>
+
+                  <ListItem sx={{ py: 0 }}>
+                    <ListItemText primary={`Last Name: `} />
+                  </ListItem>
+
+                  <ListItem sx={{ py: 0 }}>
+                    <ListItemText primary={`Second Last Name: `} />
+                  </ListItem>
+
+                  <ListItem sx={{ py: 0 }}>
+                    <ListItemText primary={`Student ID: `} />
+                  </ListItem>
+                </List>
+              </Grid>
+
+              <Grid
+                item
+                sm={6}
+                md={6}
+                xs={12}
+                sx={{ backgroundColor: "white" }}
+              >
+                <List>
+                  <ListItem sx={{ py: 0 }}>
+                    <ListItemText primary={`Date or Birth: `} />
+                  </ListItem>
+
+                  <ListItem sx={{ py: 0 }}>
+                    <ListItemText primary={`Phone Number: `} />
+                  </ListItem>
+
+                  <ListItem sx={{ py: 0 }}>
+                    <ListItemText primary={`Alternative Phone Number: `} />
+                  </ListItem>
+
+                  <ListItem sx={{ py: 0 }}>
+                    <ListItemText primary={`Email: `} />
+                  </ListItem>
+
+                  <ListItem sx={{ py: 0 }}>
+                    <ListItemText primary={`Institucional Email: `} />
+                  </ListItem>
+                </List>
+              </Grid>
+            </Box>
+
+            <Divider />
+
+            {/*Academic and Adress information */}
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+              }}
+            >
+              <Grid item sm={6} md={6} xs={12} sx={{ backgroundColor: "blue" }}>
+                <List>
+                  <ListItem sx={{ py: 0 }}>
+                    <ListItemText primary={`Entrance Academic Year: `} />
+                  </ListItem>
+
+                  <ListItem sx={{ py: 0 }}>
+                    <ListItemText primary={`Campus Main: `} />
+                  </ListItem>
+
+                  <ListItem sx={{ py: 0 }}>
+                    <ListItemText primary={`Entarnce Term: `} />
+                  </ListItem>
+                </List>
+              </Grid>
+
+              <Grid
+                item
+                sm={6}
+                md={6}
+                xs={12}
+                sx={{ backgroundColor: "white" }}
+              >
+                <List>
+                  <ListItem sx={{ py: 0 }}>
+                    <ListItemText primary={`Entrance Academic Year: `} />
+                  </ListItem>
+
+                  <ListItem sx={{ py: 0 }}>
+                    <ListItemText primary={`Campus Main: `} />
+                  </ListItem>
+
+                  <ListItem sx={{ py: 0 }}>
+                    <ListItemText primary={`Entarnce Term: `} />
+                  </ListItem>
+                </List>
+              </Grid>
+            </Box>
+          </Grid>
+        </Grid>
+      </Box>
+    </>
   );
 };
 
