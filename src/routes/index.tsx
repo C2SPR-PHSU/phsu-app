@@ -1,5 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import { Home, Login, Register, NotFound } from "@/views";
+import Profile from "@/views/Profile";
 import { UnauthorizedLayout, AuthorizedLayout } from "@/layout";
 import { PATH } from "./constants";
 import useAuthStore from "@/hooks/useAuthStore";
@@ -21,6 +22,7 @@ const Root = () => {
       )}
       <Route path={PATH.NOT_FOUND} element={<NotFound />} />
       <Route path="*" element={<NotFound />} />
+      <Route path={PATH.PROFILE} element={<Profile />} />
     </Routes>
   );
 };

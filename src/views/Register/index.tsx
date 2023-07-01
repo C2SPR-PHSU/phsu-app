@@ -380,7 +380,6 @@ export default function Registration() {
       </Grid>
 
       {/* ... */}
-
       <Box sx={{ marginBottom: "3rem !important" }}>
         <Grid container spacing={2} justifyContent="start" sx={{ py: 4 }}>
           <Grid item xs={12} sm={3}>
