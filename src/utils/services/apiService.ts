@@ -1,13 +1,18 @@
-import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse, ResponseType } from 'axios';
-import isEmpty from 'lodash/isEmpty';
-import { DEV_URI } from '@/utils/constants';
+import axios, {
+  AxiosInstance,
+  AxiosRequestConfig,
+  AxiosResponse,
+  ResponseType,
+} from "axios";
+import isEmpty from "lodash/isEmpty";
+import { DEV_URI } from "@/utils/constants";
 
 const BASE_URL = DEV_URI;
 
 const MakeHeaders = () => {
   const headers = {
-    'Content-Type': 'multipart/form-data',
-    Accept: 'application/json',
+    "Content-Type": "multipart/form-data",
+    Accept: "application/json",
   };
   return { ...headers };
 };
@@ -16,7 +21,7 @@ const CreateAxiosInstance = (cfg: AxiosRequestConfig = {}): AxiosInstance => {
   const axiosConfig = {
     baseURL: BASE_URL,
     timeout: 1000 * 35,
-    responseType: <ResponseType>'json',
+    responseType: <ResponseType>"json",
     headers: MakeHeaders(),
     ...cfg,
   };
@@ -44,7 +49,7 @@ const errorParser = (err: any) => {
     error = err.response.data || {};
     error.statusCode = err.response.status;
 
-    let message = error.message.server_message;
+    const message = error.message.server_message;
 
     throw makeError(error, message);
   }
@@ -56,7 +61,7 @@ interface Params<T> {
   qs?: T;
 }
 
-type AxiosVerb = 'get' | 'post' | 'put' | 'delete';
+type AxiosVerb = "get" | "post" | "put" | "delete";
 
 interface Parameters {
   data?: unknown;
@@ -67,7 +72,7 @@ interface Parameters {
 const AxiosDispatchResponse = async <ResponseType, ParamsType>(
   cls: ApiRequest,
   verb: AxiosVerb,
-  params?: Params<ParamsType>,
+  params?: Params<ParamsType>
 ): Promise<ResponseType> => {
   const { body, qs } = params || {};
   const self = cls;
@@ -81,7 +86,10 @@ const AxiosDispatchResponse = async <ResponseType, ParamsType>(
     parameters.params = qs;
   }
   try {
-    const response: AxiosResponse = await self.axiosInstance[verb](self.resource, parameters);
+    const response: AxiosResponse = await self.axiosInstance[verb](
+      self.resource,
+      parameters
+    );
     return responseParser<ResponseType>(response);
   } catch (e) {
     return errorParser(e);
@@ -90,28 +98,52 @@ const AxiosDispatchResponse = async <ResponseType, ParamsType>(
 
 let that: ApiRequest | null = null;
 class ApiRequest {
-  resource = '';
+  resource = "";
   axiosInstance: AxiosInstance;
   constructor() {
-    this.resource = '';
+    this.resource = "";
     this.axiosInstance = CreateAxiosInstance();
     that = this;
   }
 
-  get<ResponseType, ParamsType = unknown>(params?: Params<ParamsType>): Promise<ResponseType> {
-    return AxiosDispatchResponse<ResponseType, ParamsType>(this || that, 'get', params);
+  get<ResponseType, ParamsType = unknown>(
+    params?: Params<ParamsType>
+  ): Promise<ResponseType> {
+    return AxiosDispatchResponse<ResponseType, ParamsType>(
+      this || that,
+      "get",
+      params
+    );
   }
 
-  put<ResponseType, ParamsType = unknown>(params?: Params<ParamsType>): Promise<ResponseType> {
-    return AxiosDispatchResponse<ResponseType, ParamsType>(this || that, 'put', params);
+  put<ResponseType, ParamsType = unknown>(
+    params?: Params<ParamsType>
+  ): Promise<ResponseType> {
+    return AxiosDispatchResponse<ResponseType, ParamsType>(
+      this || that,
+      "put",
+      params
+    );
   }
 
-  post<ResponseType, ParamsType = unknown>(params?: Params<ParamsType>): Promise<ResponseType> {
-    return AxiosDispatchResponse<ResponseType, ParamsType>(this || that, 'post', params);
+  post<ResponseType, ParamsType = unknown>(
+    params?: Params<ParamsType>
+  ): Promise<ResponseType> {
+    return AxiosDispatchResponse<ResponseType, ParamsType>(
+      this || that,
+      "post",
+      params
+    );
   }
 
-  delete<ResponseType, ParamsType = unknown>(params?: Params<ParamsType>): Promise<ResponseType> {
-    return AxiosDispatchResponse<ResponseType, ParamsType>(this || that, 'delete', params);
+  delete<ResponseType, ParamsType = unknown>(
+    params?: Params<ParamsType>
+  ): Promise<ResponseType> {
+    return AxiosDispatchResponse<ResponseType, ParamsType>(
+      this || that,
+      "delete",
+      params
+    );
   }
 }
 
