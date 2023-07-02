@@ -19,7 +19,8 @@
 
 .header-text {
   font-family: $gothamBlack !important;
-  font-size: 2rem !important;
+  // font-size: 2rem ;
+  min-width: 3rem !important;
   color: $warning;
   font-weight: bolder;
 }
@@ -31,6 +32,7 @@
 
 .header-button {
   background-color: $primary !important;
+  min-width: 5rem !important;
 }
 
 .header-button-variant {

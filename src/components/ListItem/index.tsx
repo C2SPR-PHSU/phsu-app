@@ -1,5 +1,7 @@
 import { Grid, Box, Typography, Link } from "@mui/material";
 import styles from "./styles.module.scss";
+import { useTheme } from "@mui/material/styles";
+import useMediaQuery from "@mui/material/useMediaQuery";
 
 interface ResponsiveComponentProps {
   number: string;
@@ -14,14 +16,34 @@ const ListItem: React.FC<ResponsiveComponentProps> = ({
   description,
   url,
 }) => {
+  const theme = useTheme();
+  const isScreenSmall = useMediaQuery(theme.breakpoints.down("sm"));
   return (
-    <Grid item xs={12} className={styles["container"]}>
+    <Grid
+      item
+      xs={12}
+      className={styles["container"]}
+      sx={{
+        ...(isScreenSmall && {
+          gap: "0.5rem",
+          paddingRight: "1rem",
+        }),
+      }}
+    >
       <Box className={styles["circle"]}>
         <Typography className={styles["number"]}>{number}</Typography>
       </Box>
       <Box className={styles["services"]}>
         <Link href={url} className={styles["link"]}>
-          <Typography variant="h5" className={styles["list-item"]}>
+          <Typography
+            variant="h5"
+            className={styles["list-item"]}
+            sx={{
+              ...(isScreenSmall && {
+                fontSize: "18px",
+              }),
+            }}
+          >
             {listItem}
           </Typography>
         </Link>

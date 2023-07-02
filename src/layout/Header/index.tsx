@@ -25,8 +25,9 @@ export default function Header() {
   const primaryColor = "#009999";
   const placeholderColor = "rgba(51, 51, 51, 0.4)";
   const theme = useTheme();
-  const isScreenSmall = useMediaQuery(theme.breakpoints.down("lg"));
+  const isScreenLg = useMediaQuery(theme.breakpoints.down("lg"));
   const isVeryScreenSmall = useMediaQuery(theme.breakpoints.down("sm"));
+  const isMedium = useMediaQuery(theme.breakpoints.down("xl"));
   const navigate = useNavigate();
 
   const styleTextfield = {
@@ -59,6 +60,12 @@ export default function Header() {
 
   const recoveryView = () => {
     navigate("/recovery");
+    setMenuOpen(false);
+  };
+
+  const toggleMenuOff = () => {
+    //
+    setMenuOpen(false);
   };
 
   return (
@@ -66,10 +73,14 @@ export default function Header() {
       {/* <----------------NAVIGATE-----------------> */}
       <Box className={styles["upper-header"]}>
         <Typography className={styles["upper-text"]}>
-          <Link to={PATH.ROOT}>Home</Link>
+          <Link to={PATH.ROOT} onClick={toggleMenuOff}>
+            Home
+          </Link>
         </Typography>
         <Typography className={styles["upper-text"]}>
-          <Link to={PATH.REGISTER}>Register</Link>
+          <Link to={PATH.REGISTER} onClick={toggleMenuOff}>
+            Register
+          </Link>
         </Typography>
       </Box>
 
@@ -81,14 +92,20 @@ export default function Header() {
           sx={{
             gap: 3,
 
-            ...(isScreenSmall && { paddingLeft: "1rem" }),
+            ...(isScreenLg && { paddingLeft: "1rem" }),
           }}
         >
           <img src={Logo} alt="logo" className={styles["brand-img"]} />
           <Typography
             variant="h6"
             className={styles["header-text"]}
-            sx={{ ...(isVeryScreenSmall && { display: "none" }) }}
+            sx={{
+              fontSize: "2rem",
+              ...(isVeryScreenSmall && { display: "none" }),
+              ...(isMedium && {
+                fontSize: "140%",
+              }),
+            }}
           >
             Student Portal
           </Typography>
@@ -99,7 +116,7 @@ export default function Header() {
             alignItems: "center",
             gap: 2,
             pr: 5,
-            ...(isScreenSmall && { display: "none" }),
+            ...(isScreenLg && { display: "none" }),
           }}
         >
           <PersonIcon className={styles["header-icons"]} />
@@ -172,7 +189,7 @@ export default function Header() {
             height: "4rem",
 
             paddingTop: "0",
-            ...(isScreenSmall && {
+            ...(isScreenLg && {
               display: "flex",
               flexDirection: "column",
               color: "#7f7f7f",

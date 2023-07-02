@@ -60,6 +60,7 @@ const Recovery = () => {
                     onChange={handleEmailInputChange}
                     sx={{
                       width: "100%",
+                      paddingRight: "2rem",
                     }}
                   />
                 </Grid>

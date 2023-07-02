@@ -20,8 +20,6 @@ const Error404 = () => {
       <Box
         sx={{
           marginTop: "10rem",
-          marginLeft: "10rem",
-          marginRight: "10rem",
         }}
       >
         {/* <------------------------ ERROR DESCRIPTIONS --------------------------> */}
@@ -33,7 +31,6 @@ const Error404 = () => {
             alignItems: "center",
           }}
           container
-          lg={12}
         >
           <Grid
             item
@@ -42,7 +39,6 @@ const Error404 = () => {
             sx={{
               display: "flex",
               flexDirection: "row",
-              justifyContent: "center",
             }}
           >
             <Box
@@ -61,7 +57,15 @@ const Error404 = () => {
                 }),
               }}
             >
-              <Box className={styles["container-description-error"]}>
+              <Box
+                className={styles["container-description-error"]}
+                sx={{
+                  ...(isScreenSmall && {
+                    width: "70%",
+                    display: "flex",
+                  }),
+                }}
+              >
                 <Typography className={styles["title-404"]}>
                   {ErrorRespond.code}
                 </Typography>
@@ -91,11 +95,11 @@ const Error404 = () => {
                 src={NoPage404}
                 className={styles["img-error"]}
                 style={{
-                  width: "50%",
-                  height: "50%",
+                  width: "23rem",
+                  height: "auto",
                   ...(isScreenSmall && {
-                    height: "90%",
-                    width: "90%",
+                    height: "60%",
+                    width: "60%",
                   }),
                 }}
               />
@@ -109,6 +113,7 @@ const Error404 = () => {
               width: "46rem",
               ...(isScreenSmall && {
                 width: "50%",
+                paddingBottom: "6rem",
               }),
             }}
           >
@@ -120,7 +125,6 @@ const Error404 = () => {
                   display: "flex",
                   flexDirection: "row",
                   justifyContent: "end",
-                  //   backgroundColor: "red",
                 }),
               }}
             >
