@@ -6,4 +6,5 @@ export const PATH = {
   PASSWORDRECOVERY: "/recovery",
   ERROR404: "/404",
   ERROR500: "/500",
+  PROFILE: "/profile",
 };

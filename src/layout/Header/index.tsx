@@ -6,7 +6,6 @@ import {
   TextField,
   Button,
   Box,
-  // InputAdornment,
 } from "@mui/material";
 import Logo from "../../assets/images/logo-phsu.png";
 import styles from "./Header.module.scss";
@@ -109,7 +108,28 @@ export default function Header() {
             label="Username"
             variant="outlined"
             size="small"
-            sx={styleTextfield}
+            sx={{
+              "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
+                borderColor: primaryColor,
+                borderRadius: 0,
+                border: "2px solid " + primaryColor,
+              },
+              "&:hover .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline":
+                {
+                  borderColor: primaryColor,
+                },
+              "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline":
+                {
+                  borderColor: primaryColor,
+                },
+              "& .MuiInputLabel-outlined": {
+                fontSize: "1rem",
+                color: placeholderColor,
+              },
+              "& .MuiInputLabel-outlined.Mui-focused": {
+                color: primaryColor,
+              },
+            }}
             onChange={(e) => setEmail(e.target.value)}
           />
           <LockRounded className={styles["header-icons"]} />
@@ -161,13 +181,26 @@ export default function Header() {
         >
           <MenuIcon
             sx={{
-              paddingTop: "23%",
-              color: "#9c9c9c",
-              width: "3rem",
-              height: "3rem",
-              ...(menuOpen && {
-                color: "#009999",
-              }),
+              "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
+                borderColor: primaryColor,
+                borderRadius: 0,
+                border: "2px solid " + primaryColor,
+              },
+              "&:hover .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline":
+                {
+                  borderColor: primaryColor,
+                },
+              "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline":
+                {
+                  borderColor: primaryColor,
+                },
+              "& .MuiInputLabel-outlined": {
+                fontSize: "1rem",
+                color: placeholderColor,
+              },
+              "& .MuiInputLabel-outlined.Mui-focused": {
+                color: primaryColor,
+              },
             }}
           ></MenuIcon>
         </IconButton>
