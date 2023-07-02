@@ -139,7 +139,28 @@ export default function Header() {
             type="password"
             variant="outlined"
             size="small"
-            sx={styleTextfield}
+            sx={{
+              "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
+                borderColor: primaryColor,
+                borderRadius: 0,
+                border: "2px solid " + primaryColor,
+              },
+              "&:hover .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline":
+                {
+                  borderColor: primaryColor,
+                },
+              "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline":
+                {
+                  borderColor: primaryColor,
+                },
+              "& .MuiInputLabel-outlined": {
+                fontSize: "1rem",
+                color: placeholderColor,
+              },
+              "& .MuiInputLabel-outlined.Mui-focused": {
+                color: primaryColor,
+              },
+            }}
             onChange={(e) => setPassword(e.target.value)}
           />
           <Button variant="contained" className={styles["header-button"]}>
