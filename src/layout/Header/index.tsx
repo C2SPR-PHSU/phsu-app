@@ -139,28 +139,7 @@ export default function Header() {
             type="password"
             variant="outlined"
             size="small"
-            sx={{
-              "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
-                borderColor: primaryColor,
-                borderRadius: 0,
-                border: "2px solid " + primaryColor,
-              },
-              "&:hover .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline":
-                {
-                  borderColor: primaryColor,
-                },
-              "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline":
-                {
-                  borderColor: primaryColor,
-                },
-              "& .MuiInputLabel-outlined": {
-                fontSize: "1rem",
-                color: placeholderColor,
-              },
-              "& .MuiInputLabel-outlined.Mui-focused": {
-                color: primaryColor,
-              },
-            }}
+            sx={styleTextfield}
             onChange={(e) => setPassword(e.target.value)}
           />
           <Button variant="contained" className={styles["header-button"]}>
@@ -190,44 +169,22 @@ export default function Header() {
           aria-label="menu"
           sx={{
             display: "none",
-            height: "3rem",
+            height: "4rem",
 
             paddingTop: "0",
             ...(isScreenSmall && {
               display: "flex",
               flexDirection: "column",
+              color: "#7f7f7f",
             }),
           }}
           onClick={toggleMenu}
         >
-          <MenuIcon
-            sx={{
-              "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
-                borderColor: primaryColor,
-                borderRadius: 0,
-                border: "2px solid " + primaryColor,
-              },
-              "&:hover .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline":
-                {
-                  borderColor: primaryColor,
-                },
-              "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline":
-                {
-                  borderColor: primaryColor,
-                },
-              "& .MuiInputLabel-outlined": {
-                fontSize: "1rem",
-                color: placeholderColor,
-              },
-              "& .MuiInputLabel-outlined.Mui-focused": {
-                color: primaryColor,
-              },
-            }}
-          ></MenuIcon>
+          <MenuIcon sx={{ height: "100%", width: "76%" }}></MenuIcon>
         </IconButton>
       </Toolbar>
 
-      {/* <-------------------MENU TOGGLE------------------> */}
+      {/* <------------------------------------MENU TOGGLE-------------------------------------> */}
       <Toolbar
         sx={{
           display: "none",
@@ -250,6 +207,7 @@ export default function Header() {
             gap: "1.2rem",
           }}
         >
+          {/* <-------------------------------INPUTS----------------------------------------> */}
           <TextField
             id="username"
             label="Username"
