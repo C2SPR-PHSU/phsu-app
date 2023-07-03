@@ -16,31 +16,42 @@ const Recovery = () => {
   const [email, setEmail] = useState("");
   const navigate = useNavigate();
 
+  // get data
   const handleEmailInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
   };
 
+  // Button Recovery
   const sendRecoveryRequest = async () => {
-    console.log(recoveryRequest);
-    recoveryRequest.email = email;
-    setEmail("");
+    // validate email
+    if (validateEmail(email)) {
+      console.log(recoveryRequest);
+      recoveryRequest.email = email;
+      setEmail("");
 
-    const api = new ApiRequest();
-    api.resource = "/recovery";
-    try {
-      const response = await api.post({
-        body: recoveryRequest,
-      });
-      console.log(response);
-    } catch (error) {
-      console.error(error);
+      const api = new ApiRequest();
+      api.resource = "/recovery";
+      try {
+        const response = await api.post({
+          body: recoveryRequest,
+        });
+        console.log(response);
+      } catch (error) {
+        console.error(error);
+      }
     }
   };
 
+  // Button Cancel
   const handleCancelClick = () => {
     setEmail("");
     navigate("/");
   };
+
+  function validateEmail(email: string) {
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return regex.test(email);
+  }
 
   const primaryColor = "#009999";
   const placeholderColor = "rgba(51, 51, 51, 0.4)";
