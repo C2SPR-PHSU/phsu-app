@@ -6,6 +6,7 @@
     font-weight: bold !important;
     font-size: $mainTitle !important;
     margin-left: 3rem !important;
+    padding-left: 25%;
 
 }
 
@@ -13,12 +14,14 @@
     font-family: $gotham !important;
     font-weight: bold !important;
     font-size: $textMedium !important;
+    padding-left: 20%;
     
 }
 
 .error-descriptions{
     font-family: $gotham !important;
     color: $gray2 !important;
+    padding-left: 8% !important;
 
 
 }
@@ -50,12 +53,14 @@
     color: $warning !important;
     width: 18rem;
     margin-top: 1rem !important;
-    margin-right: 5rem !important;
+    padding: 0.7rem !important;
+
 }
 
 .button-new-request{
     background-color: $warning !important;
     width: 18rem;
     margin-top: 1rem !important;
-    margin-right: 5rem !important;
+    padding: 0.7rem !important;
+    // margin-right: 5rem !important;
 }

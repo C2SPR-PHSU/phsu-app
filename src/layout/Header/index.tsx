@@ -27,12 +27,14 @@ export default function Header() {
   const theme = useTheme();
   const isScreenLg = useMediaQuery(theme.breakpoints.down("lg"));
   const isVeryScreenSmall = useMediaQuery(theme.breakpoints.down("sm"));
-  const isMedium = useMediaQuery(theme.breakpoints.down("xl"));
+  const isMedium = useMediaQuery(theme.breakpoints.down("md"));
   const navigate = useNavigate();
 
   const styleTextfield = {
     "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
       borderColor: primaryColor,
+      borderRadius: 0,
+      border: "2px solid " + primaryColor,
     },
     "&:hover .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
       borderColor: primaryColor,
@@ -54,23 +56,31 @@ export default function Header() {
   const setLogin = useAuthStore((state) => state.setLogin);
   const [menuOpen, setMenuOpen] = useState(false);
 
+  /**
+   * Toggles the menu open or closed.
+   */
   const toggleMenu = () => {
     setMenuOpen((prevMenuOpen) => !prevMenuOpen);
   };
 
+  /**
+   * Navigates to the recovery view and closes the menu.
+   */
   const recoveryView = () => {
     navigate("/recovery");
     setMenuOpen(false);
   };
 
+  /**
+   * Closes the menu.
+   */
   const toggleMenuOff = () => {
-    //
     setMenuOpen(false);
   };
 
   return (
     <AppBar position="static">
-      {/* <----------------NAVIGATE-----------------> */}
+      {/* <--------------------------------- Upper Header ---------------------------------> */}
       <Box className={styles["upper-header"]}>
         <Typography className={styles["upper-text"]}>
           <Link to={PATH.ROOT} onClick={toggleMenuOff}>
@@ -84,14 +94,13 @@ export default function Header() {
         </Typography>
       </Box>
 
-      {/* <-----------------HEADER--------------------> */}
-
+      {/* <------------------------------- Auth Header ------------------------------------> */}
       <Toolbar className={styles["auth-header"]} sx={{}}>
+        {/* Brand */}
         <Box
           className={styles["brand"]}
           sx={{
             gap: 3,
-
             ...(isScreenLg && { paddingLeft: "1rem" }),
           }}
         >
@@ -110,6 +119,8 @@ export default function Header() {
             Student Portal
           </Typography>
         </Box>
+
+        {/* Auth Controls */}
         <Box
           sx={{
             display: "flex",
@@ -125,28 +136,7 @@ export default function Header() {
             label="Username"
             variant="outlined"
             size="small"
-            sx={{
-              "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
-                borderColor: primaryColor,
-                borderRadius: 0,
-                border: "2px solid " + primaryColor,
-              },
-              "&:hover .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline":
-                {
-                  borderColor: primaryColor,
-                },
-              "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline":
-                {
-                  borderColor: primaryColor,
-                },
-              "& .MuiInputLabel-outlined": {
-                fontSize: "1rem",
-                color: placeholderColor,
-              },
-              "& .MuiInputLabel-outlined.Mui-focused": {
-                color: primaryColor,
-              },
-            }}
+            sx={styleTextfield}
             onChange={(e) => setEmail(e.target.value)}
           />
           <LockRounded className={styles["header-icons"]} />
@@ -179,6 +169,7 @@ export default function Header() {
           </div>
         </Box>
 
+        {/* Menu Toggle */}
         <IconButton
           size="large"
           edge="start"
@@ -187,7 +178,6 @@ export default function Header() {
           sx={{
             display: "none",
             height: "4rem",
-
             paddingTop: "0",
             ...(isScreenLg && {
               display: "flex",
@@ -201,12 +191,11 @@ export default function Header() {
         </IconButton>
       </Toolbar>
 
-      {/* <------------------------------------MENU TOGGLE-------------------------------------> */}
+      {/* <----------------------------- Menu Toggle --------------------------------------> */}
       <Toolbar
         sx={{
           display: "none",
           justifyContent: "end",
-
           backgroundColor: "#ffff",
           ...(menuOpen && {
             display: "flex",
@@ -224,7 +213,7 @@ export default function Header() {
             gap: "1.2rem",
           }}
         >
-          {/* <-------------------------------INPUTS----------------------------------------> */}
+          {/* Inputs */}
           <TextField
             id="username"
             label="Username"
@@ -243,6 +232,8 @@ export default function Header() {
             sx={styleTextfield}
             onChange={(e) => setPassword(e.target.value)}
           />
+
+          {/* <-------------------------------- Buttons ---------------------------------->*/}
           <Container
             sx={{ display: "flex", flexDirection: "row", gap: "1rem" }}
           >

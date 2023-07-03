@@ -2,154 +2,114 @@ import { Box, Grid, Typography, Button } from "@mui/material";
 import NoPage404 from "../../assets/404.png";
 import styles from "./StyleNoPage404.module.scss";
 import { ErrorRespond } from "./object";
-import useMediaQuery from "@mui/material/useMediaQuery";
-import { useTheme } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
 
 const Error404 = () => {
-  const theme = useTheme();
-  const isScreenSmall = useMediaQuery(theme.breakpoints.down("md"));
-
   const navigate = useNavigate();
 
   const handleCancelClick = () => {
     navigate("/");
   };
+
   return (
-    <>
-      <Box
+    <Box
+      sx={{
+        paddingLeft: "10%",
+        paddingRight: "10%",
+        paddingTop: "7%",
+      }}
+    >
+      <Grid
+        container
+        spacing={2}
         sx={{
-          marginTop: "10rem",
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "center",
+          paddingBottom: "20%",
+          width: "100%", // Añadido para ocupar todo el ancho del padre
         }}
       >
-        {/* <------------------------ ERROR DESCRIPTIONS --------------------------> */}
         <Grid
+          item
+          xs={12}
+          md={6}
+          lg={6}
           sx={{
-            flexDirection: "row",
             display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
+            flexDirection: "row",
+            justifyContent: "end",
           }}
-          container
         >
-          <Grid
-            item
-            xs={12}
-            md={6}
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-            }}
-          >
-            <Box
-              sx={{
-                marginLeft: "3rem",
-                marginRight: "3rem",
-                justifyContent: "end",
-                flexDirection: "row",
-                display: "flex",
-
-                ...(isScreenSmall && {
-                  display: "flex",
-                  justifyContent: "start",
-                  flexDirection: "row",
-                  marginRight: "3rem",
-                }),
-              }}
-            >
-              <Box
-                className={styles["container-description-error"]}
-                sx={{
-                  ...(isScreenSmall && {
-                    width: "70%",
-                    display: "flex",
-                  }),
-                }}
-              >
-                <Typography className={styles["title-404"]}>
-                  {ErrorRespond.code}
-                </Typography>
-                <Typography className={styles["sub-title"]}>
-                  {ErrorRespond.title}
-                </Typography>
-                <Typography className={styles["error-descriptions"]}>
-                  {ErrorRespond.description}
-                </Typography>
-              </Box>
-            </Box>
-          </Grid>
-
-          {/* <---------------------------- IMAGE ERROR --------------------------------> */}
-          <Grid xs={12} md={6}>
-            <Box
-              className={styles["img-error"]}
-              sx={{
-                ...(isScreenSmall && {
-                  display: "flex",
-                  flexDirection: "row",
-                  justifyContent: "center",
-                }),
-              }}
-            >
-              <img
-                src={NoPage404}
-                className={styles["img-error"]}
-                style={{
-                  width: "23rem",
-                  height: "auto",
-                  ...(isScreenSmall && {
-                    height: "60%",
-                    width: "60%",
-                  }),
-                }}
-              />
-            </Box>
-          </Grid>
-
-          {/* <---------------------------- BUTTONS ---------------------------------> */}
-
-          <Box
-            sx={{
-              width: "46rem",
-              ...(isScreenSmall && {
-                width: "50%",
-                paddingBottom: "6rem",
-              }),
-            }}
-          >
-            <Grid
-              container
-              sx={{
-                ...(isScreenSmall && {
-                  gap: "1rem",
-                  display: "flex",
-                  flexDirection: "row",
-                  justifyContent: "end",
-                }),
-              }}
-            >
-              <Grid item xs={12} md={6} className={styles["button-container"]}>
-                <Button
-                  variant="outlined"
-                  className={styles["button-page-main"]}
-                  onClick={handleCancelClick}
-                >
-                  Go to the main page
-                </Button>
-              </Grid>
-              <Grid item xs={12} md={6}>
-                <Button
-                  variant="contained"
-                  className={styles["button-new-request"]}
-                >
-                  Create a new request.
-                </Button>
-              </Grid>
-            </Grid>
+          <Box sx={{ width: "65%", paddingTop: "13%" }}>
+            <Typography className={styles["title-404"]}>
+              {ErrorRespond.code}
+            </Typography>
+            <Typography className={styles["sub-title"]}>
+              {ErrorRespond.title}
+            </Typography>
+            <Typography className={styles["error-descriptions"]}>
+              {ErrorRespond.description}
+            </Typography>
           </Box>
         </Grid>
-      </Box>
-    </>
+        <Grid item xs={12} md={6} lg={6}>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              height: "20rem",
+            }}
+          >
+            <img
+              src={NoPage404}
+              alt="Error 404"
+              style={{
+                maxWidth: "447px",
+              }}
+            />
+          </Box>
+        </Grid>
+
+        {/*  */}
+
+        <Grid
+          item
+          xs={12}
+          md={6}
+          lg={3}
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "center",
+          }}
+        >
+          <Button
+            variant="outlined"
+            className={styles["button-page-main"]}
+            onClick={handleCancelClick}
+          >
+            Go to the main page
+          </Button>
+        </Grid>
+        <Grid
+          item
+          xs={12}
+          md={6}
+          lg={3}
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "center",
+          }}
+        >
+          <Button variant="contained" className={styles["button-new-request"]}>
+            Create a new request.
+          </Button>
+        </Grid>
+      </Grid>
+    </Box>
   );
 };
 
