@@ -5,6 +5,13 @@ import CustomLabel from "@/components/CustomLabel";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+import ApiRequest from "@/utils/services/apiService";
+
+const recoveryRequest = {
+  token: "",
+  email: "",
+};
+
 const Recovery = () => {
   const [email, setEmail] = useState("");
   const navigate = useNavigate();
@@ -13,16 +20,53 @@ const Recovery = () => {
     setEmail(e.target.value);
   };
 
-  const handleRecoverClick = () => {
-    // Aquí puedes realizar la lógica para procesar el email recuperado
-    console.log("Email recovered:", email);
+  const sendRecoveryRequest = async () => {
+    console.log(recoveryRequest);
+    recoveryRequest.email = email;
     setEmail("");
+
+    const api = new ApiRequest();
+    api.resource = "/recovery";
+    try {
+      const response = await api.post({
+        body: recoveryRequest,
+      });
+      console.log(response);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const handleCancelClick = () => {
-    // Aquí puedes realizar la lógica para cancelar la operación de recuperación
     setEmail("");
     navigate("/");
+  };
+
+  const primaryColor = "#009999";
+  const placeholderColor = "rgba(51, 51, 51, 0.4)";
+
+  const customTextField = {
+    "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
+      borderColor: primaryColor,
+      borderRadius: 0,
+      border: "2px solid " + primaryColor,
+    },
+    "&:hover .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
+      borderColor: primaryColor,
+    },
+    "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline": {
+      borderColor: primaryColor,
+    },
+    "& .MuiInputLabel-outlined": {
+      fontSize: "1rem",
+      color: placeholderColor,
+    },
+    "& .MuiInputLabel-outlined.Mui-focused": {
+      color: primaryColor,
+    },
+    "& .MuiOutlinedInput-input": {
+      padding: "0.7rem",
+    },
   };
 
   return (
@@ -58,10 +102,7 @@ const Recovery = () => {
                     type="email"
                     value={email}
                     onChange={handleEmailInputChange}
-                    sx={{
-                      width: "100%",
-                      paddingRight: "2rem",
-                    }}
+                    sx={customTextField}
                   />
                 </Grid>
               </Box>
@@ -76,7 +117,7 @@ const Recovery = () => {
                 </Button>
                 <Button
                   className={styles["button-recover"]}
-                  onClick={handleRecoverClick}
+                  onClick={sendRecoveryRequest}
                 >
                   Recover
                 </Button>

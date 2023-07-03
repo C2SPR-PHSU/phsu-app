@@ -13,7 +13,7 @@ $primaryColor: #ff0000;
 $placeholderColor: #999999;
 
 .customTextField{
-  border-color: $primary;
+  border-color: $primary !important;
 
 }
 
@@ -75,6 +75,7 @@ $placeholderColor: #999999;
 
 .box-buttons{
   margin-top: 10rem !important;
+  padding-bottom: 10% !important;
 }
 
 
