@@ -22,7 +22,7 @@ const rows = [
   createData("Credential Certification", "03/06/2023", "In-Review", ""),
   createData(
     "Admissions Compliance Certification",
-    "08/27/2022",
+    "0/27/2022",
     "In-Review",
     ""
   ),
