@@ -24,7 +24,8 @@
   background-repeat: no-repeat;
   background-size: cover;
   background-position-x: right;
-  height: 85vh;
+  min-height: 85vh;
+  height: 100%;
   width: 100%;
   display: flex;
   flex-direction: column;

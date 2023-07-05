@@ -8,7 +8,6 @@ import { useNavigate } from "react-router-dom";
 import ApiRequest from "@/utils/services/apiService";
 
 const recoveryRequest = {
-  token: "",
   email: "",
 };
 
@@ -16,7 +15,6 @@ const Recovery = () => {
   const [email, setEmail] = useState("");
   const navigate = useNavigate();
 
-  // get data
   const handleEmailInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
   };
@@ -25,8 +23,9 @@ const Recovery = () => {
   const sendRecoveryRequest = async () => {
     // validate email
     if (validateEmail(email)) {
-      console.log(recoveryRequest);
       recoveryRequest.email = email;
+      console.log(recoveryRequest);
+
       setEmail("");
 
       const api = new ApiRequest();
@@ -48,6 +47,7 @@ const Recovery = () => {
     navigate("/");
   };
 
+  // Validate email
   function validateEmail(email: string) {
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return regex.test(email);
@@ -57,6 +57,7 @@ const Recovery = () => {
   const placeholderColor = "rgba(51, 51, 51, 0.4)";
 
   const customTextField = {
+    width: "90%",
     "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
       borderColor: primaryColor,
       borderRadius: 0,
