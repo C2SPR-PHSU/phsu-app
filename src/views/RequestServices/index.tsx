@@ -30,10 +30,6 @@ const RequestServices = () => {
   return (
     <>
       <Box sx={{ display: "flex", flexDirection: "row" }}>
-        <Box sx={{ minWidth: "7rem" }}>
-          <Sidebar />
-        </Box>
-
         <Box
           sx={{
             // backgroundColor: "red",
