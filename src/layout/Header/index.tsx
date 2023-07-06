@@ -78,6 +78,10 @@ export default function Header() {
     setMenuOpen(false);
   };
 
+  const home = () => {
+    navigate("/");
+  };
+
   return (
     <AppBar position="static">
       {/* <--------------------------------- Upper Header ---------------------------------> */}
@@ -104,7 +108,12 @@ export default function Header() {
             ...(isScreenLg && { paddingLeft: "1rem" }),
           }}
         >
-          <img src={Logo} alt="logo" className={styles["brand-img"]} />
+          <img
+            src={Logo}
+            alt="logo"
+            className={styles["brand-img"]}
+            onClick={home}
+          />
           <Typography
             variant="h6"
             className={styles["header-text"]}

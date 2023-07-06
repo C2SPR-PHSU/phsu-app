@@ -2,7 +2,6 @@
 
 .wrapper {
   display: flex;
-  background-color: pink;
   height: 100vh;
   padding-right: 0%;
   
@@ -46,9 +45,7 @@
 
 .title {
   font-family: $gothamBlack !important;
-  font-size: 2rem;
+  font-size: 30px !important;
   color: $warning;
   padding-left: 1rem;
-  padding-top: 4.5rem;
-  padding-bottom: 1.3rem;
 }
