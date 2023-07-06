@@ -125,7 +125,7 @@ const ServiceRequest = () => {
               </Typography>
             </Grid>
 
-            <Grid xs={12} md={6} lg={6} sx={{ paddingTop: "2rem" }}>
+            <Grid item xs={12} md={6} lg={5} sx={{ paddingTop: "2rem" }}>
               <Typography className={styles["campus-selection-title"]}>
                 Campus selection
               </Typography>
@@ -177,12 +177,7 @@ const ServiceRequest = () => {
                 </List>
               </Menu>
             </Grid>
-            <Grid
-              xs={12}
-              md={6}
-              lg={6}
-              sx={{ paddingTop: "3.9rem", borderBottom: "1px solid #C6C6C6" }}
-            >
+            <Grid item xs={12} md={6} lg={5} sx={{ paddingTop: "3.9rem" }}>
               <CustomLabel name="Service" required={true} />
               <Button
                 variant="outlined"
@@ -208,15 +203,54 @@ const ServiceRequest = () => {
                 <MenuItem onClick={handleClose2}>Transcript Request</MenuItem>
               </Menu>
             </Grid>
+
+            {/* --------------------------Section for uploaded documents ---------------------------------- */}
             <Grid
               xs={12}
               md={12}
               lg={12}
               sx={{ paddingTop: "2.2rem", paddingBottom: "2rem" }}
             >
-              <Typography className={styles["campus-selection-title"]}>
+              {/* ------------------ This section will be visible as long as no document has been uploaded ----------------------- */}
+              <Typography
+                className={styles["campus-selection-title"]}
+                sx={{
+                  ...(documents && {
+                    display: "none",
+                  }),
+                }}
+              >
                 Documents
               </Typography>
+
+              <Box
+                sx={{
+                  display: "none",
+                  ...(documents && {
+                    display: "flex",
+                    flexDirection: "row",
+                    justifyContent: "space-between",
+                    width: "90%",
+                    paddingBottom: "1rem",
+                  }),
+                }}
+              >
+                <Typography className={styles["selection-title-documents"]}>
+                  Documents
+                </Typography>
+
+                <Box
+                  sx={{ display: "flex", flexDirection: "row", gap: "3rem" }}
+                >
+                  <Typography className={styles["selection-title-documents"]}>
+                    Actions
+                  </Typography>
+                  <Typography className={styles["selection-title-documents"]}>
+                    Uploaded
+                  </Typography>
+                </Box>
+              </Box>
+
               <Typography
                 sx={{
                   color: "gray",
@@ -228,18 +262,30 @@ const ServiceRequest = () => {
                 You have not selected your campus
               </Typography>
 
-              {documentsUser.map((service) => {
-                return (
-                  <Documents
-                    text={service.title}
-                    important={service.important}
-                    upload={service.upload}
-                  />
-                );
-              })}
-              {/* <Documents text="PHSU ID Photo" important={true} upload={true} /> */}
+              <Box
+                sx={{
+                  display: "none",
+                  ...(documents && {
+                    display: "flex",
+                    flexDirection: "column",
+                  }),
+                }}
+              >
+                {documentsUser.map((service) => {
+                  return (
+                    <Documents
+                      text={service.title}
+                      important={service.important}
+                      upload={service.upload}
+                      trash={service.trash}
+                      visibility={service.visibility}
+                    />
+                  );
+                })}
+              </Box>
             </Grid>
 
+            {/* --------------------------Menu toggle Academic information ---------------------------------- */}
             <Grid xs={12} md={12} lg={12} sx={{ paddingBottom: "1.2rem" }}>
               <Box
                 sx={{
@@ -296,6 +342,8 @@ const ServiceRequest = () => {
                 </Grid>
               </Box>
             </Grid>
+
+            {/* --------------------------Menu toggle Personal Information ----------------------------------- */}
             <Grid xs={12} md={12} lg={12} sx={{ paddingBottom: "1.2rem" }}>
               <Box
                 sx={{
@@ -365,6 +413,7 @@ const ServiceRequest = () => {
               </Box>
             </Grid>
 
+            {/* ------------------------------- Section Save and submit -------------------------------------- */}
             <Grid
               xs={12}
               md={12}

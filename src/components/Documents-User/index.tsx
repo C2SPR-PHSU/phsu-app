@@ -10,9 +10,17 @@ interface UploadDocuments {
   text: string;
   important: boolean;
   upload: boolean;
+  trash: boolean;
+  visibility: boolean;
 }
 
-const Documents: React.FC<UploadDocuments> = ({ text, important, upload }) => {
+const Documents: React.FC<UploadDocuments> = ({
+  text,
+  important,
+  upload,
+  trash,
+  visibility,
+}) => {
   return (
     <>
       <Box sx={{ display: "flex", flexDirection: "row", gap: "2rem" }}>
@@ -22,7 +30,7 @@ const Documents: React.FC<UploadDocuments> = ({ text, important, upload }) => {
             flexDirection: "row",
             justifyContent: "space-between",
             width: "80%",
-            borderBottom: "1px solid gray",
+            borderBottom: "3px solid #ebeaea",
           }}
         >
           <CustomLabel name={text} required={important} />
@@ -36,13 +44,54 @@ const Documents: React.FC<UploadDocuments> = ({ text, important, upload }) => {
               gap: "1rem",
             }}
           >
-            <IconButton sx={{ backgroundColor: "#009999" }}>
+            <IconButton
+              sx={{
+                backgroundColor: "#009999",
+                "&:hover": {
+                  backgroundColor: "#009999",
+                },
+              }}
+            >
               <UploadIcon sx={{ color: "white" }} />
             </IconButton>
-            <IconButton sx={{ backgroundColor: "#009999" }}>
+            <IconButton
+              sx={{
+                backgroundColor: "#009999",
+                cursor: "default",
+
+                opacity: "50%",
+                "&:hover": {
+                  backgroundColor: "#009999",
+                },
+                ...(trash && {
+                  opacity: "100%",
+                  cursor: "pointer",
+
+                  "&:hover": {
+                    backgroundColor: "#009999",
+                  },
+                }),
+              }}
+            >
               <DeleteIcon sx={{ color: "white" }} />
             </IconButton>
-            <IconButton sx={{ backgroundColor: "#009999" }}>
+            <IconButton
+              sx={{
+                backgroundColor: "#009999",
+                opacity: "50%",
+                cursor: "default",
+                "&:hover": {
+                  backgroundColor: "#009999",
+                },
+                ...(visibility && {
+                  opacity: "100%",
+                  cursor: "pointer",
+                  "&:hover": {
+                    backgroundColor: "#009999",
+                  },
+                }),
+              }}
+            >
               <VisibilityIcon sx={{ color: "white" }} />
             </IconButton>
           </Box>
@@ -50,7 +99,10 @@ const Documents: React.FC<UploadDocuments> = ({ text, important, upload }) => {
 
         <Box>
           <IconButton
-            sx={{ display: "none", ...(upload && { display: "flex" }) }}
+            sx={{
+              display: "none",
+              ...(upload && { display: "flex" }),
+            }}
           >
             <CheckIcon sx={{ color: "#f7941d" }} />
           </IconButton>
