@@ -33,7 +33,9 @@ const Documents: React.FC<UploadDocuments> = ({
             borderBottom: "3px solid #ebeaea",
           }}
         >
-          <CustomLabel name={text} required={important} />
+          <Box sx={{ display: "flex", flexDirection: "column", width: "50%" }}>
+            <CustomLabel name={text} required={important} />
+          </Box>
 
           <Box
             sx={{
@@ -46,6 +48,10 @@ const Documents: React.FC<UploadDocuments> = ({
           >
             <IconButton
               sx={{
+                minWidth: "1.3rem",
+                minHeight: "1.3rem",
+                maxHeight: "2.3rem",
+                maxWidth: "2.3rem",
                 backgroundColor: "#009999",
                 "&:hover": {
                   backgroundColor: "#009999",
@@ -58,6 +64,10 @@ const Documents: React.FC<UploadDocuments> = ({
               sx={{
                 backgroundColor: "#009999",
                 cursor: "default",
+                minWidth: "2.3rem",
+                minHeight: "2.3rem",
+                maxHeight: "2.3rem",
+                maxWidth: "2.3rem",
 
                 opacity: "50%",
                 "&:hover": {
@@ -80,6 +90,10 @@ const Documents: React.FC<UploadDocuments> = ({
                 backgroundColor: "#009999",
                 opacity: "50%",
                 cursor: "default",
+                minWidth: "2.3rem",
+                minHeight: "2.3rem",
+                maxHeight: "2.3rem",
+                maxWidth: "2.3rem",
                 "&:hover": {
                   backgroundColor: "#009999",
                 },
@@ -97,15 +111,8 @@ const Documents: React.FC<UploadDocuments> = ({
           </Box>
         </Box>
 
-        <Box>
-          <IconButton
-            sx={{
-              display: "none",
-              ...(upload && { display: "flex" }),
-            }}
-          >
-            <CheckIcon sx={{ color: "#f7941d" }} />
-          </IconButton>
+        <Box sx={{ paddingTop: "0.7rem" }}>
+          <CheckIcon sx={{ color: "#f7941d" }} />
         </Box>
       </Box>
     </>

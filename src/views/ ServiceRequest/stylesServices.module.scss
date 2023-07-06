@@ -24,7 +24,7 @@
     color: #C6C6C6 !important;
     border-radius: 0% !important;
     padding: 0.7rem !important;
-    background-color: #EAEAEA !important;
+    // background-color: #EAEAEA !important;
 }
 .selection-title-documents{
     color: #424242 !important;
@@ -46,7 +46,19 @@
 }
 .button-save{
     background-color: $warning !important;
-    padding-right: 6rem !important;
-    padding-left: 6rem !important;
+    padding-right: 6.5rem !important;
+    padding-left: 6.5rem !important;
     font-family: $gothamBlack !important;
+}
+.logo-menu-academic{
+    margin-top: 0.5rem !important;
+    margin-right: 2rem !important;
+    width: 1.2rem;
+    height: 1.2rem;
+}
+.logo-menu-toggle{
+    margin-top: 0.1rem !important;
+    margin-right: 0.3rem !important;
+    width: 1.2rem;
+    height: 1.2rem;
 }

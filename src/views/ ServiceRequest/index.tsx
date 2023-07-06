@@ -8,12 +8,34 @@ import { Sidebar } from "@/layout";
 import List from "@mui/material/List";
 import Documents from "@/components/Documents-User";
 import ListItem from "@mui/material/ListItem";
-
+import { useTheme } from "@mui/material/styles";
+import useMediaQuery from "@mui/material/useMediaQuery";
+import menuIcon from "../../assets/menuIcon.png";
 import { documentsUser } from "./object";
-// import { AcademicInformation } from "./object";
-// import Footer from "@/layout";
+
+interface PersonalInformation {
+  email: string;
+  cellPhone: string;
+  studentId: string;
+  firstName: string;
+  middleName: string;
+  lastName: string;
+  secondLastName: string;
+  birthdate: string;
+}
+
+interface AcademicInformation {
+  entranceAcademicYear: string;
+  campus: string;
+  program: string;
+  entranceTerm: string;
+}
 
 const ServiceRequest = () => {
+  const theme = useTheme();
+  const isScreenSmall = useMediaQuery(theme.breakpoints.down("sm"));
+  const isScreenXL = useMediaQuery(theme.breakpoints.down("md"));
+
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [anchorEl2, setAnchorEl2] = React.useState<null | HTMLElement>(null);
 
@@ -64,6 +86,24 @@ const ServiceRequest = () => {
     }
   };
 
+  const [personalInfo, setPersonalInfo] = useState<PersonalInformation>({
+    email: "example@example.com",
+    cellPhone: "+1 000 000",
+    studentId: "84895096859",
+    firstName: "Jhon",
+    middleName: "Francis",
+    lastName: "Smith",
+    secondLastName: "Smith",
+    birthdate: "12/01/1996",
+  });
+
+  const [academicInfo, setAcademicInfo] = useState<AcademicInformation>({
+    entranceAcademicYear: "2017",
+    campus: "main",
+    program: "MD-Medicine",
+    entranceTerm: "SP-Spring Semester",
+  });
+
   const primaryColor = "#70928E";
   const placeholderColor = "rgba(51, 51, 51, 0.4)";
 
@@ -94,13 +134,19 @@ const ServiceRequest = () => {
   return (
     <>
       <Box sx={{ display: "flex", flexDirection: "row" }}>
-        <Box sx={{ minWidth: "7rem" }}>
+        <Box
+          sx={{
+            minWidth: "7rem",
+            ...(isScreenSmall && {
+              display: "none",
+            }),
+          }}
+        >
           <Sidebar />
         </Box>
 
         <Box
           sx={{
-            // backgroundColor: "red",
             paddingLeft: "5rem",
             paddingTop: "2rem",
           }}
@@ -130,12 +176,29 @@ const ServiceRequest = () => {
                 Campus selection
               </Typography>
               <CustomLabel name="Campus" required={true} />
+
+              {/* ----------------------------------Toggle menu SELECT CAMPUS ------------------------------------------ */}
               <Button
                 variant="outlined"
                 onClick={handleClick}
                 className={styles["toggle-button"]}
+                sx={{
+                  display: "flex",
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                  backgroundColor: "#EAEAEA",
+                  ...(anchorEl && {
+                    backgroundColor: "white",
+                  }),
+                }}
               >
-                Select your campus
+                <Typography>Select your campus</Typography>
+
+                <img
+                  src={menuIcon}
+                  alt="logo menu"
+                  className={styles["logo-menu-toggle"]}
+                ></img>
               </Button>
               <Menu
                 anchorEl={anchorEl}
@@ -143,38 +206,32 @@ const ServiceRequest = () => {
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
               >
-                <List
+                <MenuItem
+                  onClick={handleClose}
+                  sx={{ borderBottom: "1px solid #C6C6C6" }}
+                >
+                  <Typography sx={{ minWidth: "33rem" }}>Main</Typography>
+                </MenuItem>
+                <MenuItem
+                  onClick={handleClose}
+                  sx={{ borderBottom: "1px solid #C6C6C6" }}
+                >
+                  San Juan
+                </MenuItem>
+                <MenuItem
+                  onClick={handleClose}
+                  sx={{ borderBottom: "1px solid #C6C6C6" }}
+                >
+                  St. Louis
+                </MenuItem>
+                <MenuItem
+                  onClick={handleClose}
                   sx={{
-                    minWidth: "20rem",
-                    display: "flex",
-                    flexDirection: "column",
+                    borderBottom: "1px solid #C6C6C6",
                   }}
                 >
-                  <ListItem
-                    onClick={handleClose}
-                    sx={{ borderBottom: "1px solid #C6C6C6" }}
-                  >
-                    Main
-                  </ListItem>
-                  <ListItem
-                    onClick={handleClose}
-                    sx={{ borderBottom: "1px solid #C6C6C6" }}
-                  >
-                    San Juan
-                  </ListItem>
-                  <ListItem
-                    onClick={handleClose}
-                    sx={{ borderBottom: "1px solid #C6C6C6" }}
-                  >
-                    St. Lois
-                  </ListItem>
-                  <ListItem
-                    onClick={handleClose}
-                    sx={{ borderBottom: "1px solid #C6C6C6" }}
-                  >
-                    Online
-                  </ListItem>
-                </List>
+                  Online
+                </MenuItem>
               </Menu>
             </Grid>
             <Grid item xs={12} md={6} lg={5} sx={{ paddingTop: "3.9rem" }}>
@@ -183,8 +240,22 @@ const ServiceRequest = () => {
                 variant="outlined"
                 onClick={handleClick2}
                 className={styles["toggle-button"]}
+                sx={{
+                  display: "flex",
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                  backgroundColor: "#EAEAEA",
+                  ...(anchorEl2 && {
+                    backgroundColor: "white",
+                  }),
+                }}
               >
-                Select your Services
+                <Typography>Select your Services</Typography>
+                <img
+                  src={menuIcon}
+                  alt="logo menu"
+                  className={styles["logo-menu-toggle"]}
+                ></img>
               </Button>
               <Menu
                 anchorEl={anchorEl2}
@@ -192,19 +263,42 @@ const ServiceRequest = () => {
                 open={Boolean(anchorEl2)}
                 onClose={handleClose2}
               >
-                <MenuItem onClick={handleClose2}>Credential Process</MenuItem>
-                <MenuItem onClick={handleClose2}>Re-credentialing</MenuItem>
-                <MenuItem onClick={handleClose2}>
-                  Admissions Document Upload
+                <MenuItem
+                  onClick={handleClose2}
+                  sx={{ borderBottom: "1px solid #C6C6C6" }}
+                >
+                  Credential Process
                 </MenuItem>
-                <MenuItem onClick={handleClose2}>
+                <MenuItem
+                  onClick={handleClose2}
+                  sx={{ borderBottom: "1px solid #C6C6C6" }}
+                >
+                  Re-credentialing
+                </MenuItem>
+                <MenuItem
+                  onClick={handleClose2}
+                  sx={{ borderBottom: "1px solid #C6C6C6" }}
+                >
+                  <Typography sx={{ minWidth: "33rem" }}>
+                    Admissions Document Upload
+                  </Typography>
+                </MenuItem>
+                <MenuItem
+                  onClick={handleClose2}
+                  sx={{ borderBottom: "1px solid #C6C6C6" }}
+                >
                   Finacial Aid Documents Upload
                 </MenuItem>
-                <MenuItem onClick={handleClose2}>Transcript Request</MenuItem>
+                <MenuItem
+                  onClick={handleClose2}
+                  sx={{ borderBottom: "1px solid #C6C6C6" }}
+                >
+                  Transcript Request
+                </MenuItem>
               </Menu>
             </Grid>
 
-            {/* --------------------------Section for uploaded documents ---------------------------------- */}
+            {/* --------------------------Section for uploaded documents ---------------------------------------------------------- */}
             <Grid
               xs={12}
               md={12}
@@ -292,7 +386,7 @@ const ServiceRequest = () => {
                   backgroundColor: "#efefef",
                   width: "85%",
                   borderRadius: "10px",
-                  padding: "0.5rem",
+                  padding: "0.7rem",
                   cursor: "pointer",
                   ...(academic && {
                     height: "100%",
@@ -301,10 +395,22 @@ const ServiceRequest = () => {
                 }}
                 onClick={academicMenuToggle}
               >
-                <Box>
+                <Box
+                  sx={{
+                    display: "flex",
+                    flexDirection: "row",
+                    justifyContent: "space-between",
+                  }}
+                >
                   <Typography className={styles["box-academic-i"]}>
                     Academic Information
                   </Typography>
+
+                  <img
+                    src={menuIcon}
+                    alt="logo menu"
+                    className={styles["logo-menu-academic"]}
+                  ></img>
                 </Box>
 
                 <Grid
@@ -322,22 +428,34 @@ const ServiceRequest = () => {
                       name="Entrance Academic Year"
                       required={false}
                     />
-                    <TextField sx={customTextField} />
+                    <TextField
+                      sx={customTextField}
+                      value={academicInfo.entranceAcademicYear}
+                    />
                   </Grid>
 
                   <Grid item xs={12} md={4} lg={4}>
                     <CustomLabel name="Campus" required={false} />
-                    <TextField sx={customTextField} />
+                    <TextField
+                      sx={customTextField}
+                      value={academicInfo.campus}
+                    />
                   </Grid>
 
                   <Grid item xs={12} md={4} lg={4}>
                     <CustomLabel name="Program" required={false} />
-                    <TextField sx={customTextField} />
+                    <TextField
+                      sx={customTextField}
+                      value={academicInfo.program}
+                    />
                   </Grid>
 
                   <Grid item xs={12} md={4} lg={4}>
                     <CustomLabel name="Entrance Term" required={false} />
-                    <TextField sx={customTextField} />
+                    <TextField
+                      sx={customTextField}
+                      value={academicInfo.entranceTerm}
+                    />
                   </Grid>
                 </Grid>
               </Box>
@@ -349,16 +467,27 @@ const ServiceRequest = () => {
                 sx={{
                   backgroundColor: "#efefef",
                   width: "85%",
-                  borderRadius: "5px",
-                  padding: "0.5rem",
+                  borderRadius: "10px",
+                  padding: "0.7rem",
                   cursor: "pointer",
                 }}
                 onClick={personalMenuToggle}
               >
-                <Box sx={{ display: "flex", flexDirection: "row" }}>
+                <Box
+                  sx={{
+                    display: "flex",
+                    flexDirection: "row",
+                    justifyContent: "space-between",
+                  }}
+                >
                   <Typography className={styles["box-academic-i"]}>
                     Personal Information
                   </Typography>
+                  <img
+                    src={menuIcon}
+                    alt="logo menu"
+                    className={styles["logo-menu-academic"]}
+                  ></img>
                 </Box>
 
                 <Grid
@@ -372,42 +501,66 @@ const ServiceRequest = () => {
                 >
                   <Grid item xs={12} md={4} lg={4}>
                     <CustomLabel name="Fisrt Name" required={true} />
-                    <TextField sx={customTextField} />
+                    <TextField
+                      sx={customTextField}
+                      value={personalInfo.firstName}
+                    />
                   </Grid>
 
                   <Grid item xs={12} md={4} lg={4}>
                     <CustomLabel name="Middle Name" required={true} />
-                    <TextField sx={customTextField} />
+                    <TextField
+                      sx={customTextField}
+                      value={personalInfo.middleName}
+                    />
                   </Grid>
 
                   <Grid item xs={12} md={4} lg={4}>
                     <CustomLabel name="Last Name" required={true} />
-                    <TextField sx={customTextField} />
+                    <TextField
+                      sx={customTextField}
+                      value={personalInfo.lastName}
+                    />
                   </Grid>
 
                   <Grid item xs={12} md={4} lg={4}>
                     <CustomLabel name="Second Last Name" required={false} />
-                    <TextField sx={customTextField} />
+                    <TextField
+                      sx={customTextField}
+                      value={personalInfo.secondLastName}
+                    />
                   </Grid>
 
                   <Grid item xs={12} md={4} lg={4}>
                     <CustomLabel name="Date of Birth" required={true} />
-                    <TextField sx={customTextField} />
+                    <TextField
+                      sx={customTextField}
+                      value={personalInfo.birthdate}
+                    />
                   </Grid>
 
                   <Grid item xs={12} md={4} lg={4}>
                     <CustomLabel name="Cell Phone" required={true} />
-                    <TextField sx={customTextField} />
+                    <TextField
+                      sx={customTextField}
+                      value={personalInfo.cellPhone}
+                    />
                   </Grid>
 
                   <Grid item xs={12} md={4} lg={4}>
                     <CustomLabel name="Email" required={true} />
-                    <TextField sx={customTextField} />
+                    <TextField
+                      sx={customTextField}
+                      value={personalInfo.email}
+                    />
                   </Grid>
 
                   <Grid item xs={12} md={4} lg={4}>
                     <CustomLabel name="Estudent ID" required={true} />
-                    <TextField sx={customTextField} />
+                    <TextField
+                      sx={customTextField}
+                      value={personalInfo.studentId}
+                    />
                   </Grid>
                 </Grid>
               </Box>
