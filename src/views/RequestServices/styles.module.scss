@@ -1,0 +1,51 @@
+@import "../../assets/styles";
+
+.title-services {
+  font-weight: bolder !important;
+  color: $warning;
+  font-size: 37px !important;
+  font-family: $gothamBlack !important;
+}
+
+.description-view-services {
+  font-family: $gotham !important;
+  font-size: 16px !important;
+  width: 80% !important;
+}
+
+.campus-selection-title {
+  font-weight: bolder !important;
+  color: $primary;
+  font-size: 20px !important;
+  font-family: $gothamBlack !important;
+}
+
+.toggle-button {
+  max-width: 30rem !important;
+  width: 85% !important;
+  border-color: black !important;
+  color: gray;
+  border-radius: 0% !important;
+  padding: 0.6rem;
+}
+
+.box-academic-i {
+  font-weight: bolder !important;
+  color: $primary;
+  font-size: 20px !important;
+  font-family: $gothamBlack !important;
+}
+
+.button-submit {
+  background-color: #89d2cc !important;
+  padding-right: 6rem !important;
+  padding-left: 6rem !important;
+  font-family: $gothamBlack !important;
+}
+
+.button-save {
+  background-color: $warning;
+  padding-right: 6rem !important;
+  padding-left: 6rem !important;
+  font-family: $gothamBlack !important;
+}

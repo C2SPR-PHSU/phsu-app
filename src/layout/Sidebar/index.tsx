@@ -5,6 +5,7 @@ import FeedIcon from "@mui/icons-material/Feed";
 import PersonIcon from "@mui/icons-material/Person";
 import TransitEnterexitIcon from "@mui/icons-material/TransitEnterexit";
 import Options from "./components/Options";
+import { PATH } from "@/routes/constants";
 
 const Sidebar = () => {
   return (
@@ -16,6 +17,7 @@ const Sidebar = () => {
       <Options
         children={<FeedIcon sx={{ color: "white" }} />}
         text="Services Request"
+        redirect={PATH.REQUEST_SERVICES}
       />
       <Options
         children={<PersonIcon sx={{ color: "white" }} />}
