@@ -7,7 +7,7 @@ import Profile from "@/views/Profile";
 import { UnauthorizedLayout, AuthorizedLayout } from "@/layout";
 import { PATH } from "./constants";
 import useAuthStore from "@/hooks/useAuthStore";
-import RequestService from "@/views/Service Request";
+import ServiceRequest from "@/views/ ServiceRequest";
 
 const Root = () => {
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
@@ -30,7 +30,7 @@ const Root = () => {
       <Route path={PATH.ERROR500} element={<Error500 />} />
       <Route path="*" element={<NotFound />} />
       <Route path={PATH.PROFILE} element={<Profile />} />
-      <Route path={PATH.REQUESTSERVICES} element={<RequestService />} />
+      <Route path={PATH.REQUESTSERVICES} element={<ServiceRequest />} />
     </Routes>
   );
 };

@@ -6,33 +6,26 @@
     font-size: 37px !important;
     font-family: $gothamBlack !important;
 }
-
-
-
 .description-view-services{
     font-family: $gotham !important;
     font-size: 16px !important;
-    width: 80% !important;
-    
+    width: 80% !important;   
 }
-
-
 .campus-selection-title{
     font-weight: bolder !important;
     color: $primary;
     font-size: 20px !important;
     font-family: $gothamBlack !important;
 }
-
 .toggle-button{
     max-width: 30rem !important;
     width: 85% !important;
-    border-color: black !important;
-    color: gray;
+    border-color: #70928E !important;
+    color: #C6C6C6 !important;
     border-radius: 0% !important;
-    padding: 0.6rem;
+    padding: 0.7rem !important;
+    background-color: #EAEAEA !important;
 }
-
 .box-academic-i{
     font-weight: bolder !important;
     color: $primary;
@@ -45,13 +38,10 @@
     padding-right: 6rem !important;
     padding-left: 6rem !important;
     font-family: $gothamBlack !important;
-
 }
-
 .button-save{
-    background-color: $warning;
+    background-color: $warning !important;
     padding-right: 6rem !important;
     padding-left: 6rem !important;
     font-family: $gothamBlack !important;
-
 }

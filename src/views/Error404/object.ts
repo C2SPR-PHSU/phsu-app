@@ -1,4 +1,4 @@
-export const ErrorRespond = {
+export const ErrorResponse = {
   code: "404",
   title: "Page not found",
   description:

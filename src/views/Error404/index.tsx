@@ -1,7 +1,7 @@
 import { Box, Grid, Typography, Button } from "@mui/material";
 import NoPage404 from "../../assets/404.png";
 import styles from "./StyleNoPage404.module.scss";
-import { ErrorRespond } from "./object";
+import { ErrorResponse } from "./object";
 import { useNavigate } from "react-router-dom";
 
 const Error404 = () => {
@@ -43,13 +43,13 @@ const Error404 = () => {
         >
           <Box sx={{ width: "65%", paddingTop: "13%" }}>
             <Typography className={styles["title-404"]}>
-              {ErrorRespond.code}
+              {ErrorResponse.code}
             </Typography>
             <Typography className={styles["sub-title"]}>
-              {ErrorRespond.title}
+              {ErrorResponse.title}
             </Typography>
             <Typography className={styles["error-descriptions"]}>
-              {ErrorRespond.description}
+              {ErrorResponse.description}
             </Typography>
           </Box>
         </Grid>
@@ -66,7 +66,7 @@ const Error404 = () => {
               src={NoPage404}
               alt="Error 404"
               style={{
-                maxWidth: "447px",
+                maxWidth: "29rem",
               }}
             />
           </Box>

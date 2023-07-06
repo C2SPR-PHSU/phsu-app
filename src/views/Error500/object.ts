@@ -1,4 +1,4 @@
-export const ErrorRespond500 = {
+export const ErrorResponse500 = {
   code: "500",
   title: "Page not found",
   description:
