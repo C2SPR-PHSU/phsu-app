@@ -1,31 +1,26 @@
+import { useState, useEffect } from "react";
 import { Grid, Box, Typography, TextField, Button } from "@mui/material";
-import React from "react";
 import CustomLabel from "@/components/CustomLabel";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import styles from "./styles.module.scss";
-
-import { Sidebar } from "@/layout";
+import Select, { SelectChangeEvent } from "@mui/material/Select";
+import InputLabel from "@mui/material/InputLabel";
+import { getCampuses } from "./functions";
 
 const RequestServices = () => {
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  const [anchorEl2, setAnchorEl2] = React.useState<null | HTMLElement>(null);
+  const [campuses, setCampuses] = useState([]);
+  const [campusSelected, setCampusSelected] = useState({});
 
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    setAnchorEl(event.currentTarget);
+  const getAllCampuses = async () => {
+    const response = await getCampuses();
+    setCampuses(response);
+    setCampusSelected(response[0].id);
   };
 
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
-  const handleClick2 = (event: React.MouseEvent<HTMLButtonElement>) => {
-    setAnchorEl2(event.currentTarget);
-  };
-
-  const handleClose2 = () => {
-    setAnchorEl2(null);
-  };
+  useEffect(() => {
+    getAllCampuses();
+  }, []);
 
   return (
     <>
@@ -58,31 +53,22 @@ const RequestServices = () => {
             </Grid>
 
             <Grid xs={12} md={6} lg={6} sx={{ paddingTop: "2rem" }}>
-              <Typography className={styles["campus-selection-title"]}>
-                Campus selection
-              </Typography>
-              <CustomLabel name="Campus" required={true} />
-              <Button
-                aria-controls="simple-menu"
-                // aria-haspopup="true"
-                variant="outlined"
-                onClick={handleClick}
-                className={styles["toggle-button"]}
+              <InputLabel id="demo-select-small-label">Campus</InputLabel>
+              <Select
+                labelId="demo-select-small-label"
+                id="demo-select-small"
+                value={campusSelected}
+                label="campus"
+                onChange={(event) => setCampusSelected(event.target.value)}
               >
-                Select your campus
-              </Button>
-              <Menu
-                id="simple-menu"
-                anchorEl={anchorEl}
-                keepMounted
-                open={Boolean(anchorEl)}
-                onClose={handleClose}
-              >
-                <MenuItem onClick={handleClose}>Main</MenuItem>
-                <MenuItem onClick={handleClose}>San Juan</MenuItem>
-                <MenuItem onClick={handleClose}>St. Lois</MenuItem>
-                <MenuItem onClick={handleClose}>Online</MenuItem>
-              </Menu>
+                {campuses.map((campus) => {
+                  return (
+                    <MenuItem value={campus.id} key={campus.id}>
+                      {campus.name}
+                    </MenuItem>
+                  );
+                })}
+              </Select>
             </Grid>
             <Grid xs={12} md={6} lg={6} sx={{ paddingTop: "3.9rem" }}>
               <CustomLabel name="Service" required={true} />
@@ -90,19 +76,19 @@ const RequestServices = () => {
                 aria-controls="simple-menu"
                 // aria-haspopup="true"
                 variant="outlined"
-                onClick={handleClick2}
+                // onClick={handleClick2}
                 className={styles["toggle-button"]}
               >
                 Select your Services
               </Button>
-              <Menu
+              {/* <Menu
                 id="simple-menu"
                 anchorEl={anchorEl2}
                 keepMounted
                 open={Boolean(anchorEl2)}
-                onClose={handleClose2}
-              >
-                <MenuItem onClick={handleClose2}>Credential Process</MenuItem>
+                // onClose={handleClose2}
+              > */}
+              {/* <MenuItem onClick={handleClose2}>Credential Process</MenuItem>
                 <MenuItem onClick={handleClose2}>Re-credentialing</MenuItem>
                 <MenuItem onClick={handleClose2}>
                   Admissions Document Upload
@@ -110,8 +96,8 @@ const RequestServices = () => {
                 <MenuItem onClick={handleClose2}>
                   Finacial Aid Documents Upload
                 </MenuItem>
-                <MenuItem onClick={handleClose2}>Transcript Request</MenuItem>
-              </Menu>
+                <MenuItem onClick={handleClose2}>Transcript Request</MenuItem> */}
+              {/* </Menu> */}
             </Grid>
             <Grid
               xs={12}
