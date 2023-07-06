@@ -22,7 +22,7 @@ const Sidebar = ({
         alignItems: "center",
         cursor: "pointer",
       }}
-      onClick={() => navigate(`${redirect}`)}
+      onClick={() => navigate(`${redirect ?? "/"}`)}
     >
       {children}
       <Typography variant="body1" sx={{ color: "white", textAlign: "center" }}>
