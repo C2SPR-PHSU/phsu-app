@@ -1,8 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import { Home, Login, Register, NotFound } from "@/views";
 import Recovery from "@/views/Recovery";
-import Error404 from "@/views/Error404";
-import Error500 from "@/views/Error500";
+
 import Profile from "@/views/Profile";
 import { UnauthorizedLayout, AuthorizedLayout } from "@/layout";
 import { PATH } from "./constants";
@@ -26,8 +25,6 @@ const Root = () => {
         </Route>
       )}
       <Route path={PATH.NOT_FOUND} element={<NotFound />} />
-      <Route path={PATH.ERROR404} element={<Error404 />} />
-      <Route path={PATH.ERROR500} element={<Error500 />} />
       <Route path="*" element={<NotFound />} />
       <Route path={PATH.PROFILE} element={<Profile />} />
       <Route path={PATH.REQUESTSERVICES} element={<ServiceRequest />} />

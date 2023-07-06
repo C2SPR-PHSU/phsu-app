@@ -6,7 +6,10 @@ import MenuItem from "@mui/material/MenuItem";
 import styles from "./stylesServices.module.scss";
 import { Sidebar } from "@/layout";
 import List from "@mui/material/List";
+import Documents from "@/components/Documents-User";
 import ListItem from "@mui/material/ListItem";
+
+import { documentsUser } from "./object";
 // import { AcademicInformation } from "./object";
 // import Footer from "@/layout";
 
@@ -18,8 +21,10 @@ const ServiceRequest = () => {
   const [academic, setAcademic] = useState(false);
 
   // state menu toggle personal information
-
   const [personal, setPersonal] = useState(false);
+
+  // this state is used to determine whether the user has uploaded at least one document
+  const [documents, setDocuments] = useState(true);
 
   // open menu1 toggle
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -41,7 +46,7 @@ const ServiceRequest = () => {
     setAnchorEl2(null);
   };
 
-  // open and close menu
+  // open and close menu  (academic information)
   const academicMenuToggle = (event: any) => {
     const textFieldClicked = event.target.tagName === "INPUT";
 
@@ -50,7 +55,7 @@ const ServiceRequest = () => {
     }
   };
 
-  // open and close menu
+  // open and close menu  (personal information)
   const personalMenuToggle = (event: any) => {
     const textFieldClicked = event.target.tagName === "INPUT";
 
@@ -59,6 +64,33 @@ const ServiceRequest = () => {
     }
   };
 
+  const primaryColor = "#70928E";
+  const placeholderColor = "rgba(51, 51, 51, 0.4)";
+
+  const customTextField = {
+    width: "90%",
+    "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
+      borderColor: primaryColor,
+      borderRadius: 0,
+      border: "2px solid " + primaryColor,
+    },
+    "&:hover .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
+      borderColor: primaryColor,
+    },
+    "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline": {
+      borderColor: primaryColor,
+    },
+    "& .MuiInputLabel-outlined": {
+      fontSize: "1rem",
+      color: placeholderColor,
+    },
+    "& .MuiInputLabel-outlined.Mui-focused": {
+      color: primaryColor,
+    },
+    "& .MuiOutlinedInput-input": {
+      padding: "0.7rem",
+    },
+  };
   return (
     <>
       <Box sx={{ display: "flex", flexDirection: "row" }}>
@@ -185,9 +217,27 @@ const ServiceRequest = () => {
               <Typography className={styles["campus-selection-title"]}>
                 Documents
               </Typography>
-              <Typography sx={{ color: "gray" }}>
-                You have not selected your campus{" "}
+              <Typography
+                sx={{
+                  color: "gray",
+                  ...(documents && {
+                    display: "none",
+                  }),
+                }}
+              >
+                You have not selected your campus
               </Typography>
+
+              {documentsUser.map((service) => {
+                return (
+                  <Documents
+                    text={service.title}
+                    important={service.important}
+                    upload={service.upload}
+                  />
+                );
+              })}
+              {/* <Documents text="PHSU ID Photo" important={true} upload={true} /> */}
             </Grid>
 
             <Grid xs={12} md={12} lg={12} sx={{ paddingBottom: "1.2rem" }}>
@@ -226,22 +276,22 @@ const ServiceRequest = () => {
                       name="Entrance Academic Year"
                       required={false}
                     />
-                    <TextField />
+                    <TextField sx={customTextField} />
                   </Grid>
 
                   <Grid item xs={12} md={4} lg={4}>
                     <CustomLabel name="Campus" required={false} />
-                    <TextField />
+                    <TextField sx={customTextField} />
                   </Grid>
 
                   <Grid item xs={12} md={4} lg={4}>
                     <CustomLabel name="Program" required={false} />
-                    <TextField />
+                    <TextField sx={customTextField} />
                   </Grid>
 
-                  <Grid item xs={12} md={6} lg={6}>
+                  <Grid item xs={12} md={4} lg={4}>
                     <CustomLabel name="Entrance Term" required={false} />
-                    <TextField />
+                    <TextField sx={customTextField} />
                   </Grid>
                 </Grid>
               </Box>
@@ -272,45 +322,44 @@ const ServiceRequest = () => {
                     }),
                   }}
                 >
-                  {/* item 1 */}
                   <Grid item xs={12} md={4} lg={4}>
                     <CustomLabel name="Fisrt Name" required={true} />
-                    <TextField />
+                    <TextField sx={customTextField} />
                   </Grid>
 
                   <Grid item xs={12} md={4} lg={4}>
                     <CustomLabel name="Middle Name" required={true} />
-                    <TextField />
+                    <TextField sx={customTextField} />
                   </Grid>
 
                   <Grid item xs={12} md={4} lg={4}>
                     <CustomLabel name="Last Name" required={true} />
-                    <TextField />
+                    <TextField sx={customTextField} />
                   </Grid>
 
-                  <Grid item xs={12} md={6} lg={6}>
+                  <Grid item xs={12} md={4} lg={4}>
                     <CustomLabel name="Second Last Name" required={false} />
-                    <TextField />
+                    <TextField sx={customTextField} />
                   </Grid>
 
                   <Grid item xs={12} md={4} lg={4}>
                     <CustomLabel name="Date of Birth" required={true} />
-                    <TextField />
+                    <TextField sx={customTextField} />
                   </Grid>
 
                   <Grid item xs={12} md={4} lg={4}>
                     <CustomLabel name="Cell Phone" required={true} />
-                    <TextField />
+                    <TextField sx={customTextField} />
                   </Grid>
 
                   <Grid item xs={12} md={4} lg={4}>
                     <CustomLabel name="Email" required={true} />
-                    <TextField />
+                    <TextField sx={customTextField} />
                   </Grid>
 
-                  <Grid item xs={12} md={6} lg={4}>
+                  <Grid item xs={12} md={4} lg={4}>
                     <CustomLabel name="Estudent ID" required={true} />
-                    <TextField />
+                    <TextField sx={customTextField} />
                   </Grid>
                 </Grid>
               </Box>
