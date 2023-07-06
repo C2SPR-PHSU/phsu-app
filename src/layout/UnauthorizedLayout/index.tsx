@@ -1,12 +1,12 @@
 import { Grid } from "@mui/material";
 import { Header, Footer } from "@/layout";
 import { Outlet } from "react-router-dom";
-import Alert from "@/components/AlertPopup";
+import AlertPopup from "@/components/AlertPopup";
 
 const UnautoziredLayout = () => {
   return (
     <Grid>
-      <Alert />
+      <AlertPopup />
       <Header />
       <Outlet />
       <Footer />

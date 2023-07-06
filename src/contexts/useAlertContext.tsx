@@ -33,7 +33,7 @@ const reducer = (state: any, action: GlobalAction) => {
 };
 
 const useMainState = () => {
-  return useReducer(reducer, initialMainState);
+  return useReducer(reducer, initialState);
 };
 
 export default useMainState;
