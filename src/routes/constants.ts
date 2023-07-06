@@ -7,4 +7,5 @@ export const PATH = {
   ERROR404: "/404",
   ERROR500: "/500",
   PROFILE: "/profile",
+  REQUESTSERVICES: "/request-service",
 };
