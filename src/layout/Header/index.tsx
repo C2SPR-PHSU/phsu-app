@@ -6,7 +6,6 @@ import {
   TextField,
   Button,
   Box,
-  InputAdornment,
 } from "@mui/material";
 import Logo from "../../assets/images/logo-phsu.png";
 import styles from "./Header.module.scss";
@@ -14,6 +13,8 @@ import PersonIcon from "@mui/icons-material/Person";
 import LockRounded from "@mui/icons-material/LockRounded";
 import useAuthStore from "@/hooks/useAuthStore";
 import useAlert from "@/hooks/useAlert";
+import { PATH } from "@/routes/constants";
+import { Link } from "react-router-dom";
 
 export default function Header() {
   const primaryColor = "#009999";
@@ -26,14 +27,18 @@ export default function Header() {
   const { setAlert } = useAlert();
 
   useEffect(() => {
-    if (isAuthenticated) setAlert("Login success!", "success");
+    if (isAuthenticated) setAlert();
   }, [isAuthenticated]);
 
   return (
     <AppBar position="static">
       <Box className={styles["upper-header"]}>
-        <Typography className={styles["upper-text"]}>Home</Typography>
-        <Typography className={styles["upper-text"]}>Register</Typography>
+        <Typography className={styles["upper-text"]}>
+          <Link to={PATH.ROOT}>Home</Link>
+        </Typography>
+        <Typography className={styles["upper-text"]}>
+          <Link to={PATH.REGISTER}>Register</Link>
+        </Typography>
       </Box>
       <Toolbar className={styles["auth-header"]}>
         <Box className={styles["brand"]} sx={{ gap: 3 }}>
@@ -59,6 +64,8 @@ export default function Header() {
             sx={{
               "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
                 borderColor: primaryColor,
+                borderRadius: 0,
+                border: "2px solid " + primaryColor,
               },
               "&:hover .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline":
                 {
@@ -88,6 +95,8 @@ export default function Header() {
             sx={{
               "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
                 borderColor: primaryColor,
+                borderRadius: 0,
+                border: "2px solid " + primaryColor,
               },
               "&:hover .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline":
                 {
