@@ -1,38 +1,34 @@
 import { ReactNode } from "react";
 import { Box, Typography } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
-type OptionsProps = {
-  children: ReactNode;
+const Sidebar = ({
+  text,
+  redirect,
+  children,
+}: {
   text: string;
-  path: string;
-  onClick: (path: string) => void;
-};
+  redirect?: string;
+  children: ReactNode;
+}) => {
+  const navigate = useNavigate();
 
-const Options: React.FC<OptionsProps> = ({ children, text, path, onClick }) => {
-  const handleOptionClick = () => {
-    onClick(path);
-  };
-
+const Sidebar = ({ text, children }: { text: string; children: ReactNode }) => {
   return (
-    <div onClick={handleOptionClick}>
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "center",
-          cursor: "pointer",
-        }}
-      >
-        {children}
-        <Typography
-          variant="body1"
-          sx={{ color: "white", textAlign: "center" }}
-        >
-          {text}
-        </Typography>
-      </Box>
-    </div>
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+        cursor: "pointer",
+      }}
+    >
+      {children}
+      <Typography variant="body1" sx={{ color: "white", textAlign: "center" }}>
+        {text}
+      </Typography>
+    </Box>
   );
 };
 

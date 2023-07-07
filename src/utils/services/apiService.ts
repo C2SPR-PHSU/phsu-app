@@ -86,6 +86,7 @@ const AxiosDispatchResponse = async <ResponseType, ParamsType>(
     parameters.params = qs;
   }
   try {
+    self.axiosInstance.defaults.headers.common["token"] = self.token;
     const response: AxiosResponse = await self.axiosInstance[verb](
       self.resource,
       parameters

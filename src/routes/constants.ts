@@ -3,9 +3,5 @@ export const PATH = {
   LOGIN: "/login",
   REGISTER: "/register",
   NOT_FOUND: "/not-found",
-  PASSWORDRECOVERY: "/recovery",
-  ERROR404: "/404",
-  ERROR500: "/500",
-  PROFILE: "/profile",
-  REQUESTSERVICES: "/request-service",
+  REQUEST_SERVICES: "/request-services",
 };
