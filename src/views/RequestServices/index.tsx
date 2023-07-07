@@ -6,21 +6,38 @@ import MenuItem from "@mui/material/MenuItem";
 import styles from "./styles.module.scss";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import InputLabel from "@mui/material/InputLabel";
-import { getCampuses } from "./functions";
+import { getCampuses, getCampusDocuments } from "./functions";
+import Documents from './components/Documents';
+
+interface ICampuses {
+  id: number;
+  name: string;
+}
 
 const RequestServices = () => {
-  const [campuses, setCampuses] = useState([]);
-  const [campusSelected, setCampusSelected] = useState({});
+  const [campuses, setCampuses] = useState<ICampuses[]>([]);
+  const [campusSelected, setCampusSelected] = useState(0);
+  const [documentList, setDocumentList] = useState([]);
 
   const getAllCampuses = async () => {
     const response = await getCampuses();
     setCampuses(response);
     setCampusSelected(response[0].id);
+    await getDocumentsByCampus(response[0].id)
   };
+  
+  const getDocumentsByCampus = async (id: number) => {
+    const response = await getCampusDocuments(id);
+    setDocumentList(response)
+  }
 
   useEffect(() => {
     getAllCampuses();
   }, []);
+
+  useEffect(() => {
+    getDocumentsByCampus(campusSelected)
+  }, [campusSelected])
 
   return (
     <>
@@ -81,23 +98,6 @@ const RequestServices = () => {
               >
                 Select your Services
               </Button>
-              {/* <Menu
-                id="simple-menu"
-                anchorEl={anchorEl2}
-                keepMounted
-                open={Boolean(anchorEl2)}
-                // onClose={handleClose2}
-              > */}
-              {/* <MenuItem onClick={handleClose2}>Credential Process</MenuItem>
-                <MenuItem onClick={handleClose2}>Re-credentialing</MenuItem>
-                <MenuItem onClick={handleClose2}>
-                  Admissions Document Upload
-                </MenuItem>
-                <MenuItem onClick={handleClose2}>
-                  Finacial Aid Documents Upload
-                </MenuItem>
-                <MenuItem onClick={handleClose2}>Transcript Request</MenuItem> */}
-              {/* </Menu> */}
             </Grid>
             <Grid
               xs={12}
@@ -105,12 +105,39 @@ const RequestServices = () => {
               lg={12}
               sx={{ paddingTop: "2.2rem", paddingBottom: "2rem" }}
             >
-              <Typography className={styles["campus-selection-title"]}>
-                Documents
-              </Typography>
-              <Typography sx={{ color: "gray" }}>
-                You have not selected your campus{" "}
-              </Typography>
+              {
+                !documentList.length ? (
+                  <>
+                    <Typography className={styles["campus-selection-title"]}>
+                      Documents
+                    </Typography>
+                    <Typography sx={{ color: "gray" }}>
+                      You have not selected your campus{" "}
+                    </Typography>
+                  </>
+                ) : (
+                  <Grid container>
+                    <Grid item xs={8}>
+                      <Typography>Documents</Typography>
+                    </Grid>
+                    <Grid item xs={2}>
+                      <Typography>Actions</Typography>
+                    </Grid>
+                    <Grid item xs={2}>
+                      <Typography>Updated</Typography> 
+                    </Grid>
+                    {
+                      documentList.map((document) => {
+                        return (
+                          <Grid item xs={12} key={document.id}>
+                            <Documents title={document.name} />
+                          </Grid>
+                        )
+                      })
+                    }
+                  </Grid>
+                )
+              }
             </Grid>
 
             <Grid xs={12} md={12} lg={12} sx={{ paddingBottom: "1.2rem" }}>
