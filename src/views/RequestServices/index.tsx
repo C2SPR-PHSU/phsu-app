@@ -91,9 +91,7 @@ const RequestServices = () => {
               <CustomLabel name="Service" required={true} />
               <Button
                 aria-controls="simple-menu"
-                // aria-haspopup="true"
                 variant="outlined"
-                // onClick={handleClick2}
                 className={styles["toggle-button"]}
               >
                 Select your Services
@@ -130,7 +128,11 @@ const RequestServices = () => {
                       documentList.map((document) => {
                         return (
                           <Grid item xs={12} key={document.id}>
-                            <Documents title={document.name} />
+                            <Documents
+                              title={document.name}
+                              campusId={campusSelected}
+                              documentId={document.id}
+                            />
                           </Grid>
                         )
                       })
