@@ -19,6 +19,9 @@ const RequestServices = () => {
   const [campuses, setCampuses] = useState<ICampuses[]>([]);
   const [campusSelected, setCampusSelected] = useState(0);
   const [documentList, setDocumentList] = useState([]);
+  const [displayList, setDisplayList] = useState(false)
+  const [selectedCampus, setSelectedCampus] = useState('');
+  const [selectedService, setSelectedService] = useState('');
 
   const getAllCampuses = async () => {
     const response = await getCampuses();
@@ -32,7 +35,16 @@ const RequestServices = () => {
     setDocumentList(response)
   }
 
-  const optionsCampus = ['Main', 'St Louis'];
+  const validateDropdownSelection = () => {
+    if(selectedCampus !== '' && selectedService !== '')
+    return setDisplayList(false)
+  }
+
+  useEffect(() => {
+    if(selectedCampus !== '' && selectedService !== '') return setDisplayList(true)
+    return setDisplayList(false)
+  }, [selectedCampus, selectedService])
+
   const optionsService = [
     'Admissions Documents Upload',
     'Credentialing Process',
@@ -42,10 +54,6 @@ const RequestServices = () => {
     'Graduation Certification',
     'Reasonable Accommodations Application'
   ];
-
-
-  const [selectedCampus, setSelectedCampus] = useState('');
-  const [selectedService, setSelectedService] = useState('');
 
   const [isReady, setIsReady] = useState(false);
 
@@ -90,7 +98,6 @@ const RequestServices = () => {
       borderColor: "#009999",
     },
   };
-
 
   useEffect(() => {
     getAllCampuses();
@@ -150,9 +157,9 @@ const RequestServices = () => {
                     <MenuItem value="placeholder" disabled>
                       Select your Campus
                     </MenuItem>
-                    {optionsCampus.map((option) => (
-                      <MenuItem key={option} value={option}>
-                        {option}
+                    {campuses.map((option) => (
+                      <MenuItem key={option.id} value={option.id}>
+                        {option.name}
                       </MenuItem>
                     ))}
                   </Select>
@@ -188,14 +195,43 @@ const RequestServices = () => {
               lg={12}
               sx={{ paddingTop: "2.2rem", paddingBottom: "2rem" }}
             >
-              <Typography className={styles["campus-selection-title"]}>
-                Documents
-              </Typography>
-              {selectedCampus === "" && (
-                <Typography sx={{ color: "gray" }}>
-                  You have not selected your campus
-                </Typography>
-              )}
+              {
+                !displayList ? (
+                  <>
+                    <Typography className={styles["campus-selection-title"]}>
+                      Documents
+                    </Typography>
+                    <Typography sx={{ color: "gray" }}>
+                      You have not selected your campus{" "}
+                    </Typography>
+                  </>
+                ) : (
+                  <Grid container>
+                    <Grid item xs={8}>
+                      <Typography>Documents</Typography>
+                    </Grid>
+                    <Grid item xs={2}>
+                      <Typography>Actions</Typography>
+                    </Grid>
+                    <Grid item xs={2}>
+                      <Typography>Updated</Typography> 
+                    </Grid>
+                    {
+                      documentList.map((document) => {
+                        return (
+                          <Grid item xs={12} key={document.id}>
+                            <Documents
+                              title={document.name}
+                              campusId={campusSelected}
+                              documentId={document.id}
+                            />
+                          </Grid>
+                        )
+                      })
+                    }
+                  </Grid>
+                )
+              }
             </Grid>
 
             <Grid xs={12} md={12} lg={12} sx={{ paddingBottom: "1.2rem" }}>

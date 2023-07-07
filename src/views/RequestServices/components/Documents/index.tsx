@@ -48,7 +48,7 @@ const Documents = ({ title, campusId, documentId }: IDocumentsProps) => {
           </Box>
         </Grid>
         <Grid item xs={2}>
-          { checked ? <CheckIcon sx={{ color: '#f7941d' }} /> : <CloseIcon sx={{ color: 'red' }} />}
+          { checked ? <CheckIcon sx={{ color: '#f7941d' }} /> : <></>}
         </Grid>
       </Grid>
     </>
