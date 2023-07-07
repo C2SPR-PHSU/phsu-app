@@ -9,7 +9,7 @@ import { PATH } from "@/routes/constants";
 
 const Sidebar = () => {
   return (
-    <Grid className={styles["container"]} sx={{ flexDirection: "column" }}>
+    <Grid className={styles["container"]} sx={{ flexDirection: "column", height: '100%' }}>
       <Options
         children={<AppsIcon sx={{ color: "white" }} />}
         text="Of Sense"
