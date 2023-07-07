@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Grid, Box, Typography, TextField, Button } from "@mui/material";
+import { Grid, Box, Typography, TextField, Button, FormControl } from "@mui/material";
 import CustomLabel from "@/components/CustomLabel";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
@@ -13,6 +13,7 @@ interface ICampuses {
   id: number;
   name: string;
 }
+import AccordionServiceRequest from "@/components/AccordionServiceRequest";
 
 const RequestServices = () => {
   const [campuses, setCampuses] = useState<ICampuses[]>([]);
@@ -31,6 +32,66 @@ const RequestServices = () => {
     setDocumentList(response)
   }
 
+  const optionsCampus = ['Main', 'St Louis'];
+  const optionsService = [
+    'Admissions Documents Upload',
+    'Credentialing Process',
+    'Financial Aid Documents Upload',
+    'Transcript Requests',
+    'Application for Graduation',
+    'Graduation Certification',
+    'Reasonable Accommodations Application'
+  ];
+
+
+  const [selectedCampus, setSelectedCampus] = useState('');
+  const [selectedService, setSelectedService] = useState('');
+
+  const [isReady, setIsReady] = useState(false);
+
+
+  const handleCampusChange = (event: any) => {
+    setSelectedCampus(event.target.value);
+  };
+
+  const handleServiceChange = (event: any) => {
+    setSelectedService(event.target.value);
+  };
+
+
+  const primaryColor = "#009999";
+  const placeholderColor = "rgba(51, 51, 51, 0.4)";
+
+  const selectStyles = {
+    "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
+      borderColor: "#009999",
+      borderRadius: 0,
+      border: "2px solid " + "#009999",
+    },
+    "&:hover .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline":
+    {
+      borderColor: "#009999",
+    },
+    "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline":
+    {
+      borderColor: "#009999",
+    },
+    "& .MuiInputLabel-outlined": {
+      fontSize: "1rem",
+      color: "#333333",
+    },
+    "& .MuiInputLabel-outlined.Mui-focused": {
+      color: "#009999",
+    },
+    "& .MuiOutlinedInput-input": {
+      padding: "0.7rem",
+    },
+    "& .MuiOutlinedInput-root.Mui-disabled .MuiOutlinedInput-notchedOutline": {
+      borderColor: "#009999",
+    },
+  };
+
+
   useEffect(() => {
     getAllCampuses();
   }, []);
@@ -41,12 +102,13 @@ const RequestServices = () => {
 
   return (
     <>
-      <Box sx={{ display: "flex", flexDirection: "row" }}>
+      <Box sx={{ display: "flex", flexDirection: "row", padding: '2rem' }}>
         <Box
           sx={{
             // backgroundColor: "red",
             paddingLeft: "5rem",
             paddingTop: "2rem",
+            width: "100%"
           }}
         >
           <Grid container spacing={1}>
@@ -69,106 +131,77 @@ const RequestServices = () => {
               </Typography>
             </Grid>
 
-            <Grid xs={12} md={6} lg={6} sx={{ paddingTop: "2rem" }}>
-              <InputLabel id="demo-select-small-label">Campus</InputLabel>
-              <Select
-                labelId="demo-select-small-label"
-                id="demo-select-small"
-                value={campusSelected}
-                label="campus"
-                onChange={(event) => setCampusSelected(event.target.value)}
-              >
-                {campuses.map((campus) => {
-                  return (
-                    <MenuItem value={campus.id} key={campus.id}>
-                      {campus.name}
+            <div className={styles["first-row-title"]}>
+              <Grid xs={12} md={12}>
+                <Typography className={styles["campus-selection-title"]}>
+                  Campus Selection
+                </Typography>
+              </Grid>
+            </div>
+
+            <div className={styles["form-first-row"]}>
+              <Grid item xs={12} md={5} paddingRight={'1rem'}>
+                <FormControl fullWidth={true} variant="outlined" sx={selectStyles}>
+                  <CustomLabel name="Campus" required={true} />
+                  <Select
+                    value={selectedCampus || "placeholder"}
+                    onChange={handleCampusChange}
+                  >
+                    <MenuItem value="placeholder" disabled>
+                      Select your Campus
                     </MenuItem>
-                  );
-                })}
-              </Select>
-            </Grid>
-            <Grid xs={12} md={6} lg={6} sx={{ paddingTop: "3.9rem" }}>
-              <CustomLabel name="Service" required={true} />
-              <Button
-                aria-controls="simple-menu"
-                variant="outlined"
-                className={styles["toggle-button"]}
-              >
-                Select your Services
-              </Button>
-            </Grid>
+                    {optionsCampus.map((option) => (
+                      <MenuItem key={option} value={option}>
+                        {option}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+
+
+              </Grid>
+
+              <Grid item xs={12} md={5} paddingRight={'1rem'}>
+                <FormControl fullWidth={true} variant="outlined" sx={selectStyles} disabled={selectedCampus === ''}>
+                  <CustomLabel name="Services" required={true} />
+                  <Select
+                    value={selectedService || "placeholder"}
+                    onChange={handleServiceChange}
+                  >
+                    <MenuItem value="placeholder" disabled>
+                      Select your Service
+                    </MenuItem>
+                    {optionsService.map((option) => (
+                      <MenuItem key={option} value={option}>
+                        {option}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+              </Grid>
+
+            </div>
+
             <Grid
               xs={12}
               md={12}
               lg={12}
               sx={{ paddingTop: "2.2rem", paddingBottom: "2rem" }}
             >
-              {
-                !documentList.length ? (
-                  <>
-                    <Typography className={styles["campus-selection-title"]}>
-                      Documents
-                    </Typography>
-                    <Typography sx={{ color: "gray" }}>
-                      You have not selected your campus{" "}
-                    </Typography>
-                  </>
-                ) : (
-                  <Grid container>
-                    <Grid item xs={8}>
-                      <Typography>Documents</Typography>
-                    </Grid>
-                    <Grid item xs={2}>
-                      <Typography>Actions</Typography>
-                    </Grid>
-                    <Grid item xs={2}>
-                      <Typography>Updated</Typography> 
-                    </Grid>
-                    {
-                      documentList.map((document) => {
-                        return (
-                          <Grid item xs={12} key={document.id}>
-                            <Documents
-                              title={document.name}
-                              campusId={campusSelected}
-                              documentId={document.id}
-                            />
-                          </Grid>
-                        )
-                      })
-                    }
-                  </Grid>
-                )
-              }
+              <Typography className={styles["campus-selection-title"]}>
+                Documents
+              </Typography>
+              {selectedCampus === "" && (
+                <Typography sx={{ color: "gray" }}>
+                  You have not selected your campus
+                </Typography>
+              )}
             </Grid>
 
             <Grid xs={12} md={12} lg={12} sx={{ paddingBottom: "1.2rem" }}>
-              <Box
-                sx={{
-                  backgroundColor: "#efefef",
-                  width: "65%",
-                  borderRadius: "5px",
-                  padding: "0.5rem",
-                }}
-              >
-                <Typography className={styles["box-academic-i"]}>
-                  Academic Information
-                </Typography>
-              </Box>
-            </Grid>
-            <Grid xs={12} md={12} lg={12} sx={{ paddingBottom: "1.2rem" }}>
-              <Box
-                sx={{
-                  backgroundColor: "#efefef",
-                  width: "65%",
-                  borderRadius: "5px",
-                  padding: "0.5rem",
-                }}
-              >
-                <Typography className={styles["box-academic-i"]}>
-                  Academic Information
-                </Typography>
-              </Box>
+              <div className={styles["accordions-wrapper"]}>
+                <AccordionServiceRequest />
+              </div>
             </Grid>
 
             <Grid
@@ -178,7 +211,16 @@ const RequestServices = () => {
               sx={{ paddingBottom: "1.2rem", paddingTop: "1rem" }}
             >
               <Box sx={{ display: "flex", flexDirection: "row", gap: "1rem" }}>
-                <Button variant="contained" className={styles["button-submit"]}>
+                <Button
+                  variant="contained"
+                  className={styles["button-submit"]}
+                  sx={{
+                    '&.Mui-disabled': {
+                      opacity: "0.6",
+                      color: 'white',
+                    },
+                  }}
+                  disabled={!isReady}>
                   SUBMIT
                 </Button>
                 <Button variant="contained" className={styles["button-save"]}>
