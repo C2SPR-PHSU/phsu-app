@@ -32,7 +32,6 @@ interface AcademicInformation {
 const ServiceRequest = () => {
   const theme = useTheme();
   const isScreenSmall = useMediaQuery(theme.breakpoints.down("sm"));
-  const isScreenXL = useMediaQuery(theme.breakpoints.down("md"));
 
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [anchorEl2, setAnchorEl2] = React.useState<null | HTMLElement>(null);

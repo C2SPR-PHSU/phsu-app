@@ -3,6 +3,7 @@ import { Apps, Feed, Person, TransitEnterexit } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 import styles from "./styles.module.scss";
 import Options from "./components/Options";
+import { PATH } from "@/routes/constants";
 
 const Sidebar = () => {
   const navigate = useNavigate();
@@ -14,7 +15,7 @@ const Sidebar = () => {
   };
 
   return (
-    <Box className={styles.container} sx={{ flexDirection: "column" }}>
+    <Grid className={styles["container"]} sx={{ flexDirection: "column", height: '100%' }}>
       <Options
         children={<Apps sx={{ color: "white" }} />}
         text="Of Sense"
@@ -24,8 +25,7 @@ const Sidebar = () => {
       <Options
         children={<Feed sx={{ color: "white" }} />}
         text="Services Request"
-        path="/services" // Agregado el valor de la ruta para la opción "Services Request"
-        onClick={handleOptionClick}
+        redirect={PATH.REQUEST_SERVICES}
       />
       <Options
         children={<Person sx={{ color: "white" }} />}

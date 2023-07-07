@@ -12,6 +12,7 @@ const Sidebar = ({
   children: ReactNode;
 }) => {
   const navigate = useNavigate();
+};
 
 const Sidebar = ({ text, children }: { text: string; children: ReactNode }) => {
   return (
