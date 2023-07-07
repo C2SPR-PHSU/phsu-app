@@ -12,9 +12,7 @@ const Sidebar = ({
   children: ReactNode;
 }) => {
   const navigate = useNavigate();
-};
 
-const Sidebar = ({ text, children }: { text: string; children: ReactNode }) => {
   return (
     <Box
       sx={{
@@ -24,6 +22,7 @@ const Sidebar = ({ text, children }: { text: string; children: ReactNode }) => {
         alignItems: "center",
         cursor: "pointer",
       }}
+      onClick={() => navigate(`${redirect ?? "/"}`)}
     >
       {children}
       <Typography variant="body1" sx={{ color: "white", textAlign: "center" }}>
@@ -33,4 +32,4 @@ const Sidebar = ({ text, children }: { text: string; children: ReactNode }) => {
   );
 };
 
-export default Options;
+export default Sidebar;
