@@ -8,25 +8,28 @@ import Options from "./components/Options";
 import { PATH } from "@/routes/constants";
 
 const Sidebar = () => {
+
   return (
     <Grid className={styles["container"]} sx={{ flexDirection: "column", height: '100%' }}>
       <Options
-        children={<AppsIcon sx={{ color: "white" }} />}
+        children={<AppsIcon sx={{ color: "white", fontSize: '1.5rem !important' }} />}
         text="Of Sense"
       />
       <Options
-        children={<FeedIcon sx={{ color: "white" }} />}
+        children={<FeedIcon sx={{ color: "white", fontSize: '1.5rem' }} />}
         text="Services Request"
         redirect={PATH.REQUEST_SERVICES}
       />
       <Options
-        children={<PersonIcon sx={{ color: "white" }} />}
+        children={<PersonIcon sx={{ color: "white", fontSize: '1.5rem' }} />}
         text="Profile"
       />
+
       <Options
-        children={<TransitEnterexitIcon sx={{ color: "white" }} />}
+        children={<TransitEnterexitIcon sx={{ color: "white", fontSize: '1.5rem' }} />}
         text="Sign Out"
       />
+
     </Grid>
   );
 };

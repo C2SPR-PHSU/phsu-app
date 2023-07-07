@@ -5,7 +5,7 @@ import { PATH } from "./constants";
 import useAuthStore from "@/hooks/useAuthStore";
 
 const Root = () => {
-  const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
+  const isAuthenticated = useAuthStore((state: any) => state.isAuthenticated);
 
   return (
     <Routes>

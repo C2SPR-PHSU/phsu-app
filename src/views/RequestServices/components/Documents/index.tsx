@@ -7,23 +7,29 @@ import CheckIcon from '@mui/icons-material/Check';
 import CloseIcon from '@mui/icons-material/Close';
 import { uploadDocument } from '@/views/RequestServices/functions';
 import useAuthStore from "@/hooks/useAuthStore";
+import styles from "./styles.module.scss"
 
 interface IDocumentsProps {
   title: string;
   campusId: number;
   documentId: number;
+  mandatory: string;
+  getUserCampusInfo: () => void;
 }
 
-const Documents = ({ title, campusId, documentId }: IDocumentsProps) => {
+const Documents = ({ title, campusId, documentId, mandatory, getUserCampusInfo, }: IDocumentsProps) => {
   const token = useAuthStore((state) => state.token);
   const [checked, setChecked] = useState(false)
 
   const handleUpload = async (e: ChangeEvent<HTMLInputElement>) => {
+    console.log('upload')
     if (!e.target.files) return;
     const document = e.target.files[0];
     try {
       await uploadDocument({ campusId, documentId, document, token })
+      console.log('campusId', campusId);
       setChecked(true)
+      getUserCampusInfo();
     } catch (error) {
       setChecked(false)
     }
@@ -32,24 +38,52 @@ const Documents = ({ title, campusId, documentId }: IDocumentsProps) => {
   return (
     <>
       <Grid container>
-        <Grid item xs={8}>
-          <Typography>{title}</Typography>
+        <Grid item xs={10}>
+          <div className={styles["document-row-wrapper"]}>
+            <Grid item xs={10}>
+              <Typography sx={{ fontFamily: 'GothamMedium !important', fontSize: '1.2rem', fontWeight: 'bolder', display: 'inline-block' }}>{title}
+                {parseInt(mandatory) !== 0 &&
+                  <Typography sx={{ fontFamily: 'GothamMedium !important', fontSize: '1.2rem', fontWeight: 'bolder', color: 'red', display: 'inline-block', paddingLeft: '8px !important' }}> *</Typography>
+                }
+
+              </Typography>
+
+            </Grid>
+            <Grid item xs={2} gap={3}>
+              <div className={styles["document-actions-button"]}>
+
+                <div className={styles["rounded-div"]}>
+                  <Button
+                    component="label"
+                    sx={{ minWidth: '16px !important', padding: '0px !important' }}
+                    startIcon={<UploadIcon sx={{ color: "#e0e0e0", cursor: 'pointer', fontSize: "24px !important" }} />}
+                  >
+                    <input type="file" accept=".pdf" onChange={(e) => handleUpload(e)} hidden />
+                  </Button>
+                </div>
+
+                <div className={styles["rounded-div"]}>
+                  <DeleteIcon sx={{ color: "#e0e0e0" }} />
+                </div>
+
+                <div className={styles["rounded-div"]}>
+                  <VisibilityIcon sx={{ color: "#e0e0e0" }} />
+                </div>
+
+              </div>
+            </Grid>
+
+          </div>
         </Grid>
+
         <Grid item xs={2}>
-          <Box>
-              <Button
-                component="label"
-                startIcon={<UploadIcon sx={{color: "#009999", cursor: 'pointer'}}/>}
-              >
-                <input type="file" accept=".pdf" onChange={(e) => handleUpload(e)} hidden/>
-              </Button>
-            <DeleteIcon sx={{color: "rgba(0, 168, 168, 0.42)"}} />
-            <VisibilityIcon sx={{color: "rgba(0, 168, 168, 0.42)"}} />
-          </Box>
+          <div className={styles["update-column-wrapper"]}>
+            <Grid item xs={12}>
+              {checked ? <CheckIcon sx={{ color: '#f7941d' }} /> : <></>}
+            </Grid>
+          </div>
         </Grid>
-        <Grid item xs={2}>
-          { checked ? <CheckIcon sx={{ color: '#f7941d' }} /> : <></>}
-        </Grid>
+
       </Grid>
     </>
   );

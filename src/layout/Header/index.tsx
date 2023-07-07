@@ -22,7 +22,7 @@ export default function Header() {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const setLogin = useAuthStore((state) => state.setLogin);
+  const setLogin = useAuthStore((state: any) => state.setLogin);
 
   return (
     <AppBar position="static">

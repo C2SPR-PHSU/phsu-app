@@ -5,3 +5,4 @@ export const register = "/register";
 export const campuses = "/campus";
 export const campusDocuments = "/campus/documents";
 export const uploadDocuments = "/user/document/create"
+export const userDocuments = "/user/document"

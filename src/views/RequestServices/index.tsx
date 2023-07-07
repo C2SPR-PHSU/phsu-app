@@ -8,6 +8,9 @@ import Select, { SelectChangeEvent } from "@mui/material/Select";
 import InputLabel from "@mui/material/InputLabel";
 import { getCampuses, getCampusDocuments } from "./functions";
 import Documents from './components/Documents';
+import useAuthStore from "@/hooks/useAuthStore";
+import axios from 'axios';
+
 
 interface ICampuses {
   id: number;
@@ -16,32 +19,90 @@ interface ICampuses {
 import AccordionServiceRequest from "@/components/AccordionServiceRequest";
 
 const RequestServices = () => {
+
+  const token = useAuthStore((state: any) => state.token);
+
+  const [campusStatus, setCampusStatus] = useState(0);
+  const [onBaseRequest, setOnbaseRequest] = useState(null);
+
   const [campuses, setCampuses] = useState<ICampuses[]>([]);
-  const [campusSelected, setCampusSelected] = useState(0);
+  const [campusSelected, setCampusSelected] = useState('');
   const [documentList, setDocumentList] = useState([]);
   const [displayList, setDisplayList] = useState(false)
   const [selectedCampus, setSelectedCampus] = useState('');
   const [selectedService, setSelectedService] = useState('');
 
+  const getUserCampusInfo = () => {
+    console.log('getuserCampusInfo')
+    const url = "http://apiphsu.lobsys.net:8080/user/campus/";
+    const formData = new FormData();
+    formData.append('campus_id', selectedCampus);
+
+    const headers = {
+      'Content-Type': 'multipart/form-data',
+      'token': token
+    };
+
+    axios.post(url, formData, { headers })
+      .then(response => {
+        // handle success, set the row state to the response data
+        setCampusStatus(response.data.data.status);
+        console.log(response.data.data.status)
+      })
+      .catch(error => {
+        // handle error
+        console.log(error);
+      });
+  }
+
+
+
+  const sendToOnBase = () => {
+    console.log('getuserCampusInfo')
+    const url = "http://apiphsu.lobsys.net:8080/user/document/sendOB/";
+    const formData = new FormData();
+    formData.append('campus_id', selectedCampus);
+
+    const headers = {
+      'Content-Type': 'multipart/form-data',
+      'token': token
+    };
+
+    axios.post(url, formData, { headers })
+      .then(response => {
+        // handle success, set the row state to the response data
+        setOnbaseRequest(response.data);
+        console.log(response.data)
+        setCampusStatus(2)
+      })
+      .catch(error => {
+        // handle error
+        console.log(error);
+      });
+  }
+
+
+
   const getAllCampuses = async () => {
     const response = await getCampuses();
+    console.log(response)
     setCampuses(response);
-    setCampusSelected(response[0].id);
+    // setCampusSelected(response[0].id);
     await getDocumentsByCampus(response[0].id)
   };
-  
+
   const getDocumentsByCampus = async (id: number) => {
     const response = await getCampusDocuments(id);
     setDocumentList(response)
   }
 
   const validateDropdownSelection = () => {
-    if(selectedCampus !== '' && selectedService !== '')
-    return setDisplayList(false)
+    if (selectedCampus !== '' && selectedService !== '')
+      return setDisplayList(false)
   }
 
   useEffect(() => {
-    if(selectedCampus !== '' && selectedService !== '') return setDisplayList(true)
+    if (selectedCampus !== '' && selectedService !== '') return setDisplayList(true)
     return setDisplayList(false)
   }, [selectedCampus, selectedService])
 
@@ -60,6 +121,7 @@ const RequestServices = () => {
 
   const handleCampusChange = (event: any) => {
     setSelectedCampus(event.target.value);
+    setCampusSelected(event.target.value)
   };
 
   const handleServiceChange = (event: any) => {
@@ -105,17 +167,20 @@ const RequestServices = () => {
 
   useEffect(() => {
     getDocumentsByCampus(campusSelected)
+    console.log(campusSelected)
+
+    if (campusSelected !== '') getUserCampusInfo();
   }, [campusSelected])
 
   return (
     <>
-      <Box sx={{ display: "flex", flexDirection: "row", padding: '2rem' }}>
+      <Box sx={{ display: "flex", flexDirection: "row", padding: '2rem', minHeight: '90vh' }}>
         <Box
           sx={{
             // backgroundColor: "red",
-            paddingLeft: "5rem",
+            paddingLeft: "7rem",
             paddingTop: "2rem",
-            width: "100%"
+            width: "90%"
           }}
         >
           <Grid container spacing={1}>
@@ -139,7 +204,7 @@ const RequestServices = () => {
             </Grid>
 
             <div className={styles["first-row-title"]}>
-              <Grid xs={12} md={12}>
+              <Grid item xs={12} md={12}>
                 <Typography className={styles["campus-selection-title"]}>
                   Campus Selection
                 </Typography>
@@ -190,6 +255,7 @@ const RequestServices = () => {
             </div>
 
             <Grid
+              item
               xs={12}
               md={12}
               lg={12}
@@ -207,15 +273,21 @@ const RequestServices = () => {
                   </>
                 ) : (
                   <Grid container>
-                    <Grid item xs={8}>
-                      <Typography>Documents</Typography>
-                    </Grid>
-                    <Grid item xs={2}>
-                      <Typography>Actions</Typography>
-                    </Grid>
-                    <Grid item xs={2}>
-                      <Typography>Updated</Typography> 
-                    </Grid>
+                    <div className={styles["document-th-wrapper"]}>
+                      <Grid item xs={8}>
+                        <Typography className={styles["documents-th"]}>
+                          Documents</Typography>
+                      </Grid>
+                      <Grid item xs={2}>
+                        <Typography className={styles["actions-th"]}>
+                          Actions</Typography>
+                      </Grid>
+                      <Grid item xs={2}>
+                        <Typography className={styles["actions-th"]}>
+                          Updated</Typography>
+                      </Grid>
+                    </div>
+
                     {
                       documentList.map((document) => {
                         return (
@@ -224,6 +296,8 @@ const RequestServices = () => {
                               title={document.name}
                               campusId={campusSelected}
                               documentId={document.id}
+                              mandatory={document.mandatory}
+                              getUserCampusInfo={getUserCampusInfo}
                             />
                           </Grid>
                         )
@@ -234,31 +308,37 @@ const RequestServices = () => {
               }
             </Grid>
 
-            <Grid xs={12} md={12} lg={12} sx={{ paddingBottom: "1.2rem" }}>
+            <Grid item xs={12} md={12} lg={12} sx={{ paddingBottom: "1.2rem" }}>
               <div className={styles["accordions-wrapper"]}>
                 <AccordionServiceRequest />
               </div>
             </Grid>
 
             <Grid
+              item
               xs={12}
               md={12}
               lg={12}
               sx={{ paddingBottom: "1.2rem", paddingTop: "1rem" }}
             >
               <Box sx={{ display: "flex", flexDirection: "row", gap: "1rem" }}>
-                <Button
-                  variant="contained"
-                  className={styles["button-submit"]}
-                  sx={{
-                    '&.Mui-disabled': {
-                      opacity: "0.6",
-                      color: 'white',
-                    },
-                  }}
-                  disabled={!isReady}>
-                  SUBMIT
-                </Button>
+                {parseInt(campusStatus) !== 2 &&
+                  <Button
+                    onClick={sendToOnBase}
+                    variant="contained"
+                    className={styles["button-submit"]}
+                    sx={{
+                      '&.Mui-disabled': {
+                        opacity: "0.6",
+                        color: 'white',
+                      },
+                    }}
+                    disabled={campusStatus === 0}
+                  >
+                    SUBMIT
+                  </Button>
+                }
+
                 <Button variant="contained" className={styles["button-save"]}>
                   SAVE
                 </Button>
