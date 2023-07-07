@@ -1,17 +1,18 @@
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import CustomLabel from "@/components/CustomLabel";
 import UploadIcon from "@mui/icons-material/Upload";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import CheckIcon from "@mui/icons-material/Check";
-
+import LabelForServicesRequest from "../LabelForServicesRequest";
 interface UploadDocuments {
   text: string;
   important: boolean;
   upload: boolean;
   trash: boolean;
   visibility: boolean;
+  textRed: string;
 }
 
 const Documents: React.FC<UploadDocuments> = ({
@@ -20,6 +21,7 @@ const Documents: React.FC<UploadDocuments> = ({
   upload,
   trash,
   visibility,
+  textRed,
 }) => {
   return (
     <>
@@ -33,8 +35,19 @@ const Documents: React.FC<UploadDocuments> = ({
             borderBottom: "3px solid #ebeaea",
           }}
         >
-          <Box sx={{ display: "flex", flexDirection: "column", width: "50%" }}>
-            <CustomLabel name={text} required={important} />
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "row",
+              width: "50%",
+              gap: "0.2rem",
+            }}
+          >
+            <LabelForServicesRequest
+              name={text}
+              required={important}
+              textRed={textRed}
+            />
           </Box>
 
           <Box
@@ -111,7 +124,15 @@ const Documents: React.FC<UploadDocuments> = ({
           </Box>
         </Box>
 
-        <Box sx={{ paddingTop: "0.7rem" }}>
+        <Box
+          sx={{
+            display: "none",
+            ...(upload && {
+              display: "flex",
+              paddingTop: "0.7rem",
+            }),
+          }}
+        >
           <CheckIcon sx={{ color: "#f7941d" }} />
         </Box>
       </Box>

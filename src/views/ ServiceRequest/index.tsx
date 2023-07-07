@@ -5,9 +5,7 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import styles from "./stylesServices.module.scss";
 import { Sidebar } from "@/layout";
-import List from "@mui/material/List";
 import Documents from "@/components/Documents-User";
-import ListItem from "@mui/material/ListItem";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import menuIcon from "../../assets/menuIcon.png";
@@ -130,6 +128,7 @@ const ServiceRequest = () => {
     "& .MuiOutlinedInput-input": {
       padding: "0.7rem",
     },
+    backgroundColor: "E0E0E0",
   };
   return (
     <>
@@ -316,7 +315,7 @@ const ServiceRequest = () => {
               >
                 Documents
               </Typography>
-
+              {/* ---------------------------- */}
               <Box
                 sx={{
                   display: "none",
@@ -373,6 +372,7 @@ const ServiceRequest = () => {
                       upload={service.upload}
                       trash={service.trash}
                       visibility={service.visibility}
+                      textRed={service.textRed}
                     />
                   );
                 })}
@@ -383,7 +383,7 @@ const ServiceRequest = () => {
             <Grid xs={12} md={12} lg={12} sx={{ paddingBottom: "1.2rem" }}>
               <Box
                 sx={{
-                  backgroundColor: "#efefef",
+                  backgroundColor: "#f2f2f2",
                   width: "85%",
                   borderRadius: "10px",
                   padding: "0.7rem",
@@ -465,7 +465,7 @@ const ServiceRequest = () => {
             <Grid xs={12} md={12} lg={12} sx={{ paddingBottom: "1.2rem" }}>
               <Box
                 sx={{
-                  backgroundColor: "#efefef",
+                  backgroundColor: "#f2f2f2",
                   width: "85%",
                   borderRadius: "10px",
                   padding: "0.7rem",
