@@ -1,9 +1,10 @@
-import { ChangeEvent } from "react";
+import { ChangeEvent, useState } from "react";
 import { Grid, Box, Typography, Button } from "@mui/material";
 import UploadIcon from '@mui/icons-material/Upload';
 import DeleteIcon from '@mui/icons-material/Delete';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import CheckIcon from '@mui/icons-material/Check';
+import CloseIcon from '@mui/icons-material/Close';
 import { uploadDocument } from '@/views/RequestServices/functions';
 
 interface IDocumentsProps {
@@ -14,11 +15,17 @@ interface IDocumentsProps {
 
 const Documents = ({ title, campusId, documentId }: IDocumentsProps) => {
 
+  const [checked, setChecked] = useState(false)
+
   const handleUpload = async (e: ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files) return;
     const document = e.target.files[0];
-    const response = await uploadDocument({ campusId, documentId, document })
-    console.log(response)
+    try {
+      await uploadDocument({ campusId, documentId, document })
+      setChecked(true)
+    } catch (error) {
+      setChecked(false)
+    }
   }
 
   return (
@@ -40,7 +47,7 @@ const Documents = ({ title, campusId, documentId }: IDocumentsProps) => {
           </Box>
         </Grid>
         <Grid item xs={2}>
-          <CheckIcon sx={{ color: '#f7941d', textAlign: 'center'}} />
+          { checked ? <CheckIcon sx={{ color: '#f7941d' }} /> : <CloseIcon sx={{ color: 'red' }} />}
         </Grid>
       </Grid>
     </>

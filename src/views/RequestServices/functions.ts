@@ -54,20 +54,15 @@ export const uploadDocument = async ({
 
     // const test = await axios.post(url, formData);
     // console.log(test)
-    fetch(
+    const response = await fetch(
 			url,
 			{
 				method: 'POST',
 				body: formData,
 			}
 		)
-			.then((response) => response.json())
-			.then((result) => {
-				console.log('Success:', result);
-			})
-			.catch((error) => {
-				console.error('Error:', error);
-			});
+
+    return response
 
     // const res = await api.post({ 
     //   body: formData
