@@ -37,15 +37,31 @@
 }
 
 .button-submit {
-  background-color: #89d2cc !important;
+  background-color: $primary !important;
   padding-right: 6rem !important;
   padding-left: 6rem !important;
   font-family: $gothamBlack !important;
 }
 
 .button-save {
-  background-color: $warning;
+  background-color: $warning !important;
   padding-right: 6rem !important;
   padding-left: 6rem !important;
   font-family: $gothamBlack !important;
+}
+
+
+.first-row-title {
+  display: flex;
+  width: 100%;
+  margin-top: 2rem !important;
+  padding-left: 8px;
+}
+
+.form-first-row {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  margin-bottom: 1rem !important;
+  padding-left: 8px;
 }
