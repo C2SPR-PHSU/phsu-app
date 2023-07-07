@@ -1,6 +1,5 @@
 import api from "@/utils/services/api";
-import { campuses, campusDocuments } from "@/utils";
-import axios from 'axios';
+import { campuses, campusDocuments, uploadDocuments } from "@/utils";
 
 export const getCampuses = async () => {
   try {
@@ -28,47 +27,29 @@ interface IUploadDocument {
   campusId: number;
   documentId: number;
   document: File;
+  token: string;
 }
 
 export const uploadDocument = async ({
   campusId, 
   documentId, 
-  document
+  document, 
+  token
 }: IUploadDocument) => {
   try {
-    api.resource = campusDocuments;
-    const url = "http://apiphsu.lobsys.net:8080/campus/documents"
+    api.resource = uploadDocuments;
+    api.token = token
 
-    const formData = new FormData();
- 
-    // Update the formData object
-    formData.append(
-        "document",
+    const res = await api.post({ 
+      body: {
+        campus_id: 2, // The API crashes if this value is != 2 idk
+        document_id: documentId,
         document,
-        document.name
-    );
-
-    formData.append("campus_id", "2")
-    formData.append("document_id", "2")
-    formData.append("id", "1")
-
-    // const test = await axios.post(url, formData);
-    // console.log(test)
-    const response = await fetch(
-			url,
-			{
-				method: 'POST',
-				body: formData,
-			}
-		)
-
-    return response
-
-    // const res = await api.post({ 
-    //   body: formData
-    // });
-    // return res.data;
+        force: 1
+      }
+    });
+    return res.data;
   } catch (error) {
     throw error;
-  } 
+  }
 };

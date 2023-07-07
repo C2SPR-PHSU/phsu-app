@@ -6,6 +6,7 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import CheckIcon from '@mui/icons-material/Check';
 import CloseIcon from '@mui/icons-material/Close';
 import { uploadDocument } from '@/views/RequestServices/functions';
+import useAuthStore from "@/hooks/useAuthStore";
 
 interface IDocumentsProps {
   title: string;
@@ -14,14 +15,14 @@ interface IDocumentsProps {
 }
 
 const Documents = ({ title, campusId, documentId }: IDocumentsProps) => {
-
+  const token = useAuthStore((state) => state.token);
   const [checked, setChecked] = useState(false)
 
   const handleUpload = async (e: ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files) return;
     const document = e.target.files[0];
     try {
-      await uploadDocument({ campusId, documentId, document })
+      await uploadDocument({ campusId, documentId, document, token })
       setChecked(true)
     } catch (error) {
       setChecked(false)
