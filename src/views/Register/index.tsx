@@ -176,62 +176,52 @@ export default function Registration() {
 
           {/* FistName */}
           <Grid item xs={12} sm={6} md={4}>
-            <div>
-              <CustomLabel name="First Name" required={true} />
-              <TextField
-                id="firstName"
-                name="firstName"
-                placeholder="First Name"
-                type="text"
-                value={formik.values.firstName}
-                onChange={formik.handleChange}
-                sx={customTextField}
-                error={
-                  formik.touched.firstName && Boolean(formik.errors.firstName)
-                }
-                helperText={formik.touched.firstName && formik.errors.firstName}
-              />
-            </div>
+            <CustomLabel name="First Name" required={true} />
+            <TextField
+              id="firstName"
+              name="firstName"
+              placeholder="First Name"
+              type="text"
+              value={formik.values.firstName}
+              onChange={formik.handleChange}
+              sx={customTextField}
+              error={
+                formik.touched.firstName && Boolean(formik.errors.firstName)
+              }
+              helperText={formik.touched.firstName && formik.errors.firstName}
+            />
           </Grid>
 
           {/* ---------------------------Middle Name---------------------------------------- */}
           <Grid item xs={12} sm={6} md={4}>
-            <div>
-              <CustomLabel name="Middle Name" required={false} />
-              <TextField
-                type="text"
-                onChange={formik.handleChange}
-                placeholder="Middle Name"
-                name="middleName"
-                value={formik.values.middleName}
-                sx={customTextField}
-                error={
-                  formik.touched.middleName && Boolean(formik.errors.middleName)
-                }
-                helperText={
-                  formik.touched.middleName && formik.errors.middleName
-                }
-              />
-            </div>
+            <CustomLabel name="Middle Name" required={false} />
+            <TextField
+              type="text"
+              onChange={formik.handleChange}
+              placeholder="Middle Name"
+              name="middleName"
+              value={formik.values.middleName}
+              sx={customTextField}
+              error={
+                formik.touched.middleName && Boolean(formik.errors.middleName)
+              }
+              helperText={formik.touched.middleName && formik.errors.middleName}
+            />
           </Grid>
 
           {/* ---------------------------LastName------------------------------------------ */}
           <Grid item xs={12} sm={6} md={4}>
-            <div>
-              <CustomLabel name="Last Name" required={true} />
-              <TextField
-                type="text"
-                onChange={formik.handleChange}
-                name="lastName"
-                placeholder="Last Name"
-                value={formik.values.lastName}
-                sx={customTextField}
-                error={
-                  formik.touched.lastName && Boolean(formik.errors.lastName)
-                }
-                helperText={formik.touched.lastName && formik.errors.lastName}
-              />
-            </div>
+            <CustomLabel name="Last Name" required={true} />
+            <TextField
+              type="text"
+              onChange={formik.handleChange}
+              name="lastName"
+              placeholder="Last Name"
+              value={formik.values.lastName}
+              sx={customTextField}
+              error={formik.touched.lastName && Boolean(formik.errors.lastName)}
+              helperText={formik.touched.lastName && formik.errors.lastName}
+            />
           </Grid>
           {/* ------------------------------Second LastName-------------------------------------- */}
           <Grid item xs={12} sm={6} md={4}>
@@ -286,6 +276,7 @@ export default function Registration() {
               }
             />
           </Grid>
+
           {/* ----------------------------------------Email ---------------------------------------- */}
           <Grid item xs={12} sm={6} md={4}>
             <CustomLabel name="Email" required={true} />
@@ -300,6 +291,7 @@ export default function Registration() {
               helperText={formik.touched.email && formik.errors.email}
             />
           </Grid>
+
           {/*---------------------------Student Id--------------------------------------  */}
           <Grid item xs={12} sm={6} md={4}>
             <CustomLabel name="Student Id" required={true} />
