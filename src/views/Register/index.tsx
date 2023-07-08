@@ -42,6 +42,11 @@ export default function Registration() {
       firstName: Yup.string()
         .matches(/^[A-Za-z]+$/, "First Name should only contain letters")
         .required("First Name is required"),
+
+      lastName: Yup.string()
+        .matches(/^[A-Za-z]+$/, "Last Name should only contain letters")
+        .required("Last Name is required"),
+      secondLastName: Yup.string(),
       email: Yup.string()
         .email("Invalid email address")
         .required("Email is required"),
@@ -49,9 +54,7 @@ export default function Registration() {
       phoneNumber: Yup.string().required("Cell Phone is required"),
       studentId: Yup.string().required("Student ID is required"),
       middleName: Yup.string().required("Middle Name is required"),
-      lastName: Yup.string().required("Last Name is required"),
-      secondLastName: Yup.string().required("Second Last Name is required"),
-      // birthdate: Yup.string().required("Birthdate is required"),
+      birthdate: Yup.string().required("Birthdate is required"),
       addressLine1: Yup.string().required("Address Line 1 is required"),
       addressLine2: Yup.string().required("Address Line 2 is required"),
       addressState: Yup.string().required("Address State is required"),
@@ -67,7 +70,6 @@ export default function Registration() {
         .oneOf([Yup.ref("password")], "The passwords do not match"),
     }),
     onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
       try {
         const response = requestRegister({
           email: values.email,
@@ -83,9 +85,10 @@ export default function Registration() {
           address_state: values.addressState,
           address_city: values.addressCity,
           address_zipcode: values.addressZipcode,
-          password: formValues.password,
+          password: values.password,
         });
         console.log(values);
+        console.log("response ----> ", response);
         navigate("/");
       } catch (error) {
         console.log(error);
@@ -249,16 +252,17 @@ export default function Registration() {
               }
             />
           </Grid>
-          {/* ----------------------- Date of Birth -------------------------- */}
+          {/* ------------------------------------------- Date of Birth --------------------------------------- */}
+
           <Grid item xs={12} sm={6} md={4}>
             <CustomLabel name="Date of Birth" required={true} />
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DatePicker
                 sx={Date}
                 value={formik.values.birthdate}
-                // onChange={(newValue) =>
-                //   // handleInputChange("dateOfBirth", newValue?.toString() || "")
-                // }
+                onChange={(newValue) => {
+                  formik.setFieldValue("birthdate", newValue);
+                }}
                 slotProps={{ textField: { size: "small", fullWidth: true } }}
               />
             </LocalizationProvider>
