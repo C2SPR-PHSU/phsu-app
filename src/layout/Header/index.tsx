@@ -15,11 +15,14 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
 import MenuIcon from "@mui/icons-material/Menu";
 import IconButton from "@mui/material/IconButton";
-import useAuthStore from "@/hooks/useAuthStore";
+import { login } from "@/utils";
 import Container from "@mui/material/Container";
 import { Link } from "react-router-dom";
 import { PATH } from "@/routes/constants";
 import { useNavigate } from "react-router-dom";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import ApiRequest from "@/utils/services/apiService";
 
 export default function Header() {
   const primaryColor = "#009999";
@@ -51,9 +54,7 @@ export default function Header() {
     },
   };
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const setLogin = useAuthStore((state) => state.setLogin);
+  // const setLogin = useAuthStore((state: any) => state.setLogin);
   const [menuOpen, setMenuOpen] = useState(false);
 
   /**
@@ -81,6 +82,44 @@ export default function Header() {
   const home = () => {
     navigate("/");
   };
+
+  const formik = useFormik({
+    initialValues: {
+      email: "",
+      password: "",
+    },
+
+    validationSchema: Yup.object({
+      email: Yup.string()
+        .email("Invalid email address")
+        .required("Email is required")
+        .min(6, "Password must be at least 6 characters long")
+        .max(30, "Password must be at most 30 characters"),
+
+      password: Yup.string()
+        .required("Password is required")
+        .min(6, "Password must be at least 6 characters long")
+        .max(20, "Password must be at most 20 characters"),
+    }),
+
+    onSubmit: (values) => {
+      const request = {
+        email: values.email,
+        password: values.password,
+      };
+      const api = new ApiRequest();
+      // url request
+      api.resource = login;
+      try {
+        const response = api.post({
+          body: request,
+        });
+        console.log(response);
+      } catch (error) {
+        console.error(error);
+      }
+    },
+  });
 
   return (
     <AppBar position="static">
@@ -130,53 +169,67 @@ export default function Header() {
         </Box>
 
         {/* Auth Controls */}
-        <Box
-          sx={{
-            display: "flex",
-            alignItems: "center",
-            gap: 2,
-            pr: 5,
-            ...(isScreenLg && { display: "none" }),
-          }}
-        >
-          <PersonIcon className={styles["header-icons"]} />
-          <TextField
-            id="username"
-            label="Username"
-            variant="outlined"
-            size="small"
-            sx={styleTextfield}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <LockRounded className={styles["header-icons"]} />
-          <TextField
-            id="password"
-            label="Password"
-            type="password"
-            variant="outlined"
-            size="small"
-            sx={styleTextfield}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <Button variant="contained" className={styles["header-button"]}>
-            Log In
-          </Button>
-
-          <div className={styles["icon-container-toggle"]}>
-            <Button
-              style={{
-                display: "flex",
-                padding: "0",
-                minWidth: "initial",
-                width: "100%",
-              }}
+        <form onSubmit={formik.handleSubmit}>
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              gap: 2,
+              pr: 5,
+              ...(isScreenLg && { display: "none" }),
+            }}
+          >
+            <PersonIcon className={styles["header-icons"]} />
+            <TextField
+              id="username"
+              label="Username"
+              variant="outlined"
+              name="email"
               size="small"
-              onClick={recoveryView}
-            >
-              <LockRounded className={styles["header-button-variant"]} />
-            </Button>
-          </div>
-        </Box>
+              sx={styleTextfield}
+              value={formik.values.email}
+              onChange={formik.handleChange}
+            />
+            <LockRounded className={styles["header-icons"]} />
+            <TextField
+              id="password"
+              label="Password"
+              type="password"
+              variant="outlined"
+              name="password"
+              size="small"
+              value={formik.values.password}
+              sx={styleTextfield}
+              onChange={formik.handleChange}
+            />
+            <Box sx={{ display: "flex", flexDirection: "row", gap: "10%" }}>
+              <Button
+                variant="contained"
+                className={styles["header-button"]}
+                type="submit"
+              >
+                Log In
+              </Button>
+              <IconButton
+                sx={{
+                  display: "flex",
+                  backgroundColor: "#009999",
+                  cursor: "default",
+                  minWidth: "2rem",
+                  minHeight: "2rem",
+                  maxHeight: "2rem",
+                  maxWidth: "2rem",
+                  "&:hover": {
+                    backgroundColor: "#009999",
+                  },
+                }}
+                onClick={recoveryView}
+              >
+                <LockRounded className={styles["header-button-variant"]} />
+              </IconButton>
+            </Box>
+          </Box>
+        </form>
 
         {/* Menu Toggle */}
         <IconButton
@@ -201,79 +254,96 @@ export default function Header() {
       </Toolbar>
 
       {/* <----------------------------- Menu Toggle --------------------------------------> */}
-      <Toolbar
-        sx={{
-          display: "none",
-          justifyContent: "end",
-          backgroundColor: "#ffff",
-          ...(menuOpen && {
-            display: "flex",
-            height: "200px",
-            transition: "height 0.9s ease",
-            justifyContent: "end",
-          }),
-        }}
-      >
-        <Container
+      <form onSubmit={formik.handleSubmit}>
+        <Toolbar
           sx={{
-            display: "flex",
-            flexDirection: "column",
-            width: "60%",
-            gap: "1.2rem",
+            display: "none",
+            justifyContent: "end",
+            backgroundColor: "#ffff",
+            ...(menuOpen &&
+              isScreenLg && {
+                display: "flex",
+                height: "200px",
+                transition: "height 0.9s ease",
+                justifyContent: "end",
+              }),
           }}
         >
-          {/* Inputs */}
-          <TextField
-            id="username"
-            label="Username"
-            variant="outlined"
-            size="small"
-            sx={styleTextfield}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-
-          <TextField
-            id="password"
-            label="Password"
-            type="password"
-            variant="outlined"
-            size="small"
-            sx={styleTextfield}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-
-          {/* <-------------------------------- Buttons ---------------------------------->*/}
           <Container
-            sx={{ display: "flex", flexDirection: "row", gap: "1rem" }}
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              width: "60%",
+              gap: "1.2rem",
+            }}
           >
-            <Button
-              variant="contained"
-              className={styles["toggle-button"]}
-              onClick={() => setLogin(email, password)}
-              sx={{ marginBottom: "10px" }}
-            >
-              Log In
-            </Button>
+            {/* Inputs */}
+            <TextField
+              id="username"
+              label="Username"
+              name="email"
+              variant="outlined"
+              size="small"
+              value={formik.values.email}
+              sx={styleTextfield}
+              onChange={formik.handleChange}
+            />
 
-            <div className={styles["icon-container-toggle"]}>
+            <TextField
+              id="password"
+              label="Password"
+              type="password"
+              variant="outlined"
+              size="small"
+              name="password"
+              value={formik.values.password}
+              sx={styleTextfield}
+              onChange={formik.handleChange}
+            />
+
+            {/* <-------------------------------- Buttons ---------------------------------->*/}
+            <Container
+              sx={{
+                display: "flex",
+                flexDirection: "row",
+                gap: "1rem",
+              }}
+            >
               <Button
-                style={{
-                  display: "flex",
-                  padding: "0",
-                  minWidth: "initial",
-                  width: "100%",
+                variant="contained"
+                type="submit"
+                className={styles["toggle-button"]}
+                sx={{ marginBottom: "10px" }}
+              >
+                Log In
+              </Button>
+
+              <IconButton
+                sx={{
+                  display: "none",
+                  ...(isScreenLg && {
+                    display: "flex",
+                    backgroundColor: "#009999",
+                    cursor: "default",
+                    minWidth: "2rem",
+                    minHeight: "2rem",
+                    maxHeight: "2rem",
+                    maxWidth: "2rem",
+                    "&:hover": {
+                      backgroundColor: "#009999",
+                    },
+                  }),
                 }}
-                size="small"
                 onClick={recoveryView}
               >
                 <LockRounded
                   className={styles["header-button-variant-toggle"]}
                 />
-              </Button>
-            </div>
+              </IconButton>
+            </Container>
           </Container>
-        </Container>
-      </Toolbar>
+        </Toolbar>
+      </form>
     </AppBar>
   );
 }

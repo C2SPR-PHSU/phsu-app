@@ -93,7 +93,7 @@ export default function Registration() {
 
       addressCity: Yup.string()
         .required("Address City is required")
-        .max(20, "Address City must be at most 20 characters"),
+        .max(22, "Address City must be at most 22 characters"),
 
       addressZipcode: Yup.number().required("Address Zip Code is required"),
 
@@ -111,7 +111,6 @@ export default function Registration() {
     }),
 
     onSubmit: (values) => {
-      alert("ok");
       try {
         const response = requestRegister({
           email: values.email,
