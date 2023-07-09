@@ -57,7 +57,7 @@ export default function Registration() {
       email: Yup.string()
         .email("Invalid email address")
         .required("Email is required")
-        .max(20, "Email must be at most 20 characters"),
+        .max(100, "Email must be at most 100 characters"),
 
       phoneNumber: Yup.string()
         .required("Cell Phone is required")

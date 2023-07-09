@@ -94,7 +94,7 @@ export default function Header() {
         .email("Invalid email address")
         .required("Email is required")
         .min(6, "Password must be at least 6 characters long")
-        .max(30, "Password must be at most 30 characters"),
+        .max(100, "Password must be at most 100 characters"),
 
       password: Yup.string()
         .required("Password is required")
