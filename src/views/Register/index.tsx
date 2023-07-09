@@ -66,11 +66,14 @@ export default function Registration() {
 
       studentId: Yup.string()
         .required("Student ID is required")
+        .min(6, "Password must be at least 6 characters long")
+        .matches(/^[0-9]+$/, "Cell Phone should only contain numbers")
         .max(20, "Student ID must be at most 20 characters"),
 
-      middleName: Yup.string()
-        .required("Middle Name is required")
-        .max(20, "Middle Name must be at most 20 characters"),
+      middleName: Yup.string().max(
+        20,
+        "Middle Name must be at most 20 characters"
+      ),
 
       birthdate: Yup.string()
         .required("Birthdate is required")
@@ -108,6 +111,7 @@ export default function Registration() {
     }),
 
     onSubmit: (values) => {
+      alert("ok");
       try {
         const response = requestRegister({
           email: values.email,

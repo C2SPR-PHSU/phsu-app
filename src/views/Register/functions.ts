@@ -1,6 +1,5 @@
 import api from "@/utils/services/api";
 import { register } from "@/utils";
-import { IUserLogin } from "@/types/responses";
 
 interface IUserRegisterParams {
   email: string;
@@ -35,29 +34,25 @@ export const requestRegister = async ({
   address_zipcode,
   password,
 }: IUserRegisterParams) => {
-  try {
-    api.resource = register;
+  api.resource = register;
 
-    const res = await api.post({
-      body: {
-        email,
-        cell_phone,
-        student_id,
-        first_name,
-        middle_name,
-        last_name,
-        second_last_name,
-        birthdate,
-        address_line1,
-        address_line2,
-        address_state,
-        address_city,
-        address_zipcode,
-        password,
-      },
-    });
-    return res;
-  } catch (error) {
-    throw error;
-  }
+  const res = await api.post({
+    body: {
+      email,
+      cell_phone,
+      student_id,
+      first_name,
+      middle_name,
+      last_name,
+      second_last_name,
+      birthdate,
+      address_line1,
+      address_line2,
+      address_state,
+      address_city,
+      address_zipcode,
+      password,
+    },
+  });
+  return res;
 };
