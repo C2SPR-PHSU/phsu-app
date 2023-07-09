@@ -1,24 +1,24 @@
-import { create } from 'zustand';
-import { requestLogin } from '@/views/Login/functions';
-import { persist } from 'zustand/middleware'
+import { create } from "zustand";
+import { requestLogin } from "@/views/Login/functions";
+import { persist } from "zustand/middleware";
 
 const useAuthStore = create(
   persist(
     (set) => ({
       isAuthenticated: false,
-      token: '',
+      token: "",
       setLogin: async (email: string, password: string) => {
         const user = await requestLogin({ email, password });
         set(() => ({
           isAuthenticated: true,
-          token: user.data.token 
+          token: user.data.token,
         }));
       },
     }),
     {
-      name: 'user',
+      name: "user",
     }
-  ),
+  )
 );
-    
+
 export default useAuthStore;

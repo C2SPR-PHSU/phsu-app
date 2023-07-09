@@ -23,6 +23,7 @@ import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import ApiRequest from "@/utils/services/apiService";
+import useAuthStore from "@/hooks/useAuthStore";
 
 export default function Header() {
   const primaryColor = "#009999";
@@ -54,7 +55,7 @@ export default function Header() {
     },
   };
 
-  // const setLogin = useAuthStore((state: any) => state.setLogin);
+  const setLogin = useAuthStore((state: any) => state.setLogin);
   const [menuOpen, setMenuOpen] = useState(false);
 
   /**
@@ -118,6 +119,8 @@ export default function Header() {
       } catch (error) {
         console.error(error);
       }
+
+      setLogin(values.email, values.password);
     },
   });
 
