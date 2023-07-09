@@ -75,9 +75,7 @@ export default function Registration() {
         "Middle Name must be at most 20 characters"
       ),
 
-      birthdate: Yup.string()
-        .required("Birthdate is required")
-        .max(20, "Birthdate must be at most 20 characters"),
+      birthdate: Yup.string().required("Birthdate is required"),
 
       addressLine1: Yup.string()
         .required("Address Line 1 is required")
