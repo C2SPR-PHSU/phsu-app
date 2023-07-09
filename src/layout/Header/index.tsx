@@ -182,7 +182,7 @@ export default function Header() {
             <PersonIcon className={styles["header-icons"]} />
             <TextField
               id="username"
-              label="Username"
+              label="Email"
               variant="outlined"
               name="email"
               size="small"
@@ -280,7 +280,7 @@ export default function Header() {
             {/* Inputs */}
             <TextField
               id="username"
-              label="Username"
+              label="Email"
               name="email"
               variant="outlined"
               size="small"
