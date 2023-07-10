@@ -28,7 +28,14 @@ const ItemStatus: React.FC<ItemStatusProps> = ({ title, date }) => {
       <Typography>{date}</Typography>
       <Credentialing />
 
-      <Box>
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "space-around",
+          width: "9%",
+        }}
+      >
         <IconButton
           sx={{
             backgroundColor: "#009999",

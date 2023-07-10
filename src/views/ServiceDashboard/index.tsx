@@ -49,11 +49,10 @@ const App: React.FC = () => {
                 justifyContent: "space-around",
               }}
             >
-              <Typography>Service</Typography>
-
-              <Typography>Time</Typography>
-              <Typography>Status</Typography>
-              <Typography>Action</Typography>
+              <Typography className={styles["sub-title"]}>Service</Typography>
+              <Typography className={styles["sub-title"]}>Time</Typography>
+              <Typography className={styles["sub-title"]}>Status</Typography>
+              <Typography className={styles["sub-title"]}>Action</Typography>
             </Box>
             <ItemStatus title="Credentialing Certification" date="03/06/2023" />
             <ItemStatus title="Credentialing Certification" date="03/06/2023" />
