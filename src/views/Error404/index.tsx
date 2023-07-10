@@ -72,8 +72,6 @@ const Error404 = () => {
           </Box>
         </Grid>
 
-        {/*  */}
-
         <Grid
           item
           xs={12}
