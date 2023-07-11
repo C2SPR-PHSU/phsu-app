@@ -1,8 +1,25 @@
-import React, { useState } from "react";
+import React from "react";
 import { Box, Typography } from "@mui/material";
 import styles from "./styles.module.scss";
 import ItemStatus from "@/components/ItemStatus";
 import { Sidebar } from "@/layout";
+
+interface ResponseData {
+  code: number;
+  message: string;
+  data: CredentialingCertificationData;
+}
+
+interface CredentialingCertificationData {
+  "Credentialing Certification": CredentialingCertification[];
+}
+
+interface CredentialingCertification {
+  campus_id: string;
+  status: string;
+  created: string;
+  statusDesc: string;
+}
 
 const App: React.FC = () => {
   return (

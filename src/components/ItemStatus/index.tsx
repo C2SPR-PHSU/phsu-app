@@ -1,9 +1,10 @@
 import React from "react";
-import { Box, Typography } from "@mui/material";
-import Credentialing from "@/layout/CredentialingCertification";
+import { Box, Button, Typography } from "@mui/material";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import IconButton from "@mui/material/IconButton";
 import UploadIcon from "@mui/icons-material/Upload";
+import Modal from "@mui/material/Modal";
+import { useState } from "react";
 
 interface ItemStatusProps {
   title: string;
@@ -18,6 +19,23 @@ const ItemStatus: React.FC<ItemStatusProps> = ({
   texButton,
   state,
 }) => {
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
+  const style = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: 400,
+    bgcolor: "background.paper",
+    border: "2px solid #7b7b7b",
+    boxShadow: 24,
+    p: 4,
+    borderRadius: "8px",
+  };
+
   return (
     <Box
       sx={{
@@ -33,7 +51,17 @@ const ItemStatus: React.FC<ItemStatusProps> = ({
     >
       <Typography>{title}</Typography>
       <Typography>{date}</Typography>
-      <Credentialing buttonText={texButton} state={state} />
+
+      <Button
+        sx={{
+          color: "gray",
+          borderColor: "gray",
+          padding: "1rem",
+        }}
+        variant="outlined"
+      >
+        {texButton}
+      </Button>
 
       <Box
         sx={{
@@ -44,6 +72,7 @@ const ItemStatus: React.FC<ItemStatusProps> = ({
         }}
       >
         <IconButton
+          onClick={handleOpen}
           sx={{
             backgroundColor: "#009999",
             minWidth: "2rem",
@@ -57,6 +86,34 @@ const ItemStatus: React.FC<ItemStatusProps> = ({
           }}
         >
           <VisibilityIcon sx={{ color: "white" }} />
+
+          <Modal
+            open={open}
+            onClose={handleClose}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+          >
+            <Box sx={style}>
+              <Typography
+                component="h2"
+                sx={{
+                  color: "#f7941d",
+                  fontWeight: "bold",
+                  fontSize: "23px",
+                  paddingBottom: "1rem",
+                }}
+              >
+                Credentialing Certification
+              </Typography>
+
+              <Box>
+                <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                  Duis mollis, est non commodo luctus, nisi erat porttitor
+                  ligula.
+                </Typography>
+              </Box>
+            </Box>
+          </Modal>
         </IconButton>
 
         <IconButton
