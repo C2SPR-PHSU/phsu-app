@@ -29,8 +29,6 @@ const Root = () => {
       )}
       <Route path={PATH.NOT_FOUND} element={<NotFound />} />
       <Route path="*" element={<Error404 />} />
-
-      {/* {/* <Route path={PATH.PROFILE} element={<Profile />} /> */}
     </Routes>
   );
 };
