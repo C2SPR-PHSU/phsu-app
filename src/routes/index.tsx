@@ -1,9 +1,5 @@
 import { Route, Routes } from "react-router-dom";
-import { Home, Login, Register, NotFound } from "@/views";
-import Recovery from "@/views/Recovery";
-import Error404 from "@/views/Error404";
-import Error500 from "@/views/Error500";
-import Profile from "@/views/Profile";
+import { Home, Login, Register, NotFound, RequestServices } from "@/views";
 import { UnauthorizedLayout, AuthorizedLayout } from "@/layout";
 import { PATH } from "./constants";
 import useAuthStore from "@/hooks/useAuthStore";
@@ -23,6 +19,10 @@ const Root = () => {
       ) : (
         <Route path={PATH.ROOT} element={<AuthorizedLayout />}>
           <Route path={PATH.ROOT} element={<Home />}></Route>
+          <Route
+            path={PATH.REQUEST_SERVICES}
+            element={<RequestServices />}
+          ></Route>
         </Route>
       )}
       <Route path={PATH.NOT_FOUND} element={<NotFound />} />
