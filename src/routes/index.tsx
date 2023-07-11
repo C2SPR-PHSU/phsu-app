@@ -10,7 +10,7 @@ import useAuthStore from "@/hooks/useAuthStore";
 import RequestService from "@/views/Service Request";
 
 const Root = () => {
-  const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
+  const isAuthenticated = useAuthStore((state: any) => state.isAuthenticated);
 
   return (
     <Routes>

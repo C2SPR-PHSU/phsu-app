@@ -8,3 +8,13 @@
   justify-content: space-around;
   padding: 5rem 0 15rem 0;
 }
+
+.navbar {
+  flex-direction: row; // Cambia la dirección de los elementos a horizontal
+  background-color: #f2f2f2;
+  padding: 10px;
+}
+
+.navbar .option {
+  margin-right: 10px; // Espacio entre las opciones del navbar
+}
