@@ -30,18 +30,18 @@ const request = {
 };
 
 const App: React.FC = () => {
-  useEffect(() => {
-    const api = new ApiRequest();
-    api.resource = CredentialingCertificate;
-    try {
-      const response = api.post({
-        body: request,
-      });
-      console.log(response);
-    } catch (error) {
-      console.error(error);
-    }
-  });
+  // useEffect(() => {
+  //   const api = new ApiRequest();
+  //   api.resource = CredentialingCertificate;
+  //   try {
+  //     const response = api.post({
+  //       body: request,
+  //     });
+  //     console.log(response);
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // });
   return (
     <Box sx={{ display: "flex", flexDirection: "row", width: "100%" }}>
       <Box>

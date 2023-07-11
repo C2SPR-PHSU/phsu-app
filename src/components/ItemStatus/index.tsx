@@ -1,10 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { Box, Button, Typography } from "@mui/material";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import IconButton from "@mui/material/IconButton";
 import UploadIcon from "@mui/icons-material/Upload";
 import Modal from "@mui/material/Modal";
-import { useState } from "react";
 import DocumentsInModal from "../ItemStatusInModal";
 
 interface ItemStatusProps {
@@ -123,11 +122,7 @@ const ItemStatus: React.FC<ItemStatusProps> = ({
               <Typography>Action</Typography>
             </Box>
 
-            <Box
-              sx={{
-                width: "100%",
-              }}
-            >
+            <Box sx={{ width: "100%" }}>
               <DocumentsInModal
                 title="PHSU ID photo"
                 date="03/07/2023"
