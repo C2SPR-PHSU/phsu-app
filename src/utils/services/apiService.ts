@@ -92,7 +92,7 @@ const AxiosDispatchResponse = async <ResponseType, ParamsType>(
 let that: ApiRequest | null = null;
 class ApiRequest {
   resource = '';
-  token: '';
+  token = '';
   axiosInstance: AxiosInstance;
   constructor() {
     this.resource = '';

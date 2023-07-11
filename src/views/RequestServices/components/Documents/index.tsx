@@ -12,24 +12,22 @@ import styles from "./styles.module.scss"
 interface IDocumentsProps {
   title: string;
   campusId: number;
-  documentId: number;
+  documentId: string;
   mandatory: string;
-  getUserCampusInfo: () => void;
+  getUserCampusInfo: (id: string) => void;
 }
 
-const Documents = ({ title, campusId, documentId, mandatory, getUserCampusInfo, }: IDocumentsProps) => {
+const Documents = ({ title, campusId, documentId, mandatory, getUserCampusInfo }: IDocumentsProps) => {
   const token = useAuthStore((state) => state.token);
   const [checked, setChecked] = useState(false)
 
   const handleUpload = async (e: ChangeEvent<HTMLInputElement>) => {
-    console.log('upload')
     if (!e.target.files) return;
     const document = e.target.files[0];
     try {
       await uploadDocument({ campusId, documentId, document, token })
-      console.log('campusId', campusId);
       setChecked(true)
-      getUserCampusInfo();
+      getUserCampusInfo(campusId.toString());
     } catch (error) {
       setChecked(false)
     }

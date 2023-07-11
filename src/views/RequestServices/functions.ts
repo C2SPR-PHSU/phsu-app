@@ -1,16 +1,41 @@
 import api from "@/utils/services/api";
-import { campuses, campusDocuments, uploadDocuments } from "@/utils";
+import { campuses, campusDocuments, uploadDocuments, userCampus, submitDocumentOnbase } from "@/utils";
+import { 
+  IUserCampusResponse,
+  IAllCampusesResponse,
+  ISubmitDocumentResponse,
+  IUploadDocument,
+  ICampusDocumentResponse
+} from './types'
 
 export const getCampuses = async () => {
   try {
     api.resource = campuses;
 
-    const res = await api.get();
+    const res = await api.get<IAllCampusesResponse>();
+    
     return res.data;
   } catch (error) {
     throw error;
   }
 };
+
+export const getUserCampus = async (campusId: string, token: string) => {
+  try {
+    api.resource = userCampus;
+    api.token = token;
+
+    const res = await api.post<IUserCampusResponse>({
+      body: {
+        campus_id: parseInt(campusId)
+      }
+    });
+
+    return res.data;
+  } catch (error) {
+    throw error
+  }
+}
 
 export const getCampusDocuments = async (id: number) => {
   try {
@@ -23,13 +48,6 @@ export const getCampusDocuments = async (id: number) => {
   }
 };
 
-interface IUploadDocument {
-  campusId: number;
-  documentId: number;
-  document: File;
-  token: string;
-}
-
 export const uploadDocument = async ({
   campusId, 
   documentId, 
@@ -40,10 +58,10 @@ export const uploadDocument = async ({
     api.resource = uploadDocuments;
     api.token = token
 
-    const res = await api.post({ 
+    const res = await api.post<ICampusDocumentResponse>({ 
       body: {
-        campus_id: 2, // The API crashes if this value is != 2 idk
-        document_id: documentId,
+        campus_id: campusId,
+        document_id: parseInt(documentId),
         document,
         force: 1
       }
@@ -53,3 +71,21 @@ export const uploadDocument = async ({
     throw error;
   }
 };
+
+export const submitDocument = async(campusId: number, token: string) => {
+  try {
+    api.resource = submitDocumentOnbase;
+    api.token = token;
+
+    const res = await api.post<ISubmitDocumentResponse>({ 
+      body: {
+        campus_id: campusId
+      }
+    });
+
+    return res.data;
+
+  } catch (error) {
+    throw error;
+  }
+}
