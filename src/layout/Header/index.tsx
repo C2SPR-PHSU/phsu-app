@@ -120,9 +120,9 @@ export default function Header() {
         console.error(error);
       }
 
-      setLogin(values.email, values.password);
-    },
-  });
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const setLogin = useAuthStore((state: any) => state.setLogin);
 
   return (
     <AppBar position="static">

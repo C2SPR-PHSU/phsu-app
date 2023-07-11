@@ -65,3 +65,24 @@
   margin-bottom: 1rem !important;
   padding-left: 8px;
 }
+
+.document-th-wrapper {
+  display: flex;
+  width: 100%;
+  margin-bottom: 2rem !important;
+}
+
+.documents-th {
+  font-weight: bolder !important;
+  color: $secondary !important;
+  font-size: 18px !important;
+  font-family: $gothamBlack !important;
+}
+
+.actions-th {
+  text-align: center;
+  font-weight: bolder !important;
+  color: $secondary !important;
+  font-size: 18px !important;
+  font-family: $gothamBlack !important;
+}
