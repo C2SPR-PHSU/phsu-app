@@ -26,6 +26,7 @@ const placeholderColor = "rgba(51, 51, 51, 0.4)";
 
 const customTextField = {
   width: "130px",
+
   "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
     borderColor: primaryColor,
     borderRadius: 0,
@@ -117,6 +118,7 @@ const Profile = () => {
             }),
           }}
         >
+          {/*Sidebar section */}
           <Box sx={{ width: "20%" }}></Box>
           {/*Buttons and picture sections */}
           <Box
@@ -173,6 +175,7 @@ const Profile = () => {
           </Box>
 
           {/*Sections information or edit */}
+
           <Grid
             container
             sx={{
@@ -181,6 +184,7 @@ const Profile = () => {
                 paddingLeft: "5%",
                 paddingRight: "5%",
               }),
+              alignItems: "flex-start",
             }}
           >
             {/* PERSONAL INFORMATIONS  (1) */}
@@ -212,8 +216,27 @@ const Profile = () => {
                   }}
                 >
                   {/*Firstaname item */}
-                  <ListItem>
-                    <ListItemText primary="First Name:" />
+                  <ListItem
+                    sx={{
+                      ...(isScreenSmall && {
+                        display: "flex",
+                        flexDirection: "column",
+                        paddingRight: "6rem",
+                      }),
+                    }}
+                  >
+                    <ListItemText
+                      primary="First Name:"
+                      sx={{
+                        ...(isScreenSmall && {
+                          paddingRight: "7.4rem",
+                        }),
+                        ...(isScreenSmall &&
+                          isEditMode && {
+                            paddingRight: "2.7rem",
+                          }),
+                      }}
+                    />
                     {isEditMode ? (
                       <TextField
                         id="firstname"
@@ -235,9 +258,29 @@ const Profile = () => {
                       />
                     )}
                   </ListItem>
+
                   {/*Middlename item */}
-                  <ListItem>
-                    <ListItemText primary="Middle Name:" />
+                  <ListItem
+                    sx={{
+                      ...(isScreenSmall && {
+                        display: "flex",
+                        flexDirection: "column",
+                        paddingRight: "6rem",
+                      }),
+                    }}
+                  >
+                    <ListItemText
+                      primary="Middle Name:"
+                      sx={{
+                        ...(isScreenSmall && {
+                          paddingRight: "6.6rem",
+                        }),
+                        ...(isScreenSmall &&
+                          isEditMode && {
+                            paddingRight: "1.7rem",
+                          }),
+                      }}
+                    />
                     {isEditMode ? (
                       <TextField
                         id="middlename"
@@ -257,14 +300,34 @@ const Profile = () => {
                       <ListItemText
                         primary={formik.values.middlename}
                         sx={{
-                          paddingRight: "8.5rem",
+                          paddingRight: "9rem",
                         }}
                       />
                     )}
                   </ListItem>
+
                   {/*lastname item */}
-                  <ListItem>
-                    <ListItemText primary="Last Name:" />
+                  <ListItem
+                    sx={{
+                      ...(isScreenSmall && {
+                        display: "flex",
+                        flexDirection: "column",
+                        paddingRight: "6rem",
+                      }),
+                    }}
+                  >
+                    <ListItemText
+                      primary="Last Name:"
+                      sx={{
+                        ...(isScreenSmall && {
+                          paddingRight: "7.6rem",
+                        }),
+                        ...(isScreenSmall &&
+                          isEditMode && {
+                            paddingRight: "1.7rem",
+                          }),
+                      }}
+                    />
                     {isEditMode ? (
                       <TextField
                         id="lastname"
@@ -282,13 +345,33 @@ const Profile = () => {
                     ) : (
                       <ListItemText
                         primary={formik.values.lastname}
-                        sx={{ paddingRight: "9rem" }}
+                        sx={{ paddingRight: "10rem" }}
                       />
                     )}
                   </ListItem>
+
                   {/*Second lastname item */}
-                  <ListItem>
-                    <ListItemText primary="Second Last Name:" />
+                  <ListItem
+                    sx={{
+                      ...(isScreenSmall && {
+                        display: "flex",
+                        flexDirection: "column",
+                        paddingRight: "6rem",
+                      }),
+                    }}
+                  >
+                    <ListItemText
+                      primary="Second Last Name:"
+                      sx={{
+                        ...(isScreenSmall && {
+                          paddingRight: "4rem",
+                        }),
+                        ...(isScreenSmall &&
+                          isEditMode && {
+                            paddingRight: "0rem",
+                          }),
+                      }}
+                    />
                     {isEditMode ? (
                       <TextField
                         id="secondlastname"
@@ -309,14 +392,34 @@ const Profile = () => {
                       <ListItemText
                         primary={formik.values.secondlastname}
                         sx={{
-                          paddingRight: isScreenSmall ? "3rem" : "13rem",
+                          paddingRight: isScreenSmall ? "9rem" : "13rem",
                         }}
                       />
                     )}
                   </ListItem>
+
                   {/*studentid item */}
-                  <ListItem>
-                    <ListItemText primary="Student ID:" />
+                  <ListItem
+                    sx={{
+                      ...(isScreenSmall && {
+                        display: "flex",
+                        flexDirection: "column",
+                        paddingRight: "6rem",
+                      }),
+                    }}
+                  >
+                    <ListItemText
+                      primary="Student ID:"
+                      sx={{
+                        ...(isScreenSmall && {
+                          paddingRight: "7.7rem",
+                        }),
+                        ...(isScreenSmall &&
+                          isEditMode && {
+                            paddingRight: "3rem",
+                          }),
+                      }}
+                    />
                     {isEditMode ? (
                       <TextField
                         id="studentid"
@@ -334,13 +437,16 @@ const Profile = () => {
                     ) : (
                       <ListItemText
                         primary={formik.values.studentid}
-                        sx={{ paddingRight: "9rem" }}
+                        sx={{
+                          paddingRight: isScreenSmall ? "7.7rem" : "13rem",
+                        }}
                       />
                     )}
                   </ListItem>
                 </List>
               </Box>
             </Grid>
+
             {/*Second section  (2) */}
             <Grid
               item
@@ -349,6 +455,8 @@ const Profile = () => {
               lg={6}
               sx={{
                 paddingTop: "4rem",
+
+                paddingBottom: "1rem",
                 ...(isScreenSmall && {
                   paddingLeft: "1rem",
                 }),
@@ -357,14 +465,34 @@ const Profile = () => {
               <List
                 sx={{
                   paddingLeft: "0.5rem",
+
                   ...(isScreenSmall && {
                     paddingLeft: "0rem",
                   }),
                 }}
               >
                 {/*Birthdate item */}
-                <ListItem>
-                  <ListItemText primary={`Date or Birth: `} />
+                <ListItem
+                  sx={{
+                    ...(isScreenSmall && {
+                      display: "flex",
+                      flexDirection: "column",
+                      paddingRight: "6rem",
+                    }),
+                  }}
+                >
+                  <ListItemText
+                    primary={`Date or Birth: `}
+                    sx={{
+                      ...(isScreenSmall && {
+                        paddingRight: "7rem",
+                      }),
+                      ...(isScreenSmall &&
+                        isEditMode && {
+                          paddingRight: "7rem",
+                        }),
+                    }}
+                  />
                   {isEditMode ? (
                     <TextField
                       id="birthdate"
@@ -384,14 +512,35 @@ const Profile = () => {
                     <ListItemText
                       primary={formik.values.birthdate}
                       sx={{
-                        paddingRight: isScreenSmall ? "2rem" : "13rem",
+                        paddingRight: isScreenSmall ? "7.7rem" : "13rem",
                       }}
                     />
                   )}
                 </ListItem>
                 {/*phonenumber item */}
-                <ListItem>
-                  <ListItemText primary={`Phone Number:`} />
+                <ListItem
+                  sx={{
+                    ...(isScreenSmall && {
+                      display: "flex",
+                      flexDirection: "column",
+                      paddingRight: "6rem",
+                    }),
+                  }}
+                >
+                  <ListItemText
+                    primary={`Phone Number:`}
+                    sx={{
+                      width: "55%",
+                      ...(isScreenSmall && {
+                        width: "100%",
+                      }),
+                      ...(isScreenSmall &&
+                        isEditMode && {
+                          paddingInlineEnd: "7rem",
+                        }),
+                    }}
+                  />
+
                   {isEditMode ? (
                     <TextField
                       id="cell_phone"
@@ -416,8 +565,28 @@ const Profile = () => {
                   )}
                 </ListItem>
                 {/*Alternative phonenumber */}
-                <ListItem>
-                  <ListItemText primary={`Alternative Phone Number: `} />
+                <ListItem
+                  sx={{
+                    ...(isScreenSmall && {
+                      display: "flex",
+                      flexDirection: "column",
+                      paddingRight: "6rem",
+                    }),
+                  }}
+                >
+                  <ListItemText
+                    primary={`Alternative Phone Number: `}
+                    sx={{
+                      //   width: "8%",
+                      ...(isScreenSmall && {
+                        paddingInlineEnd: "7rem",
+                      }),
+                      ...(isScreenSmall &&
+                        isEditMode && {
+                          paddingInlineEnd: "7rem",
+                        }),
+                    }}
+                  />
                   {isEditMode ? (
                     <TextField
                       id="alternative_phone"
@@ -435,16 +604,19 @@ const Profile = () => {
                       sx={customTextField}
                     />
                   ) : (
-                    <ListItemText
-                      primary={formik.values.alternative_phone}
-                      sx={{
-                        paddingRight: isScreenSmall ? "1rem" : "13rem",
-                      }}
-                    />
+                    <ListItemText primary={formik.values.alternative_phone} />
                   )}
                 </ListItem>
                 {/*Email */}
-                <ListItem>
+                <ListItem
+                  sx={{
+                    ...(isScreenSmall && {
+                      display: "flex",
+                      flexDirection: "column",
+                      paddingRight: "6rem",
+                    }),
+                  }}
+                >
                   <ListItemText primary={`Email: `} />
                   {isEditMode ? (
                     <TextField
@@ -460,14 +632,22 @@ const Profile = () => {
                     <ListItemText
                       primary={formik.values.email}
                       sx={{
-                        paddingRight: isScreenSmall ? "1rem" : "13rem",
+                        paddingRight: isScreenSmall ? "1rem" : "9rem",
                       }}
                     />
                   )}
                 </ListItem>
 
                 {/*Institucional email item */}
-                <ListItem>
+                <ListItem
+                  sx={{
+                    ...(isScreenSmall && {
+                      display: "flex",
+                      flexDirection: "column",
+                      paddingRight: "6rem",
+                    }),
+                  }}
+                >
                   <ListItemText primary={`Institucional Email: `} />
                   {isEditMode ? (
                     <TextField
@@ -489,13 +669,14 @@ const Profile = () => {
                     <ListItemText
                       primary={formik.values.institucional_email}
                       sx={{
-                        paddingRight: isScreenSmall ? "4rem" : "13rem",
+                        paddingRight: isScreenSmall ? "4rem" : "4rem",
                       }}
                     />
                   )}
                 </ListItem>
               </List>
             </Grid>
+
             {/* ACADEMIC INFORMATION (3) */}
             <Grid
               item
@@ -523,7 +704,15 @@ const Profile = () => {
                 }}
               >
                 {/*Entrance year item */}
-                <ListItem>
+                <ListItem
+                  sx={{
+                    ...(isScreenSmall && {
+                      display: "flex",
+                      flexDirection: "column",
+                      paddingRight: "6rem",
+                    }),
+                  }}
+                >
                   <ListItemText primary={`Entrance Academic Year:`} />
                   {isEditMode ? (
                     <TextField
@@ -552,7 +741,15 @@ const Profile = () => {
                 </ListItem>
 
                 {/*Campus item */}
-                <ListItem>
+                <ListItem
+                  sx={{
+                    ...(isScreenSmall && {
+                      display: "flex",
+                      flexDirection: "column",
+                      paddingRight: "6rem",
+                    }),
+                  }}
+                >
                   <ListItemText primary={`Campus Main:`} />
                   {isEditMode ? (
                     <TextField
@@ -579,7 +776,15 @@ const Profile = () => {
                 </ListItem>
 
                 {/*Entrance terms item */}
-                <ListItem>
+                <ListItem
+                  sx={{
+                    ...(isScreenSmall && {
+                      display: "flex",
+                      flexDirection: "column",
+                      paddingRight: "6rem",
+                    }),
+                  }}
+                >
                   <ListItemText primary={`Entrance Term:`} />
                   {isEditMode ? (
                     <TextField
@@ -624,6 +829,7 @@ const Profile = () => {
               <Typography className={profileScss["titlePersonalInformation"]}>
                 Address
               </Typography>
+
               <List
                 sx={{
                   paddingLeft: "0.5rem",
@@ -633,7 +839,15 @@ const Profile = () => {
                 }}
               >
                 {/* Line 1 item */}
-                <ListItem>
+                <ListItem
+                  sx={{
+                    ...(isScreenSmall && {
+                      display: "flex",
+                      flexDirection: "column",
+                      paddingRight: "6rem",
+                    }),
+                  }}
+                >
                   <ListItemText primary={`Line 1:`} />
                   {isEditMode ? (
                     <TextField
@@ -651,7 +865,15 @@ const Profile = () => {
                 </ListItem>
 
                 {/* Line 2 item */}
-                <ListItem>
+                <ListItem
+                  sx={{
+                    ...(isScreenSmall && {
+                      display: "flex",
+                      flexDirection: "column",
+                      paddingRight: "6rem",
+                    }),
+                  }}
+                >
                   <ListItemText primary={`Line 2:`} />
                   {isEditMode ? (
                     <TextField
@@ -669,7 +891,15 @@ const Profile = () => {
                 </ListItem>
 
                 {/* City item */}
-                <ListItem>
+                <ListItem
+                  sx={{
+                    ...(isScreenSmall && {
+                      display: "flex",
+                      flexDirection: "column",
+                      paddingRight: "6rem",
+                    }),
+                  }}
+                >
                   <ListItemText primary={`City:`} />
                   {isEditMode ? (
                     <TextField
@@ -687,7 +917,15 @@ const Profile = () => {
                 </ListItem>
 
                 {/* State item */}
-                <ListItem>
+                <ListItem
+                  sx={{
+                    ...(isScreenSmall && {
+                      display: "flex",
+                      flexDirection: "column",
+                      paddingRight: "6rem",
+                    }),
+                  }}
+                >
                   <ListItemText primary={`State:`} />
                   {isEditMode ? (
                     <TextField
@@ -705,7 +943,15 @@ const Profile = () => {
                 </ListItem>
 
                 {/* Zip Code item */}
-                <ListItem>
+                <ListItem
+                  sx={{
+                    ...(isScreenSmall && {
+                      display: "flex",
+                      flexDirection: "column",
+                      paddingRight: "6rem",
+                    }),
+                  }}
+                >
                   <ListItemText primary={`Zip Code:`} />
                   {isEditMode ? (
                     <TextField

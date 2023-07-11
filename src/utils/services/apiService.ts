@@ -28,7 +28,7 @@ const CreateAxiosInstance = (cfg: AxiosRequestConfig = {}): AxiosInstance => {
   return axios.create(axiosConfig);
 };
 
-function makeError(err: {}, message: string) {
+function makeError(err: object, message: string) {
   const error = new Error(message);
   return error;
 }
