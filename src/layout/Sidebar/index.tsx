@@ -6,8 +6,16 @@ import PersonIcon from "@mui/icons-material/Person";
 import TransitEnterexitIcon from "@mui/icons-material/TransitEnterexit";
 import Options from "./components/Options";
 import { PATH } from "@/routes/constants";
+import useAuthStore from "@/hooks/useAuthStore";
 
 const Sidebar = () => {
+
+  const logout = useAuthStore((state: any) => state.setLogout);
+
+  const handleLogout = () => {
+    // Call the logout function to log out the user
+    logout();
+  };
 
   return (
     <Grid className={styles["container"]} sx={{ flexDirection: "column", height: '100%' }}>
@@ -25,11 +33,13 @@ const Sidebar = () => {
         text="Profile"
       />
 
-      <Options
-        children={<TransitEnterexitIcon sx={{ color: "white", fontSize: '1.5rem' }} />}
-        text="Sign Out"
-      />
+      <Box onClick={handleLogout}>
+        <Options
+          children={<TransitEnterexitIcon sx={{ color: "white", fontSize: '1.5rem' }} />}
+          text="Sign Out"
+        />
 
+      </Box >
     </Grid>
   );
 };

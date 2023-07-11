@@ -10,6 +10,8 @@ import { getCampuses, getCampusDocuments } from "./functions";
 import Documents from './components/Documents';
 import useAuthStore from "@/hooks/useAuthStore";
 import axios from 'axios';
+import Alert from '@mui/material/Alert';
+
 
 
 interface ICampuses {
@@ -46,7 +48,7 @@ const RequestServices = () => {
     axios.post(url, formData, { headers })
       .then(response => {
         // handle success, set the row state to the response data
-        setCampusStatus(response.data.data.status);
+        setCampusStatus(parseInt(response.data.data.status));
         console.log(response.data.data.status)
       })
       .catch(error => {
@@ -333,7 +335,7 @@ const RequestServices = () => {
                         color: 'white',
                       },
                     }}
-                    disabled={campusStatus === 0}
+                    disabled={parseInt(campusStatus) === 0}
                   >
                     SUBMIT
                   </Button>
@@ -345,6 +347,13 @@ const RequestServices = () => {
               </Box>
             </Grid>
           </Grid>
+          {parseInt(campusStatus) === 2 &&
+            <>
+              <Alert severity="success" color="success" >
+                Documments Sent to OnBase!
+              </Alert>
+            </>
+          }
         </Box>
       </Box>
     </>

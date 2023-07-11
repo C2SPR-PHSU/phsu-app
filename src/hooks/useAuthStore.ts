@@ -11,14 +11,20 @@ const useAuthStore = create(
         const user = await requestLogin({ email, password });
         set(() => ({
           isAuthenticated: true,
-          token: user.data.token 
+          token: user.data.token,
+        }));
+      },
+      setLogout: () => {
+        set(() => ({
+          isAuthenticated: false,
+          token: '',
         }));
       },
     }),
     {
       name: 'user',
     }
-  ),
+  )
 );
-    
+
 export default useAuthStore;
