@@ -1,7 +1,18 @@
 import { ReactNode } from "react";
 import { Box, Typography } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
-const Sidebar = ({ text, children }: { text: string; children: ReactNode }) => {
+const Sidebar = ({
+  text,
+  redirect,
+  children,
+}: {
+  text: string;
+  redirect?: string;
+  children: ReactNode;
+}) => {
+  const navigate = useNavigate();
+
   return (
     <Box
       sx={{
@@ -11,6 +22,7 @@ const Sidebar = ({ text, children }: { text: string; children: ReactNode }) => {
         alignItems: "center",
         cursor: "pointer",
       }}
+      onClick={() => navigate(`${redirect ?? "/"}`)}
     >
       {children}
       <Typography variant="body1" sx={{ color: "white", textAlign: "center" }}>

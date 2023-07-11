@@ -81,6 +81,7 @@ const AxiosDispatchResponse = async <ResponseType, ParamsType>(
     parameters.params = qs;
   }
   try {
+    self.axiosInstance.defaults.headers.common['token'] = self.token
     const response: AxiosResponse = await self.axiosInstance[verb](self.resource, parameters);
     return responseParser<ResponseType>(response);
   } catch (e) {
@@ -91,9 +92,11 @@ const AxiosDispatchResponse = async <ResponseType, ParamsType>(
 let that: ApiRequest | null = null;
 class ApiRequest {
   resource = '';
+  token = '';
   axiosInstance: AxiosInstance;
   constructor() {
     this.resource = '';
+    this.token = '';
     this.axiosInstance = CreateAxiosInstance();
     that = this;
   }

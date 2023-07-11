@@ -7,7 +7,7 @@ const Home = () => {
   const { setAlert } = useAlert();
 
   return (
-    <Grid container>
+    <Grid container sx={{ minHeight: '90vh' }}>
       <Grid item xs={12} className={styles["image-banner"]}>
         <Box className={styles["text-container"]}>
           <Typography variant="h3" className={styles["title"]}>
