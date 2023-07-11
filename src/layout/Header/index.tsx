@@ -55,7 +55,6 @@ export default function Header() {
     },
   };
 
-  const setLogin = useAuthStore((state: any) => state.setLogin);
   const [menuOpen, setMenuOpen] = useState(false);
 
   /**

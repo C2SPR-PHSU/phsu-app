@@ -1,5 +1,4 @@
 import { Box, Typography } from "@mui/material";
-import CustomLabel from "@/components/CustomLabel";
 import UploadIcon from "@mui/icons-material/Upload";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
