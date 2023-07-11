@@ -5,6 +5,7 @@ import IconButton from "@mui/material/IconButton";
 import UploadIcon from "@mui/icons-material/Upload";
 import Modal from "@mui/material/Modal";
 import { useState } from "react";
+import DocumentsInModal from "../ItemStatusInModal";
 
 interface ItemStatusProps {
   title: string;
@@ -28,7 +29,7 @@ const ItemStatus: React.FC<ItemStatusProps> = ({
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    width: 400,
+    width: "70%",
     bgcolor: "background.paper",
     border: "2px solid #7b7b7b",
     boxShadow: 24,
@@ -87,35 +88,55 @@ const ItemStatus: React.FC<ItemStatusProps> = ({
           }}
         >
           <VisibilityIcon sx={{ color: "white" }} />
-
-          <Modal
-            open={open}
-            onClose={handleClose}
-            aria-labelledby="modal-modal-title"
-            aria-describedby="modal-modal-description"
-          >
-            <Box sx={style}>
-              <Typography
-                component="h2"
-                sx={{
-                  color: "#f7941d",
-                  fontWeight: "bold",
-                  fontSize: "23px",
-                  paddingBottom: "1rem",
-                }}
-              >
-                Credentialing Certification
-              </Typography>
-
-              <Box>
-                <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                  Duis mollis, est non commodo luctus, nisi erat porttitor
-                  ligula.
-                </Typography>
-              </Box>
-            </Box>
-          </Modal>
         </IconButton>
+
+        <Modal
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box sx={style}>
+            <Typography
+              component="h2"
+              sx={{
+                color: "#f7941d",
+                fontWeight: "bold",
+                fontSize: "23px",
+                paddingBottom: "1rem",
+              }}
+            >
+              Credentialing Certification
+            </Typography>
+
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "space-around",
+                paddingBottom: "1rem",
+              }}
+            >
+              <Typography>Requiere Documents</Typography>
+              <Typography>Expirate date</Typography>
+              <Typography>Status</Typography>
+              <Typography>Action</Typography>
+            </Box>
+
+            <Box
+              sx={{
+                width: "100%",
+              }}
+            >
+              <DocumentsInModal
+                title="PHSU ID photo"
+                date="03/07/2023"
+                status="approved"
+                textInRed=""
+              />
+            </Box>
+          </Box>
+        </Modal>
 
         <IconButton
           sx={{

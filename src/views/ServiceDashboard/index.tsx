@@ -4,6 +4,9 @@ import styles from "./styles.module.scss";
 import ItemStatus from "@/components/ItemStatus";
 import { Sidebar } from "@/layout";
 import ApiRequest from "@/utils/services/apiService";
+import { CredentialingCertificate } from "@/utils";
+
+// Api Response
 interface ResponseData {
   code: number;
   message: string;
@@ -21,13 +24,18 @@ interface CredentialingCertification {
   statusDesc: string;
 }
 
+// send campus user
+const request = {
+  campus_id: "1",
+};
+
 const App: React.FC = () => {
   useEffect(() => {
     const api = new ApiRequest();
-    api.resource = "/recovery";
+    api.resource = CredentialingCertificate;
     try {
       const response = api.post({
-        body: "",
+        body: request,
       });
       console.log(response);
     } catch (error) {
