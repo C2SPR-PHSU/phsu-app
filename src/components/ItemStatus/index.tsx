@@ -57,6 +57,7 @@ const ItemStatus: React.FC<ItemStatusProps> = ({
           color: "gray",
           borderColor: "gray",
           padding: "1rem",
+          cursor: "default",
         }}
         variant="outlined"
       >

@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Box, Typography } from "@mui/material";
 import styles from "./styles.module.scss";
 import ItemStatus from "@/components/ItemStatus";
 import { Sidebar } from "@/layout";
-
+import ApiRequest from "@/utils/services/apiService";
 interface ResponseData {
   code: number;
   message: string;
@@ -22,6 +22,18 @@ interface CredentialingCertification {
 }
 
 const App: React.FC = () => {
+  useEffect(() => {
+    const api = new ApiRequest();
+    api.resource = "/recovery";
+    try {
+      const response = api.post({
+        body: "",
+      });
+      console.log(response);
+    } catch (error) {
+      console.error(error);
+    }
+  });
   return (
     <Box sx={{ display: "flex", flexDirection: "row", width: "100%" }}>
       <Box>
