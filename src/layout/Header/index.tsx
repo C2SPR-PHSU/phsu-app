@@ -53,34 +53,7 @@ export default function Header() {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const setLogin = useAuthStore((state) => state.setLogin);
-  const [menuOpen, setMenuOpen] = useState(false);
-
-  /**
-   * Toggles the menu open or closed.
-   */
-  const toggleMenu = () => {
-    setMenuOpen((prevMenuOpen) => !prevMenuOpen);
-  };
-
-  /**
-   * Navigates to the recovery view and closes the menu.
-   */
-  const recoveryView = () => {
-    navigate("/recovery");
-    setMenuOpen(false);
-  };
-
-  /**
-   * Closes the menu.
-   */
-  const toggleMenuOff = () => {
-    setMenuOpen(false);
-  };
-
-  const home = () => {
-    navigate("/");
-  };
+  const setLogin = useAuthStore((state: any) => state.setLogin);
 
   return (
     <AppBar position="static">
