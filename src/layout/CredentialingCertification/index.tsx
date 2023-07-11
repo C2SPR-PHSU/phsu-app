@@ -1,11 +1,11 @@
-import * as React from "react";
+import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 
 const style = {
-  position: "absolute" as const,
+  position: "absolute",
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
@@ -17,8 +17,13 @@ const style = {
   borderRadius: "8px",
 };
 
-export default function Credentialing() {
-  const [open, setOpen] = React.useState(false);
+interface CredentialingProps {
+  buttonText: string;
+  state: boolean;
+}
+
+const Credentialing: React.FC<CredentialingProps> = ({ buttonText, state }) => {
+  const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
@@ -27,9 +32,17 @@ export default function Credentialing() {
       <Button
         variant="outlined"
         onClick={handleOpen}
-        sx={{ color: "green", borderColor: "green", padding: "1rem" }}
+        sx={{
+          color: "green",
+          borderColor: "green",
+          padding: "1rem",
+          ...(state && {
+            color: "gray",
+            borderColor: "gray",
+          }),
+        }}
       >
-        In-Review
+        {buttonText}
       </Button>
       <Modal
         open={open}
@@ -59,4 +72,6 @@ export default function Credentialing() {
       </Modal>
     </>
   );
-}
+};
+
+export default Credentialing;

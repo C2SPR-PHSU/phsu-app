@@ -8,9 +8,16 @@ import UploadIcon from "@mui/icons-material/Upload";
 interface ItemStatusProps {
   title: string;
   date: string;
+  texButton: string;
+  state: boolean;
 }
 
-const ItemStatus: React.FC<ItemStatusProps> = ({ title, date }) => {
+const ItemStatus: React.FC<ItemStatusProps> = ({
+  title,
+  date,
+  texButton,
+  state,
+}) => {
   return (
     <Box
       sx={{
@@ -26,7 +33,7 @@ const ItemStatus: React.FC<ItemStatusProps> = ({ title, date }) => {
     >
       <Typography>{title}</Typography>
       <Typography>{date}</Typography>
-      <Credentialing />
+      <Credentialing buttonText={texButton} state={state} />
 
       <Box
         sx={{
