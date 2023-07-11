@@ -119,10 +119,8 @@ export default function Header() {
       } catch (error) {
         console.error(error);
       }
-
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const setLogin = useAuthStore((state: any) => state.setLogin);
+    },
+  });
 
   return (
     <AppBar position="static">
@@ -141,7 +139,7 @@ export default function Header() {
       </Box>
 
       {/* <------------------------------- Auth Header ------------------------------------> */}
-      <Toolbar className={styles["auth-header"]} sx={{}}>
+      <Toolbar className={styles["auth-header"]}>
         {/* Brand */}
         <Box
           className={styles["brand"]}
