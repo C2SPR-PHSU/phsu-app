@@ -1,9 +1,18 @@
 import { useState, useEffect } from "react";
-import { Grid, Box, Typography, Button, FormControl } from "@mui/material";
+import {
+  Grid,
+  Box,
+  Typography,
+  TextField,
+  Button,
+  FormControl,
+} from "@mui/material";
 import CustomLabel from "@/components/CustomLabel";
+import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import styles from "./styles.module.scss";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
+import InputLabel from "@mui/material/InputLabel";
 import { getCampuses, getCampusDocuments } from "./functions";
 import Documents from "./components/Documents";
 import useAuthStore from "@/hooks/useAuthStore";
@@ -78,60 +87,11 @@ const RequestServices = () => {
       });
   };
 
-  const getUserCampusInfo = () => {
-    console.log("getuserCampusInfo");
-    const url = "http://apiphsu.lobsys.net:8080/user/campus/";
-    const formData = new FormData();
-    formData.append("campus_id", selectedCampus);
-
-    const headers = {
-      "Content-Type": "multipart/form-data",
-      token: token,
-    };
-
-    axios
-      .post(url, formData, { headers })
-      .then((response) => {
-        // handle success, set the row state to the response data
-        setCampusStatus(parseInt(response.data.data.status));
-        console.log(response.data.data.status);
-      })
-      .catch((error) => {
-        // handle error
-        console.log(error);
-      });
-  };
-
-  const sendToOnBase = () => {
-    console.log("getuserCampusInfo");
-    const url = "http://apiphsu.lobsys.net:8080/user/document/sendOB/";
-    const formData = new FormData();
-    formData.append("campus_id", selectedCampus);
-
-    const headers = {
-      "Content-Type": "multipart/form-data",
-      token: token,
-    };
-
-    axios
-      .post(url, formData, { headers })
-      .then((response) => {
-        // handle success, set the row state to the response data
-        setOnbaseRequest(response.data);
-        console.log(response.data);
-        setCampusStatus(2);
-      })
-      .catch((error) => {
-        // handle error
-        console.log(error);
-      });
-  };
-
   const getAllCampuses = async () => {
     const response = await getCampuses();
     console.log(response);
     setCampuses(response);
-    setCampusSelected(response[0].id);
+    // setCampusSelected(response[0].id);
     await getDocumentsByCampus(response[0].id);
   };
 
@@ -215,13 +175,20 @@ const RequestServices = () => {
 
   return (
     <>
-      <Box sx={{ display: "flex", flexDirection: "row", padding: "2rem" }}>
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "row",
+          padding: "2rem",
+          minHeight: "90vh",
+        }}
+      >
         <Box
           sx={{
             // backgroundColor: "red",
             paddingLeft: "7rem",
             paddingTop: "2rem",
-            width: "100%",
+            width: "90%",
           }}
         >
           <Grid container spacing={1}>

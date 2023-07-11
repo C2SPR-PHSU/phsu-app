@@ -28,7 +28,7 @@ const Root = () => {
       )}
       <Route path={PATH.NOT_FOUND} element={<NotFound />} />
       <Route path="*" element={<NotFound />} />
-      {/* <Route path={PATH.modal} element={<ServicesDashboard />} /> */}
+      <Route path={PATH.modal} element={<ServicesDashboard />} />
     </Routes>
   );
 };
