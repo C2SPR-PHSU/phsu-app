@@ -222,7 +222,6 @@ export default function Header() {
               sx={{
                 display: "flex",
                 backgroundColor: "#009999",
-                cursor: "default",
                 minWidth: "2rem",
                 minHeight: "2rem",
                 maxHeight: "2rem",
@@ -325,7 +324,6 @@ export default function Header() {
                 ...(isScreenLg && {
                   display: "flex",
                   backgroundColor: "#009999",
-                  cursor: "default",
                   minWidth: "2rem",
                   minHeight: "2rem",
                   maxHeight: "2rem",
