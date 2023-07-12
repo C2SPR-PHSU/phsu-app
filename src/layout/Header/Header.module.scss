@@ -14,30 +14,44 @@
 }
 
 .brand-img {
-  max-width: 150px;
+  max-width: 170px;
+  cursor: pointer;
 }
 
 .header-text {
   font-family: $gothamBlack !important;
-  font-size: 1.5rem !important;
+  // font-size: 2rem ;
+  min-width: 3rem !important;
   color: $warning;
   font-weight: bolder;
 }
 
 .header-icons {
-  font-size: 1.2rem !important;
+  font-size: 1.7rem !important;
   color: $warning;
 }
 
 .header-button {
   background-color: $primary !important;
+  min-width: 5rem !important;
 }
 
 .header-button-variant {
   font-size: 1.2rem !important;
   color: $tertiary-neutral;
+  margin-right: 20% !important;
+  margin-bottom: 20% !important;
+  margin-left: 15% !important;
+  margin-top: 15% !important;
 }
-
+.header-button-variant-toggle {
+  font-size: 1.2rem !important;
+  color: $tertiary-neutral;
+  margin-right: 20% !important;
+  margin-bottom: 20% !important;
+  margin-left: 20% !important;
+  margin-top: 15% !important;
+}
 .icon-container {
   display: flex;
   justify-content: center;
@@ -46,7 +60,6 @@
   padding: 5px;
   background-color: $primary;
 }
-
 .upper-header {
   padding-top: 0.4rem;
   padding-bottom: 0.4rem;
@@ -58,16 +71,33 @@
   font-size: 1rem;
   justify-content: end;
 }
-
 .upper-text {
   padding-left: 3.2rem;
   color: $tertiary-neutral;
   font-size: 0.9rem !important;
-  font-family: "GothamMedium";
+  font-family: $gotham !important;
   cursor: pointer;
-
   a {
     text-decoration: none !important;
     color: inherit;
   }
+}
+.toggle-button{
+  background-color: $primary !important;
+  width: 6rem;
+}
+.icon-container-toggle {
+  display: flex !important;
+  background-color: $primary !important;
+  width: 30px !important;
+  height: 30px !important;
+  border-radius: 50% !important;
+  margin-top: 0.5rem !important;
+  margin-bottom: 0.5rem !important;
+}
+.button-recovery{
+  background-color: $primary !important;
+  border-radius: 50% !important;
+  width: 30px !important;
+  height: 30px !important;
 }

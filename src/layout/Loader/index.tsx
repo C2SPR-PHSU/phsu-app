@@ -1,21 +1,20 @@
-import React from "react";
+import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
-import styles from "./loader.module.scss";
 
-const Loader: React.FC = () => {
+export default function CircularIndeterminate() {
   return (
     <Box
       sx={{
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        height: "65vh",
+        height: "85vh",
         width: "100%",
       }}
     >
-      <Box className={styles.loader}></Box>
+      <CircularProgress
+        sx={{ color: "#f7941d", width: "500px", height: "500px" }}
+      />
     </Box>
   );
-};
-
-export default Loader;
+}
