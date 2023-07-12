@@ -30,7 +30,6 @@ const Root = () => {
         </Route>
       )}
       <Route path={PATH.NOT_FOUND} element={<Error404 />} />
-      <Route path={PATH.modal} element={<Dashboard />} />
 
       <Route path="*" element={<Error404 />} />
     </Routes>

@@ -2,46 +2,50 @@ import React, { useEffect } from "react";
 import { Box, Typography } from "@mui/material";
 import styles from "./styles.module.scss";
 import ItemStatus from "@/components/ItemStatus";
-import { Sidebar } from "@/layout";
-import ApiRequest from "@/utils/services/apiService";
-import { CredentialingCertificate } from "@/utils";
+// import ApiRequest from "@/utils/services/apiService";
+// import { CredentialingCertificate } from "@/utils";
+import axios from "axios";
+
+// token : 5f68fde113aa5adf3f0f9bf4fd196389ad241592dbdc25b85b13e052b9043f7b5878cbbf40b725b114364d415c2c9fbc6dcaf6920c8671281e4045fed663b063
 
 // Api Response
-interface ResponseData {
-  code: number;
-  message: string;
-  data: CredentialingCertificationData;
-}
-
-interface CredentialingCertificationData {
-  "Credentialing Certification": CredentialingCertification[];
-}
-
-interface CredentialingCertification {
-  campus_id: string;
-  status: string;
-  created: string;
-  statusDesc: string;
-}
-
-// send campus user
-const request = {
-  campus_id: "1",
-};
 
 const Dashboard: React.FC = () => {
   useEffect(() => {
-    const api = new ApiRequest();
-    api.resource = CredentialingCertificate;
-    try {
-      const response = api.post({
-        body: request,
-      });
-      console.log(response);
-    } catch (error) {
-      console.error(error);
-    }
+    handleClick();
   });
+
+  const handleClick = async () => {
+    const url = "http://apiphsu.lobsys.net:8080/user/service"; // Reemplaza con tu URL
+
+    const request = {
+      campus_id: "1",
+    };
+
+    const token =
+      "5f68fde113aa5adf3f0f9bf4fd196389ad241592dbdc25b85b13e052b9043f7b5878cbbf40b725b114364d415c2c9fbc6dcaf6920c8671281e4045fed663b063"; // Reemplaza con tu token de autenticación
+
+    try {
+      const response = await axios.post(url, request, {
+        headers: {
+          "Content-Type": "application/json",
+          token: `${token}`,
+        },
+      });
+      const responseData = response.data;
+      const responseObject = responseData.data.map((item: any) => ({
+        service: item.service,
+        campus_id: item.campus_id,
+        campus_name: item.campus_name,
+        status: item.status,
+        created: item.created,
+        status_desc: item.status_desc,
+      }));
+    } catch (error) {
+      console.error("Error en la petición:", error);
+    }
+  };
+
   return (
     <Box sx={{ display: "flex", flexDirection: "row", width: "100%" }}>
       <Box sx={{ display: "flex", flexDirection: "column", width: "100%" }}>
