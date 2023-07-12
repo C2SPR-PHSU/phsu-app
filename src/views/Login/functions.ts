@@ -1,6 +1,6 @@
 import api from "@/utils/services/api";
 import { login } from "@/utils";
-import { IUserLogin } from '@/types/responses';
+import { IUserLogin } from "@/types/responses";
 
 interface IUserLoginParams {
   email: string;
@@ -13,7 +13,6 @@ export const requestLogin = async ({ email, password }: IUserLoginParams) => {
 
     const res = await api.post<IUserLogin>({ body: { email, password } });
     return res;
-
   } catch (error) {
     throw error;
   }

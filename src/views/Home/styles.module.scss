@@ -1,7 +1,7 @@
 @import "../../assets/styles";
 
 .image-banner {
-  background-image: url(../../assets/images/dashboard-banner.jpg);
+  background-image: url(../../assets/Asset_3.png);
   background-repeat: no-repeat;
   background-size: cover;
   background-position-x: center;
@@ -18,20 +18,25 @@
 
     .title {
       font-weight: $heavy;
-      font-family: "GothamMedium";
+      font-family: $gotham;
     }
   }
 }
 
 .information-container {
   .subtitle {
-    font-weight: $heavy !important;
-    font-family: "GothamMedium";
+    font-weight: bolder !important;
+    font-family: $gothamBlack;
     color: $warning;
+    margin-top: 2rem !important;
+    font-size: 2rem;
   }
 
   .description {
     color: $secondary;
-    font-family: "GothamMedium";
+    font-family: $gotham;
+    font-weight: bolder;
+    margin-top: 2rem !important;
+    font-size: 1rem;
   }
 }

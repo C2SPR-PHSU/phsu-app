@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   AppBar,
   Toolbar,
@@ -6,13 +6,13 @@ import {
   TextField,
   Button,
   Box,
-  InputAdornment,
 } from "@mui/material";
 import Logo from "../../assets/images/logo-phsu.png";
 import styles from "./Header.module.scss";
 import PersonIcon from "@mui/icons-material/Person";
 import LockRounded from "@mui/icons-material/LockRounded";
 import useAuthStore from "@/hooks/useAuthStore";
+import useAlert from "@/hooks/useAlert";
 import { PATH } from "@/routes/constants";
 import { Link } from "react-router-dom";
 
@@ -22,7 +22,13 @@ export default function Header() {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const setLogin = useAuthStore((state) => state.setLogin);
+  const setLogin = useAuthStore((state: any) => state.setLogin);
+  const isAuthenticated = useAuthStore((state: any) => state.isAuthenticated);
+  const { setAlert } = useAlert();
+
+  useEffect(() => {
+    if (isAuthenticated) setAlert();
+  }, [isAuthenticated]);
 
   return (
     <AppBar position="static">
@@ -59,16 +65,16 @@ export default function Header() {
               "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
                 borderColor: primaryColor,
                 borderRadius: 0,
-                border: '2px solid ' + primaryColor
+                border: "2px solid " + primaryColor,
               },
               "&:hover .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline":
-              {
-                borderColor: primaryColor,
-              },
+                {
+                  borderColor: primaryColor,
+                },
               "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline":
-              {
-                borderColor: primaryColor,
-              },
+                {
+                  borderColor: primaryColor,
+                },
               "& .MuiInputLabel-outlined": {
                 fontSize: "1rem",
                 color: placeholderColor,
@@ -90,16 +96,16 @@ export default function Header() {
               "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
                 borderColor: primaryColor,
                 borderRadius: 0,
-                border: '2px solid ' + primaryColor
+                border: "2px solid " + primaryColor,
               },
               "&:hover .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline":
-              {
-                borderColor: primaryColor,
-              },
+                {
+                  borderColor: primaryColor,
+                },
               "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline":
-              {
-                borderColor: primaryColor,
-              },
+                {
+                  borderColor: primaryColor,
+                },
               "& .MuiInputLabel-outlined": {
                 fontSize: "1rem",
                 color: placeholderColor,
