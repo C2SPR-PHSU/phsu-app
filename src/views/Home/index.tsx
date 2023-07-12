@@ -29,12 +29,6 @@ const Home = () => {
           <Typography variant="h5" className={styles["subtitle"]}>
             Requested Services
           </Typography>
-          {/* <Button
-            variant="contained"
-            onClick={() => setAlert('loool', 'success')}
-          >
-            TOAST
-          </Button> */}
         </Grid>
         <Grid item xs={12}>
           <Typography variant="body1" className={styles["description"]}>
@@ -42,7 +36,7 @@ const Home = () => {
           </Typography>
         </Grid>
         <Grid item xs={12} sx={{ padding: "2rem 0" }}>
-          <BasicTable />
+          <BasicTable handleModal={() => setOpenModal(true)} />
           <RequiredDocuments open={openModal} handleClose={() => setOpenModal(false)} />
         </Grid>
       </Grid>

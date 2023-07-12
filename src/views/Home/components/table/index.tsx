@@ -15,7 +15,7 @@ import StatusButton from "@/components/StatusButton";
 import { getUserServices } from "../../functions";
 import { IUserServicesData } from '../../types'
 
-export default function BasicTable() {
+export default function BasicTable( { handleModal }: { handleModal: () => void}) {
   const token = useAuthStore((state: any) => state.token);
 
   const [userServices, setUserServices] = useState<IUserServicesData[]>([]);
@@ -74,7 +74,7 @@ export default function BasicTable() {
                 <StatusButton statusName={row.status_desc as string} />
               </TableCell>
               <TableCell align="center" sx={{ fontFamily: 'GothamMedium !important', fontWeight: 'bolder !important', fontSize: '1.2rem' }} >
-                <VisibilityIcon sx={{ color: "#009999" }} />
+                <VisibilityIcon sx={{ color: "#009999", cursor: 'pointer' }} onClick={handleModal} />
                 <DownloadIcon sx={{ color: "rgba(0, 168, 168, 0.42)" }} />
               </TableCell>
             </TableRow>
