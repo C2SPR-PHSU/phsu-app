@@ -1,13 +1,13 @@
 import { Grid, Typography, Box, Button } from "@mui/material";
 import styles from "./styles.module.scss";
-import BasicTable from "./components/Table";
+import BasicTable from "./components/table/index";
 import useAlert from "@/hooks/useAlert";
 
 const Home = () => {
   const { setAlert } = useAlert();
 
   return (
-    <Grid container sx={{ minHeight: '90vh' }}>
+    <Grid container sx={{ minHeight: "90vh" }}>
       <Grid item xs={12} className={styles["image-banner"]}>
         <Box className={styles["text-container"]}>
           <Typography variant="h3" className={styles["title"]}>

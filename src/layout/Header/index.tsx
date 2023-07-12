@@ -22,8 +22,8 @@ export default function Header() {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const setLogin = useAuthStore((state) => state.setLogin);
-  const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
+  const setLogin = useAuthStore((state: any) => state.setLogin);
+  const isAuthenticated = useAuthStore((state: any) => state.isAuthenticated);
   const { setAlert } = useAlert();
 
   useEffect(() => {
