@@ -15,7 +15,7 @@ import StatusButton from "@/components/StatusButton";
 import { getUserServices } from "../../functions";
 import { IUserServicesData } from '../../types'
 
-export default function BasicTable( { handleModal }: { handleModal: () => void}) {
+export default function BasicTable( { handleModal }: { handleModal: (prop: string) => void}) {
   const token = useAuthStore((state: any) => state.token);
 
   const [userServices, setUserServices] = useState<IUserServicesData[]>([]);
@@ -35,7 +35,6 @@ export default function BasicTable( { handleModal }: { handleModal: () => void})
     try {
       const response = await getUserServices('1', token);
       setUserServices([response].flat());
-      console.log(response);
     } catch (error) {
       console.log(error);
     }
@@ -44,10 +43,6 @@ export default function BasicTable( { handleModal }: { handleModal: () => void})
   useEffect(() => {
     getUserServicesRows();
   }, []);
-
-  useEffect(() => {
-    console.log(userServices);
-  }, [userServices]);
 
   return (
     <TableContainer component={Paper}>
@@ -74,7 +69,10 @@ export default function BasicTable( { handleModal }: { handleModal: () => void})
                 <StatusButton statusName={row.status_desc as string} />
               </TableCell>
               <TableCell align="center" sx={{ fontFamily: 'GothamMedium !important', fontWeight: 'bolder !important', fontSize: '1.2rem' }} >
-                <VisibilityIcon sx={{ color: "#009999", cursor: 'pointer' }} onClick={handleModal} />
+                <VisibilityIcon
+                  sx={{ color: "#009999", cursor: 'pointer' }}
+                  onClick={() => handleModal(`${row.service} - ${row.campus_name}`)}
+                />
                 <DownloadIcon sx={{ color: "rgba(0, 168, 168, 0.42)" }} />
               </TableCell>
             </TableRow>

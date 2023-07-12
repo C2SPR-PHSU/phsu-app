@@ -8,6 +8,12 @@ import RequiredDocuments from './components/RequiredDocuments'
 const Home = () => {
   const { setAlert } = useAlert();
   const [openModal, setOpenModal] = useState(false)
+  const [docTitle, setDocTitle] = useState('')
+
+  const handleModal = (prop: string) => {
+    setDocTitle(prop)
+    setOpenModal(true)
+  }
 
   return (
     <Grid container sx={{ minHeight: "90vh" }}>
@@ -36,8 +42,8 @@ const Home = () => {
           </Typography>
         </Grid>
         <Grid item xs={12} sx={{ padding: "2rem 0" }}>
-          <BasicTable handleModal={() => setOpenModal(true)} />
-          <RequiredDocuments open={openModal} handleClose={() => setOpenModal(false)} />
+          <BasicTable handleModal={(prop) => handleModal(prop)} />
+          <RequiredDocuments title={docTitle} open={openModal} handleClose={() => setOpenModal(false)} />
         </Grid>
       </Grid>
     </Grid>
