@@ -1,10 +1,20 @@
+import { useState } from 'react';
 import { Grid, Typography, Box, Button } from "@mui/material";
 import styles from "./styles.module.scss";
 import BasicTable from "./components/table/index";
 import useAlert from "@/hooks/useAlert";
+import RequiredDocuments from './components/RequiredDocuments'
 
 const Home = () => {
   const { setAlert } = useAlert();
+  const [openModal, setOpenModal] = useState(false)
+  const [docTitle, setDocTitle] = useState('')
+  const [campusId, setCampusId] = useState('')
+
+  const handleModal = (prop: string) => {
+    setDocTitle(prop)
+    setOpenModal(true)
+  }
 
   return (
     <Grid container sx={{ minHeight: "90vh" }}>
@@ -26,12 +36,6 @@ const Home = () => {
           <Typography variant="h5" className={styles["subtitle"]}>
             Requested Services
           </Typography>
-          {/* <Button
-            variant="contained"
-            onClick={() => setAlert('loool', 'success')}
-          >
-            TOAST
-          </Button> */}
         </Grid>
         <Grid item xs={12}>
           <Typography variant="body1" className={styles["description"]}>
@@ -39,7 +43,16 @@ const Home = () => {
           </Typography>
         </Grid>
         <Grid item xs={12} sx={{ padding: "2rem 0" }}>
-          <BasicTable />
+          <BasicTable
+            handleModal={(prop) => handleModal(prop)}
+            setDocumentId={(prop) => setCampusId(prop)}
+          />
+          <RequiredDocuments
+            title={docTitle}
+            open={openModal}
+            campusId={campusId}
+            handleClose={() => setOpenModal(false)}
+          />
         </Grid>
       </Grid>
     </Grid>

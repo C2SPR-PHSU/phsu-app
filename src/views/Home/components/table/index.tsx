@@ -13,9 +13,14 @@ import useAuthStore from "@/hooks/useAuthStore";
 import axios from 'axios';
 import StatusButton from "@/components/StatusButton";
 import { getUserServices } from "../../functions";
-import { IUserServicesData } from '../../types'
+import { IUserServicesData } from '../../types';
 
-export default function BasicTable() {
+interface IBasicTableProps {
+  handleModal: (prop: string) => void;
+  setDocumentId: (prop: string) => void
+}
+
+export default function BasicTable( { handleModal, setDocumentId }: IBasicTableProps) {
   const token = useAuthStore((state: any) => state.token);
 
   const [userServices, setUserServices] = useState<IUserServicesData[]>([]);
@@ -35,7 +40,6 @@ export default function BasicTable() {
     try {
       const response = await getUserServices('1', token);
       setUserServices([response].flat());
-      console.log(response);
     } catch (error) {
       console.log(error);
     }
@@ -44,10 +48,6 @@ export default function BasicTable() {
   useEffect(() => {
     getUserServicesRows();
   }, []);
-
-  useEffect(() => {
-    console.log(userServices);
-  }, [userServices]);
 
   return (
     <TableContainer component={Paper}>
@@ -74,7 +74,13 @@ export default function BasicTable() {
                 <StatusButton statusName={row.status_desc as string} />
               </TableCell>
               <TableCell align="center" sx={{ fontFamily: 'GothamMedium !important', fontWeight: 'bolder !important', fontSize: '1.2rem' }} >
-                <VisibilityIcon sx={{ color: "#009999" }} />
+                <VisibilityIcon
+                  sx={{ color: "#009999", cursor: 'pointer' }}
+                  onClick={() => {
+                    handleModal(`${row.service} - ${row.campus_name}`)
+                    setDocumentId(row.campus_id);
+                  }}
+                />
                 <DownloadIcon sx={{ color: "rgba(0, 168, 168, 0.42)" }} />
               </TableCell>
             </TableRow>
