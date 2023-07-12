@@ -3,7 +3,7 @@ import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper
 import { TabContext, TabList, TabPanel } from '@mui/lab';
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import DeleteIcon from '@mui/icons-material/Delete';
-import UploadIcon from '@mui/icons-material/Upload';
+import DownloadIcon from '@mui/icons-material/Download';
 import ClearIcon from '@mui/icons-material/Clear';
 import useAuthStore from "@/hooks/useAuthStore";
 import StatusButton from "@/components/StatusButton";
@@ -17,7 +17,7 @@ const RequiredDocuments = ({ title, open, campusId, handleClose }: IRequiredDocu
   const [value, setValue] = useState('1');
   const [documentList, setDocumentList] = useState<IUserDocumentsData[]>([]);
   const token = useAuthStore((state: any) => state.token);
-  
+
   useEffect(() => {
     return () => {
       setValue('1')
@@ -75,7 +75,7 @@ const RequiredDocuments = ({ title, open, campusId, handleClose }: IRequiredDocu
                                 align="center"
                                 key={header.id}
                               >
-                                { header.title }
+                                {header.title}
                               </TableCell>
                             )
                           })
@@ -96,9 +96,9 @@ const RequiredDocuments = ({ title, open, campusId, handleClose }: IRequiredDocu
                             <StatusButton statusName={row.status_desc as string} />
                           </TableCell>
                           <TableCell align="center" >
-                            <UploadIcon sx={{ color: "#009999", cursor: 'pointer' }} />
+                            <DownloadIcon sx={{ color: "rgba(0, 168, 168, 0.42)" }} />
                             <DeleteIcon sx={{ color: "#009999", cursor: 'pointer' }} />
-                            <VisibilityIcon sx={{ color: "#009999", cursor: 'pointer' }}/>
+                            <VisibilityIcon sx={{ color: "#009999", cursor: 'pointer' }} />
                           </TableCell>
                         </TableRow>
                       ))}
@@ -118,7 +118,7 @@ const RequiredDocuments = ({ title, open, campusId, handleClose }: IRequiredDocu
                                 align="center"
                                 key={header.id}
                               >
-                                { header.title }
+                                {header.title}
                               </TableCell>
                             )
                           })
@@ -139,7 +139,7 @@ const RequiredDocuments = ({ title, open, campusId, handleClose }: IRequiredDocu
           </TabContext>
         </Grid>
         <ClearIcon
-          sx={{ position: 'absolute', top: '5%', right: '2%', color: 'gray', cursor: 'pointer'}}
+          sx={{ position: 'absolute', top: '5%', right: '2%', color: 'gray', cursor: 'pointer' }}
           onClick={handleClose}
         />
       </Box>

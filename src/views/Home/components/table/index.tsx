@@ -20,7 +20,7 @@ interface IBasicTableProps {
   setDocumentId: (prop: string) => void
 }
 
-export default function BasicTable( { handleModal, setDocumentId }: IBasicTableProps) {
+export default function BasicTable({ handleModal, setDocumentId }: IBasicTableProps) {
   const token = useAuthStore((state: any) => state.token);
 
   const [userServices, setUserServices] = useState<IUserServicesData[]>([]);
