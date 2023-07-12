@@ -1,10 +1,13 @@
+import { useState } from 'react';
 import { Grid, Typography, Box, Button } from "@mui/material";
 import styles from "./styles.module.scss";
 import BasicTable from "./components/Table";
 import useAlert from "@/hooks/useAlert";
+import RequiredDocuments from './components/RequiredDocuments'
 
 const Home = () => {
   const { setAlert } = useAlert();
+  const [openModal, setOpenModal] = useState(false)
 
   return (
     <Grid container sx={{ minHeight: '90vh' }}>
@@ -40,6 +43,7 @@ const Home = () => {
         </Grid>
         <Grid item xs={12} sx={{ padding: "2rem 0" }}>
           <BasicTable />
+          <RequiredDocuments open={openModal} handleClose={() => setOpenModal(false)} />
         </Grid>
       </Grid>
     </Grid>
