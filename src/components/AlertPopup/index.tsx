@@ -4,7 +4,7 @@ import useAlert from "@/hooks/useAlert";
 const AlertPopup = () => {
   const { text, type } = useAlert();
 
-  if (true) {
+  if (text.length) {
     return (
       <Stack
         sx={{ 
