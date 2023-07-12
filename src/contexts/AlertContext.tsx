@@ -3,7 +3,7 @@ import { createContext, ReactNode, useState } from "react";
 const ALERT_TIME = 5000;
 const initialState = {
   text: "",
-  type: "",
+  type: "success" || "info" || "warning" || "error",
 };
 
 type AlertProviderProps = { children: ReactNode };
@@ -16,7 +16,7 @@ const AlertContext = createContext({
 
 export const AlertProvider = ({ children }: AlertProviderProps) => {
   const [text, setText] = useState("");
-  const [type, setType] = useState("");
+  const [type, setType] = useState("success");
 
   const setAlert = (text: string, type: AlertColor) => {
     console.log('heeere')
