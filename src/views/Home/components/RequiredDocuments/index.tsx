@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -10,15 +10,33 @@ import Tab from '@mui/material/Tab';
 import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
+import { getUserDocuments } from '../functions'
 import { Box, Grid, Modal, Typography } from "@mui/material";
 import { tableHeaders, modalStyle } from './constants';
+import useAuthStore from "@/hooks/useAuthStore";
+import { IRequiredDocumentsProps, IUserDocumentsData } from '../../types';
 
-const RequiredDocuments = ({ title, open, handleClose }: {title: string, open: boolean, handleClose: () => void }) => {
+const RequiredDocuments = ({ title, open, campusId, handleClose }: IRequiredDocumentsProps) => {
+
   const [value, setValue] = useState('1');
+  const [documentList, setDocumentList] = useState<IUserDocumentsData[]>([]);
+  const token = useAuthStore((state: any) => state.token);
+
+  useEffect(() => {
+    requestUserDocument();
+  }, [campusId, value])
 
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
     setValue(newValue);
   };
+
+  const requestUserDocument = async () => {
+    try {
+      const response = await getUserDocuments(campusId, token, parseInt(value, 10));
+      setDocumentList(response)
+      console.log(response)
+    } catch (error) { console.log(error) }
+  }
 
   return (
     <Modal
@@ -94,4 +112,4 @@ const RequiredDocuments = ({ title, open, handleClose }: {title: string, open: b
   );
 }
 
-export default RequiredDocuments
+export default RequiredDocuments;

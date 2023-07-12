@@ -9,6 +9,7 @@ const Home = () => {
   const { setAlert } = useAlert();
   const [openModal, setOpenModal] = useState(false)
   const [docTitle, setDocTitle] = useState('')
+  const [campusId, setCampusId] = useState('')
 
   const handleModal = (prop: string) => {
     setDocTitle(prop)
@@ -42,8 +43,16 @@ const Home = () => {
           </Typography>
         </Grid>
         <Grid item xs={12} sx={{ padding: "2rem 0" }}>
-          <BasicTable handleModal={(prop) => handleModal(prop)} />
-          <RequiredDocuments title={docTitle} open={openModal} handleClose={() => setOpenModal(false)} />
+          <BasicTable
+            handleModal={(prop) => handleModal(prop)}
+            setDocumentId={(prop) => setCampusId(prop)}
+          />
+          <RequiredDocuments
+            title={docTitle}
+            open={openModal}
+            campusId={campusId}
+            handleClose={() => setOpenModal(false)}
+          />
         </Grid>
       </Grid>
     </Grid>

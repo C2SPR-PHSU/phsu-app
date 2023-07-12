@@ -12,3 +12,29 @@ export interface IUserServicesData {
     created: string;
     status_desc: string;
 }
+
+export interface IUserDocumentsData {
+  created: string;
+  description: string;
+  id: string;
+  name: string;
+  ob_build: string;
+  ob_handler_id: string;
+  ob_message: string;
+  status: string;
+  status_desc: string;
+  type: string;
+}
+
+export interface IUserDocumentsResponse {
+  code: number;
+  message: string;
+  data: IUserDocumentsData[];
+}
+
+export interface IRequiredDocumentsProps {
+  title: string;
+  open: boolean;
+  campusId: string;
+  handleClose: () => void;
+}
