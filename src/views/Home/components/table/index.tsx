@@ -11,6 +11,7 @@ import VisibilityIcon from "@mui/icons-material/Visibility";
 import DownloadIcon from "@mui/icons-material/Download";
 import useAuthStore from "@/hooks/useAuthStore";
 import axios from 'axios';
+import StatusButton from "@/components/StatusButton";
 
 function createData(
   service: string,
@@ -62,7 +63,7 @@ export default function BasicTable() {
       });
   }
 
-  const statusDictionary = {
+  const statusDictionary: { [key: number]: string } = {
     0: "To Upload",
     1: "Uploaded",
     2: "Sent",
@@ -101,13 +102,9 @@ export default function BasicTable() {
                 {row.name}
               </TableCell>
               <TableCell align="center" sx={{ fontFamily: 'GothamMedium !important', fontWeight: 'bolder !important', fontSize: '1.2rem' }} >{row.created}</TableCell>
-              <TableCell align="center" sx={{ fontFamily: 'GothamMedium !important', fontWeight: 'bolder !important', fontSize: '1.2rem' }} >
-                <Button
-                  variant="outlined"
-                  sx={{ color: "#333333", borderColor: "#333333" }}
-                >
-                  {statusDictionary[row.status]}
-                </Button>
+              <TableCell align="center" sx={{ fontFamily: 'GothamMedium !important', fontWeight: 'bolder !important', fontSize: '1.2rem', padding: '1.2rem !important' }} >
+
+                <StatusButton statusName={statusDictionary[row.status] as string} />
               </TableCell>
               <TableCell align="center" sx={{ fontFamily: 'GothamMedium !important', fontWeight: 'bolder !important', fontSize: '1.2rem' }} >
                 <VisibilityIcon sx={{ color: "#009999" }} />

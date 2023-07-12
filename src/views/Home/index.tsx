@@ -1,8 +1,11 @@
-import { Grid, Typography, Box } from "@mui/material";
+import { Grid, Typography, Box, Button } from "@mui/material";
 import styles from "./styles.module.scss";
 import BasicTable from "./components/table/index";
+import useAlert from "@/hooks/useAlert";
 
 const Home = () => {
+  const { setAlert } = useAlert();
+
   return (
     <Grid container sx={{ minHeight: "90vh" }}>
       <Grid item xs={12} className={styles["image-banner"]}>
@@ -23,6 +26,12 @@ const Home = () => {
           <Typography variant="h5" className={styles["subtitle"]}>
             Requested Services
           </Typography>
+          {/* <Button
+            variant="contained"
+            onClick={() => setAlert('loool', 'success')}
+          >
+            TOAST
+          </Button> */}
         </Grid>
         <Grid item xs={12}>
           <Typography variant="body1" className={styles["description"]}>

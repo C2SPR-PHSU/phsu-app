@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   AppBar,
   Toolbar,
@@ -20,7 +20,6 @@ import { Link } from "react-router-dom";
 import { PATH } from "@/routes/constants";
 import { useNavigate } from "react-router-dom";
 import useAlert from "@/hooks/useAlert";
-import { useEffect } from "react";
 
 import useAuthStore from "@/hooks/useAuthStore";
 
@@ -36,6 +35,7 @@ export default function Header() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const setLogin = useAuthStore((state: any) => state.setLogin);
+
   const isAuthenticated = useAuthStore((state: any) => state.isAuthenticated);
   const { setAlert } = useAlert();
 
@@ -155,7 +155,28 @@ export default function Header() {
             label="Username"
             variant="outlined"
             size="small"
-            sx={styleTextfield}
+            sx={{
+              "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
+                borderColor: primaryColor,
+                borderRadius: 0,
+                border: "2px solid " + primaryColor,
+              },
+              "&:hover .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline":
+                {
+                  borderColor: primaryColor,
+                },
+              "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline":
+                {
+                  borderColor: primaryColor,
+                },
+              "& .MuiInputLabel-outlined": {
+                fontSize: "1rem",
+                color: placeholderColor,
+              },
+              "& .MuiInputLabel-outlined.Mui-focused": {
+                color: primaryColor,
+              },
+            }}
             onChange={(e) => setEmail(e.target.value)}
           />
           <LockRounded className={styles["header-icons"]} />
@@ -165,14 +186,35 @@ export default function Header() {
             type="password"
             variant="outlined"
             size="small"
-            sx={styleTextfield}
+            sx={{
+              "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
+                borderColor: primaryColor,
+                borderRadius: 0,
+                border: "2px solid " + primaryColor,
+              },
+              "&:hover .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline":
+                {
+                  borderColor: primaryColor,
+                },
+              "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline":
+                {
+                  borderColor: primaryColor,
+                },
+              "& .MuiInputLabel-outlined": {
+                fontSize: "1rem",
+                color: placeholderColor,
+              },
+              "& .MuiInputLabel-outlined.Mui-focused": {
+                color: primaryColor,
+              },
+            }}
             onChange={(e) => setPassword(e.target.value)}
           />
           <Box sx={{ display: "flex", flexDirection: "row", gap: "10%" }}>
             <Button
               variant="contained"
               className={styles["header-button"]}
-              type="submit"
+              onClick={() => setLogin(email, password)}
             >
               Log In
             </Button>
@@ -271,9 +313,8 @@ export default function Header() {
           >
             <Button
               variant="contained"
-              type="submit"
-              className={styles["toggle-button"]}
-              sx={{ marginBottom: "10px" }}
+              className={styles["header-button"]}
+              onClick={() => setLogin(email, password)}
             >
               Log In
             </Button>
