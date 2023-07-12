@@ -3,7 +3,7 @@ import { Home, Login, Register, NotFound, RequestServices } from "@/views";
 import { UnauthorizedLayout, AuthorizedLayout } from "@/layout";
 import { PATH } from "./constants";
 import useAuthStore from "@/hooks/useAuthStore";
-import CircularIndeterminate from "@/layout/Loader";
+import Recovery from "@/views/Recovery";
 
 const Root = () => {
   const isAuthenticated = useAuthStore((state: any) => state.isAuthenticated);
@@ -14,6 +14,7 @@ const Root = () => {
         <Route path={PATH.ROOT} element={<UnauthorizedLayout />}>
           <Route path={PATH.ROOT} element={<Login />} />
           <Route path={PATH.REGISTER} element={<Register />} />
+          <Route path={PATH.PASSWORDRECOVERY} element={<Recovery />} />
         </Route>
       ) : (
         <Route path={PATH.ROOT} element={<AuthorizedLayout />}>
@@ -26,7 +27,6 @@ const Root = () => {
       )}
       <Route path={PATH.NOT_FOUND} element={<NotFound />} />
       <Route path="*" element={<NotFound />} />
-      <Route path={PATH.loader} element={<CircularIndeterminate />} />
     </Routes>
   );
 };

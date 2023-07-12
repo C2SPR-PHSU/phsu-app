@@ -4,5 +4,5 @@ export const PATH = {
   REGISTER: "/register",
   NOT_FOUND: "/not-found",
   REQUEST_SERVICES: "/request-services",
-  loader: "loader",
+  PASSWORDRECOVERY: "/recovery",
 };
