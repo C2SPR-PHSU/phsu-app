@@ -47,12 +47,15 @@ const Home = () => {
             handleModal={(prop) => handleModal(prop)}
             setDocumentId={(prop) => setCampusId(prop)}
           />
-          <RequiredDocuments
-            title={docTitle}
-            open={openModal}
-            campusId={campusId}
-            handleClose={() => setOpenModal(false)}
-          />
+          {
+            openModal && 
+            <RequiredDocuments
+              title={docTitle}
+              open={openModal}
+              campusId={campusId}
+              handleClose={() => setOpenModal(false)}
+            />
+          }
         </Grid>
       </Grid>
     </Grid>
