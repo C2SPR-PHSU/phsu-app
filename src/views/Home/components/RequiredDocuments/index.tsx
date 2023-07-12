@@ -15,6 +15,9 @@ import { Box, Grid, Modal, Typography } from "@mui/material";
 import { tableHeaders, modalStyle } from './constants';
 import useAuthStore from "@/hooks/useAuthStore";
 import { IRequiredDocumentsProps, IUserDocumentsData } from '../../types';
+import StatusButton from "@/components/StatusButton";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import DownloadIcon from "@mui/icons-material/Download";
 
 const RequiredDocuments = ({ title, open, campusId, handleClose }: IRequiredDocumentsProps) => {
 
@@ -79,6 +82,28 @@ const RequiredDocuments = ({ title, open, campusId, handleClose }: IRequiredDocu
                         }
                       </TableRow>
                     </TableHead>
+                    <TableBody>
+                      {documentList && documentList.map((row, index) => (
+                        <TableRow
+                          key={index}
+                          sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                        >
+                          <TableCell component="th" scope="row"  >
+                            {row.description}
+                          </TableCell>
+                          <TableCell align="center" >{row.created}</TableCell>
+                          <TableCell align="center">
+                            <StatusButton statusName={row.status_desc as string} />
+                          </TableCell>
+                          <TableCell align="center" >
+                            <DownloadIcon sx={{ color: "rgba(0, 168, 168, 0.42)" }} />
+                            <VisibilityIcon
+                              sx={{ color: "#009999", cursor: 'pointer' }}
+                            />
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
                   </Table>
                 </TableContainer>
               </TabPanel>
