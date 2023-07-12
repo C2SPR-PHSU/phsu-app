@@ -7,8 +7,12 @@ import {
   welcomeTitle,
   serviceTitle,
 } from "./constants";
+import { useTheme } from "@mui/material/styles";
+import useMediaQuery from "@mui/material/useMediaQuery";
 
 const Login = () => {
+  const theme = useTheme();
+  const isScreenSmall = useMediaQuery(theme.breakpoints.down("sm"));
   return (
     <>
       <Grid container>
@@ -23,8 +27,28 @@ const Login = () => {
           </Box>
         </Grid>
         <Grid item xs={12} md={6}>
-          <Grid item xs={12} className={styles["services-container"]}>
-            <Typography className={styles["upper-text-title"]}>
+          <Grid
+            item
+            xs={12}
+            className={styles["services-container"]}
+            sx={{
+              ...(isScreenSmall && {
+                padding: "0",
+                paddingLeft: "1rem",
+              }),
+            }}
+          >
+            <Typography
+              className={styles["upper-text-title"]}
+              sx={{
+                fontSize: "40px",
+                ...(isScreenSmall && {
+                  fontSize: "30px",
+                  paddingTop: "1rem",
+                  paddingLeft: "1rem",
+                }),
+              }}
+            >
               {serviceTitle}
             </Typography>
             {servicesList.map((service) => {

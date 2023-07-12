@@ -6,41 +6,65 @@
   font-family: title;
 }
 
+
 .welcome-container {
   position: relative;
   max-width: 100%;
   max-height: 100%;
-
-  .background-image {
-    background: linear-gradient(
-        to bottom,
-        rgba(0, 153, 153, 0.5),
-        rgba(0, 153, 153, 0.5)
-      ),
-      url("../../assets/Asset_1.png");
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position-x: right;
-    height: 85vh;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .text {
-    @include commonTextStyles;
-    font-size: $bigTitle;
-    margin-bottom: 2rem;
-  }
-
-  .description {
-    @include commonTextStyles;
-    font-size: $bigDescription;
-    width: 60%;
-  }
 }
+
+.welcome-container .background-image {
+  position: relative !important;
+  background: linear-gradient(
+      to bottom,
+      rgba(0, 153, 153, 0.5),
+      rgba(0, 153, 153, 0.5)
+  ),
+  url("../../assets/Asset_1.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position-x: right;
+  min-height: 85vh;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.welcome-container:hover .background-image::before {
+  content: "" !important;
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  height: 100% !important;
+  width: 100% !important;
+  background-color:  rgba(62, 60, 60, 0.2) !important;
+  z-index: 1 !important;
+  opacity: 0.5 !important;
+}
+
+.welcome-container .text {
+  @include commonTextStyles;
+  font-size: $bigTitle;
+  margin-bottom: 2rem;
+  font-family: $gothamBlack !important;
+  color: white !important;
+  position: relative !important;
+  z-index: 2 !important;
+}
+
+.welcome-container .description {
+  @include commonTextStyles;
+  font-size: $bigDescription;
+  font-family: $gotham !important;
+  width: 60%;
+  color: white !important;
+  position: relative !important;
+  z-index: 2 !important;
+}
+
 
 .services-container {
   padding: 2rem 4rem 0 6rem;
@@ -48,8 +72,11 @@
 
 .upper-text-title {
   color: $warning;
-  font-size: $mainTitle !important;
+  // font-size: $mainTitle !important;
   font-weight: bolder !important;
-  font-family: "GothamMedium";
   margin-bottom: 2rem !important;
+  font-family: $gothamBlack !important;
+  text-shadow: 2px 2px 4px rgba(128, 128, 128, 0.4) !important;
+
+  
 }

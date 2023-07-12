@@ -1,12 +1,13 @@
 @import "../../assets/styles";
 
-$size: 30px;
+$size: 42px;
 
 .container {
   display: flex;
   align-items: center;
   flex-direction: row;
   padding-bottom: 1.5rem;
+  padding-left: 1rem !important;
 }
 
 .circle {
@@ -23,12 +24,12 @@ $size: 30px;
 
 .number {
   color: $white;
-  font-size: $size;
-  font-weight: bold;
+  font-size: $mainTitle !important;
+  font-weight: bold !important;
 }
 
 .link {
-  text-decoration: none;
+  text-decoration: none !important;
 }
 
 .services {
@@ -39,7 +40,10 @@ $size: 30px;
   font-size: $size;
   font-weight: bold;
   color: $mainBlue;
-  text-decoration: none;
+  text-decoration: line ;
+  font-family: $gothamBlack !important;
+  text-shadow: 2px 2px 4px rgba(128, 128, 128, 0.1) !important;
+
 
   &:hover {
     text-decoration: underline;
