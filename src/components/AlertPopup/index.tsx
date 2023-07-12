@@ -1,23 +1,25 @@
-import { Alert } from "@mui/material";
+import { Alert, Stack, AlertTitle } from "@mui/material";
 import useAlert from "@/hooks/useAlert";
-import { useGlobalContext } from "@/contexts/MainContext";
 
 const AlertPopup = () => {
   const { text, type } = useAlert();
-  const { globalState } = useGlobalContext();
 
-  if (globalState.activate) {
+  if (true) {
     return (
-      <Alert
-        severity={type}
-        sx={{
-          position: "absolute",
-          bottom: 0,
-          zIndex: 10,
-        }}
+      <Stack
+        sx={{ 
+          width: '20%',
+          position: 'absolute',
+          right: '2%',
+          top: '2%'
+        }} 
+        spacing={2}
       >
-        <p>{`${globalState.activate}`}</p>
-      </Alert>
+        <Alert severity={type}>
+          <AlertTitle sx={{ textTransform: 'capitalize' }}>{ type }</AlertTitle>
+          { text }
+        </Alert>
+      </Stack>
     );
   } else {
     return <></>;

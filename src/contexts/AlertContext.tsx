@@ -19,6 +19,7 @@ export const AlertProvider = ({ children }: AlertProviderProps) => {
   const [type, setType] = useState("");
 
   const setAlert = (text: string, type: AlertColor) => {
+    console.log('heeere')
     setText(text);
     setType(type);
 

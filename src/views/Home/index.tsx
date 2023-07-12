@@ -26,12 +26,12 @@ const Home = () => {
           <Typography variant="h5" className={styles["subtitle"]}>
             Requested Services
           </Typography>
-          <Button
+          {/* <Button
             variant="contained"
-            onClick={() => setAlert("lol", "warning")}
+            onClick={() => setAlert('loool', 'success')}
           >
             TOAST
-          </Button>
+          </Button> */}
         </Grid>
         <Grid item xs={12}>
           <Typography variant="body1" className={styles["description"]}>
