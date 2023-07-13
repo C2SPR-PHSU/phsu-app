@@ -15,7 +15,13 @@ import { selectStyles } from '@/views/RequestServices/constants';
 import { IEntranceTermsData } from '@/views/RequestServices/types';
 import { getAcademicYears, getEntranceTerms } from '@/views/RequestServices/functions';
 
-const AccordionAcademicInfo = ({ campusId }: { campusId: string }) => {
+interface IAccordionAcademicInfoProps {
+  campusId: string;
+  entranceTermId: (id: number) => void;
+  academicYearId: (id: number) => void;
+}
+
+const AccordionAcademicInfo = ({ campusId, entranceTermId, academicYearId }: IAccordionAcademicInfoProps) => {
 
   const [selectedAYear, setSelectedAYear] = useState('');
   const [academicYears, setAcademicYears] = useState<number[]>([]);
@@ -69,7 +75,12 @@ const AccordionAcademicInfo = ({ campusId }: { campusId: string }) => {
                 <CustomLabel name="Entrance Academic Year" required={true} />
                 <Select
                   value={selectedAYear || "placeholder"}
-                  onChange={e => setSelectedAYear(e.target.value)}
+                  onChange={e =>
+                    {
+                      setSelectedAYear(e.target.value)
+                      academicYearId(parseInt(e.target.value))
+                    }
+                  }
                 >
                   <MenuItem value={"placeholder"} disabled>
                     Select Academic Year
@@ -85,7 +96,12 @@ const AccordionAcademicInfo = ({ campusId }: { campusId: string }) => {
                 <CustomLabel name="Entrance Term" required={true} />
                 <Select
                   value={selectedETerm || "placeholder"}
-                  onChange={e => setSelectedETerm(e.target.value)}
+                  onChange={e => 
+                    {
+                      setSelectedETerm(e.target.value)
+                      entranceTermId(parseInt(e.target.value))
+                    }
+                  }
                 >
                   <MenuItem value={"placeholder"} disabled>
                     Select Entrance Term

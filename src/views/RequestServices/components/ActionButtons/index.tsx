@@ -2,11 +2,19 @@ import { ChangeEvent, useEffect, useState } from "react";
 import { Box, Button, Grid } from '@mui/material';
 import styles from "./styles.module.scss";
 import { submitStatus } from '@/views/RequestServices/constants';
-import { submitDocument } from '@/views/RequestServices/functions';
+import { submitDocument, updateAcademicInformation } from '@/views/RequestServices/functions';
 import useAlert from "@/hooks/useAlert";
 import useAuthStore from "@/hooks/useAuthStore";
 
-const ActionButtons = ({ campusStatus, selectedCampus }: { campusStatus: number, selectedCampus: string }) => {
+interface IActionButtonsProps {
+  campusStatus: number;
+  selectedCampus: string;
+  // Yeah, yeah... I should use Context
+  selectedETerm: number;
+  selectedAYear: number;
+}
+
+const ActionButtons = ({ campusStatus, selectedCampus, selectedETerm, selectedAYear }: IActionButtonsProps) => {
 
   const token = useAuthStore((state: any) => state.token);
   const { setAlert } = useAlert();
@@ -15,6 +23,15 @@ const ActionButtons = ({ campusStatus, selectedCampus }: { campusStatus: number,
     try {
       await submitDocument(parseInt(selectedCampus), token);      
       setAlert('Documents Sent to OnBase!', 'success')
+    } catch (error) { 
+      setAlert('Something happened. Try again later', 'error')
+    }
+  }
+
+  const sendAcademicInformation = async() => {
+    try {
+      await updateAcademicInformation(parseInt(selectedCampus), selectedETerm, selectedAYear, token);      
+      setAlert('Info sent successfully!', 'success')
     } catch (error) { 
       setAlert('Something happened. Try again later', 'error')
     }
@@ -45,7 +62,12 @@ const ActionButtons = ({ campusStatus, selectedCampus }: { campusStatus: number,
             SUBMIT
           </Button>
         }
-        <Button variant="contained" className={styles["button-save"]}>
+        <Button 
+          variant="contained"
+          className={styles["button-save"]}
+          disabled={selectedETerm && selectedAYear ? false : true}
+          onClick={() => sendAcademicInformation()}
+        >
           SAVE
         </Button>
       </Box>

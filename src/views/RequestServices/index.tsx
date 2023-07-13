@@ -19,6 +19,8 @@ const RequestServices = () => {
   const [displayList, setDisplayList] = useState(false)
   const [selectedCampus, setSelectedCampus] = useState('');
   const [selectedService, setSelectedService] = useState('');
+  const [entranceTermId, setEntranceTermId] = useState<number>(0);
+  const [academicYear, setAcademicYear] = useState<number>(0);
 
   useEffect(() => {
     getAllCampuses();
@@ -181,7 +183,11 @@ const RequestServices = () => {
 
           <Grid item xs={12} md={12} lg={12} sx={{ paddingBottom: "1.2rem" }}>
           <div className={styles["accordions-wrapper"]}>
-              <AccordionAcademicInfo campusId={selectedCampus} />
+              <AccordionAcademicInfo
+                campusId={selectedCampus}
+                entranceTermId={(id) => setEntranceTermId(id)}
+                academicYearId={(id) => setAcademicYear(id)}
+              />
             </div>
             <div className={styles["accordions-wrapper"]}>
               <AccordionServiceRequest />
@@ -190,6 +196,8 @@ const RequestServices = () => {
           <ActionButtons
             campusStatus={campusStatus}
             selectedCampus={selectedCampus}
+            selectedETerm={entranceTermId}
+            selectedAYear={academicYear}
           />
         </Grid>
       </Box>

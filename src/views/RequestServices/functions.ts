@@ -6,7 +6,8 @@ import {
   userCampus,
   submitDocumentOnbase,
   academicYears,
-  campusTerms
+  campusTerms,
+  userAcademicInformation
 } from "@/utils";
 import { 
   IUserCampusResponse,
@@ -123,6 +124,31 @@ export const getEntranceTerms = async (campusId: string) => {
       }
     });
     
+    return res.data;
+
+  } catch (error) {
+    throw error;
+  }
+}
+
+export const updateAcademicInformation = async (
+  campusId: number,
+  termId: number,
+  academicYear: number,
+  token: string
+) => {
+  try {
+    api.resource = userAcademicInformation;
+    api.token = token;
+
+    const res = await api.post<ISubmitDocumentResponse>({ 
+      body: {
+        campus_id: campusId,
+        term_id: termId,
+        academic_year: academicYear
+      }
+    });
+
     return res.data;
 
   } catch (error) {
