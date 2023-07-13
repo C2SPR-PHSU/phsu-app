@@ -335,7 +335,7 @@ export default function Header() {
               }}
               onClick={recoveryView}
             >
-              <LockRounded className={styles["header-button-variant-toggle"]} />
+              <LockRounded sx={{ color: "white" }} />
             </IconButton>
           </Container>
         </Container>
