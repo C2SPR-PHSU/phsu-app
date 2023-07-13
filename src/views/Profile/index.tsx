@@ -20,9 +20,8 @@ import CameraAltIcon from "@mui/icons-material/CameraAlt";
 const Profile = () => {
   const theme = useTheme();
   const isScreenLg = useMediaQuery(theme.breakpoints.down("lg"));
-  const isVeryScreenSmall = useMediaQuery(theme.breakpoints.down("md"));
+  const isVeryScreenSmall = useMediaQuery(theme.breakpoints.down("sm"));
   const isMedium = useMediaQuery(theme.breakpoints.down("md"));
-  const isXsScreen = useMediaQuery(theme.breakpoints.down("xs"));
 
   return (
     <>
@@ -49,12 +48,10 @@ const Profile = () => {
             display: "flex",
             justifyContent: "flex-start",
             alignItems: "center",
-
-            ...(isMedium &&
-              isVeryScreenSmall && {
-                display: "flex",
-                flexDirection: "column",
-              }),
+            ...(isVeryScreenSmall && {
+              display: "flex",
+              flexDirection: "column",
+            }),
           }}
         >
           {/*Box de foto y botones */}
@@ -86,10 +83,23 @@ const Profile = () => {
                   paddingTop: "6%",
                   paddingBottom: "10%",
                 }),
+
+                ...(isMedium && {
+                  paddingRight: "70%",
+                }),
               }}
             >
               {/*Profile title */}
-              <Typography variant="h4" className={profileScss["title"]}>
+              <Typography
+                variant="h4"
+                className={profileScss["title"]}
+                sx={{
+                  ...(isVeryScreenSmall && {
+                    textAlign: "center",
+                    paddingLeft: "28%",
+                  }),
+                }}
+              >
                 Profile
               </Typography>
 
@@ -99,10 +109,9 @@ const Profile = () => {
                 sx={{
                   paddingLeft: "10%",
                   ...(isVeryScreenSmall && {
+                    paddingLeft: "1%",
                     display: "flex",
-                    flexDirection: "row",
-                    width: "100%",
-                    paddingLeft: "25%",
+                    flexDirection: "column",
                   }),
                 }}
               >
@@ -114,7 +123,23 @@ const Profile = () => {
               </Grid>
 
               {/*Buttons */}
-              <Grid item sx={{ paddingLeft: "10%" }}>
+              <Grid
+                item
+                sx={{
+                  paddingLeft: "10%",
+                  ...(isVeryScreenSmall && {
+                    paddingLeft: "1%",
+                    display: "flex",
+                    flexDirection: "column",
+                  }),
+
+                  ...(isMedium && {
+                    display: "flex",
+                    flexDirection: "column",
+                    paddingRight: "16%",
+                  }),
+                }}
+              >
                 <Button
                   variant="outlined"
                   className={profileScss["profilesButton"]}
