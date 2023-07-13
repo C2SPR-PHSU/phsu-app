@@ -12,56 +12,18 @@ import DownloadIcon from "@mui/icons-material/Download";
 import useAuthStore from "@/hooks/useAuthStore";
 import axios from 'axios';
 import StatusButton from "@/components/StatusButton";
+import { getUserServices } from "../../functions";
+import { IUserServicesData } from '../../types';
 
-function createData(
-  service: string,
-  time: string,
-  status: string,
-  action: string
-) {
-  return { service, time, status, action };
+interface IBasicTableProps {
+  handleModal: (prop: string) => void;
+  setDocumentId: (prop: string) => void
 }
 
-const rows = [
-  createData("Credential Certification", "03/06/2023", "In-Review", ""),
-  createData(
-    "Admissions Compliance Certification",
-    "0/27/2022",
-    "In-Review",
-    ""
-  ),
-  createData("Credit Transcript", "08/27/2022", "In-Review", ""),
-];
+export default function BasicTable({ handleModal, setDocumentId }: IBasicTableProps) {
+  const token = useAuthStore((state: any) => state.token);
 
-
-
-export default function BasicTable() {
-  const token = useAuthStore((state) => state.token);
-
-  const [data, setData] = useState(null);
-
-  const getUserDocuments = () => {
-    console.log('test')
-    const url = "http://apiphsu.lobsys.net:8080/user/document";
-    const formData = new FormData();
-    formData.append('campus_id', '2');
-
-    const headers = {
-      'Content-Type': 'multipart/form-data',
-      'token': token
-    };
-
-    axios.post(url, formData, { headers })
-      .then(response => {
-        // handle success, set the row state to the response data
-        setData(response.data.data);
-        // console.log(response.data.data)
-      })
-      .catch(error => {
-        // handle error
-        console.log(error);
-      });
-  }
+  const [userServices, setUserServices] = useState<IUserServicesData[]>([]);
 
   const statusDictionary: { [key: number]: string } = {
     0: "To Upload",
@@ -74,10 +36,17 @@ export default function BasicTable() {
     7: "Denied"
   };
 
+  const getUserServicesRows = async () => {
+    try {
+      const response = await getUserServices('1', token);
+      setUserServices([response].flat());
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   useEffect(() => {
-    console.log(data)
-    getUserDocuments()
+    getUserServicesRows();
   }, []);
 
   return (
@@ -92,28 +61,32 @@ export default function BasicTable() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {data && data.map((row) => (
-            parseInt(row.status) !== 0 &&
+          {userServices && userServices.map((row, index) => (
             <TableRow
-              key={row.name}
+              key={index}
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
             >
               <TableCell component="th" scope="row" sx={{ fontFamily: 'GothamMedium !important', fontWeight: 'bolder !important', fontSize: '1.2rem' }}  >
-                {row.name}
+                {row.service} -  {row.campus_name}
               </TableCell>
               <TableCell align="center" sx={{ fontFamily: 'GothamMedium !important', fontWeight: 'bolder !important', fontSize: '1.2rem' }} >{row.created}</TableCell>
               <TableCell align="center" sx={{ fontFamily: 'GothamMedium !important', fontWeight: 'bolder !important', fontSize: '1.2rem', padding: '1.2rem !important' }} >
-
-                <StatusButton statusName={statusDictionary[row.status] as string} />
+                <StatusButton statusName={row.status_desc as string} />
               </TableCell>
               <TableCell align="center" sx={{ fontFamily: 'GothamMedium !important', fontWeight: 'bolder !important', fontSize: '1.2rem' }} >
-                <VisibilityIcon sx={{ color: "#009999" }} />
+                <VisibilityIcon
+                  sx={{ color: "#009999", cursor: 'pointer' }}
+                  onClick={() => {
+                    handleModal(`${row.service} - ${row.campus_name}`)
+                    setDocumentId(row.campus_id);
+                  }}
+                />
                 <DownloadIcon sx={{ color: "rgba(0, 168, 168, 0.42)" }} />
               </TableCell>
             </TableRow>
           ))}
-
         </TableBody>
+
       </Table>
     </TableContainer>
   );
