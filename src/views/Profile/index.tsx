@@ -81,7 +81,6 @@ const Profile = () => {
                 ...(isVeryScreenSmall && {
                   width: "100%",
                   height: "100%",
-                  paddingBottom: "15%",
                   alignItems: "flex-start",
                   paddingTop: "10%",
                 }),
@@ -94,6 +93,7 @@ const Profile = () => {
                   ...(isVeryScreenSmall && {
                     display: "flex",
                     flexDirection: "column",
+                    width: "100%",
                   }),
                 }}
               >
