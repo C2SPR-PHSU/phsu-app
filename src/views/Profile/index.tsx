@@ -34,6 +34,10 @@ const Profile = () => {
             ...(isVeryScreenSmall && {
               display: "none",
             }),
+
+            ...(isScreenLg && {
+              height: "110vh",
+            }),
           }}
         >
           <Sidebar />
@@ -123,12 +127,15 @@ const Profile = () => {
             sx={{
               height: "90%",
               width: "65%",
-              ...(isMedium &&
-                isVeryScreenSmall && {
-                  width: "100%",
-                  justifyContent: "center",
-                  alignItems: "center",
-                }),
+              ...(isVeryScreenSmall && {
+                width: "100%",
+                justifyContent: "center",
+                alignItems: "center",
+              }),
+
+              ...(isMedium && {
+                paddingLeft: "10%",
+              }),
             }}
           >
             <Typography
