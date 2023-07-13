@@ -132,7 +132,7 @@ const RequestServices = () => {
           </div>
 
           <div className={styles["form-first-row"]}>
-            <Grid item xs={12} md={5} paddingRight={"1rem"}>
+            <Grid item xs={12} md={7} paddingRight={"1rem"}>
               <FormControl
                 fullWidth={true}
                 variant="outlined"
@@ -155,7 +155,7 @@ const RequestServices = () => {
               </FormControl>
             </Grid>
 
-            <Grid item xs={12} md={5} paddingRight={"1rem"}>
+            <Grid item xs={12} md={7} paddingRight={"1rem"}>
               <FormControl
                 fullWidth={true}
                 variant="outlined"
@@ -185,7 +185,10 @@ const RequestServices = () => {
             xs={12}
             md={12}
             lg={12}
-            sx={{ paddingTop: "2.2rem", paddingBottom: "2rem" }}
+            sx={{
+              paddingTop: "2.2rem",
+              paddingBottom: "2rem",
+            }}
           >
             {!displayList ? (
               <>
@@ -193,7 +196,7 @@ const RequestServices = () => {
                   Documents
                 </Typography>
                 <Typography sx={{ color: "gray" }}>
-                  You have not selected your campus{" "}
+                  You have not selected your campus
                 </Typography>
               </>
             ) : (

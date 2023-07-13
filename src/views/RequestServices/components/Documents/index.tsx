@@ -1,10 +1,10 @@
 import { ChangeEvent, useState } from "react";
 import { Grid, Box, Typography, Button } from "@mui/material";
 import UploadIcon from "@mui/icons-material/Upload";
-import DeleteIcon from "@mui/icons-material/Delete";
+// import DeleteIcon from "@mui/icons-material/Delete";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import CheckIcon from "@mui/icons-material/Check";
-import CloseIcon from "@mui/icons-material/Close";
+// import CloseIcon from "@mui/icons-material/Close";
 import { uploadDocument } from "@/views/RequestServices/functions";
 import useAuthStore from "@/hooks/useAuthStore";
 import styles from "./styles.module.scss";
