@@ -66,3 +66,15 @@ export interface IAcademicYearsResponse {
   message: string;
   data: number[]
 }
+
+export interface IEntranceTermsData {
+  id: string;
+  title: string;
+  ob_name: string;
+}
+
+export interface IEntranceTermsResponse {
+  code: number;
+  message: string;
+  data: IEntranceTermsData[]
+}

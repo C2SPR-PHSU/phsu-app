@@ -5,7 +5,8 @@ import {
   uploadDocuments,
   userCampus,
   submitDocumentOnbase,
-  academicYears
+  academicYears,
+  campusTerms
 } from "@/utils";
 import { 
   IUserCampusResponse,
@@ -13,7 +14,8 @@ import {
   ISubmitDocumentResponse,
   IUploadDocument,
   ICampusDocumentResponse,
-  IAcademicYearsResponse
+  IAcademicYearsResponse,
+  IEntranceTermsResponse
 } from './types';
 
 export const getCampuses = async () => {
@@ -103,6 +105,23 @@ export const getAcademicYears = async () => {
     api.resource = academicYears;
 
     const res = await api.get<IAcademicYearsResponse>();
+
+    return res.data;
+
+  } catch (error) {
+    throw error;
+  }
+}
+
+export const getEntranceTerms = async (campusId: string) => {
+  try {
+    api.resource = campusTerms;
+
+    const res = await api.post<IEntranceTermsResponse>({
+      body: {
+        id: campusId
+      }
+    });
     
     return res.data;
 

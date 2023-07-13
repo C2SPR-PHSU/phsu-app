@@ -12,24 +12,37 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import styles from "./styles.module.scss";
 import CustomLabel from '@/components/CustomLabel';
 import { selectStyles } from '@/views/RequestServices/constants';
-import { getAcademicYears } from '@/views/RequestServices/functions';
+import { IEntranceTermsData } from '@/views/RequestServices/types';
+import { getAcademicYears, getEntranceTerms } from '@/views/RequestServices/functions';
 
-const AccordionAcademicInfo = () => {
+const AccordionAcademicInfo = ({ campusId }: { campusId: string }) => {
 
   const [selectedAYear, setSelectedAYear] = useState('');
   const [academicYears, setAcademicYears] = useState<number[]>([]);
+  const [selectedETerm, setSelectedETerm] = useState('');
+  const [entranceTerms, setEntranceTerms] = useState<IEntranceTermsData[]>([]);
 
   useEffect(() => {
-    getAllAcademicYears()
+    getAllAcademicYears();
   }, [])
+  
+  useEffect(() => {
+    if(campusId) getAllEntranceTerms();
+  }, [campusId])
 
   const getAllAcademicYears = async () => {
     try {
       const response = await getAcademicYears();
       setAcademicYears(response)
-    } catch (error) {
-      console.log(error)
-    }
+    } catch (error) { console.log(error) }
+  }
+
+  const getAllEntranceTerms = async () => {
+    try {
+      const response = await getEntranceTerms(campusId);
+      console.log(response)
+      setEntranceTerms(response)
+    } catch (error) { console.log(error) }
   }
 
   return (
@@ -52,36 +65,38 @@ const AccordionAcademicInfo = () => {
         </AccordionSummary>
         <AccordionDetails>
           <Grid container spacing={2} sx={{ py: 1 }}>
-              {/* First Row */}
-              <Grid item xs={12} sm={6} md={3}>
-                <div>
-                  <FormControl fullWidth={true} variant="outlined" sx={selectStyles}>
-                    <CustomLabel name="Entrance Academic Year" required={true} />
-                    <Select
-                      value={selectedAYear || "placeholder"}
-                      onChange={e => setSelectedAYear(e.target.value)}
-                    >
-                      <MenuItem value={"placeholder"} disabled>
-                        Select your Campus
-                      </MenuItem>
-                      { academicYears.map((option) => (
-                        <MenuItem key={option} value={option}>{ option }</MenuItem>
-                      ))}
-                    </Select>
-                  </FormControl>
-                </div>
-              </Grid>
-              <Grid item xs={12} sm={6} md={3}>
-                <div>
-                  <CustomLabel name="Entrance Term" required={true} />
-                  {/* <MyTextField
-                    name="entranceTerm"
-                    placeholder="Entrance Term"
-                    value={formValues.entranceTerm}
-                    onValueChange={handleInputChange}
-                  /> */}
-                </div>
-              </Grid>
+            <Grid item xs={12} sm={6} md={3}>
+              <FormControl fullWidth={true} variant="outlined" sx={selectStyles}>
+                <CustomLabel name="Entrance Academic Year" required={true} />
+                <Select
+                  value={selectedAYear || "placeholder"}
+                  onChange={e => setSelectedAYear(e.target.value)}
+                >
+                  <MenuItem value={"placeholder"} disabled>
+                    Select Academic Year
+                  </MenuItem>
+                  { academicYears.map((option) => (
+                    <MenuItem key={option} value={option}>{ option }</MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            </Grid>
+            <Grid item xs={12} sm={6} md={3}>
+              <FormControl fullWidth={true} variant="outlined" sx={selectStyles} disabled={campusId === ''}>
+                <CustomLabel name="Entrance Term" required={true} />
+                <Select
+                  value={selectedETerm || "placeholder"}
+                  onChange={e => setSelectedETerm(e.target.value)}
+                >
+                  <MenuItem value={"placeholder"} disabled>
+                    Select Entrance Term
+                  </MenuItem>
+                  { entranceTerms.map((option) => (
+                    <MenuItem key={option.id} value={option.id}>{ option.title }</MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            </Grid>
           </Grid>
         </AccordionDetails>
       </Accordion>

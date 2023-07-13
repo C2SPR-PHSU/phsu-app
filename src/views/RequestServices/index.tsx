@@ -188,7 +188,7 @@ const RequestServices = () => {
 
           <Grid item xs={12} md={12} lg={12} sx={{ paddingBottom: "1.2rem" }}>
           <div className={styles["accordions-wrapper"]}>
-              <AccordionAcademicInfo />
+              <AccordionAcademicInfo campusId={selectedCampus} />
             </div>
             <div className={styles["accordions-wrapper"]}>
               <AccordionServiceRequest />
