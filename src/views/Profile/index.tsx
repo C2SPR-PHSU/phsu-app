@@ -6,6 +6,8 @@ import {
   ListItem,
   ListItemText,
   Typography,
+  Divider,
+  IconButton,
 } from "@mui/material";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
@@ -13,6 +15,7 @@ import profileScss from "./Profile.module.scss";
 import sxStyles from "./ItemSx";
 import { Sidebar } from "@/layout";
 import { UserProfile } from "./users";
+import CameraAltIcon from "@mui/icons-material/CameraAlt";
 
 const Profile = () => {
   const theme = useTheme();
@@ -106,7 +109,10 @@ const Profile = () => {
                   variant="outlined"
                   className={profileScss["profilesButton"]}
                 >
-                  Change photo
+                  Change
+                  <IconButton size="small">
+                    <CameraAltIcon />
+                  </IconButton>
                 </Button>
               </Grid>
             </Grid>
@@ -201,6 +207,15 @@ const Profile = () => {
                 </List>
               </Grid>
 
+              <Divider
+                orientation="horizontal"
+                sx={{
+                  borderBottom: "1px solid gray",
+                  width: "95%",
+                  paddingTop: "1rem",
+                }}
+              />
+
               {/*Academic Information */}
               <Grid item xs={12} sm={6} md={6} sx={sxStyles.infoGridItem}>
                 <List>
@@ -234,7 +249,6 @@ const Profile = () => {
               </Grid>
 
               {/*Adress */}
-
               <Grid item xs={12} sm={6} md={6} sx={sxStyles.infoGridItem}>
                 <List>
                   <Typography
