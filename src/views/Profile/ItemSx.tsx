@@ -7,7 +7,7 @@ const sxStyles = {
   infoGridItem: {
     flexDirection: "column",
     display: "flex",
-    padding: "1rem 1rem 0rem",
+    padding: "1rem -6rem 0rem",
   },
   personalInfoTitle: {
     variant: "h5",

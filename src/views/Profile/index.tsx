@@ -1,4 +1,3 @@
-import React from "react";
 import {
   Grid,
   Box,
@@ -13,6 +12,7 @@ import { useTheme } from "@mui/material/styles";
 import profileScss from "./Profile.module.scss";
 import sxStyles from "./ItemSx";
 import { Sidebar } from "@/layout";
+import { UserProfile } from "./users";
 
 const Profile = () => {
   const theme = useTheme();
@@ -125,7 +125,10 @@ const Profile = () => {
                 }),
             }}
           >
-            <Typography variant="h6" className={profileScss["title"]}>
+            <Typography
+              variant="h6"
+              className={profileScss["titlePersonalInformation"]}
+            >
               Personal information
             </Typography>
             <Grid container>
@@ -133,24 +136,34 @@ const Profile = () => {
 
               <Grid item xs={12} sm={6} md={6} sx={sxStyles.infoGridItem}>
                 <List>
-                  <ListItem sx={{ py: 0 }}>
-                    <ListItemText primary={`First Name: `} />
+                  <ListItem>
+                    <ListItemText
+                      primary={`First Name: ${UserProfile.first_name} `}
+                    />
                   </ListItem>
 
-                  <ListItem sx={{ py: 0 }}>
-                    <ListItemText primary={`Middle Name: `} />
+                  <ListItem>
+                    <ListItemText
+                      primary={`Middle Name: ${UserProfile.middle_name} `}
+                    />
                   </ListItem>
 
-                  <ListItem sx={{ py: 0 }}>
-                    <ListItemText primary={`Last Name: `} />
+                  <ListItem>
+                    <ListItemText
+                      primary={`Last Name: ${UserProfile.last_name} `}
+                    />
                   </ListItem>
 
-                  <ListItem sx={{ py: 0 }}>
-                    <ListItemText primary={`Second Last Name: `} />
+                  <ListItem>
+                    <ListItemText
+                      primary={`Second Last Name: ${UserProfile.second_last_name} `}
+                    />
                   </ListItem>
 
-                  <ListItem sx={{ py: 0 }}>
-                    <ListItemText primary={`Student ID: `} />
+                  <ListItem>
+                    <ListItemText
+                      primary={`Student ID: ${UserProfile.student_id} `}
+                    />
                   </ListItem>
                 </List>
               </Grid>
@@ -158,24 +171,32 @@ const Profile = () => {
               {/*Personal Information 2 */}
               <Grid item xs={12} sm={6} md={6} sx={sxStyles.infoGridItem}>
                 <List>
-                  <ListItem sx={{ py: 0 }}>
-                    <ListItemText primary={`Date or Birth: `} />
+                  <ListItem>
+                    <ListItemText
+                      primary={`Date or Birth: ${UserProfile.birthdate} `}
+                    />
                   </ListItem>
 
-                  <ListItem sx={{ py: 0 }}>
-                    <ListItemText primary={`Phone Number: `} />
+                  <ListItem>
+                    <ListItemText
+                      primary={`Phone Number: ${UserProfile.cell_phone} `}
+                    />
                   </ListItem>
 
-                  <ListItem sx={{ py: 0 }}>
-                    <ListItemText primary={`Alternative Phone Number: `} />
+                  <ListItem>
+                    <ListItemText
+                      primary={`Alternative Phone Number: ${UserProfile.alternative_phone} `}
+                    />
                   </ListItem>
 
-                  <ListItem sx={{ py: 0 }}>
-                    <ListItemText primary={`Email: `} />
+                  <ListItem>
+                    <ListItemText primary={`Email: ${UserProfile.email} `} />
                   </ListItem>
 
-                  <ListItem sx={{ py: 0 }}>
-                    <ListItemText primary={`Institucional Email: `} />
+                  <ListItem>
+                    <ListItemText
+                      primary={`Institucional Email: ${UserProfile.institucional_email} `}
+                    />
                   </ListItem>
                 </List>
               </Grid>
@@ -190,24 +211,24 @@ const Profile = () => {
                     Academic Information
                   </Typography>
 
-                  <ListItem sx={{ py: 0 }}>
-                    <ListItemText primary={`Date or Birth: `} />
+                  <ListItem>
+                    <ListItemText
+                      primary={`Entrance Academic Year: ${UserProfile.entrance_year} `}
+                    />
                   </ListItem>
 
-                  <ListItem sx={{ py: 0 }}>
-                    <ListItemText primary={`Phone Number: `} />
+                  <ListItem>
+                    <ListItemText primary={`campus: ${UserProfile.campus} `} />
                   </ListItem>
 
-                  <ListItem sx={{ py: 0 }}>
-                    <ListItemText primary={`Alternative Phone Number: `} />
+                  <ListItem>
+                    <ListItemText primary={`Program: `} />
                   </ListItem>
 
-                  <ListItem sx={{ py: 0 }}>
-                    <ListItemText primary={`Email: `} />
-                  </ListItem>
-
-                  <ListItem sx={{ py: 0 }}>
-                    <ListItemText primary={`Institucional Email: `} />
+                  <ListItem>
+                    <ListItemText
+                      primary={`Institucional Entrance Terms: ${UserProfile.entrance_terms} `}
+                    />
                   </ListItem>
                 </List>
               </Grid>
@@ -223,16 +244,34 @@ const Profile = () => {
                     Adress
                   </Typography>
 
-                  <ListItem sx={{ py: 0 }}>
-                    <ListItemText primary={`Entrance Academic Year: `} />
+                  <ListItem>
+                    <ListItemText
+                      primary={`Line q: ${UserProfile.address_line1} `}
+                    />
                   </ListItem>
 
-                  <ListItem sx={{ py: 0 }}>
-                    <ListItemText primary={`Campus Main: `} />
+                  <ListItem>
+                    <ListItemText
+                      primary={`Line 2: ${UserProfile.address_line2} `}
+                    />
                   </ListItem>
 
-                  <ListItem sx={{ py: 0 }}>
-                    <ListItemText primary={`Entarnce Term: `} />
+                  <ListItem>
+                    <ListItemText
+                      primary={`City: ${UserProfile.address_city} `}
+                    />
+                  </ListItem>
+
+                  <ListItem>
+                    <ListItemText
+                      primary={`state: ${UserProfile.address_city} `}
+                    />
+                  </ListItem>
+
+                  <ListItem>
+                    <ListItemText
+                      primary={`Zip code: ${UserProfile.address_zipcode} `}
+                    />
                   </ListItem>
                 </List>
               </Grid>
