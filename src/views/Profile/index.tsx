@@ -27,19 +27,7 @@ const Profile = () => {
     <>
       {/*Mostramos sidebar */}
       <Box sx={{ display: "flex" }}>
-        <Box
-          sx={{
-            width: "12%",
-            height: "100vh",
-            ...(isVeryScreenSmall && {
-              display: "none",
-            }),
-
-            ...(isScreenLg && {
-              height: "110vh",
-            }),
-          }}
-        >
+        <Box sx={sxStyles(isVeryScreenSmall, isMedium, isScreenLg).sidebarBox}>
           <Sidebar />
         </Box>
 

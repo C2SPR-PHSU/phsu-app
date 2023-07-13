@@ -71,7 +71,7 @@ const sxStyles = (isVeryScreenSmall: any, isMedium: any, isScreenLg: any) => ({
     }),
   },
 
-  personalInformation :{
+  personalInformation: {
     height: "90%",
     width: "65%",
     ...(isVeryScreenSmall && {
@@ -83,8 +83,19 @@ const sxStyles = (isVeryScreenSmall: any, isMedium: any, isScreenLg: any) => ({
     ...(isMedium && {
       paddingLeft: "6%",
     }),
-  }
+  },
 
+  sidebarBox: {
+    width: "12%",
+    height: "100vh",
+    ...(isVeryScreenSmall && {
+      display: "none",
+    }),
+
+    ...(isScreenLg && {
+      height: "110vh",
+    }),
+  },
 });
 
 export default sxStyles;
