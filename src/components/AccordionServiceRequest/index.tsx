@@ -13,7 +13,6 @@ import {
     Box,
     Grid,
     TextField,
-
     Button,
     InputAdornment,
     IconButton,
@@ -94,200 +93,200 @@ export default function BasicAccordion() {
     });
 
     const handleInputChange = (name: string, value: string) => {
-        setFormValues((prevValues) => ({ ...prevValues, [name]: value }));
-        console.log(formValues);
+      setFormValues((prevValues) => ({ ...prevValues, [name]: value }));
+      console.log(formValues);
     };
 
     return (
-        <>
-            <Accordion sx={{
+      <>
+        <Accordion sx={{
+            backgroundColor: "#efefef",
+            width: "100%",
+            borderRadius: "5px",
+            padding: "0.5rem",
+            marginBottom: "1.5rem !important"
+        }}>
+            <AccordionSummary
+                expandIcon={<ExpandMoreIcon />}
+                aria-controls="panel1a-content"
+                id="panel1a-header"
+            >
+                <Typography className={styles["box-academic-i"]}>
+                    Academic Information
+                </Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <Grid container spacing={2} sx={{ py: 1 }}>
+                  {/* First Row */}
+                  <Grid item xs={12} sm={6} md={3}>
+                      <div>
+                          <CustomLabel name="Entrance Academic Year" required={true} />
+                          <MyTextField
+                              name="entranceYear"
+                              placeholder="Entrance Academic Year"
+                              value={formValues.entranceYear}
+                              onValueChange={handleInputChange}
+                          />
+                      </div>
+                  </Grid>
+                  <Grid item xs={12} sm={6} md={3}>
+                      <div>
+                          <CustomLabel name="Campus" required={true} />
+                          <MyTextField
+                              name="campus"
+                              placeholder="Campus"
+                              value={formValues.campus}
+                              onValueChange={handleInputChange}
+                          />
+                      </div>
+                  </Grid>
+                  <Grid item xs={12} sm={6} md={3}>
+                      <div>
+                          <CustomLabel name="Entrance Term" required={true} />
+                          <MyTextField
+                              name="entranceTerm"
+                              placeholder="Entrance Term"
+                              value={formValues.entranceTerm}
+                              onValueChange={handleInputChange}
+                          />
+                      </div>
+                  </Grid>
+              </Grid>
+            </AccordionDetails>
+        </Accordion>
+
+        <Accordion
+            sx={{
                 backgroundColor: "#efefef",
                 width: "100%",
                 borderRadius: "5px",
                 padding: "0.5rem",
-                marginBottom: "1.5rem !important"
             }}>
-                <AccordionSummary
-                    expandIcon={<ExpandMoreIcon />}
-                    aria-controls="panel1a-content"
-                    id="panel1a-header"
-                >
-                    <Typography className={styles["box-academic-i"]}>
-                        Academic Information
-                    </Typography>
-                </AccordionSummary>
+            <AccordionSummary
+                expandIcon={<ExpandMoreIcon />}
+                aria-controls="panel2a-content"
+                id="panel2a-header"
+            >
+                <Typography className={styles["box-academic-i"]}>
+                    Personal Information
+                </Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <Grid container spacing={2} sx={{ py: 1 }}>
                 <AccordionDetails>
                     <Grid container spacing={2} sx={{ py: 1 }}>
-                        {/* First Row */}
-                        <Grid item xs={12} sm={6} md={3}>
+                        <Grid item xs={12} sm={6} md={4}>
                             <div>
-                                <CustomLabel name="Entrance Academic Year" required={true} />
+                                <CustomLabel name="First Name" required={true} />
                                 <MyTextField
-                                    name="entranceYear"
-                                    placeholder="Entrance Academic Year"
-                                    value={formValues.entranceYear}
+                                    name="firstName"
+                                    placeholder="First Name"
+                                    value={formValues.firstName}
                                     onValueChange={handleInputChange}
                                 />
                             </div>
                         </Grid>
-                        <Grid item xs={12} sm={6} md={3}>
+                        <Grid item xs={12} sm={6} md={4}>
                             <div>
-                                <CustomLabel name="Campus" required={true} />
+                                <CustomLabel name="Middle Name" required={false} />
                                 <MyTextField
-                                    name="campus"
-                                    placeholder="Campus"
-                                    value={formValues.campus}
+                                    name="middleName"
+                                    placeholder="Middle Name"
+                                    value={formValues.middleName}
                                     onValueChange={handleInputChange}
                                 />
                             </div>
                         </Grid>
-                        <Grid item xs={12} sm={6} md={3}>
+                        <Grid item xs={12} sm={6} md={4}>
                             <div>
-                                <CustomLabel name="Entrance Term" required={true} />
+                                <CustomLabel name="Last Name" required={true} />
                                 <MyTextField
-                                    name="entranceTerm"
-                                    placeholder="Entrance Term"
-                                    value={formValues.entranceTerm}
+                                    name="lastName"
+                                    placeholder="Last Name"
+                                    value={formValues.lastName}
                                     onValueChange={handleInputChange}
                                 />
                             </div>
+                        </Grid>
+                        {/* Second Row */}
+                        <Grid item xs={12} sm={6} md={4}>
+                            <CustomLabel name="Second Last Name" required={false} />
+                            <MyTextField
+                                name="secondLastName"
+                                placeholder="Second Last Name"
+                                value={formValues.secondLastName}
+                                onValueChange={handleInputChange}
+                            />
+                        </Grid>
+                        <Grid item xs={12} sm={6} md={4}>
+                            <CustomLabel name="Date of Birth" required={true} />
+                            <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                <DatePicker
+                                    sx={{
+                                        "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
+                                            borderColor: "#009999",
+                                            borderRadius: 0,
+                                            border: "2px solid " + "#009999",
+                                        },
+                                        "&:hover .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline":
+                                        {
+                                            borderColor: "#009999",
+                                        },
+                                        "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline":
+                                        {
+                                            borderColor: "#009999",
+                                        },
+                                        "& .MuiInputLabel-outlined": {
+                                            fontSize: "1rem",
+                                            color: "#333333",
+                                        },
+                                        "& .MuiInputLabel-outlined.Mui-focused": {
+                                            color: "#009999",
+                                        },
+                                        "& .MuiOutlinedInput-input": {
+                                            padding: "0.7rem",
+                                        },
+                                    }}
+                                    value={formValues.dateOfBirth}
+                                    onChange={(newValue: any) =>
+                                        handleInputChange("dateOfBirth", newValue.toString())
+                                    }
+                                    slotProps={{ textField: { size: "small", fullWidth: true } }}
+                                />
+                            </LocalizationProvider>
+                        </Grid>
+                        <Grid item xs={12} sm={6} md={4}>
+                            <CustomLabel name="Phone Number" required={true} />
+                            <MyTextField
+                                name="phoneNumber"
+                                placeholder="Phone Number"
+                                value={formValues.phoneNumber}
+                                onValueChange={handleInputChange}
+                            />
+                        </Grid>
+                        <Grid item xs={12} sm={6} md={4}>
+                            <CustomLabel name="Email" required={true} />
+                            <MyTextField
+                                name="email"
+                                placeholder="Email"
+                                value={formValues.email}
+                                onValueChange={handleInputChange}
+                            />
+                        </Grid>
+                        <Grid item xs={12} sm={6} md={4}>
+                            <CustomLabel name="Student Id" required={true} />
+                            <MyTextField
+                                name="studentId"
+                                placeholder="Student Id"
+                                value={formValues.studentId}
+                                onValueChange={handleInputChange}
+                            />
                         </Grid>
                     </Grid>
                 </AccordionDetails>
-            </Accordion>
-
-            <Accordion
-                sx={{
-                    backgroundColor: "#efefef",
-                    width: "100%",
-                    borderRadius: "5px",
-                    padding: "0.5rem",
-                }}>
-                <AccordionSummary
-                    expandIcon={<ExpandMoreIcon />}
-                    aria-controls="panel2a-content"
-                    id="panel2a-header"
-                >
-                    <Typography className={styles["box-academic-i"]}>
-                        Personal Information
-                    </Typography>
-                </AccordionSummary>
-                <AccordionDetails>
-                    <Typography>
-                        <AccordionDetails>
-                            <Grid container spacing={2} sx={{ py: 1 }}>
-                                <Grid item xs={12} sm={6} md={4}>
-                                    <div>
-                                        <CustomLabel name="First Name" required={true} />
-                                        <MyTextField
-                                            name="firstName"
-                                            placeholder="First Name"
-                                            value={formValues.firstName}
-                                            onValueChange={handleInputChange}
-                                        />
-                                    </div>
-                                </Grid>
-                                <Grid item xs={12} sm={6} md={4}>
-                                    <div>
-                                        <CustomLabel name="Middle Name" required={false} />
-                                        <MyTextField
-                                            name="middleName"
-                                            placeholder="Middle Name"
-                                            value={formValues.middleName}
-                                            onValueChange={handleInputChange}
-                                        />
-                                    </div>
-                                </Grid>
-                                <Grid item xs={12} sm={6} md={4}>
-                                    <div>
-                                        <CustomLabel name="Last Name" required={true} />
-                                        <MyTextField
-                                            name="lastName"
-                                            placeholder="Last Name"
-                                            value={formValues.lastName}
-                                            onValueChange={handleInputChange}
-                                        />
-                                    </div>
-                                </Grid>
-                                {/* Second Row */}
-                                <Grid item xs={12} sm={6} md={4}>
-                                    <CustomLabel name="Second Last Name" required={false} />
-                                    <MyTextField
-                                        name="secondLastName"
-                                        placeholder="Second Last Name"
-                                        value={formValues.secondLastName}
-                                        onValueChange={handleInputChange}
-                                    />
-                                </Grid>
-                                <Grid item xs={12} sm={6} md={4}>
-                                    <CustomLabel name="Date of Birth" required={true} />
-                                    <LocalizationProvider dateAdapter={AdapterDayjs}>
-                                        <DatePicker
-                                            sx={{
-                                                "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
-                                                    borderColor: "#009999",
-                                                    borderRadius: 0,
-                                                    border: "2px solid " + "#009999",
-                                                },
-                                                "&:hover .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline":
-                                                {
-                                                    borderColor: "#009999",
-                                                },
-                                                "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline":
-                                                {
-                                                    borderColor: "#009999",
-                                                },
-                                                "& .MuiInputLabel-outlined": {
-                                                    fontSize: "1rem",
-                                                    color: "#333333",
-                                                },
-                                                "& .MuiInputLabel-outlined.Mui-focused": {
-                                                    color: "#009999",
-                                                },
-                                                "& .MuiOutlinedInput-input": {
-                                                    padding: "0.7rem",
-                                                },
-                                            }}
-                                            value={formValues.dateOfBirth}
-                                            onChange={(newValue: any) =>
-                                                handleInputChange("dateOfBirth", newValue.toString())
-                                            }
-                                            slotProps={{ textField: { size: "small", fullWidth: true } }}
-                                        />
-                                    </LocalizationProvider>
-                                </Grid>
-                                <Grid item xs={12} sm={6} md={4}>
-                                    <CustomLabel name="Phone Number" required={true} />
-                                    <MyTextField
-                                        name="phoneNumber"
-                                        placeholder="Phone Number"
-                                        value={formValues.phoneNumber}
-                                        onValueChange={handleInputChange}
-                                    />
-                                </Grid>
-                                <Grid item xs={12} sm={6} md={4}>
-                                    <CustomLabel name="Email" required={true} />
-                                    <MyTextField
-                                        name="email"
-                                        placeholder="Email"
-                                        value={formValues.email}
-                                        onValueChange={handleInputChange}
-                                    />
-                                </Grid>
-                                <Grid item xs={12} sm={6} md={4}>
-                                    <CustomLabel name="Student Id" required={true} />
-                                    <MyTextField
-                                        name="studentId"
-                                        placeholder="Student Id"
-                                        value={formValues.studentId}
-                                        onValueChange={handleInputChange}
-                                    />
-                                </Grid>
-                            </Grid>
-                        </AccordionDetails>
-                    </Typography>
-                </AccordionDetails>
-            </Accordion>
-        </>
+              </Grid>
+            </AccordionDetails>
+        </Accordion>
+      </>
     );
 }
