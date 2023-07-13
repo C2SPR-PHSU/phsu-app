@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import {
   Table,
   TableBody,
@@ -7,19 +6,12 @@ import {
   TableHead,
   TableRow,
   Paper,
-  Tab,
-  Box,
-  Grid,
-  Modal,
   Typography,
 } from "@mui/material";
 import { tableHeaders } from "./constants";
 import StatusButton from "@/components/StatusButton";
 import { IRequiredDocumentsProps, IUserDocumentsData } from "../../types";
 import VisibilityIcon from "@mui/icons-material/Visibility";
-import DeleteIcon from "@mui/icons-material/Delete";
-import DownloadIcon from "@mui/icons-material/Download";
-import ClearIcon from "@mui/icons-material/Clear";
 
 interface RequiredDocumentsTableProps {
   documentList: IUserDocumentsData[];
@@ -58,11 +50,25 @@ const RequiredDocumentsTable = ({
                     <StatusButton statusName={row.status_desc as string} />
                   </TableCell>
                   <TableCell align="center">
-                    {/* <DownloadIcon sx={{ color: "rgba(0, 168, 168, 0.42)" }} />
-                  <DeleteIcon sx={{ color: "#009999", cursor: 'pointer' }} /> */}
-                    <VisibilityIcon
-                      sx={{ color: "#009999", cursor: "pointer" }}
-                    />
+                    {row.url ? (
+                      <a
+                        href={row.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <VisibilityIcon
+                          sx={{ color: "#009999", cursor: "pointer" }}
+                        />
+                      </a>
+                    ) : (
+                      <VisibilityIcon
+                        sx={{
+                          color: "#009999",
+                          cursor: "default",
+                          opacity: 0.5,
+                        }}
+                      />
+                    )}
                   </TableCell>
                 </TableRow>
               );
