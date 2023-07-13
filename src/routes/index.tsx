@@ -3,6 +3,7 @@ import { Home, Login, Register, RequestServices } from "@/views";
 import { UnauthorizedLayout, AuthorizedLayout } from "@/layout";
 import { PATH } from "./constants";
 import useAuthStore from "@/hooks/useAuthStore";
+import Error404 from "@/views/Error500";
 
 const Root = () => {
   const isAuthenticated = useAuthStore((state: any) => state.isAuthenticated);
