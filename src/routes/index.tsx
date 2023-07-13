@@ -1,8 +1,9 @@
 import { Route, Routes } from "react-router-dom";
-import { Home, Login, Register, NotFound, RequestServices } from "@/views";
+import { Home, Login, Register, RequestServices } from "@/views";
 import { UnauthorizedLayout, AuthorizedLayout } from "@/layout";
 import { PATH } from "./constants";
 import useAuthStore from "@/hooks/useAuthStore";
+import Error404 from "@/views/Error500";
 
 const Root = () => {
   const isAuthenticated = useAuthStore((state: any) => state.isAuthenticated);
@@ -23,8 +24,8 @@ const Root = () => {
           ></Route>
         </Route>
       )}
-      <Route path={PATH.NOT_FOUND} element={<NotFound />} />
-      <Route path="*" element={<NotFound />} />
+      <Route path={PATH.NOT_FOUND} element={<Error404 />} />
+      <Route path="*" element={<Error404 />} />
     </Routes>
   );
 };
