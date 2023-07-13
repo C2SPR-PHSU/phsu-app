@@ -40,7 +40,6 @@ const AccordionAcademicInfo = ({ campusId }: { campusId: string }) => {
   const getAllEntranceTerms = async () => {
     try {
       const response = await getEntranceTerms(campusId);
-      console.log(response)
       setEntranceTerms(response)
     } catch (error) { console.log(error) }
   }

@@ -4,7 +4,7 @@ import useAuthStore from "@/hooks/useAuthStore";
 import { CustomLabel } from "@/components";
 import { selectStyles, optionsService, servicesTextDescription, servicesTextTitle, submitStatus } from './constants';
 import { getCampuses, getCampusDocuments, getUserCampus, submitDocument } from "./functions";
-import { Documents, AccordionServiceRequest, AccordionAcademicInfo } from './components';
+import { Documents, AccordionServiceRequest, AccordionAcademicInfo, ActionButtons } from './components';
 import { IAllCampusesData, ICampusDocumentsData } from './types'
 import styles from "./styles.module.scss";
 
@@ -40,13 +40,6 @@ const RequestServices = () => {
     try {
       const response = await getUserCampus(campusId, token)
       setCampusStatus(parseInt(response.status));
-    } catch (error) { console.log(error) }
-  }
-
-  const sendToOnBase = async () => {
-    try {
-      await submitDocument(parseInt(selectedCampus), token);
-      setCampusStatus(2);
     } catch (error) { console.log(error) }
   }
 
@@ -194,44 +187,11 @@ const RequestServices = () => {
               <AccordionServiceRequest />
             </div>
           </Grid>
-
-          <Grid
-            item
-            xs={12}
-            md={12}
-            lg={12}
-            sx={{ paddingBottom: "1.2rem", paddingTop: "1rem" }}
-          >
-            <Box sx={{ display: "flex", flexDirection: "row", gap: "1rem" }}>
-              { campusStatus !== submitStatus.SENT &&
-                <Button
-                  onClick={() => sendToOnBase()}
-                  variant="contained"
-                  className={styles["button-submit"]}
-                  sx={{
-                    '&.Mui-disabled': {
-                      opacity: "0.6",
-                      color: 'white',
-                    },
-                  }}
-                  disabled={campusStatus === submitStatus.DISABLED}
-                >
-                  SUBMIT
-                </Button>
-              }
-              <Button variant="contained" className={styles["button-save"]}>
-                SAVE
-              </Button>
-            </Box>
-          </Grid>
+          <ActionButtons
+            campusStatus={campusStatus}
+            selectedCampus={selectedCampus}
+          />
         </Grid>
-        {campusStatus === submitStatus.SENT &&
-          <>
-            <Alert severity="success" color="success" >
-              Documents Sent to OnBase!
-            </Alert>
-          </>
-        }
       </Box>
     </Box>
   );
