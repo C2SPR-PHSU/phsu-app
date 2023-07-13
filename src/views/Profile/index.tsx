@@ -42,52 +42,18 @@ const Profile = () => {
         >
           <Sidebar />
         </Box>
-        <Box
-          sx={{
-            height: "100vh",
-            display: "flex",
-            justifyContent: "flex-start",
-            alignItems: "center",
-            ...(isVeryScreenSmall && {
-              display: "flex",
-              flexDirection: "column",
-            }),
-          }}
-        >
+
+        {/*Items, Photo and Buttons content (Box main)  */}
+        <Box sx={sxStyles(isVeryScreenSmall, isMedium, isScreenLg).boxMain}>
           {/*Box de foto y botones */}
           <Box
-            sx={{
-              height: "90%",
-              width: "30%",
-              paddingLeft: "10%",
-              marginLeft: "20%",
-
-              ...(isVeryScreenSmall && {
-                width: "100%",
-              }),
-            }}
+            sx={sxStyles(isVeryScreenSmall, isMedium, isScreenLg).boxButtoPhoto}
           >
             <Grid
               container
-              sx={{
-                display: "flex",
-                alignItems: "flex-start",
-                flexDirection: "column",
-                paddingTop: "6%",
-                height: "80%",
-                ...(isVeryScreenSmall && {
-                  width: "100%",
-                  height: "100%",
-                  alignItems: "flex-start",
-                  justifyContent: "center",
-                  paddingTop: "6%",
-                  paddingBottom: "10%",
-                }),
-
-                ...(isMedium && {
-                  paddingRight: "70%",
-                }),
-              }}
+              sx={
+                sxStyles(isVeryScreenSmall, isMedium, null).containButtonPhoto
+              }
             >
               {/*Profile title */}
               <Typography
@@ -104,17 +70,7 @@ const Profile = () => {
               </Typography>
 
               {/*Photo */}
-              <Grid
-                item
-                sx={{
-                  paddingLeft: "10%",
-                  ...(isVeryScreenSmall && {
-                    paddingLeft: "1%",
-                    display: "flex",
-                    flexDirection: "column",
-                  }),
-                }}
-              >
+              <Grid item sx={sxStyles(isVeryScreenSmall, null, null).itemPhoto}>
                 <img
                   src="https://randomuser.me/api/portraits/women/60.jpg"
                   alt="user-photo"
@@ -125,20 +81,9 @@ const Profile = () => {
               {/*Buttons */}
               <Grid
                 item
-                sx={{
-                  paddingLeft: "10%",
-                  ...(isVeryScreenSmall && {
-                    paddingLeft: "1%",
-                    display: "flex",
-                    flexDirection: "column",
-                  }),
-
-                  ...(isMedium && {
-                    display: "flex",
-                    flexDirection: "column",
-                    paddingRight: "16%",
-                  }),
-                }}
+                sx={
+                  sxStyles(isVeryScreenSmall, isMedium, isScreenLg).itemButtons
+                }
               >
                 <Button
                   variant="outlined"
@@ -161,19 +106,10 @@ const Profile = () => {
 
           {/*Box con los grid de personal information */}
           <Box
-            sx={{
-              height: "90%",
-              width: "65%",
-              ...(isVeryScreenSmall && {
-                width: "100%",
-                justifyContent: "center",
-                alignItems: "center",
-              }),
-
-              ...(isMedium && {
-                paddingLeft: "6%",
-              }),
-            }}
+            sx={
+              sxStyles(isVeryScreenSmall, isMedium, isScreenLg)
+                .personalInformation
+            }
           >
             <Typography
               variant="h6"
@@ -184,7 +120,7 @@ const Profile = () => {
             <Grid container>
               {/*Personal information */}
 
-              <Grid item xs={12} sm={6} md={6} sx={sxStyles.infoGridItem}>
+              <Grid item xs={12} sm={6} md={6}>
                 <List>
                   <ListItem>
                     <ListItemText
@@ -219,7 +155,7 @@ const Profile = () => {
               </Grid>
 
               {/*Personal Information 2 */}
-              <Grid item xs={12} sm={6} md={6} sx={sxStyles.infoGridItem}>
+              <Grid item xs={12} sm={6} md={6}>
                 <List>
                   <ListItem>
                     <ListItemText
@@ -261,7 +197,7 @@ const Profile = () => {
               />
 
               {/*Academic Information */}
-              <Grid item xs={12} sm={6} md={6} sx={sxStyles.infoGridItem}>
+              <Grid item xs={12} sm={6} md={6}>
                 <List>
                   <Typography
                     variant="h6"
@@ -293,7 +229,7 @@ const Profile = () => {
               </Grid>
 
               {/*Adress */}
-              <Grid item xs={12} sm={6} md={6} sx={sxStyles.infoGridItem}>
+              <Grid item xs={12} sm={6} md={6}>
                 <List>
                   <Typography
                     variant="h6"

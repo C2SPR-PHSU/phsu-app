@@ -1,46 +1,90 @@
-const sxStyles = {
-  photoGridItem: {
-    justifyContent: "end",
-    display: "flex",
-  },
-
+const sxStyles = (isVeryScreenSmall: any, isMedium: any, isScreenLg: any) => ({
   infoGridItem: {
     flexDirection: "column",
     display: "flex",
     padding: "1rem -6rem 0rem",
   },
-  personalInfoTitle: {
-    variant: "h5",
-  },
-  personalInfoBox: {
-    display: "flex",
-    height: "40%",
-    //backgroundColor: "gray",
-  },
-  listContainer: {
-    display: "flex",
-    flexDirection: "column",
 
-    paddingBottom: "3rem",
+  boxMain: {
+    height: "100vh",
+    display: "flex",
+    justifyContent: "flex-start",
+    alignItems: "center",
+    ...(isVeryScreenSmall && {
+      display: "flex",
+      flexDirection: "column",
+    }),
   },
-  listItem: {
-    py: 1,
-    flexGrow: 1,
+
+  boxButtoPhoto: {
+    height: "90%",
+    width: "30%",
+    paddingLeft: "10%",
+    marginLeft: "20%",
+
+    ...(isVeryScreenSmall && {
+      width: "100%",
+    }),
   },
-  list: {
-    padding: "1rem 0rem 2rem",
-    // backgroundColor: "green",
+
+  containButtonPhoto: {
+    display: "flex",
+    alignItems: "flex-start",
+    flexDirection: "column",
+    paddingTop: "6%",
+    height: "80%",
+    ...(isVeryScreenSmall && {
+      width: "100%",
+      height: "100%",
+      alignItems: "flex-start",
+      justifyContent: "center",
+      paddingTop: "6%",
+      paddingBottom: "10%",
+    }),
+
+    ...(isMedium && {
+      paddingRight: "70%",
+    }),
   },
-  listItemText: {
-    fontSize: "10px",
+
+  itemPhoto: {
+    paddingLeft: "10%",
+    ...(isVeryScreenSmall && {
+      paddingLeft: "1%",
+      display: "flex",
+      flexDirection: "column",
+    }),
   },
-  academicInfoGridItem: {
-    padding: " 0.6rem",
+
+  itemButtons: {
+    paddingLeft: "10%",
+    ...(isVeryScreenSmall && {
+      paddingLeft: "1%",
+      display: "flex",
+      flexDirection: "column",
+    }),
+
+    ...(isMedium && {
+      display: "flex",
+      flexDirection: "column",
+      paddingRight: "16%",
+    }),
   },
-  addressGridItem: {
-    height: "70%",
-    padding: "1rem 1rem 2rem",
-  },
-};
+
+  personalInformation :{
+    height: "90%",
+    width: "65%",
+    ...(isVeryScreenSmall && {
+      width: "100%",
+      justifyContent: "center",
+      alignItems: "center",
+    }),
+
+    ...(isMedium && {
+      paddingLeft: "6%",
+    }),
+  }
+
+});
 
 export default sxStyles;
