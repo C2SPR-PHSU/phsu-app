@@ -60,3 +60,9 @@ export interface ICampusDocumentsData {
   type: string;
   description: string;
 }
+
+export interface IAcademicYearsResponse {
+  code: number;
+  message: string;
+  data: number[]
+}

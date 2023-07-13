@@ -1,12 +1,20 @@
 import api from "@/utils/services/api";
-import { campuses, campusDocuments, uploadDocuments, userCampus, submitDocumentOnbase } from "@/utils";
+import {
+  campuses,
+  campusDocuments,
+  uploadDocuments,
+  userCampus,
+  submitDocumentOnbase,
+  academicYears
+} from "@/utils";
 import { 
   IUserCampusResponse,
   IAllCampusesResponse,
   ISubmitDocumentResponse,
   IUploadDocument,
-  ICampusDocumentResponse
-} from './types'
+  ICampusDocumentResponse,
+  IAcademicYearsResponse
+} from './types';
 
 export const getCampuses = async () => {
   try {
@@ -83,6 +91,19 @@ export const submitDocument = async(campusId: number, token: string) => {
       }
     });
 
+    return res.data;
+
+  } catch (error) {
+    throw error;
+  }
+}
+
+export const getAcademicYears = async () => {
+  try {
+    api.resource = academicYears;
+
+    const res = await api.get<IAcademicYearsResponse>();
+    
     return res.data;
 
   } catch (error) {

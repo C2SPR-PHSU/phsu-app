@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 import { Grid, Box, Typography, Button, FormControl, Select, Alert, MenuItem } from "@mui/material";
 import useAuthStore from "@/hooks/useAuthStore";
-import { AccordionServiceRequest, CustomLabel } from "@/components";
+import { CustomLabel } from "@/components";
 import { selectStyles, optionsService, servicesTextDescription, servicesTextTitle, submitStatus } from './constants';
 import { getCampuses, getCampusDocuments, getUserCampus, submitDocument } from "./functions";
-import Documents from './components/Documents';
+import { Documents, AccordionServiceRequest, AccordionAcademicInfo } from './components';
 import { IAllCampusesData, ICampusDocumentsData } from './types'
 import styles from "./styles.module.scss";
 
@@ -187,6 +187,9 @@ const RequestServices = () => {
           </Grid>
 
           <Grid item xs={12} md={12} lg={12} sx={{ paddingBottom: "1.2rem" }}>
+          <div className={styles["accordions-wrapper"]}>
+              <AccordionAcademicInfo />
+            </div>
             <div className={styles["accordions-wrapper"]}>
               <AccordionServiceRequest />
             </div>
