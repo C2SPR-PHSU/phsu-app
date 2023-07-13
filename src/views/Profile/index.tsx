@@ -20,8 +20,9 @@ import CameraAltIcon from "@mui/icons-material/CameraAlt";
 const Profile = () => {
   const theme = useTheme();
   const isScreenLg = useMediaQuery(theme.breakpoints.down("lg"));
-  const isVeryScreenSmall = useMediaQuery(theme.breakpoints.down("sm"));
+  const isVeryScreenSmall = useMediaQuery(theme.breakpoints.down("md"));
   const isMedium = useMediaQuery(theme.breakpoints.down("md"));
+  const isXsScreen = useMediaQuery(theme.breakpoints.down("xs"));
 
   return (
     <>
@@ -60,9 +61,8 @@ const Profile = () => {
           <Box
             sx={{
               height: "90%",
-              width: "28%",
+              width: "30%",
               paddingLeft: "10%",
-              paddingBottom: "10%",
               marginLeft: "20%",
 
               ...(isVeryScreenSmall && {
@@ -74,26 +74,35 @@ const Profile = () => {
               container
               sx={{
                 display: "flex",
-                justifyContent: "center",
-                alignItems: "flex-end",
+                alignItems: "flex-start",
                 flexDirection: "column",
+                paddingTop: "6%",
                 height: "80%",
                 ...(isVeryScreenSmall && {
                   width: "100%",
                   height: "100%",
                   alignItems: "flex-start",
-                  paddingTop: "10%",
+                  justifyContent: "center",
+                  paddingTop: "6%",
+                  paddingBottom: "10%",
                 }),
               }}
             >
+              {/*Profile title */}
+              <Typography variant="h4" className={profileScss["title"]}>
+                Profile
+              </Typography>
+
               {/*Photo */}
               <Grid
                 item
                 sx={{
+                  paddingLeft: "10%",
                   ...(isVeryScreenSmall && {
                     display: "flex",
-                    flexDirection: "column",
+                    flexDirection: "row",
                     width: "100%",
+                    paddingLeft: "25%",
                   }),
                 }}
               >
@@ -102,7 +111,10 @@ const Profile = () => {
                   alt="user-photo"
                   className={profileScss["imgProfileStyle"]}
                 />
+              </Grid>
 
+              {/*Buttons */}
+              <Grid item sx={{ paddingLeft: "10%" }}>
                 <Button
                   variant="outlined"
                   className={profileScss["profilesButton"]}
@@ -134,7 +146,7 @@ const Profile = () => {
               }),
 
               ...(isMedium && {
-                paddingLeft: "10%",
+                paddingLeft: "6%",
               }),
             }}
           >
