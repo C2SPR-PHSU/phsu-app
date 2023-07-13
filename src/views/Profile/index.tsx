@@ -24,16 +24,24 @@ const Profile = () => {
     <>
       {/*Mostramos sidebar */}
       <Box sx={{ display: "flex" }}>
-        <Box sx={{ width: "12%" }}>
+        <Box
+          sx={{
+            width: "12%",
+            height: "100vh",
+            ...(isVeryScreenSmall && {
+              display: "none",
+            }),
+          }}
+        >
           <Sidebar />
         </Box>
         <Box
           sx={{
-            //  backgroundColor: "pink",
             height: "100vh",
             display: "flex",
-            justifyContent: "center",
+            justifyContent: "flex-start",
             alignItems: "center",
+
             ...(isMedium &&
               isVeryScreenSmall && {
                 display: "flex",
@@ -44,15 +52,15 @@ const Profile = () => {
           {/*Box de foto y botones */}
           <Box
             sx={{
-              //   backgroundColor: "yellowgreen",
               height: "90%",
-              width: "25%",
-              paddingRight: "5%",
+              width: "28%",
+              paddingLeft: "10%",
               paddingBottom: "10%",
-              ...(isMedium &&
-                isVeryScreenSmall && {
-                  width: "100%",
-                }),
+              marginLeft: "20%",
+
+              ...(isVeryScreenSmall && {
+                width: "100%",
+              }),
             }}
           >
             <Grid
@@ -62,26 +70,32 @@ const Profile = () => {
                 justifyContent: "center",
                 alignItems: "flex-end",
                 flexDirection: "column",
-                backgroundColor: "white",
                 height: "80%",
+                ...(isVeryScreenSmall && {
+                  width: "100%",
+                  height: "100%",
+                  paddingBottom: "15%",
+                  alignItems: "flex-start",
+                  paddingTop: "10%",
+                }),
               }}
             >
               {/*Photo */}
-              <Grid item>
+              <Grid
+                item
+                sx={{
+                  ...(isVeryScreenSmall && {
+                    display: "flex",
+                    flexDirection: "column",
+                  }),
+                }}
+              >
                 <img
                   src="https://randomuser.me/api/portraits/women/60.jpg"
                   alt="user-photo"
                   className={profileScss["imgProfileStyle"]}
                 />
-              </Grid>
 
-              <Grid
-                item
-                sx={{
-                  display: "flex",
-                  flexDirection: "column",
-                }}
-              >
                 <Button
                   variant="outlined"
                   className={profileScss["profilesButton"]}
@@ -101,9 +115,8 @@ const Profile = () => {
           {/*Box con los grid de personal information */}
           <Box
             sx={{
-              //     backgroundColor: "yellow",
               height: "90%",
-              width: "40%",
+              width: "65%",
               ...(isMedium &&
                 isVeryScreenSmall && {
                   width: "100%",
