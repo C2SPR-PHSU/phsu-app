@@ -20,17 +20,14 @@ import CameraAltIcon from "@mui/icons-material/CameraAlt";
 import { useFormik } from "formik";
 import customTextField from "./sxTexField";
 import { useState } from "react";
+import { validationSchema } from "./validateconstants";
 
 const Profile = () => {
   const theme = useTheme();
   const isScreenLg = useMediaQuery(theme.breakpoints.down("lg"));
-  const isVeryScreenSmall = useMediaQuery(theme.breakpoints.down("sm"));
-  const isMedium = useMediaQuery(theme.breakpoints.down("md"));
+  const isVeryScreenSmall = useMediaQuery(theme.breakpoints.down("md"));
+  const isMedium = useMediaQuery(theme.breakpoints.down("lg"));
   const [isEditMode, setIsEditMode] = useState(false);
-
-  const editMode = () => {
-    setIsEditMode(!isEditMode);
-  };
 
   const formik = useFormik({
     initialValues: {
@@ -54,10 +51,10 @@ const Profile = () => {
       zipcode: UserProfile.address_zipcode,
       program: UserProfile.program,
     },
-    //validationSchema: validationSchema,
+    validationSchema: validationSchema,
     onSubmit: (values) => {
       console.log(values);
-      setIsEditMode(false);
+      setIsEditMode(!isEditMode);
     },
   });
 
@@ -88,14 +85,9 @@ const Profile = () => {
               >
                 {/*Profile title */}
                 <Typography
-                  variant="h4"
+                  variant="h3"
                   className={profileScss["title"]}
-                  sx={{
-                    ...(isVeryScreenSmall && {
-                      textAlign: "center",
-                      paddingLeft: "28%",
-                    }),
-                  }}
+                  sx={sxStyles(isVeryScreenSmall, isMedium, isScreenLg).title}
                 >
                   Profile
                 </Typography>
@@ -123,7 +115,7 @@ const Profile = () => {
                   <Button
                     variant="outlined"
                     className={profileScss["profilesButton"]}
-                    onClick={editMode}
+                    type="submit"
                   >
                     {isEditMode ? "Save Profile" : "Edit Profile"}
                   </Button>
@@ -482,7 +474,7 @@ const Profile = () => {
 
                     {/*Program item */}
                     <ListItem>
-                      <ListItemText primary={`Campus Main:`} />
+                      <ListItemText primary={`Program:`} />
                       {isEditMode ? (
                         <TextField
                           id="program"

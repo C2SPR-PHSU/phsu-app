@@ -18,12 +18,11 @@ const sxStyles = (isVeryScreenSmall: any, isMedium: any, isScreenLg: any) => ({
 
   boxButtoPhoto: {
     height: "90%",
-    width: "30%",
-    paddingLeft: "10%",
-    marginLeft: "20%",
-
+    width: "25%",
+    paddingLeft: "5%",
     ...(isVeryScreenSmall && {
       width: "100%",
+      paddingLeft: "9%",
     }),
   },
 
@@ -87,13 +86,20 @@ const sxStyles = (isVeryScreenSmall: any, isMedium: any, isScreenLg: any) => ({
 
   sidebarBox: {
     width: "12%",
-    height: "110vh",
+    height: "120vh",
     ...(isVeryScreenSmall && {
       display: "none",
     }),
 
     ...(isScreenLg && {
       height: "110vh",
+    }),
+  },
+
+  title: {
+    ...(isVeryScreenSmall && {
+      textAlign: "center",
+      paddingLeft: "9%",
     }),
   },
 });

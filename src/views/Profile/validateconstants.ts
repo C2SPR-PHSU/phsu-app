@@ -1,18 +1,57 @@
 import * as Yup from "yup";
 
-const validationSchema = Yup.object().shape({
-  firstname: Yup.string().required("First Name is required"),
-  middlename: Yup.string().required("Middle Name is required"),
-  lastname: Yup.string().required("Last Name is required"),
-  secondlastname: Yup.string().required("Second Last Name is required"),
-  studentid: Yup.string().required("Student ID is required"),
-  birthdate: Yup.string().required("Date of Birth is required"),
-  cell_phone: Yup.string().required("Phone Number is required"),
-  alternative_phone: Yup.string().required(
-    "Alternative Phone Number is required"
-  ),
-  email: Yup.string().required("Email is required"),
-  institucional_email: Yup.string().required("Institucional Email is required"),
-});
+export const validationSchema = Yup.object().shape({
+  firstname: Yup.string()
+    .matches(/^[A-Za-z]+$/, "Only letters")
+    .nullable(),
+  middlename: Yup.string()
+    .matches(/^[A-Za-z]+$/, "Only letters")
+    .nullable(),
+  lastname: Yup.string()
+    .matches(/^[A-Za-z]+$/, "Only letters ")
+    .nullable(),
+  secondlastname: Yup.string()
+    .matches(/^[A-Za-z]+$/, "Only letters ")
+    .nullable(),
+  studentid: Yup.string()
+    .matches(/^[0-9]+$/, "Only numbers ")
+    .nullable(),
+  cell_phone: Yup.string()
+    .matches(/^[0-9]+$/, "Only numbers ")
+    .nullable(),
+  alternative_phone: Yup.string()
+    .matches(/^[0-9-]+$/, "Only numbers and hyphens ")
+    .nullable(),
 
-export default validationSchema;
+  entranceYear: Yup.string()
+    .matches(/^[0-9]+$/, "Only numbers ")
+    .nullable(),
+  email: Yup.string().email("Invalid email format").nullable(),
+  birthdate: Yup.string(),
+  institucional_email: Yup.string().email("Invalid email format").nullable(),
+  line1: Yup.string()
+    .matches(
+      /^[A-Za-z0-9\s]+$/,
+      "Only letters, numbers, and spaces are allowed"
+    )
+    .max(15, "Maximum of 15 characters")
+    .nullable(),
+  program: Yup.string()
+    .matches(/^[A-Za-z-]+$/, "Only letters and hyphens are allowed")
+    .nullable(),
+
+  campusMain: Yup.string()
+    .matches(/^[A-Za-z]+$/, "Only letters ")
+    .nullable(),
+  city: Yup.string()
+    .matches(/^[A-Za-z\s]+$/, "Only letters and spaces ")
+    .nullable(),
+
+  state: Yup.string()
+    .matches(/^[A-Za-z\s]+$/, "Only letters and spaces ")
+    .nullable(),
+
+  zipcode: Yup.string()
+    .matches(/^[0-9]+$/, "Only numbers ")
+    .nullable(),
+});
