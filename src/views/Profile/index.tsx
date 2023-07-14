@@ -14,13 +14,14 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
 import profileScss from "./Profile.module.scss";
 import sxStyles from "./ItemSx";
-import { Sidebar } from "@/layout";
-import { UserProfile } from "./users";
 import CameraAltIcon from "@mui/icons-material/CameraAlt";
 import { useFormik } from "formik";
 import customTextField from "./sxTexField";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { validationSchema } from "./validateconstants";
+import { UserDetails } from "./users";
+import { UserProfile } from "./users";
+import useAuthStore from "@/hooks/useAuthStore";
 
 const Profile = () => {
   const theme = useTheme();
@@ -28,47 +29,60 @@ const Profile = () => {
   const isVeryScreenSmall = useMediaQuery(theme.breakpoints.down("md"));
   const isMedium = useMediaQuery(theme.breakpoints.down("lg"));
   const [isEditMode, setIsEditMode] = useState(false);
+  const token = useAuthStore((state: any) => state.token);
+  const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
+
+  useEffect(() => {
+    async function getUserProfile() {
+      try {
+        const profile = await UserDetails(token);
+        setUserProfile(profile);
+        console.log(profile.first_name);
+      } catch (error) {
+        console.error("Error:", error);
+      }
+    }
+
+    getUserProfile();
+  }, []);
 
   const formik = useFormik({
     initialValues: {
-      firstname: UserProfile.first_name,
-      middlename: UserProfile.middle_name,
-      lastname: UserProfile.last_name,
-      secondlastname: UserProfile.second_last_name,
-      studentid: UserProfile.student_id,
-      birthdate: UserProfile.birthdate,
-      cell_phone: UserProfile.cell_phone,
-      alternative_phone: UserProfile.alternative_phone,
-      email: UserProfile.email,
-      institucional_email: UserProfile.institucional_email,
-      entranceYear: UserProfile.entrance_year,
-      campusMain: UserProfile.campus,
-      entranceTerm: UserProfile.entrance_terms,
-      line1: UserProfile.address_line1,
-      line2: UserProfile.address_line2,
-      city: UserProfile.address_city,
-      state: UserProfile.address_city,
-      zipcode: UserProfile.address_zipcode,
-      program: UserProfile.program,
+      email: userProfile?.email || "",
+      cell_phone: userProfile?.cell_phone || "",
+      studentid: userProfile?.student_id || "",
+      firstname: userProfile?.first_name || "",
+      middlename: userProfile?.middle_name || "",
+      lastname: userProfile?.last_name || "",
+      secondlastname: userProfile?.second_last_name || "",
+      birthdate: userProfile?.birthdate || "",
+      line1: userProfile?.address_line1 || "",
+      line2: userProfile?.address_line2 || "",
+      state: userProfile?.address_state || "",
+      city: userProfile?.address_city || "",
+      zipcode: userProfile?.address_zipcode || "",
+      alternative_phone: userProfile?.alternative_phone || "",
+      institucional_email: userProfile?.institucional_email || "",
+      entranceYear: userProfile?.entrance_year || "",
+      campusMain: userProfile?.campus || "",
+      entranceTerm: userProfile?.entrance_terms || "",
+      program: userProfile?.program || "",
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      console.log(values);
-      setIsEditMode(!isEditMode);
+      if (formik.isValid) {
+        console.log(values);
+        setIsEditMode(!isEditMode);
+      } else {
+        alert("Please fix the errors before saving."); // Advertencia de error
+      }
     },
   });
 
   return (
     <>
       <form onSubmit={formik.handleSubmit}>
-        {/*Mostramos sidebar */}
         <Box sx={{ display: "flex" }}>
-          <Box
-            sx={sxStyles(isVeryScreenSmall, isMedium, isScreenLg).sidebarBox}
-          >
-            <Sidebar />
-          </Box>
-
           {/*Items, Photo and Buttons content (Box main)  */}
           <Box sx={sxStyles(isVeryScreenSmall, isMedium, isScreenLg).boxMain}>
             {/*Box de foto y botones */}
@@ -150,7 +164,12 @@ const Profile = () => {
                 <Grid item xs={12} sm={6} md={6}>
                   <List>
                     {/*First Name item */}
-                    <ListItem>
+                    <ListItem
+                      sx={
+                        sxStyles(isVeryScreenSmall, isMedium, isScreenLg)
+                          .listItem
+                      }
+                    >
                       <ListItemText primary="First Name:" />
                       {isEditMode ? (
                         <TextField
@@ -178,7 +197,12 @@ const Profile = () => {
                     </ListItem>
 
                     {/*Middlename item */}
-                    <ListItem>
+                    <ListItem
+                      sx={
+                        sxStyles(isVeryScreenSmall, isMedium, isScreenLg)
+                          .listItem
+                      }
+                    >
                       <ListItemText primary="Middle Name:" />
                       {isEditMode ? (
                         <TextField
@@ -207,7 +231,12 @@ const Profile = () => {
                     </ListItem>
 
                     {/*lastname item */}
-                    <ListItem>
+                    <ListItem
+                      sx={
+                        sxStyles(isVeryScreenSmall, isMedium, isScreenLg)
+                          .listItem
+                      }
+                    >
                       <ListItemText primary="Last Name:" />
                       {isEditMode ? (
                         <TextField
@@ -232,7 +261,12 @@ const Profile = () => {
                     </ListItem>
 
                     {/*Second lastname item */}
-                    <ListItem>
+                    <ListItem
+                      sx={
+                        sxStyles(isVeryScreenSmall, isMedium, isScreenLg)
+                          .listItem
+                      }
+                    >
                       <ListItemText primary="Second Last Name:" />
                       {isEditMode ? (
                         <TextField
@@ -256,7 +290,12 @@ const Profile = () => {
                     </ListItem>
 
                     {/*studentid item */}
-                    <ListItem>
+                    <ListItem
+                      sx={
+                        sxStyles(isVeryScreenSmall, isMedium, isScreenLg)
+                          .listItem
+                      }
+                    >
                       <ListItemText primary="Student ID:" />
                       {isEditMode ? (
                         <TextField
@@ -284,7 +323,12 @@ const Profile = () => {
                 <Grid item xs={12} sm={6} md={6}>
                   <List>
                     {/*Birthdate item */}
-                    <ListItem>
+                    <ListItem
+                      sx={
+                        sxStyles(isVeryScreenSmall, isMedium, isScreenLg)
+                          .listItem
+                      }
+                    >
                       <ListItemText primary={`Date or Birth: `} />
                       {isEditMode ? (
                         <TextField
@@ -308,7 +352,12 @@ const Profile = () => {
                     </ListItem>
 
                     {/*phonenumber item */}
-                    <ListItem>
+                    <ListItem
+                      sx={
+                        sxStyles(isVeryScreenSmall, isMedium, isScreenLg)
+                          .listItem
+                      }
+                    >
                       <ListItemText primary={`Phone Number:`} />
 
                       {isEditMode ? (
@@ -328,12 +377,17 @@ const Profile = () => {
                           sx={customTextField}
                         />
                       ) : (
-                        <ListItemText primary={UserProfile.cell_phone} />
+                        <ListItemText primary={formik.values.cell_phone} />
                       )}
                     </ListItem>
 
                     {/*Alternative phonenumber */}
-                    <ListItem>
+                    <ListItem
+                      sx={
+                        sxStyles(isVeryScreenSmall, isMedium, isScreenLg)
+                          .listItem
+                      }
+                    >
                       <ListItemText primary={`Alternative Phone Number: `} />
                       {isEditMode ? (
                         <TextField
@@ -359,7 +413,12 @@ const Profile = () => {
                     </ListItem>
 
                     {/*Email */}
-                    <ListItem>
+                    <ListItem
+                      sx={
+                        sxStyles(isVeryScreenSmall, isMedium, isScreenLg)
+                          .listItem
+                      }
+                    >
                       <ListItemText primary={`Email: `} />
                       {isEditMode ? (
                         <TextField
@@ -379,7 +438,12 @@ const Profile = () => {
                     </ListItem>
 
                     {/*Institucional email item */}
-                    <ListItem>
+                    <ListItem
+                      sx={
+                        sxStyles(isVeryScreenSmall, isMedium, isScreenLg)
+                          .listItem
+                      }
+                    >
                       <ListItemText primary={`Institucional Email: `} />
                       {isEditMode ? (
                         <TextField
@@ -426,7 +490,12 @@ const Profile = () => {
                     </Typography>
 
                     {/*Entrance year item */}
-                    <ListItem>
+                    <ListItem
+                      sx={
+                        sxStyles(isVeryScreenSmall, isMedium, isScreenLg)
+                          .listItem
+                      }
+                    >
                       <ListItemText primary={`Entrance Academic Year:`} />
                       {isEditMode ? (
                         <TextField
@@ -449,7 +518,12 @@ const Profile = () => {
                       )}
                     </ListItem>
                     {/*Campus item */}
-                    <ListItem>
+                    <ListItem
+                      sx={
+                        sxStyles(isVeryScreenSmall, isMedium, isScreenLg)
+                          .listItem
+                      }
+                    >
                       <ListItemText primary={`Campus Main:`} />
                       {isEditMode ? (
                         <TextField
@@ -473,7 +547,12 @@ const Profile = () => {
                     </ListItem>
 
                     {/*Program item */}
-                    <ListItem>
+                    <ListItem
+                      sx={
+                        sxStyles(isVeryScreenSmall, isMedium, isScreenLg)
+                          .listItem
+                      }
+                    >
                       <ListItemText primary={`Program:`} />
                       {isEditMode ? (
                         <TextField
@@ -494,7 +573,12 @@ const Profile = () => {
                       )}
                     </ListItem>
                     {/*Entrance terms item */}
-                    <ListItem>
+                    <ListItem
+                      sx={
+                        sxStyles(isVeryScreenSmall, isMedium, isScreenLg)
+                          .listItem
+                      }
+                    >
                       <ListItemText primary={`Entrance Term:`} />
                       {isEditMode ? (
                         <TextField
@@ -530,7 +614,12 @@ const Profile = () => {
                     </Typography>
 
                     {/* Line 1 item */}
-                    <ListItem>
+                    <ListItem
+                      sx={
+                        sxStyles(isVeryScreenSmall, isMedium, isScreenLg)
+                          .listItem
+                      }
+                    >
                       <ListItemText primary={`Line 1:`} />
                       {isEditMode ? (
                         <TextField
@@ -550,7 +639,12 @@ const Profile = () => {
                     </ListItem>
 
                     {/* Line 2 item */}
-                    <ListItem>
+                    <ListItem
+                      sx={
+                        sxStyles(isVeryScreenSmall, isMedium, isScreenLg)
+                          .listItem
+                      }
+                    >
                       <ListItemText primary={`Line 2:`} />
                       {isEditMode ? (
                         <TextField
@@ -570,7 +664,12 @@ const Profile = () => {
                     </ListItem>
 
                     {/* City item */}
-                    <ListItem>
+                    <ListItem
+                      sx={
+                        sxStyles(isVeryScreenSmall, isMedium, isScreenLg)
+                          .listItem
+                      }
+                    >
                       <ListItemText primary={`City:`} />
                       {isEditMode ? (
                         <TextField
@@ -588,7 +687,12 @@ const Profile = () => {
                     </ListItem>
 
                     {/* State item */}
-                    <ListItem>
+                    <ListItem
+                      sx={
+                        sxStyles(isVeryScreenSmall, isMedium, isScreenLg)
+                          .listItem
+                      }
+                    >
                       <ListItemText primary={`State:`} />
                       {isEditMode ? (
                         <TextField
@@ -608,7 +712,12 @@ const Profile = () => {
                     </ListItem>
 
                     {/* Zip Code item */}
-                    <ListItem>
+                    <ListItem
+                      sx={
+                        sxStyles(isVeryScreenSmall, isMedium, isScreenLg)
+                          .listItem
+                      }
+                    >
                       <ListItemText primary={`Zip Code:`} />
                       {isEditMode ? (
                         <TextField

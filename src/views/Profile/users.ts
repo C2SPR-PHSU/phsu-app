@@ -1,22 +1,39 @@
-export const UserProfile = {
-  email: "example@example.com",
-  cell_phone: "1234567890",
-  student_id: "123456789",
-  first_name: "John",
-  middle_name: "Doe",
-  last_name: "Smith",
-  second_last_name: "Johnson",
-  birthdate: "1990-01-01",
-  address_line1: "123MainStreet",
-  address_line2: "Apt 4B",
-  address_state: "California",
-  address_city: "Los Angeles",
-  address_zipcode: "12345",
-  password: "password",
-  alternative_phone: "744878394839494",
-  institucional_email: "example@example.com",
-  entrance_year: "2017",
-  campus: "main",
-  entrance_terms: "uwusito",
-  program: "MD-medicine",
+/* eslint-disable no-useless-catch */
+import api from "@/utils/services/api";
+import { userDetails } from "@/utils";
+import useAuthStore from "@/hooks/useAuthStore";
+
+export interface UserProfile {
+  email: string;
+  cell_phone: string;
+  student_id: string;
+  first_name: string;
+  middle_name: string;
+  last_name: string;
+  second_last_name: string;
+  birthdate: string;
+  address_line1: string;
+  address_line2: string;
+  address_state: string;
+  address_city: string;
+  address_zipcode: string;
+  password: string;
+  alternative_phone: string;
+  institucional_email: string;
+  entrance_year: string;
+  campus: string;
+  entrance_terms: string;
+  program: string;
+}
+
+export const UserDetails = async (token: string): Promise<UserProfile> => {
+  try {
+    api.resource = userDetails;
+
+    const res = await api.get(); // Especificar el tipo de retorno
+
+    return res.data;
+  } catch (error) {
+    throw error;
+  }
 };

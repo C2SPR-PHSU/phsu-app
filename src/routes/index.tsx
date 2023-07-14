@@ -22,11 +22,11 @@ const Root = () => {
             path={PATH.REQUEST_SERVICES}
             element={<RequestServices />}
           ></Route>
+          <Route path={PATH.PROFILE} element={<Profile />} />
         </Route>
       )}
       <Route path={PATH.NOT_FOUND} element={<NotFound />} />
       <Route path="*" element={<NotFound />} />
-      <Route path={PATH.PROFILE} element={<Profile />} />
     </Routes>
   );
 };

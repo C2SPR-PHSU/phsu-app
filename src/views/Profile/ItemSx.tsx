@@ -102,6 +102,17 @@ const sxStyles = (isVeryScreenSmall: any, isMedium: any, isScreenLg: any) => ({
       paddingLeft: "9%",
     }),
   },
+
+  listItem: {
+    ...(isVeryScreenSmall &&  {
+      display: "flex",
+      flexDirection: "column",
+    }),
+  },
+
+  listItemText: {
+    ...(isVeryScreenSmall && {}),
+  },
 });
 
 export default sxStyles;
