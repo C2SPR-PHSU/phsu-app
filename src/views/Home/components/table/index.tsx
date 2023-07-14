@@ -75,7 +75,7 @@ export default function BasicTable({
                 fontSize: "1.5rem",
               }}
             >
-              Expiration date
+              Time
             </TableCell>
             <TableCell
               align="center"

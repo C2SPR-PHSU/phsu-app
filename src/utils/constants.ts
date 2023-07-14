@@ -9,6 +9,6 @@ export const campusTerms = "/campus/terms";
 export const uploadDocuments = "/user/document/create";
 export const userDocuments = "/user/document";
 export const userCampus = "/user/campus/";
-export const userAcademicInformation = "user/campus/modify"
+export const userAcademicInformation = "user/campus/modify";
 export const submitDocumentOnbase = '/user/document/sendOB/';
 export const userService = '/user/service/';

@@ -6,6 +6,7 @@ import CheckIcon from "@mui/icons-material/Check";
 import { uploadDocument } from "@/views/RequestServices/functions";
 import useAuthStore from "@/hooks/useAuthStore";
 import styles from "./styles.module.scss";
+import useAlert from "@/hooks/useAlert";
 
 interface IDocumentsProps {
   title: string;
@@ -24,16 +25,19 @@ const Documents = ({
 }: IDocumentsProps) => {
   const token = useAuthStore((state: any) => state.token);
   const [checked, setChecked] = useState(false);
+  const { setAlert } = useAlert();
 
   const handleUpload = async (e: ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files) return;
     const document = e.target.files[0];
     try {
       await uploadDocument({ campusId, documentId, document, token });
-      setChecked(true);
+      setChecked(true)
+      setAlert('Documents uploaded Successfully!', 'success')
       getUserCampusInfo(campusId.toString());
     } catch (error) {
-      setChecked(false);
+      setChecked(false)
+      setAlert('Something happened. Try again later', 'error')
     }
   };
 
