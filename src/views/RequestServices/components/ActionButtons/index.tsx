@@ -2,7 +2,7 @@ import { ChangeEvent, useEffect, useState } from "react";
 import { Box, Button, Grid } from '@mui/material';
 import styles from "./styles.module.scss";
 import { submitStatus } from '@/views/RequestServices/constants';
-import { submitDocument, updateAcademicInformation } from '@/views/RequestServices/functions';
+import { getUserCampus, submitDocument, updateAcademicInformation } from '@/views/RequestServices/functions';
 import useAlert from "@/hooks/useAlert";
 import useAuthStore from "@/hooks/useAuthStore";
 
@@ -13,27 +13,34 @@ interface IActionButtonsProps {
   selectedETerm: number;
   selectedAYear: number;
   enabledSubmit: boolean;
+  getUserCampusInfo: (id: string) => void;
 }
 
-const ActionButtons = ({ campusStatus, selectedCampus, selectedETerm, selectedAYear, enabledSubmit }: IActionButtonsProps) => {
+const ActionButtons = ({ campusStatus, selectedCampus, selectedETerm, selectedAYear, enabledSubmit, getUserCampusInfo, }: IActionButtonsProps) => {
+
+  useEffect(() => {
+    console.log(campusStatus, ' ', enabledSubmit)
+  }, []);
+
 
   const token = useAuthStore((state: any) => state.token);
   const { setAlert } = useAlert();
 
   const sendToOnBase = async () => {
     try {
-      await submitDocument(parseInt(selectedCampus), token);      
+      await submitDocument(parseInt(selectedCampus), token);
+      getUserCampusInfo(selectedCampus);
       setAlert('Documents Sent to OnBase!', 'success')
-    } catch (error) { 
+    } catch (error) {
       setAlert('Something happened. Try again later', 'error')
     }
   }
 
-  const sendAcademicInformation = async() => {
+  const sendAcademicInformation = async () => {
     try {
-      await updateAcademicInformation(parseInt(selectedCampus), selectedETerm, selectedAYear, token);      
+      await updateAcademicInformation(parseInt(selectedCampus), selectedETerm, selectedAYear, token);
       setAlert('Info sent successfully!', 'success')
-    } catch (error) { 
+    } catch (error) {
       setAlert('Something happened. Try again later', 'error')
     }
   }
@@ -47,7 +54,7 @@ const ActionButtons = ({ campusStatus, selectedCampus, selectedETerm, selectedAY
       sx={{ paddingBottom: "1.2rem", paddingTop: "1rem" }}
     >
       <Box sx={{ display: "flex", flexDirection: "row", gap: "1rem" }}>
-        { campusStatus !== submitStatus.SENT &&
+        {campusStatus < 2 &&
           <Button
             onClick={() => sendToOnBase()}
             variant="contained"
@@ -58,12 +65,12 @@ const ActionButtons = ({ campusStatus, selectedCampus, selectedETerm, selectedAY
                 color: 'white',
               },
             }}
-            disabled={campusStatus === submitStatus.DISABLED || !enabledSubmit}
+            disabled={campusStatus !== 1 || !enabledSubmit}
           >
             SUBMIT
           </Button>
         }
-        <Button 
+        <Button
           variant="contained"
           className={styles["button-save"]}
           disabled={selectedETerm && selectedAYear ? false : true}

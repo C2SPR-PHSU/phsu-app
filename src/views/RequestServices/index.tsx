@@ -29,6 +29,7 @@ const RequestServices = () => {
   const [entranceTermId, setEntranceTermId] = useState<number>(0);
   const [academicYear, setAcademicYear] = useState<number>(0);
   const [userDocuments, setUserDocuments] = useState<IUserDocumentsData[]>([]);
+  const [submitStatusCode, setSubmitStatusCode] = useState<number>();
 
   useEffect(() => {
     getAllCampuses();
@@ -41,8 +42,14 @@ const RequestServices = () => {
 
 
   useEffect(() => {
+    if (selectedCampus === '0') return;
     requestUserDocuments()
   }, [selectedCampus]);
+
+  useEffect(() => {
+    console.log(campusStatus)
+  }, [campusStatus]);
+
 
   const getAllCampuses = async () => {
     try {
@@ -81,6 +88,7 @@ const RequestServices = () => {
   };
 
   const handleCampusChange = (idValue: string) => {
+    console.log(idValue)
     setSelectedCampus(idValue);
     getUserCampusInfo(idValue);
     getDocumentsByCampus(parseInt(idValue));
@@ -186,7 +194,7 @@ const RequestServices = () => {
               paddingBottom: "2rem",
             }}
           >
-            {!displayList ? (
+            {!displayList || selectedCampus === '0' ? (
               <>
                 <Typography className={styles["campus-selection-title"]}>
                   Documents
@@ -253,6 +261,7 @@ const RequestServices = () => {
             selectedETerm={entranceTermId}
             selectedAYear={academicYear}
             enabledSubmit={displayList}
+            getUserCampusInfo={(id) => getUserCampusInfo(id)}
           />
         </Grid>
       </Box>

@@ -40,7 +40,7 @@ const Documents = ({
     const doc = userDocuments?.find(doc => doc.id === documentId);
     setCurrentDocument(doc || null);
 
-    console.log(currentDocument)
+    // console.log(currentDocument)
   }, [documentId, userDocuments]);
 
 
