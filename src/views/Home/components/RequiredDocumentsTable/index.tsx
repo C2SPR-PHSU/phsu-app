@@ -25,7 +25,7 @@ const RequiredDocumentsTable = ({
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
           <TableRow>
-            {tableHeaders.map((header) => {
+            {tableHeaders?.map((header) => {
               return (
                 <TableCell align="center" key={header.id}>
                   {header.title}
@@ -36,7 +36,7 @@ const RequiredDocumentsTable = ({
         </TableHead>
         <TableBody>
           {documentList.length ? (
-            documentList.map((row, index) => {
+            documentList?.map((row, index) => {
               return (
                 <TableRow
                   key={index}

@@ -6,8 +6,9 @@ import {
   MenuItem,
   AccordionSummary,
   AccordionDetails,
-  Typography, 
-  Grid } from '@mui/material';
+  Typography,
+  Grid
+} from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import styles from "./styles.module.scss";
 import CustomLabel from '@/components/CustomLabel';
@@ -31,9 +32,9 @@ const AccordionAcademicInfo = ({ campusId, entranceTermId, academicYearId }: IAc
   useEffect(() => {
     getAllAcademicYears();
   }, [])
-  
+
   useEffect(() => {
-    if(campusId) getAllEntranceTerms();
+    if (campusId) getAllEntranceTerms();
   }, [campusId])
 
   const getAllAcademicYears = async () => {
@@ -75,18 +76,17 @@ const AccordionAcademicInfo = ({ campusId, entranceTermId, academicYearId }: IAc
                 <CustomLabel name="Entrance Academic Year" required={true} />
                 <Select
                   value={selectedAYear || "placeholder"}
-                  onChange={e =>
-                    {
-                      setSelectedAYear(e.target.value)
-                      academicYearId(parseInt(e.target.value))
-                    }
+                  onChange={e => {
+                    setSelectedAYear(e.target.value)
+                    academicYearId(parseInt(e.target.value))
+                  }
                   }
                 >
                   <MenuItem value={"placeholder"} disabled>
                     Select Academic Year
                   </MenuItem>
-                  { academicYears.map((option) => (
-                    <MenuItem key={option} value={option}>{ option }</MenuItem>
+                  {academicYears?.map((option) => (
+                    <MenuItem key={option} value={option}>{option}</MenuItem>
                   ))}
                 </Select>
               </FormControl>
@@ -96,18 +96,17 @@ const AccordionAcademicInfo = ({ campusId, entranceTermId, academicYearId }: IAc
                 <CustomLabel name="Entrance Term" required={true} />
                 <Select
                   value={selectedETerm || "placeholder"}
-                  onChange={e => 
-                    {
-                      setSelectedETerm(e.target.value)
-                      entranceTermId(parseInt(e.target.value))
-                    }
+                  onChange={e => {
+                    setSelectedETerm(e.target.value)
+                    entranceTermId(parseInt(e.target.value))
+                  }
                   }
                 >
                   <MenuItem value={"placeholder"} disabled>
                     Select Entrance Term
                   </MenuItem>
-                  { entranceTerms.map((option) => (
-                    <MenuItem key={option.id} value={option.id}>{ option.title }</MenuItem>
+                  {entranceTerms?.map((option) => (
+                    <MenuItem key={option.id} value={option.id}>{option.title}</MenuItem>
                   ))}
                 </Select>
               </FormControl>

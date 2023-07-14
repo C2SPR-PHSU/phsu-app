@@ -12,8 +12,9 @@ import { CustomLabel } from "@/components";
 import { selectStyles, optionsService, servicesTextDescription, servicesTextTitle } from './constants';
 import { getCampuses, getCampusDocuments, getUserCampus } from "./functions";
 import { Documents, AccordionServiceRequest, AccordionAcademicInfo, ActionButtons } from './components';
-import { IAllCampusesData, ICampusDocumentsData } from './types'
+import { IAllCampusesData, ICampusDocumentsData, IUserDocumentsData } from './types'
 import styles from "./styles.module.scss";
+import { getAllUserDocuments } from "./functions"
 
 const RequestServices = () => {
   const token = useAuthStore((state: any) => state.token);
@@ -27,16 +28,22 @@ const RequestServices = () => {
   const [selectedService, setSelectedService] = useState('');
   const [entranceTermId, setEntranceTermId] = useState<number>(0);
   const [academicYear, setAcademicYear] = useState<number>(0);
+  const [userDocuments, setUserDocuments] = useState<IUserDocumentsData[]>([]);
 
   useEffect(() => {
     getAllCampuses();
   }, []);
 
   useEffect(() => {
-    if (selectedCampus !== "" && selectedService !== "")
-      return setDisplayList(true);
+    if (selectedCampus !== "" && selectedService !== "") return setDisplayList(true);
     return setDisplayList(false);
   }, [selectedService]);
+
+
+  useEffect(() => {
+    requestUserDocuments()
+    console.log(selectedCampus)
+  }, [selectedCampus]);
 
   const getAllCampuses = async () => {
     try {
@@ -65,10 +72,20 @@ const RequestServices = () => {
     }
   };
 
+  const requestUserDocuments = async () => {
+    try {
+      const response = await getAllUserDocuments(selectedCampus, token);
+      setUserDocuments(response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const handleCampusChange = (idValue: string) => {
     setSelectedCampus(idValue);
     getUserCampusInfo(idValue);
     getDocumentsByCampus(parseInt(idValue));
+    // requestUserDocuments();
   };
 
   return (
@@ -128,7 +145,7 @@ const RequestServices = () => {
                   <MenuItem value={"placeholder"} disabled>
                     Select your Campus
                   </MenuItem>
-                  {campuses.map((option) => (
+                  {campuses?.map((option) => (
                     <MenuItem key={option.id} value={option.id}>
                       {option.name}
                     </MenuItem>
@@ -152,7 +169,7 @@ const RequestServices = () => {
                   <MenuItem value="placeholder" disabled>
                     Select your Service
                   </MenuItem>
-                  {optionsService.map((option) => (
+                  {optionsService?.map((option) => (
                     <MenuItem key={option} value={option}>
                       {option}
                     </MenuItem>
@@ -196,12 +213,12 @@ const RequestServices = () => {
                   </Grid>
                   <Grid item xs={2}>
                     <Typography className={styles["actions-th"]}>
-                      Updated
+                      Uploaded
                     </Typography>
                   </Grid>
                 </div>
 
-                {documentList.map((document) => {
+                {documentList?.map((document) => {
                   return (
                     <Grid item xs={12} key={document.id}>
                       <Documents
@@ -210,6 +227,8 @@ const RequestServices = () => {
                         documentId={document.id}
                         mandatory={document.mandatory}
                         getUserCampusInfo={(id) => getUserCampusInfo(id)}
+                        userDocuments={userDocuments}
+                        requestUserDocuments={() => requestUserDocuments()}
                       />
                     </Grid>
                   );
@@ -231,35 +250,6 @@ const RequestServices = () => {
             </div>
           </Grid>
 
-          <Grid
-            item
-            xs={12}
-            md={12}
-            lg={12}
-            sx={{ paddingBottom: "1.2rem", paddingTop: "1rem" }}
-          >
-            <Box sx={{ display: "flex", flexDirection: "row", gap: "1rem" }}>
-              {campusStatus !== submitStatus.SENT &&
-                <Button
-                  onClick={() => sendToOnBase()}
-                  variant="contained"
-                  className={styles["button-submit"]}
-                  sx={{
-                    '&.Mui-disabled': {
-                      opacity: "0.6",
-                      color: 'white',
-                    },
-                  }}
-                  disabled={campusStatus === submitStatus.DISABLED}
-                >
-                  SUBMIT
-                </Button>
-              }
-              <Button variant="contained" className={styles["button-save"]}>
-                SAVE
-              </Button>
-            </Box>
-          </Grid>
           <ActionButtons
             campusStatus={campusStatus}
             selectedCampus={selectedCampus}

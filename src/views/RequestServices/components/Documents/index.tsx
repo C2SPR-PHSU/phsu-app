@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useState, useEffect } from "react";
 import { Grid, Box, Typography, Button } from "@mui/material";
 import UploadIcon from "@mui/icons-material/Upload";
 import VisibilityIcon from "@mui/icons-material/Visibility";
@@ -7,6 +7,7 @@ import { uploadDocument } from "@/views/RequestServices/functions";
 import useAuthStore from "@/hooks/useAuthStore";
 import styles from "./styles.module.scss";
 import useAlert from "@/hooks/useAlert";
+import { IUserDocumentsData } from "../../types";
 
 interface IDocumentsProps {
   title: string;
@@ -14,6 +15,8 @@ interface IDocumentsProps {
   documentId: string;
   mandatory: string;
   getUserCampusInfo: (id: string) => void;
+  userDocuments: IUserDocumentsData[];
+  requestUserDocuments: () => void;
 }
 
 const Documents = ({
@@ -22,10 +25,24 @@ const Documents = ({
   documentId,
   mandatory,
   getUserCampusInfo,
+  userDocuments,
+  requestUserDocuments
 }: IDocumentsProps) => {
+
+
   const token = useAuthStore((state: any) => state.token);
   const [checked, setChecked] = useState(false);
   const { setAlert } = useAlert();
+
+  const [currentDocument, setCurrentDocument] = useState<IUserDocumentsData | null>(null);
+
+  useEffect(() => {
+    const doc = userDocuments?.find(doc => doc.id === documentId);
+    setCurrentDocument(doc || null);
+
+    console.log(currentDocument)
+  }, [documentId, userDocuments]);
+
 
   const handleUpload = async (e: ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files) return;
@@ -33,6 +50,7 @@ const Documents = ({
     try {
       await uploadDocument({ campusId, documentId, document, token });
       setChecked(true)
+      requestUserDocuments();
       setAlert('Documents uploaded Successfully!', 'success')
       getUserCampusInfo(campusId.toString());
     } catch (error) {
@@ -40,6 +58,8 @@ const Documents = ({
       setAlert('Something happened. Try again later', 'error')
     }
   };
+
+
 
   return (
     <>
@@ -100,9 +120,23 @@ const Documents = ({
                   </Button>
                 </div>
 
-                <div className={styles["rounded-div"]}>
-                  <VisibilityIcon sx={{ color: "#e0e0e0" }} />
-                </div>
+                {
+                  currentDocument && currentDocument.status !== '0' ?
+                    <div className={styles["rounded-div"]}>
+                      <VisibilityIcon
+                        sx={{ color: "#e0e0e0" }}
+                        onClick={() => {
+                          if (currentDocument.url !== '') {
+                            window.open(currentDocument.url, "_blank")
+                          }
+                        }}
+                      />
+                    </div>
+                    :
+                    <div className={styles["rounded-div-disabled"]}>
+                      <VisibilityIcon sx={{ color: "#e0e0e0" }} />
+                    </div>
+                }
               </div>
             </Grid>
           </div>
@@ -111,7 +145,14 @@ const Documents = ({
         <Grid item xs={2}>
           <div className={styles["update-column-wrapper"]}>
             <Grid item xs={12}>
-              {checked ? <CheckIcon sx={{ color: "#f7941d" }} /> : <></>}
+              <Grid item xs={12}>
+                {
+                  currentDocument && currentDocument.status !== '0' ?
+                    <CheckIcon sx={{ color: "#f7941d" }} /> :
+                    null
+                }
+              </Grid>
+
             </Grid>
           </div>
         </Grid>

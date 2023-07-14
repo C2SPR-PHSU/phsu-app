@@ -41,4 +41,15 @@
     padding: 0.3rem;
     overflow: hidden;
     background-color: $primary;
+    cursor: pointer;
+}
+
+.rounded-div-disabled {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    padding: 0.3rem;
+    overflow: hidden;
+    background-color: $secondary;
 }

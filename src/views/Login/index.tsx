@@ -27,7 +27,7 @@ const Login = () => {
             <Typography className={styles["upper-text-title"]}>
               {serviceTitle}
             </Typography>
-            {servicesList.map((service) => {
+            {servicesList?.map((service) => {
               return (
                 <ListItem
                   key={service.number}

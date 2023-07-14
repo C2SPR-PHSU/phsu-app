@@ -8,9 +8,10 @@ import {
   academicYears,
   campusTerms,
   userAcademicInformation,
-  userInfo
+  userInfo,
+  userDocuments
 } from "@/utils";
-import { 
+import {
   IUserCampusResponse,
   IAllCampusesResponse,
   ISubmitDocumentResponse,
@@ -18,7 +19,8 @@ import {
   ICampusDocumentResponse,
   IAcademicYearsResponse,
   IEntranceTermsResponse,
-  IUserInfoResponse
+  IUserInfoResponse,
+  IUserDocumentsResponse
 } from './types';
 
 export const getCampuses = async () => {
@@ -26,7 +28,7 @@ export const getCampuses = async () => {
     api.resource = campuses;
 
     const res = await api.get<IAllCampusesResponse>();
-    
+
     return res.data;
   } catch (error) {
     throw error;
@@ -62,16 +64,16 @@ export const getCampusDocuments = async (id: number) => {
 };
 
 export const uploadDocument = async ({
-  campusId, 
-  documentId, 
-  document, 
+  campusId,
+  documentId,
+  document,
   token
 }: IUploadDocument) => {
   try {
     api.resource = uploadDocuments;
     api.token = token
 
-    const res = await api.post<ICampusDocumentResponse>({ 
+    const res = await api.post<ICampusDocumentResponse>({
       body: {
         campus_id: campusId,
         document_id: parseInt(documentId),
@@ -85,12 +87,12 @@ export const uploadDocument = async ({
   }
 };
 
-export const submitDocument = async(campusId: number, token: string) => {
+export const submitDocument = async (campusId: number, token: string) => {
   try {
     api.resource = submitDocumentOnbase;
     api.token = token;
 
-    const res = await api.post<ISubmitDocumentResponse>({ 
+    const res = await api.post<ISubmitDocumentResponse>({
       body: {
         campus_id: campusId
       }
@@ -125,7 +127,7 @@ export const getEntranceTerms = async (campusId: string) => {
         id: campusId
       }
     });
-    
+
     return res.data;
 
   } catch (error) {
@@ -143,7 +145,7 @@ export const updateAcademicInformation = async (
     api.resource = userAcademicInformation;
     api.token = token;
 
-    const res = await api.post<ISubmitDocumentResponse>({ 
+    const res = await api.post<ISubmitDocumentResponse>({
       body: {
         campus_id: campusId,
         term_id: termId,
@@ -171,3 +173,21 @@ export const getUserInformation = async (token: string) => {
     throw error;
   }
 }
+
+export const getAllUserDocuments = async (campusId: string, token: string) => {
+  try {
+    api.resource = userDocuments;
+    api.token = token
+
+    const res = await api.post<IUserDocumentsResponse>({
+      body: {
+        campus_id: campusId,
+      }
+    });
+
+    return res.data;
+  } catch (error) {
+    console.log(error)
+    throw error;
+  }
+};
