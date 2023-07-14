@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { Grid, Box, Typography, Button } from "@mui/material";
 import UploadIcon from "@mui/icons-material/Upload";
 import VisibilityIcon from "@mui/icons-material/Visibility";
@@ -7,6 +7,7 @@ import { uploadDocument } from "@/views/RequestServices/functions";
 import useAuthStore from "@/hooks/useAuthStore";
 import styles from "./styles.module.scss";
 import useAlert from "@/hooks/useAlert";
+import { IUserDocumentsData } from "../../../Home/types";
 
 interface IDocumentsProps {
   title: string;
@@ -14,15 +15,15 @@ interface IDocumentsProps {
   documentId: string;
   mandatory: string;
   getUserCampusInfo: (id: string) => void;
+  userDocuments: IUserDocumentsData;
 }
 
-const Documents = ({
-  title,
-  campusId,
-  documentId,
-  mandatory,
-  getUserCampusInfo,
-}: IDocumentsProps) => {
+const Documents = ({ title, campusId, documentId, mandatory, getUserCampusInfo, userDocuments }: IDocumentsProps) => {
+  useEffect(() => {
+    console.log(userDocuments)
+  }, []);
+
+
   const token = useAuthStore((state: any) => state.token);
   const [checked, setChecked] = useState(false);
   const { setAlert } = useAlert();
@@ -40,6 +41,7 @@ const Documents = ({
       setAlert('Something happened. Try again later', 'error')
     }
   };
+
 
   return (
     <>
