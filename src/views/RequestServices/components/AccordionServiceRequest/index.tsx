@@ -1,15 +1,16 @@
-import { ChangeEvent, useState } from "react";
-import { Accordion, AccordionSummary, AccordionDetails, Typography } from '@mui/material';
+import { ChangeEvent, useEffect, useState } from "react";
+import { Accordion, AccordionSummary, AccordionDetails, Typography, Grid, TextField } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import styles from "./styles.module.scss";
 import CustomLabel from '@/components/CustomLabel';
 import { DatePicker } from "@mui/x-date-pickers";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import {
-  Grid,
-  TextField,
-} from "@mui/material";
+import { getUserInformation } from '@/views/RequestServices/functions';
+import { IUserInfoData } from '@/views/RequestServices/types';
+import useAuthStore from "@/hooks/useAuthStore";
+import useAlert from "@/hooks/useAlert";
+import dayjs, { Dayjs } from 'dayjs';
 
 interface MyTextFieldProps {
   name: string;
@@ -65,29 +66,30 @@ const MyTextField: React.FC<MyTextFieldProps> = ({
       fullWidth
       value={value}
       onChange={handleChange}
+      disabled
     />
   );
 };
 
 export default function BasicAccordion() {
 
-    const [formValues, setFormValues] = useState({
-        firstName: "",
-        middleName: "",
-        lastName: "",
-        secondLastName: "",
-        dateOfBirth: "",
-        phoneNumber: "",
-        email: "",
-        studentId: "",
-        entranceYear: "",
-        campus: "",
-        entranceTerm: "",
-    });
+  const token = useAuthStore((state: any) => state.token);
+  const { setAlert } = useAlert();
 
-    const handleInputChange = (name: string, value: string) => {
-      setFormValues((prevValues) => ({ ...prevValues, [name]: value }));
-    };
+  const [personalInfo, setPersonalInfo] = useState<IUserInfoData>();
+
+    useEffect(() => {
+      getUserPersonalInformation();
+    }, [])
+
+    const getUserPersonalInformation = async () => {
+      try {
+        const response = await getUserInformation(token);
+        setPersonalInfo(response)
+      } catch (error) {
+        setAlert('Personal Information failed', 'error')
+      }
+    }
 
     return (
       <>
@@ -118,8 +120,8 @@ export default function BasicAccordion() {
                               <MyTextField
                                   name="firstName"
                                   placeholder="First Name"
-                                  value={formValues.firstName}
-                                  onValueChange={handleInputChange}
+                                  value={personalInfo?.first_name || ''}
+                                  onValueChange={() => console.log('here')}
                               />
                           </div>
                       </Grid>
@@ -129,8 +131,8 @@ export default function BasicAccordion() {
                               <MyTextField
                                   name="middleName"
                                   placeholder="Middle Name"
-                                  value={formValues.middleName}
-                                  onValueChange={handleInputChange}
+                                  value={personalInfo?.middle_name || ''}
+                                  onValueChange={() => console.log('here')}
                               />
                           </div>
                       </Grid>
@@ -140,8 +142,8 @@ export default function BasicAccordion() {
                               <MyTextField
                                   name="lastName"
                                   placeholder="Last Name"
-                                  value={formValues.lastName}
-                                  onValueChange={handleInputChange}
+                                  value={personalInfo?.last_name || ''}
+                                  onValueChange={() => console.log('here')}
                               />
                           </div>
                       </Grid>
@@ -151,45 +153,44 @@ export default function BasicAccordion() {
                           <MyTextField
                               name="secondLastName"
                               placeholder="Second Last Name"
-                              value={formValues.secondLastName}
-                              onValueChange={handleInputChange}
+                              value={personalInfo?.second_last_name || ''}
+                              onValueChange={() => console.log('here')}
                           />
                       </Grid>
                       <Grid item xs={12} sm={6} md={4}>
                           <CustomLabel name="Date of Birth" required={true} />
                           <LocalizationProvider dateAdapter={AdapterDayjs}>
-                              <DatePicker
-                                  sx={{
-                                      "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
-                                          borderColor: "#009999",
-                                          borderRadius: 0,
-                                          border: "2px solid " + "#009999",
-                                      },
-                                      "&:hover .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline":
-                                      {
-                                          borderColor: "#009999",
-                                      },
-                                      "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline":
-                                      {
-                                          borderColor: "#009999",
-                                      },
-                                      "& .MuiInputLabel-outlined": {
-                                          fontSize: "1rem",
-                                          color: "#333333",
-                                      },
-                                      "& .MuiInputLabel-outlined.Mui-focused": {
-                                          color: "#009999",
-                                      },
-                                      "& .MuiOutlinedInput-input": {
-                                          padding: "0.7rem",
-                                      },
-                                  }}
-                                  value={formValues.dateOfBirth}
-                                  onChange={(newValue: any) =>
-                                      handleInputChange("dateOfBirth", newValue.toString())
-                                  }
-                                  slotProps={{ textField: { size: "small", fullWidth: true } }}
-                              />
+                            <DatePicker
+                              sx={{
+                                  "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
+                                      borderColor: "#009999",
+                                      borderRadius: 0,
+                                      border: "2px solid " + "#009999",
+                                  },
+                                  "&:hover .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline":
+                                  {
+                                      borderColor: "#009999",
+                                  },
+                                  "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline":
+                                  {
+                                      borderColor: "#009999",
+                                  },
+                                  "& .MuiInputLabel-outlined": {
+                                      fontSize: "1rem",
+                                      color: "#333333",
+                                  },
+                                  "& .MuiInputLabel-outlined.Mui-focused": {
+                                      color: "#009999",
+                                  },
+                                  "& .MuiOutlinedInput-input": {
+                                      padding: "0.7rem",
+                                  },
+                              }}
+                              value={dayjs(personalInfo?.birthdate)}
+                              slotProps={{ textField: { size: "small", fullWidth: true } }}
+                              disabled
+                              readOnly
+                            />
                           </LocalizationProvider>
                       </Grid>
                       <Grid item xs={12} sm={6} md={4}>
@@ -197,8 +198,8 @@ export default function BasicAccordion() {
                           <MyTextField
                               name="phoneNumber"
                               placeholder="Phone Number"
-                              value={formValues.phoneNumber}
-                              onValueChange={handleInputChange}
+                              value={personalInfo?.cell_phone || ''}
+                              onValueChange={() => console.log('here')}
                           />
                       </Grid>
                       <Grid item xs={12} sm={6} md={4}>
@@ -206,8 +207,8 @@ export default function BasicAccordion() {
                           <MyTextField
                               name="email"
                               placeholder="Email"
-                              value={formValues.email}
-                              onValueChange={handleInputChange}
+                              value={personalInfo?.email || ''}
+                              onValueChange={() => console.log('here')}
                           />
                       </Grid>
                       <Grid item xs={12} sm={6} md={4}>
@@ -215,8 +216,8 @@ export default function BasicAccordion() {
                           <MyTextField
                               name="studentId"
                               placeholder="Student Id"
-                              value={formValues.studentId}
-                              onValueChange={handleInputChange}
+                              value={personalInfo?.student_id || ''}
+                              onValueChange={() => console.log('here')}
                           />
                       </Grid>
                   </Grid>
