@@ -7,7 +7,6 @@ import {
   ListItemText,
   Typography,
   Divider,
-  IconButton,
   TextField,
 } from "@mui/material";
 import useMediaQuery from "@mui/material/useMediaQuery";
@@ -22,7 +21,6 @@ import { validationSchema } from "./validateconstants";
 import { UserDetails } from "./users";
 import { UserProfile } from "./users";
 import useAuthStore from "@/hooks/useAuthStore";
-import { userDetails } from "@/utils";
 
 const Profile = () => {
   const theme = useTheme();
