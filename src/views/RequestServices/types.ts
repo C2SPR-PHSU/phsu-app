@@ -106,3 +106,21 @@ export interface IUserInfoResponse {
   message: string;
   data: IUserInfoData;
 }
+export interface IUserDocumentsData {
+  created: string;
+  description: string;
+  id: string;
+  name: string;
+  ob_build: string;
+  ob_handler_id: string;
+  ob_message: string;
+  status: string;
+  status_desc: string;
+  type: string;
+  url: string;
+}
+export interface IUserDocumentsResponse {
+  code: number;
+  message: string;
+  data: IUserDocumentsData[];
+}
