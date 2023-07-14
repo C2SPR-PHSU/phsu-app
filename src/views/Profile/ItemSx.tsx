@@ -87,7 +87,7 @@ const sxStyles = (isVeryScreenSmall: any, isMedium: any, isScreenLg: any) => ({
 
   sidebarBox: {
     width: "12%",
-    height: "100vh",
+    height: "110vh",
     ...(isVeryScreenSmall && {
       display: "none",
     }),

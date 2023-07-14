@@ -18,4 +18,5 @@ export const UserProfile = {
   entrance_year: "2017",
   campus: "main",
   entrance_terms: "uwusito",
+  program: "MD-medicine",
 };
