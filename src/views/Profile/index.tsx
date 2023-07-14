@@ -21,6 +21,7 @@ import { validationSchema } from "./validateconstants";
 import { UserDetails } from "./users";
 import { UserProfile } from "./users";
 import useAuthStore from "@/hooks/useAuthStore";
+import { UserModify } from "./users";
 
 const Profile = () => {
   const theme = useTheme();
@@ -39,6 +40,28 @@ const Profile = () => {
         setUserProfile(profile);
         console.log(profile);
         console.log(userProfile);
+        // Actualizar las initialValues de formik con los datos obtenidos
+        formik.setValues({
+          email: profile?.email || "",
+          cell_phone: profile?.cell_phone || "",
+          studentid: profile?.student_id || "",
+          firstname: profile?.first_name || "",
+          middlename: profile?.middle_name || "",
+          lastname: profile?.last_name || "",
+          secondlastname: profile?.second_last_name || "",
+          birthdate: profile?.birthdate || "",
+          line1: profile?.address_line1 || "",
+          line2: profile?.address_line2 || "",
+          state: profile?.address_state || "",
+          city: profile?.address_city || "",
+          zipcode: profile?.address_zipcode || "",
+          alternative_phone: profile?.alternative_phone || "",
+          institucional_email: profile?.institucional_email || "",
+          entranceYear: profile?.entrance_year || "",
+          campusMain: profile?.campus || "",
+          entranceTerm: profile?.entrance_terms || "",
+          program: profile?.program || "",
+        });
       } catch (error) {
         console.error("Error:", error);
       }
@@ -52,7 +75,7 @@ const Profile = () => {
       email: userProfile?.email || "",
       cell_phone: userProfile?.cell_phone || "",
       studentid: userProfile?.student_id || "",
-      firstname: userProfile?.first_name || "",
+      firstname: userProfile.first_name,
       middlename: userProfile?.middle_name || "",
       lastname: userProfile?.last_name || "",
       secondlastname: userProfile?.second_last_name || "",
@@ -74,6 +97,8 @@ const Profile = () => {
       if (formik.isValid) {
         console.log(values);
         setIsEditMode(!isEditMode);
+        const response = UserModify(token, values);
+        console.log("soy response", response);
       } else {
         alert("Please fix the errors before saving."); // Advertencia de error
       }

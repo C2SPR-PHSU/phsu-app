@@ -28,7 +28,7 @@ export const validationSchema = Yup.object().shape({
   cell_phone: Yup.string()
     .matches(/^[0-9]+$/, "Only numbers")
     .nullable()
-    .max(15, "Maximum of 15 characters"),
+    .max(30, "Maximum of 30 characters"),
   alternative_phone: Yup.string()
     .matches(/^[0-9-]+$/, "Only numbers and hyphens")
     .nullable()

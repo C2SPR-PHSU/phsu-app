@@ -25,9 +25,21 @@ export type UserProfile = {
   program: string;
 };
 
-interface ok {
+type ok = {
+  code: number;
   data: UserProfile;
-}
+  message: string;
+};
+
+type Data = {
+  action: string;
+  id: string;
+};
+
+type okModify = {
+  code: number;
+  data: Data;
+};
 
 export const UserDetails = async (token: string): Promise<UserProfile> => {
   try {
@@ -36,6 +48,23 @@ export const UserDetails = async (token: string): Promise<UserProfile> => {
 
     const res = (await api.get()) as ok; // Especificar el tipo de retorno
 
+    return Promise.resolve(res.data);
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const UserModify = async (
+  token: string,
+  usermodify: Partial<UserProfile>
+): Promise<Data> => {
+  try {
+    api.resource = userDetails;
+    api.token = token;
+
+    const res = await api.post<okModify>({
+      body: usermodify,
+    });
     return Promise.resolve(res.data);
   } catch (error) {
     throw error;
