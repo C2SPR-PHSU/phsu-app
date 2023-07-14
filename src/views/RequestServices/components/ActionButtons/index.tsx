@@ -12,9 +12,10 @@ interface IActionButtonsProps {
   // Yeah, yeah... I should use Context
   selectedETerm: number;
   selectedAYear: number;
+  enabledSubmit: boolean;
 }
 
-const ActionButtons = ({ campusStatus, selectedCampus, selectedETerm, selectedAYear }: IActionButtonsProps) => {
+const ActionButtons = ({ campusStatus, selectedCampus, selectedETerm, selectedAYear, enabledSubmit }: IActionButtonsProps) => {
 
   const token = useAuthStore((state: any) => state.token);
   const { setAlert } = useAlert();
@@ -57,7 +58,7 @@ const ActionButtons = ({ campusStatus, selectedCampus, selectedETerm, selectedAY
                 color: 'white',
               },
             }}
-            disabled={campusStatus === submitStatus.DISABLED}
+            disabled={campusStatus === submitStatus.DISABLED || !enabledSubmit}
           >
             SUBMIT
           </Button>

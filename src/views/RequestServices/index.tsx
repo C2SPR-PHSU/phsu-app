@@ -252,6 +252,7 @@ const RequestServices = () => {
             selectedCampus={selectedCampus}
             selectedETerm={entranceTermId}
             selectedAYear={academicYear}
+            enabledSubmit={displayList}
           />
         </Grid>
       </Box>
