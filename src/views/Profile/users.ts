@@ -1,9 +1,8 @@
 /* eslint-disable no-useless-catch */
 import api from "@/utils/services/api";
 import { userDetails } from "@/utils";
-import useAuthStore from "@/hooks/useAuthStore";
 
-export interface UserProfile {
+export type UserProfile = {
   email: string;
   cell_phone: string;
   student_id: string;
@@ -24,15 +23,20 @@ export interface UserProfile {
   campus: string;
   entrance_terms: string;
   program: string;
+};
+
+interface ok {
+  data: UserProfile;
 }
 
 export const UserDetails = async (token: string): Promise<UserProfile> => {
   try {
     api.resource = userDetails;
+    api.token = token;
 
-    const res = await api.get(); // Especificar el tipo de retorno
+    const res = (await api.get()) as ok; // Especificar el tipo de retorno
 
-    return res.data;
+    return Promise.resolve(res.data);
   } catch (error) {
     throw error;
   }

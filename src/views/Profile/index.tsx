@@ -12,7 +12,7 @@ import {
 } from "@mui/material";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
-import profileScss from "./Profile.module.scss";
+import profileScss from "./profile.module.scss";
 import sxStyles from "./ItemSx";
 import CameraAltIcon from "@mui/icons-material/CameraAlt";
 import { useFormik } from "formik";
@@ -22,6 +22,7 @@ import { validationSchema } from "./validateconstants";
 import { UserDetails } from "./users";
 import { UserProfile } from "./users";
 import useAuthStore from "@/hooks/useAuthStore";
+import { userDetails } from "@/utils";
 
 const Profile = () => {
   const theme = useTheme();
@@ -30,21 +31,23 @@ const Profile = () => {
   const isMedium = useMediaQuery(theme.breakpoints.down("lg"));
   const [isEditMode, setIsEditMode] = useState(false);
   const token = useAuthStore((state: any) => state.token);
-  const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
+
+  const [userProfile, setUserProfile] = useState<Partial<UserProfile>>({});
 
   useEffect(() => {
-    async function getUserProfile() {
+    const fetchUserProfile = async () => {
       try {
         const profile = await UserDetails(token);
         setUserProfile(profile);
-        console.log(profile.first_name);
+        console.log(profile);
+        console.log(userProfile);
       } catch (error) {
         console.error("Error:", error);
       }
-    }
+    };
 
-    getUserProfile();
-  }, []);
+    fetchUserProfile();
+  }, [token]);
 
   const formik = useFormik({
     initialValues: {
@@ -133,14 +136,12 @@ const Profile = () => {
                   >
                     {isEditMode ? "Save Profile" : "Edit Profile"}
                   </Button>
+
                   <Button
                     variant="outlined"
                     className={profileScss["profilesButton"]}
                   >
                     Change
-                    <IconButton size="small">
-                      <CameraAltIcon />
-                    </IconButton>
                   </Button>
                 </Grid>
               </Grid>
