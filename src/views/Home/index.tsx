@@ -1,29 +1,25 @@
-import { useState } from 'react';
+import { useState } from "react";
 import { Grid, Typography, Box, Button } from "@mui/material";
 import styles from "./styles.module.scss";
 import BasicTable from "./components/table/index";
 import useAlert from "@/hooks/useAlert";
-import RequiredDocuments from './components/RequiredDocuments'
+import RequiredDocuments from "./components/RequiredDocuments";
 
 const Home = () => {
   const { setAlert } = useAlert();
-  const [openModal, setOpenModal] = useState(false)
-  const [docTitle, setDocTitle] = useState('')
-  const [campusId, setCampusId] = useState('')
+  const [openModal, setOpenModal] = useState(false);
+  const [docTitle, setDocTitle] = useState("");
+  const [campusId, setCampusId] = useState("");
 
   const handleModal = (prop: string) => {
-    setDocTitle(prop)
-    setOpenModal(true)
-  }
+    setDocTitle(prop);
+    setOpenModal(true);
+  };
 
   return (
     <Grid container sx={{ minHeight: "90vh" }}>
       <Grid item xs={12} className={styles["image-banner"]}>
-        <Box className={styles["text-container"]}>
-          {/* <Typography variant="h3" className={styles["title"]}>
-            Services Dashboard
-          </Typography> */}
-        </Box>
+        <Box className={styles["text-container"]}></Box>
       </Grid>
       <Grid
         item
@@ -47,15 +43,14 @@ const Home = () => {
             handleModal={(prop) => handleModal(prop)}
             setDocumentId={(prop) => setCampusId(prop)}
           />
-          {
-            openModal && 
+          {openModal && (
             <RequiredDocuments
               title={docTitle}
               open={openModal}
               campusId={campusId}
               handleClose={() => setOpenModal(false)}
             />
-          }
+          )}
         </Grid>
       </Grid>
     </Grid>

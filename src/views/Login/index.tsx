@@ -51,7 +51,7 @@ const Login = () => {
             >
               {serviceTitle}
             </Typography>
-            {servicesList.map((service) => {
+            {servicesList?.map((service) => {
               return (
                 <ListItem
                   key={service.number}

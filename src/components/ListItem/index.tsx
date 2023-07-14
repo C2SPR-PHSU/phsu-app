@@ -35,18 +35,13 @@ const ListItem: React.FC<ResponsiveComponentProps> = ({
       </Box>
       <Box className={styles["services"]}>
         <Link href={url} className={styles["link"]}>
-          <Typography
-            variant="h5"
-            className={styles["list-item"]}
-            sx={{
-              ...(isScreenSmall && {
-                fontSize: "18px",
-              }),
-            }}
-          >
+          <Typography variant="h5" className={styles["list-item"]}>
             {listItem}
           </Typography>
-        </Link>
+        </Link> */}
+        <Typography variant="h5" className={styles["list-item"]}>
+          {listItem}
+        </Typography>
         <Typography className={styles["list-item-description"]}>
           {description}
         </Typography>
