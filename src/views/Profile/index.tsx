@@ -16,17 +16,24 @@ import sxStyles from "./ItemSx";
 import { Sidebar } from "@/layout";
 import { UserProfile } from "./users";
 import CameraAltIcon from "@mui/icons-material/CameraAlt";
+import { useState } from "react";
 
 const Profile = () => {
   const theme = useTheme();
   const isScreenLg = useMediaQuery(theme.breakpoints.down("lg"));
   const isVeryScreenSmall = useMediaQuery(theme.breakpoints.down("sm"));
   const isMedium = useMediaQuery(theme.breakpoints.down("md"));
+  const [isEditMode, setEditMode] = useState(false);
+
+  const editMode = () => {
+    setEditMode(!isEditMode);
+    console.log(isEditMode);
+  };
 
   return (
     <>
-      {/*Mostramos sidebar */}
       <Box sx={{ display: "flex" }}>
+        {/*Mostramos sidebar */}
         <Box sx={sxStyles(isVeryScreenSmall, isMedium, isScreenLg).sidebarBox}>
           <Sidebar />
         </Box>
@@ -76,6 +83,7 @@ const Profile = () => {
                 <Button
                   variant="outlined"
                   className={profileScss["profilesButton"]}
+                  onClick={editMode}
                 >
                   Edit profile
                 </Button>
