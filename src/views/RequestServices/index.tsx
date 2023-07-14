@@ -42,7 +42,6 @@ const RequestServices = () => {
 
   useEffect(() => {
     requestUserDocuments()
-    console.log(selectedCampus)
   }, [selectedCampus]);
 
   const getAllCampuses = async () => {
@@ -112,8 +111,6 @@ const RequestServices = () => {
             lg={12}
             sx={{ gap: "1rem", display: "flex", flexDirection: "column" }}
           >
-            <Typography className={styles["title-services"]}>{servicesTextTitle}</Typography>
-            <Typography className={styles["description-view-services"]}>{servicesTextDescription}</Typography>
             <Typography className={styles["title-services"]}>
               {servicesTextTitle}
             </Typography>
