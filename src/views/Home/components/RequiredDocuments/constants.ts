@@ -4,7 +4,10 @@ export const modalStyle = {
   left: '50%',
   transform: 'translate(-50%, -50%)',
   width: '65vw',
-  bgcolor: 'background.paper',
-  boxShadow: 24,
+  maxHeight: '90vh',
+  overflowY: 'auto',
+
   p: 4,
+  bgcolor: '#fff !important',
+  opacity: '1 !important',
 };

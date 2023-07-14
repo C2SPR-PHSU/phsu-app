@@ -65,7 +65,7 @@ const ActionButtons = ({ campusStatus, selectedCampus, selectedETerm, selectedAY
                 color: 'white',
               },
             }}
-            disabled={campusStatus !== 1 || !enabledSubmit}
+            disabled={campusStatus > 0 || !enabledSubmit}
           >
             SUBMIT
           </Button>
