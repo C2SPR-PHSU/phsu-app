@@ -78,3 +78,49 @@ export interface IEntranceTermsResponse {
   message: string;
   data: IEntranceTermsData[]
 }
+
+export interface IUserInfoData {
+  id: string;
+  student_id: string;
+  password: string;
+  first_name: string;
+  middle_name: string;
+  last_name: string;
+  second_last_name: string;
+  birthdate: string;
+  email: string;
+  cell_phone: string;
+  address_state: string;
+  address_city: string;
+  address_line1: string;
+  address_line2: string;
+  address_zipcode: string;
+  ip_origin: string;
+  status: string;
+  created: string;
+  updated: string;
+}
+
+export interface IUserInfoResponse {
+  code: number;
+  message: string;
+  data: IUserInfoData;
+}
+export interface IUserDocumentsData {
+  created: string;
+  description: string;
+  id: string;
+  name: string;
+  ob_build: string;
+  ob_handler_id: string;
+  ob_message: string;
+  status: string;
+  status_desc: string;
+  type: string;
+  url: string;
+}
+export interface IUserDocumentsResponse {
+  code: number;
+  message: string;
+  data: IUserDocumentsData[];
+}

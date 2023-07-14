@@ -12,10 +12,9 @@ import { CustomLabel } from "@/components";
 import { selectStyles, optionsService, servicesTextDescription, servicesTextTitle } from './constants';
 import { getCampuses, getCampusDocuments, getUserCampus } from "./functions";
 import { Documents, AccordionServiceRequest, AccordionAcademicInfo, ActionButtons } from './components';
-import { IAllCampusesData, ICampusDocumentsData } from './types'
+import { IAllCampusesData, ICampusDocumentsData, IUserDocumentsData } from './types'
 import styles from "./styles.module.scss";
-import { getUserDocuments } from "../Home/components/functions";
-import { IUserDocumentsData } from "../Home/types";
+import { getAllUserDocuments } from "./functions"
 
 const RequestServices = () => {
   const token = useAuthStore((state: any) => state.token);
@@ -36,13 +35,14 @@ const RequestServices = () => {
   }, []);
 
   useEffect(() => {
-    console.log(userDocuments)
-  }, [userDocuments]);
-
-  useEffect(() => {
     if (selectedCampus !== "" && selectedService !== "") return setDisplayList(true);
     return setDisplayList(false);
   }, [selectedService]);
+
+
+  useEffect(() => {
+    requestUserDocuments()
+  }, [selectedCampus]);
 
   const getAllCampuses = async () => {
     try {
@@ -71,21 +71,20 @@ const RequestServices = () => {
     }
   };
 
+  const requestUserDocuments = async () => {
+    try {
+      const response = await getAllUserDocuments(selectedCampus, token);
+      setUserDocuments(response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const handleCampusChange = (idValue: string) => {
     setSelectedCampus(idValue);
     getUserCampusInfo(idValue);
     getDocumentsByCampus(parseInt(idValue));
-    requestUserDocuments();
-  };
-
-  const requestUserDocuments = async () => {
-    try {
-      const response = await getUserDocuments(selectedCampus, token);
-      setUserDocuments(response);
-      console.log(response)
-    } catch (error) {
-      console.log(error);
-    }
+    // requestUserDocuments();
   };
 
   return (
@@ -112,8 +111,6 @@ const RequestServices = () => {
             lg={12}
             sx={{ gap: "1rem", display: "flex", flexDirection: "column" }}
           >
-            <Typography className={styles["title-services"]}>{servicesTextTitle}</Typography>
-            <Typography className={styles["description-view-services"]}>{servicesTextDescription}</Typography>
             <Typography className={styles["title-services"]}>
               {servicesTextTitle}
             </Typography>
@@ -145,7 +142,7 @@ const RequestServices = () => {
                   <MenuItem value={"placeholder"} disabled>
                     Select your Campus
                   </MenuItem>
-                  {campuses.map((option) => (
+                  {campuses?.map((option) => (
                     <MenuItem key={option.id} value={option.id}>
                       {option.name}
                     </MenuItem>
@@ -169,7 +166,7 @@ const RequestServices = () => {
                   <MenuItem value="placeholder" disabled>
                     Select your Service
                   </MenuItem>
-                  {optionsService.map((option) => (
+                  {optionsService?.map((option) => (
                     <MenuItem key={option} value={option}>
                       {option}
                     </MenuItem>
@@ -213,12 +210,12 @@ const RequestServices = () => {
                   </Grid>
                   <Grid item xs={2}>
                     <Typography className={styles["actions-th"]}>
-                      Updated
+                      Uploaded
                     </Typography>
                   </Grid>
                 </div>
 
-                {documentList.map((document) => {
+                {documentList?.map((document) => {
                   return (
                     <Grid item xs={12} key={document.id}>
                       <Documents
@@ -228,6 +225,7 @@ const RequestServices = () => {
                         mandatory={document.mandatory}
                         getUserCampusInfo={(id) => getUserCampusInfo(id)}
                         userDocuments={userDocuments}
+                        requestUserDocuments={() => requestUserDocuments()}
                       />
                     </Grid>
                   );
@@ -254,6 +252,7 @@ const RequestServices = () => {
             selectedCampus={selectedCampus}
             selectedETerm={entranceTermId}
             selectedAYear={academicYear}
+            enabledSubmit={displayList}
           />
         </Grid>
       </Box>

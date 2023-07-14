@@ -9,7 +9,7 @@ const Select = ({ initStatus, updateOption }: InitSelectProps) => {
   return (
     <select value={initStatus} onChange={(e) => updateOption(e.target.value)}>
       {initStatus?.length ?? <option>Select</option>}
-      {statuses.map((status) => {
+      {statuses?.map((status) => {
         return (
           <option value={status} key={status}>
             {status}
