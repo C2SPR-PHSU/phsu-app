@@ -1,6 +1,6 @@
+/* eslint-disable no-useless-catch */
 import api from "@/utils/services/api";
 import { register } from "@/utils";
-import { IUserLogin } from "@/types/responses";
 
 interface IUserRegisterParams {
   email: string;
