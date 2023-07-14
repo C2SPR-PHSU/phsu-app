@@ -7,6 +7,8 @@ import { getCampuses, getCampusDocuments, getUserCampus, submitDocument } from "
 import Documents from './components/Documents';
 import { IAllCampusesData, ICampusDocumentsData } from './types'
 import styles from "./styles.module.scss";
+import { getUserDocuments } from "../Home/components/functions";
+import { IUserDocumentsData } from "../Home/types";
 
 const RequestServices = () => {
 
@@ -15,19 +17,22 @@ const RequestServices = () => {
   const [campusStatus, setCampusStatus] = useState(0);
 
   const [campuses, setCampuses] = useState<IAllCampusesData[]>([]);
-  const [documentList, setDocumentList] = useState<ICampusDocumentsData[]>([]);
+  const [documentList, setDocumentList] = useState<IUserDocumentsData[]>([]);
   const [displayList, setDisplayList] = useState(false)
   const [selectedCampus, setSelectedCampus] = useState('');
   const [selectedService, setSelectedService] = useState('');
 
   useEffect(() => {
     getAllCampuses();
+    requestUserDocuments();
+
   }, []);
 
   useEffect(() => {
     if (selectedCampus !== '' && selectedService !== '') return setDisplayList(true)
     return setDisplayList(false)
   }, [selectedService])
+
 
   const getAllCampuses = async () => {
     try {
@@ -42,6 +47,14 @@ const RequestServices = () => {
       setCampusStatus(parseInt(response.status));
     } catch (error) { console.log(error) }
   }
+
+  const requestUserDocuments = async () => {
+    try {
+      const response = await getUserDocuments(selectedCampus, token);
+      setDocumentList(response)
+    } catch (error) { console.log(error) }
+  }
+
 
   const sendToOnBase = async () => {
     try {
@@ -80,8 +93,8 @@ const RequestServices = () => {
             lg={12}
             sx={{ gap: "1rem", display: "flex", flexDirection: "column" }}
           >
-            <Typography className={styles["title-services"]}>{ servicesTextTitle }</Typography>
-            <Typography className={styles["description-view-services"]}>{ servicesTextDescription }</Typography>
+            <Typography className={styles["title-services"]}>{servicesTextTitle}</Typography>
+            <Typography className={styles["description-view-services"]}>{servicesTextDescription}</Typography>
           </Grid>
 
           <div className={styles["first-row-title"]}>
@@ -200,7 +213,7 @@ const RequestServices = () => {
             sx={{ paddingBottom: "1.2rem", paddingTop: "1rem" }}
           >
             <Box sx={{ display: "flex", flexDirection: "row", gap: "1rem" }}>
-              { campusStatus !== submitStatus.SENT &&
+              {campusStatus !== submitStatus.SENT &&
                 <Button
                   onClick={() => sendToOnBase()}
                   variant="contained"
