@@ -39,9 +39,7 @@ const ListItem: React.FC<ResponsiveComponentProps> = ({
             {listItem}
           </Typography>
         </Link>
-        <Typography variant="h5" className={styles["list-item"]}>
-          {listItem}
-        </Typography>
+
         <Typography className={styles["list-item-description"]}>
           {description}
         </Typography>
