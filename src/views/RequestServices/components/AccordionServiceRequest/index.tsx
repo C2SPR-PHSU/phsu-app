@@ -1,11 +1,8 @@
 import { ChangeEvent, useState } from "react";
-import Accordion from '@mui/material/Accordion';
-import AccordionSummary from '@mui/material/AccordionSummary';
-import AccordionDetails from '@mui/material/AccordionDetails';
-import Typography from '@mui/material/Typography';
+import { Accordion, AccordionSummary, AccordionDetails, Typography } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import styles from "./styles.module.scss";
-import CustomLabel from '../CustomLabel';
+import CustomLabel from '@/components/CustomLabel';
 import { DatePicker } from "@mui/x-date-pickers";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
@@ -94,62 +91,6 @@ export default function BasicAccordion() {
 
     return (
       <>
-        <Accordion sx={{
-          backgroundColor: "#efefef",
-          width: "100%",
-          borderRadius: "5px",
-          padding: "0.5rem",
-          marginBottom: "1.5rem !important"
-        }}>
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
-            aria-controls="panel1a-content"
-            id="panel1a-header"
-          >
-            <Typography className={styles["box-academic-i"]}>
-              Academic Information
-            </Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <Grid container spacing={2} sx={{ py: 1 }}>
-                {/* First Row */}
-                <Grid item xs={12} sm={6} md={3}>
-                  <div>
-                    <CustomLabel name="Entrance Academic Year" required={true} />
-                    <MyTextField
-                      name="entranceYear"
-                      placeholder="Entrance Academic Year"
-                      value={formValues.entranceYear}
-                      onValueChange={handleInputChange}
-                    />
-                  </div>
-                </Grid>
-                <Grid item xs={12} sm={6} md={3}>
-                  <div>
-                    <CustomLabel name="Campus" required={true} />
-                    <MyTextField
-                      name="campus"
-                      placeholder="Campus"
-                      value={formValues.campus}
-                      onValueChange={handleInputChange}
-                    />
-                  </div>
-                </Grid>
-                <Grid item xs={12} sm={6} md={3}>
-                  <div>
-                    <CustomLabel name="Entrance Term" required={true} />
-                    <MyTextField
-                      name="entranceTerm"
-                      placeholder="Entrance Term"
-                      value={formValues.entranceTerm}
-                      onValueChange={handleInputChange}
-                    />
-                  </div>
-                </Grid>
-            </Grid>
-          </AccordionDetails>
-        </Accordion>
-
         <Accordion
           sx={{
             backgroundColor: "#efefef",

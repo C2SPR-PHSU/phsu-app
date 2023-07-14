@@ -9,9 +9,10 @@ const AlertPopup = () => {
       <Stack
         sx={{ 
           width: '20%',
-          position: 'absolute',
+          position: 'fixed',
+          "z-index": 999,
           right: '2%',
-          top: '2%'
+          bottom: '2%'
         }} 
         spacing={2}
       >

@@ -1,29 +1,46 @@
-import { useEffect, useState } from 'react'
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Tab, Box, Grid, Modal, Typography } from '@mui/material';
-import { TabContext, TabList, TabPanel } from '@mui/lab';
-import ClearIcon from '@mui/icons-material/Clear';
+import { useEffect, useState } from "react";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+  Tab,
+  Box,
+  Grid,
+  Modal,
+  Typography,
+} from "@mui/material";
+import { TabContext, TabList, TabPanel } from "@mui/lab";
+import ClearIcon from "@mui/icons-material/Clear";
 import useAuthStore from "@/hooks/useAuthStore";
-import { IRequiredDocumentsProps, IUserDocumentsData } from '../../types';
-import { getUserDocuments } from '../functions'
-import { modalStyle } from './constants';
-import styles from './styles.module.scss';
-import RequiredDocumentsTable from '../RequiredDocumentsTable';
+import { IRequiredDocumentsProps, IUserDocumentsData } from "../../types";
+import { getUserDocuments } from "../functions";
+import { modalStyle } from "./constants";
+import styles from "./styles.module.scss";
+import RequiredDocumentsTable from "../RequiredDocumentsTable";
 
-const RequiredDocuments = ({ title, open, campusId, handleClose }: IRequiredDocumentsProps) => {
-
-  const [value, setValue] = useState('1');
+const RequiredDocuments = ({
+  title,
+  open,
+  campusId,
+  handleClose,
+}: IRequiredDocumentsProps) => {
+  const [value, setValue] = useState("1");
   const [documentList, setDocumentList] = useState<IUserDocumentsData[]>([]);
   const token = useAuthStore((state: any) => state.token);
 
   useEffect(() => {
     return () => {
-      setValue('1')
-    }
-  }, [])
+      setValue("1");
+    };
+  }, []);
 
   useEffect(() => {
     requestUserDocument();
-  }, [campusId, value])
+  }, [campusId, value]);
 
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
     setValue(newValue);
@@ -31,10 +48,16 @@ const RequiredDocuments = ({ title, open, campusId, handleClose }: IRequiredDocu
 
   const requestUserDocument = async () => {
     try {
-      const response = await getUserDocuments(campusId, token, parseInt(value, 10));
-      setDocumentList(response)
-    } catch (error) { console.log(error) }
-  }
+      const response = await getUserDocuments(
+        campusId,
+        token,
+        parseInt(value, 10)
+      );
+      setDocumentList(response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <Modal
@@ -48,11 +71,19 @@ const RequiredDocuments = ({ title, open, campusId, handleClose }: IRequiredDocu
           <TabContext value={value}>
             <Grid container>
               <Grid item xs={8}>
-                <Typography variant="h6" className={styles["subtitle"]}>{title}</Typography>
+                <Typography variant="h6" className={styles["subtitle"]}>
+                  {title}
+                </Typography>
               </Grid>
               <Grid item xs={4}>
                 <Box>
-                  <TabList onChange={handleChange} aria-label="lab API tabs example" textColor='primary' indicatorColor='primary' centered>
+                  <TabList
+                    onChange={handleChange}
+                    aria-label="lab API tabs example"
+                    textColor="primary"
+                    indicatorColor="primary"
+                    centered
+                  >
                     <Tab label="Sent" value="1" />
                     <Tab label="Received" value="2" />
                   </TabList>
@@ -70,12 +101,18 @@ const RequiredDocuments = ({ title, open, campusId, handleClose }: IRequiredDocu
           </TabContext>
         </Grid>
         <ClearIcon
-          sx={{ position: 'absolute', top: '5%', right: '2%', color: 'gray', cursor: 'pointer' }}
+          sx={{
+            position: "absolute",
+            top: "5%",
+            right: "2%",
+            color: "gray",
+            cursor: "pointer",
+          }}
           onClick={handleClose}
         />
       </Box>
     </Modal>
   );
-}
+};
 
 export default RequiredDocuments;
