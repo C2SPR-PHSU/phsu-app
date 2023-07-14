@@ -3,29 +3,16 @@ import {
   Grid,
   Box,
   Typography,
-  Button,
   FormControl,
   Select,
-  Alert,
   MenuItem,
 } from "@mui/material";
 import useAuthStore from "@/hooks/useAuthStore";
-import { AccordionServiceRequest, CustomLabel } from "@/components";
-import {
-  selectStyles,
-  optionsService,
-  servicesTextDescription,
-  servicesTextTitle,
-  submitStatus,
-} from "./constants";
-import {
-  getCampuses,
-  getCampusDocuments,
-  getUserCampus,
-  submitDocument,
-} from "./functions";
-import Documents from "./components/Documents";
-import { IAllCampusesData, ICampusDocumentsData } from "./types";
+import { CustomLabel } from "@/components";
+import { selectStyles, optionsService, servicesTextDescription, servicesTextTitle } from './constants';
+import { getCampuses, getCampusDocuments, getUserCampus } from "./functions";
+import { Documents, AccordionServiceRequest, AccordionAcademicInfo, ActionButtons } from './components';
+import { IAllCampusesData, ICampusDocumentsData } from './types'
 import styles from "./styles.module.scss";
 
 const RequestServices = () => {
@@ -35,9 +22,11 @@ const RequestServices = () => {
 
   const [campuses, setCampuses] = useState<IAllCampusesData[]>([]);
   const [documentList, setDocumentList] = useState<ICampusDocumentsData[]>([]);
-  const [displayList, setDisplayList] = useState(false);
-  const [selectedCampus, setSelectedCampus] = useState("");
-  const [selectedService, setSelectedService] = useState("");
+  const [displayList, setDisplayList] = useState(false)
+  const [selectedCampus, setSelectedCampus] = useState('');
+  const [selectedService, setSelectedService] = useState('');
+  const [entranceTermId, setEntranceTermId] = useState<number>(0);
+  const [academicYear, setAcademicYear] = useState<number>(0);
 
   useEffect(() => {
     getAllCampuses();
@@ -62,15 +51,6 @@ const RequestServices = () => {
     try {
       const response = await getUserCampus(campusId, token);
       setCampusStatus(parseInt(response.status));
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const sendToOnBase = async () => {
-    try {
-      await submitDocument(parseInt(selectedCampus), token);
-      setCampusStatus(2);
     } catch (error) {
       console.log(error);
     }
@@ -237,48 +217,24 @@ const RequestServices = () => {
           </Grid>
 
           <Grid item xs={12} md={12} lg={12} sx={{ paddingBottom: "1.2rem" }}>
+          <div className={styles["accordions-wrapper"]}>
+              <AccordionAcademicInfo
+                campusId={selectedCampus}
+                entranceTermId={(id) => setEntranceTermId(id)}
+                academicYearId={(id) => setAcademicYear(id)}
+              />
+            </div>
             <div className={styles["accordions-wrapper"]}>
               <AccordionServiceRequest />
             </div>
           </Grid>
-
-          <Grid
-            item
-            xs={12}
-            md={12}
-            lg={12}
-            sx={{ paddingBottom: "1.2rem", paddingTop: "1rem" }}
-          >
-            <Box sx={{ display: "flex", flexDirection: "row", gap: "1rem" }}>
-              {campusStatus !== submitStatus.SENT && (
-                <Button
-                  onClick={() => sendToOnBase()}
-                  variant="contained"
-                  className={styles["button-submit"]}
-                  sx={{
-                    "&.Mui-disabled": {
-                      opacity: "0.6",
-                      color: "white",
-                    },
-                  }}
-                  disabled={campusStatus === submitStatus.DISABLED}
-                >
-                  SUBMIT
-                </Button>
-              )}
-              <Button variant="contained" className={styles["button-save"]}>
-                SAVE
-              </Button>
-            </Box>
-          </Grid>
+          <ActionButtons
+            campusStatus={campusStatus}
+            selectedCampus={selectedCampus}
+            selectedETerm={entranceTermId}
+            selectedAYear={academicYear}
+          />
         </Grid>
-        {campusStatus === submitStatus.SENT && (
-          <>
-            <Alert severity="success" color="success">
-              Documents Sent to OnBase!
-            </Alert>
-          </>
-        )}
       </Box>
     </Box>
   );
