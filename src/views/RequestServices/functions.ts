@@ -1,19 +1,34 @@
 import api from "@/utils/services/api";
-import { campuses, campusDocuments, uploadDocuments, userCampus, submitDocumentOnbase } from "@/utils";
-import { 
+import {
+  campuses,
+  campusDocuments,
+  uploadDocuments,
+  userCampus,
+  submitDocumentOnbase,
+  academicYears,
+  campusTerms,
+  userAcademicInformation,
+  userInfo,
+  userDocuments
+} from "@/utils";
+import {
   IUserCampusResponse,
   IAllCampusesResponse,
   ISubmitDocumentResponse,
   IUploadDocument,
-  ICampusDocumentResponse
-} from './types'
+  ICampusDocumentResponse,
+  IAcademicYearsResponse,
+  IEntranceTermsResponse,
+  IUserInfoResponse,
+  IUserDocumentsResponse
+} from './types';
 
 export const getCampuses = async () => {
   try {
     api.resource = campuses;
 
     const res = await api.get<IAllCampusesResponse>();
-    
+
     return res.data;
   } catch (error) {
     throw error;
@@ -49,16 +64,16 @@ export const getCampusDocuments = async (id: number) => {
 };
 
 export const uploadDocument = async ({
-  campusId, 
-  documentId, 
-  document, 
+  campusId,
+  documentId,
+  document,
   token
 }: IUploadDocument) => {
   try {
     api.resource = uploadDocuments;
     api.token = token
 
-    const res = await api.post<ICampusDocumentResponse>({ 
+    const res = await api.post<ICampusDocumentResponse>({
       body: {
         campus_id: campusId,
         document_id: parseInt(documentId),
@@ -72,12 +87,12 @@ export const uploadDocument = async ({
   }
 };
 
-export const submitDocument = async(campusId: number, token: string) => {
+export const submitDocument = async (campusId: number, token: string) => {
   try {
     api.resource = submitDocumentOnbase;
     api.token = token;
 
-    const res = await api.post<ISubmitDocumentResponse>({ 
+    const res = await api.post<ISubmitDocumentResponse>({
       body: {
         campus_id: campusId
       }
@@ -89,3 +104,90 @@ export const submitDocument = async(campusId: number, token: string) => {
     throw error;
   }
 }
+
+export const getAcademicYears = async () => {
+  try {
+    api.resource = academicYears;
+
+    const res = await api.get<IAcademicYearsResponse>();
+
+    return res.data;
+
+  } catch (error) {
+    throw error;
+  }
+}
+
+export const getEntranceTerms = async (campusId: string) => {
+  try {
+    api.resource = campusTerms;
+
+    const res = await api.post<IEntranceTermsResponse>({
+      body: {
+        id: campusId
+      }
+    });
+
+    return res.data;
+
+  } catch (error) {
+    throw error;
+  }
+}
+
+export const updateAcademicInformation = async (
+  campusId: number,
+  termId: number,
+  academicYear: number,
+  token: string
+) => {
+  try {
+    api.resource = userAcademicInformation;
+    api.token = token;
+
+    const res = await api.post<ISubmitDocumentResponse>({
+      body: {
+        campus_id: campusId,
+        term_id: termId,
+        academic_year: academicYear
+      }
+    });
+
+    return res.data;
+
+  } catch (error) {
+    throw error;
+  }
+}
+
+export const getUserInformation = async (token: string) => {
+  try {
+    api.resource = userInfo;
+    api.token = token;
+
+    const res = await api.get<IUserInfoResponse>();
+
+    return res.data;
+
+  } catch (error) {
+    throw error;
+  }
+}
+
+export const getAllUserDocuments = async (campusId: string, token: string) => {
+  try {
+    api.resource = userDocuments;
+    api.token = token
+
+    const res = await api.post<IUserDocumentsResponse>({
+      body: {
+        campus_id: campusId,
+      }
+    });
+
+    return res.data;
+  } catch (error) {
+    console.log(error)
+    throw error;
+  }
+};

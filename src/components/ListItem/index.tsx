@@ -20,11 +20,14 @@ const ListItem: React.FC<ResponsiveComponentProps> = ({
         <Typography className={styles["number"]}>{number}</Typography>
       </Box>
       <Box className={styles["services"]}>
-        <Link href={url} className={styles["link"]}>
+        {/* <Link href={url} className={styles["link"]}>
           <Typography variant="h5" className={styles["list-item"]}>
             {listItem}
           </Typography>
-        </Link>
+        </Link> */}
+        <Typography variant="h5" className={styles["list-item"]}>
+          {listItem}
+        </Typography>
         <Typography className={styles["list-item-description"]}>
           {description}
         </Typography>
