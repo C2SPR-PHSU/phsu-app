@@ -201,12 +201,13 @@ export default function Registration() {
         address_zipcode: formik.values.addressZipcode,
         password: formik.values.password,
       });
-
+      setAlert("Successful Registration", "success");
       console.log("-----> ", response);
       navigate("/");
     } catch (error) {
       console.log(error);
-      setAlert("Something happened. Try again later", "error");
+      //
+      setAlert("Something happened. Try again", "error");
     }
   };
 

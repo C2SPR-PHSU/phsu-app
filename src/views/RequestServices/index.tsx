@@ -9,12 +9,26 @@ import {
 } from "@mui/material";
 import useAuthStore from "@/hooks/useAuthStore";
 import { CustomLabel } from "@/components";
-import { selectStyles, optionsService, servicesTextDescription, servicesTextTitle } from './constants';
+import {
+  selectStyles,
+  optionsService,
+  servicesTextDescription,
+  servicesTextTitle,
+} from "./constants";
 import { getCampuses, getCampusDocuments, getUserCampus } from "./functions";
-import { Documents, AccordionServiceRequest, AccordionAcademicInfo, ActionButtons } from './components';
-import { IAllCampusesData, ICampusDocumentsData, IUserDocumentsData } from './types'
+import {
+  Documents,
+  AccordionServiceRequest,
+  AccordionAcademicInfo,
+  ActionButtons,
+} from "./components";
+import {
+  IAllCampusesData,
+  ICampusDocumentsData,
+  IUserDocumentsData,
+} from "./types";
 import styles from "./styles.module.scss";
-import { getAllUserDocuments } from "./functions"
+import { getAllUserDocuments } from "./functions";
 
 const RequestServices = () => {
   const token = useAuthStore((state: any) => state.token);
@@ -23,9 +37,9 @@ const RequestServices = () => {
 
   const [campuses, setCampuses] = useState<IAllCampusesData[]>([]);
   const [documentList, setDocumentList] = useState<ICampusDocumentsData[]>([]);
-  const [displayList, setDisplayList] = useState(false)
-  const [selectedCampus, setSelectedCampus] = useState('');
-  const [selectedService, setSelectedService] = useState('');
+  const [displayList, setDisplayList] = useState(false);
+  const [selectedCampus, setSelectedCampus] = useState("");
+  const [selectedService, setSelectedService] = useState("");
   const [entranceTermId, setEntranceTermId] = useState<number>(0);
   const [academicYear, setAcademicYear] = useState<number>(0);
   const [userDocuments, setUserDocuments] = useState<IUserDocumentsData[]>([]);
@@ -36,20 +50,19 @@ const RequestServices = () => {
   }, []);
 
   useEffect(() => {
-    if (selectedCampus !== "" && selectedService !== "") return setDisplayList(true);
+    if (selectedCampus !== "" && selectedService !== "")
+      return setDisplayList(true);
     return setDisplayList(false);
   }, [selectedService]);
 
-
   useEffect(() => {
-    if (selectedCampus === '0') return;
-    requestUserDocuments()
+    if (selectedCampus === "0") return;
+    requestUserDocuments();
   }, [selectedCampus]);
 
   useEffect(() => {
-    console.log(campusStatus)
+    console.log(campusStatus);
   }, [campusStatus]);
-
 
   const getAllCampuses = async () => {
     try {
@@ -88,7 +101,7 @@ const RequestServices = () => {
   };
 
   const handleCampusChange = (idValue: string) => {
-    console.log(idValue)
+    console.log(idValue);
     setSelectedCampus(idValue);
     getUserCampusInfo(idValue);
     getDocumentsByCampus(parseInt(idValue));
@@ -194,7 +207,7 @@ const RequestServices = () => {
               paddingBottom: "2rem",
             }}
           >
-            {!displayList || selectedCampus === '0' ? (
+            {!displayList || selectedCampus === "0" ? (
               <>
                 <Typography className={styles["campus-selection-title"]}>
                   Documents
