@@ -14,7 +14,6 @@ import CustomizedProgressBars from "@/layout/Loader";
 import StatusButton from "@/components/StatusButton";
 import { getUserServices } from "../../functions";
 import { IUserServicesData } from "../../types";
-import { set } from "lodash";
 
 interface IBasicTableProps {
   handleModal: (prop: string) => void;
@@ -49,6 +48,7 @@ export default function BasicTable({
       setLoader(false);
     } catch (error) {
       console.log(error);
+      setLoader(false);
     }
   };
 
