@@ -6,11 +6,11 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import { Button } from "@mui/material";
+import { Box } from "@mui/material";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import DownloadIcon from "@mui/icons-material/Download";
 import useAuthStore from "@/hooks/useAuthStore";
-import axios from "axios";
+import CustomizedProgressBars from "@/layout/Loader";
 import StatusButton from "@/components/StatusButton";
 import { getUserServices } from "../../functions";
 import { IUserServicesData } from "../../types";
@@ -39,16 +39,21 @@ export default function BasicTable({
     7: "Denied",
   };
 
+  const [loader, setLoader] = useState(false);
+
   const getUserServicesRows = async () => {
     try {
       const response = await getUserServices("1", token);
       setUserServices([response].flat());
+      setLoader(false);
     } catch (error) {
       console.log(error);
     }
   };
 
   useEffect(() => {
+    setLoader(true);
+
     getUserServicesRows();
   }, []);
 
@@ -158,6 +163,24 @@ export default function BasicTable({
               </TableRow>
             ))}
         </TableBody>
+        <Box
+          sx={{
+            display: "none",
+            ...(loader && {
+              position: "fixed",
+              top: 0,
+              left: 0,
+              width: "100%",
+              height: "100%",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              backgroundColor: "rgba(0, 0, 0, 0.3)",
+            }),
+          }}
+        >
+          <CustomizedProgressBars />
+        </Box>
       </Table>
     </TableContainer>
   );

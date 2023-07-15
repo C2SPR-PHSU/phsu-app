@@ -6,7 +6,9 @@ import CircularProgress, {
 // Inspired by the former Facebook spinners.
 function FacebookCircularProgress() {
   return (
-    <Box sx={{ position: "relative" }}>
+    <Box
+      sx={{ position: "relative", backgroundColor: "rgba(255, 255, 255, 0)" }}
+    >
       <CircularProgress
         variant="determinate"
         sx={{
@@ -45,6 +47,8 @@ export default function CustomizedProgressBars() {
         justifyContent: "center",
         alignItems: "center",
         height: "100vh",
+        width: "100%",
+        backgroundColor: "rgba(0, 0, 0, 0)", // Fondo transparente
       }}
     >
       <FacebookCircularProgress />
