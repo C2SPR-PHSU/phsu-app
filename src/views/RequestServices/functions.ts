@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-catch */
 import api from "@/utils/services/api";
 import {
   campuses,
@@ -9,7 +10,7 @@ import {
   campusTerms,
   userAcademicInformation,
   userInfo,
-  userDocuments
+  userDocuments,
 } from "@/utils";
 import {
   IUserCampusResponse,
@@ -20,8 +21,8 @@ import {
   IAcademicYearsResponse,
   IEntranceTermsResponse,
   IUserInfoResponse,
-  IUserDocumentsResponse
-} from './types';
+  IUserDocumentsResponse,
+} from "./types";
 
 export const getCampuses = async () => {
   try {
@@ -42,15 +43,15 @@ export const getUserCampus = async (campusId: string, token: string) => {
 
     const res = await api.post<IUserCampusResponse>({
       body: {
-        campus_id: parseInt(campusId)
-      }
+        campus_id: parseInt(campusId),
+      },
     });
 
     return res.data;
   } catch (error) {
-    throw error
+    throw error;
   }
-}
+};
 
 export const getCampusDocuments = async (id: number) => {
   try {
@@ -67,19 +68,19 @@ export const uploadDocument = async ({
   campusId,
   documentId,
   document,
-  token
+  token,
 }: IUploadDocument) => {
   try {
     api.resource = uploadDocuments;
-    api.token = token
+    api.token = token;
 
     const res = await api.post<ICampusDocumentResponse>({
       body: {
         campus_id: campusId,
         document_id: parseInt(documentId),
         document,
-        force: 1
-      }
+        force: 1,
+      },
     });
     return res.data;
   } catch (error) {
@@ -94,16 +95,15 @@ export const submitDocument = async (campusId: number, token: string) => {
 
     const res = await api.post<ISubmitDocumentResponse>({
       body: {
-        campus_id: campusId
-      }
+        campus_id: campusId,
+      },
     });
 
     return res.data;
-
   } catch (error) {
     throw error;
   }
-}
+};
 
 export const getAcademicYears = async () => {
   try {
@@ -112,11 +112,10 @@ export const getAcademicYears = async () => {
     const res = await api.get<IAcademicYearsResponse>();
 
     return res.data;
-
   } catch (error) {
     throw error;
   }
-}
+};
 
 export const getEntranceTerms = async (campusId: string) => {
   try {
@@ -124,16 +123,15 @@ export const getEntranceTerms = async (campusId: string) => {
 
     const res = await api.post<IEntranceTermsResponse>({
       body: {
-        id: campusId
-      }
+        id: campusId,
+      },
     });
 
     return res.data;
-
   } catch (error) {
     throw error;
   }
-}
+};
 
 export const updateAcademicInformation = async (
   campusId: number,
@@ -149,16 +147,15 @@ export const updateAcademicInformation = async (
       body: {
         campus_id: campusId,
         term_id: termId,
-        academic_year: academicYear
-      }
+        academic_year: academicYear,
+      },
     });
 
     return res.data;
-
   } catch (error) {
     throw error;
   }
-}
+};
 
 export const getUserInformation = async (token: string) => {
   try {
@@ -168,26 +165,25 @@ export const getUserInformation = async (token: string) => {
     const res = await api.get<IUserInfoResponse>();
 
     return res.data;
-
   } catch (error) {
     throw error;
   }
-}
+};
 
 export const getAllUserDocuments = async (campusId: string, token: string) => {
   try {
     api.resource = userDocuments;
-    api.token = token
+    api.token = token;
 
     const res = await api.post<IUserDocumentsResponse>({
       body: {
         campus_id: campusId,
-      }
+      },
     });
 
     return res.data;
   } catch (error) {
-    console.log(error)
+    console.log(error);
     throw error;
   }
 };
