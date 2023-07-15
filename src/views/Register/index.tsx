@@ -23,6 +23,8 @@ import useAlert from "@/hooks/useAlert";
 export default function Registration() {
   const { setAlert } = useAlert();
 
+  const [validate, setValidate] = useState(false);
+
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -112,35 +114,8 @@ export default function Registration() {
         .max(20, "Password must be at most 20 characters"),
     }),
 
-    onSubmit: (values) => {
-      try {
-        const response = requestRegister({
-          email: values.email,
-          cell_phone: values.phoneNumber,
-          student_id: values.studentId,
-          first_name: values.firstName,
-          middle_name: values.middleName,
-          last_name: values.lastName,
-          second_last_name: values.secondLastName,
-          birthdate: values.birthdate,
-          address_line1: values.addressLine1,
-          address_line2: values.addressLine2,
-          address_state: values.addressState,
-          address_city: values.addressCity,
-          address_zipcode: values.addressZipcode,
-          password: values.password,
-        });
-        console.log(values);
-        console.log("response ----> ", response);
-        setAlert(
-          "Successful Registration",
-          "You will receive an e-mail to confirm your registration"
-        );
-        navigate("/");
-      } catch (error) {
-        console.log(error);
-        setAlert("Something happened. Try again later", "error");
-      }
+    onSubmit: () => {
+      setValidate(true);
     },
   });
 
@@ -206,6 +181,39 @@ export default function Registration() {
       padding: "0.7rem",
     },
   };
+
+  // Send data user
+  const senUserForRegister = async () => {
+    try {
+      const response = await requestRegister({
+        email: formik.values.email,
+        cell_phone: formik.values.phoneNumber,
+        student_id: formik.values.studentId,
+        first_name: formik.values.firstName,
+        middle_name: formik.values.middleName,
+        last_name: formik.values.lastName,
+        second_last_name: formik.values.secondLastName,
+        birthdate: formik.values.birthdate,
+        address_line1: formik.values.addressLine1,
+        address_line2: formik.values.addressLine2,
+        address_state: formik.values.addressState,
+        address_city: formik.values.addressCity,
+        address_zipcode: formik.values.addressZipcode,
+        password: formik.values.password,
+      });
+
+      console.log("-----> ", response);
+      navigate("/");
+    } catch (error) {
+      console.log(error);
+      setAlert("Something happened. Try again later", "error");
+    }
+  };
+
+  if (validate) {
+    senUserForRegister();
+    setValidate(false);
+  }
 
   return (
     <Box className={styles.wrapper}>
