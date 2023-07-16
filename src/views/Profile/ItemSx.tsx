@@ -104,14 +104,15 @@ const sxStyles = (isVeryScreenSmall: any, isMedium: any, isScreenLg: any) => ({
   },
 
   listItem: {
-    ...(isVeryScreenSmall &&  {
+    ...(isVeryScreenSmall && {
       display: "flex",
       flexDirection: "column",
     }),
   },
 
-  listItemText: {
-    ...(isVeryScreenSmall && {}),
+  listItemTextstyle: {
+    flex: 1,
+    paddingRight: "16rem",
   },
 });
 
