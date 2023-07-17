@@ -140,7 +140,7 @@ const Profile = () => {
                   <img
                     src="https://randomuser.me/api/portraits/women/60.jpg"
                     alt="user-photo"
-                    className={profileScss["imgProfileStyle"]}
+                    className={profileScss["img-profile-style"]}
                   />
                 </Grid>
 
@@ -154,7 +154,7 @@ const Profile = () => {
                 >
                   <Button
                     variant="outlined"
-                    className={profileScss["profilesButton"]}
+                    className={profileScss["profiles-button"]}
                     type="submit"
                   >
                     {isEditMode ? "Save Profile" : "Edit Profile"}
@@ -162,7 +162,7 @@ const Profile = () => {
 
                   <Button
                     variant="outlined"
-                    className={profileScss["profilesButton"]}
+                    className={profileScss["profiles-button"]}
                   >
                     Change
                   </Button>
@@ -179,7 +179,7 @@ const Profile = () => {
             >
               <Typography
                 variant="h6"
-                className={profileScss["titlePersonalInformation"]}
+                className={profileScss["title-personal-information"]}
               >
                 Personal information
               </Typography>
@@ -579,7 +579,7 @@ const Profile = () => {
                   <List>
                     <Typography
                       variant="h6"
-                      className={profileScss["titlePersonalInformation"]}
+                      className={profileScss["title-personal-information"]}
                     >
                       Academic Information
                     </Typography>
@@ -698,7 +698,7 @@ const Profile = () => {
                   <List>
                     <Typography
                       variant="h6"
-                      className={profileScss["titlePersonalInformation"]}
+                      className={profileScss["title-personal-information"]}
                     >
                       Address
                     </Typography>
