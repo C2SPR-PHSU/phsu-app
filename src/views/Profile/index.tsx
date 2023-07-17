@@ -379,7 +379,10 @@ const Profile = () => {
                           .listItem
                       }
                     >
-                      <ListItemText primary={`Date or Birth: `} />
+                      <ListItemText
+                        primary={`Date or Birth: `}
+                        sx={{ width: "0%" }}
+                      />
                       {isEditMode ? (
                         <TextField
                           id="birthdate"
@@ -397,7 +400,17 @@ const Profile = () => {
                           type="date"
                         />
                       ) : (
-                        <ListItemText primary={formik.values.birthdate} />
+                        <ListItemText
+                          primary={formik.values.birthdate}
+                          sx={{
+                            flex: 1,
+                            paddingRight: "10rem",
+                            ...(isScreenLg && {
+                              flex: 1,
+                              paddingRight: "5rem",
+                            }),
+                          }}
+                        />
                       )}
                     </ListItem>
 
@@ -431,7 +444,12 @@ const Profile = () => {
                           primary={formik.values.cell_phone}
                           sx={{
                             flex: 1,
-                            paddingRight: "14rem",
+                            paddingRight: "15rem",
+
+                            ...(isScreenLg && {
+                              flex: 1,
+                              paddingRight: "9rem",
+                            }),
                           }}
                         />
                       )}
@@ -467,6 +485,10 @@ const Profile = () => {
                           sx={{
                             flex: 1,
                             paddingRight: "9rem",
+                            ...(isScreenLg && {
+                              flex: 1,
+                              paddingRight: "4rem",
+                            }),
                           }}
                         />
                       )}
@@ -493,6 +515,10 @@ const Profile = () => {
                           sx={{
                             flex: 1,
                             paddingRight: "18rem",
+                            ...(isScreenLg && {
+                              flex: 1,
+                              paddingRight: "11rem",
+                            }),
                           }}
                         />
                       )}
@@ -528,6 +554,10 @@ const Profile = () => {
                           sx={{
                             flex: 1,
                             paddingRight: "13rem",
+                            ...(isScreenLg && {
+                              flex: 1,
+                              paddingRight: "8rem",
+                            }),
                           }}
                         />
                       )}
@@ -561,7 +591,10 @@ const Profile = () => {
                           .listItem
                       }
                     >
-                      <ListItemText primary={`Entrance Academic Year:`} />
+                      <ListItemText
+                        primary={`Entrance Academic Year:`}
+                        sx={{ width: "22%" }}
+                      />
                       {isEditMode ? (
                         <TextField
                           id="entranceYear"
@@ -583,7 +616,7 @@ const Profile = () => {
                           primary={formik.values.entranceYear}
                           sx={{
                             flex: 1,
-                            paddingRight: "1rem",
+                            paddingRight: "4rem",
                           }}
                         />
                       )}
@@ -650,10 +683,10 @@ const Profile = () => {
                       ) : (
                         <ListItemText
                           primary={formik.values.entranceTerm}
-                          sx={
-                            sxStyles(isVeryScreenSmall, isMedium, isScreenLg)
-                              .listItemTextstyle
-                          }
+                          sx={{
+                            flex: 1,
+                            paddingRight: "15rem",
+                          }}
                         />
                       )}
                     </ListItem>
