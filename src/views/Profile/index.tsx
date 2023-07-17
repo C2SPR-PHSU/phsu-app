@@ -427,11 +427,11 @@ const Profile = () => {
                           .listItem
                       }
                     >
-                      <div style={sxStyles(null, null, null).listItemNameXl}>
-                        Alternative Phone Number:
+                      <div style={sxStyles(null, null, null).listItemNameLg}>
+                        Alternative Phone:
                       </div>
                       {isEditMode ? (
-                        <div style={{ paddingLeft: "2%" }}>
+                        <div style={{ paddingLeft: "20%" }}>
                           <TextField
                             id="alternative_phone"
                             name="alternative_phone"
@@ -449,17 +449,7 @@ const Profile = () => {
                           />
                         </div>
                       ) : (
-                        <ListItemText
-                          primary={formik.values.alternative_phone}
-                          sx={{
-                            flex: 1,
-                            paddingRight: "9rem",
-                            ...(isScreenLg && {
-                              flex: 1,
-                              paddingRight: "4rem",
-                            }),
-                          }}
-                        />
+                        <div>{formik.values.alternative_phone}</div>
                       )}
                     </ListItem>
 
@@ -471,7 +461,7 @@ const Profile = () => {
                             .listItemNameLg
                         }
                       >
-                        Email:
+                        Personal Email:
                       </div>
                       {isEditMode ? (
                         <div style={{ paddingLeft: "20%" }}>
@@ -490,13 +480,7 @@ const Profile = () => {
                           />
                         </div>
                       ) : (
-                        <div
-                          style={{
-                            paddingRight: "14rem",
-                          }}
-                        >
-                          {formik.values.email}
-                        </div>
+                        <div>{formik.values.email}</div>
                       )}
                     </ListItem>
 
