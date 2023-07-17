@@ -111,7 +111,7 @@ const RequiredDocuments = ({
           onClick={handleClose}
         />
       </Box>
-    </Modal >
+    </Modal>
   );
 };
 
