@@ -114,6 +114,27 @@ const sxStyles = (isVeryScreenSmall: any, isMedium: any, isScreenLg: any) => ({
     flex: 1,
     paddingRight: "16rem",
   },
+
+  listItemName: {
+    width: "25%",
+    fontWeight: "normal",
+    fontSize: "1rem",
+  },
+
+  listItemNameLg: {
+    width: "37%",
+    fontSize: "1rem",
+    fontWeight: "normal",
+  },
+  listItemNameXl: {
+    width: "55%",
+    fontSize: "1rem",
+    fontWeight: "normal",
+  },
+
+  divText:{
+    
+  }
 });
 
 export default sxStyles;

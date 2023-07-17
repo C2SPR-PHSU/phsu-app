@@ -2,7 +2,6 @@ const primaryColor = "#009999";
 const placeholderColor = "rgba(51, 51, 51, 0.4)";
 const customTextField = {
   width: "130px",
-
   "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
     borderColor: primaryColor,
     borderRadius: 0,

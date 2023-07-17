@@ -30,6 +30,7 @@ const Profile = () => {
   const isMedium = useMediaQuery(theme.breakpoints.down("lg"));
   const [isEditMode, setIsEditMode] = useState(false);
   const token = useAuthStore((state: any) => state.token);
+  const cities = "City";
 
   const [userProfile, setUserProfile] = useState<Partial<UserProfile>>({});
 
@@ -165,6 +166,7 @@ const Profile = () => {
                     className={profileScss["profiles-button"]}
                   >
                     Change
+                    <CameraAltIcon />
                   </Button>
                 </Grid>
               </Grid>
@@ -194,12 +196,9 @@ const Profile = () => {
                           .listItem
                       }
                     >
-                      <ListItemText
-                        primary="First Name:"
-                        sx={{
-                          width: "20%",
-                        }}
-                      />
+                      <h3 style={sxStyles(null, null, null).listItemNameLg}>
+                        First Name:
+                      </h3>
 
                       {isEditMode ? (
                         <TextField
@@ -234,10 +233,9 @@ const Profile = () => {
                           .listItem
                       }
                     >
-                      <ListItemText
-                        primary="Middle Name:"
-                        sx={{ width: "35%" }}
-                      />
+                      <div style={sxStyles(null, null, null).listItemNameLg}>
+                        Middle Name:
+                      </div>
                       {isEditMode ? (
                         <TextField
                           id="middlename"
@@ -255,13 +253,7 @@ const Profile = () => {
                           sx={customTextField}
                         />
                       ) : (
-                        <ListItemText
-                          primary={formik.values.middlename}
-                          sx={
-                            sxStyles(isVeryScreenSmall, isMedium, isScreenLg)
-                              .listItemTextstyle
-                          }
-                        />
+                        <div>{formik.values.middlename}</div>
                       )}
                     </ListItem>
 
@@ -272,7 +264,9 @@ const Profile = () => {
                           .listItem
                       }
                     >
-                      <ListItemText primary="Last Name:" />
+                      <div style={sxStyles(null, null, null).listItemNameLg}>
+                        Last Name:
+                      </div>
                       {isEditMode ? (
                         <TextField
                           id="lastname"
@@ -288,13 +282,7 @@ const Profile = () => {
                           sx={customTextField}
                         />
                       ) : (
-                        <ListItemText
-                          primary={formik.values.lastname}
-                          sx={
-                            sxStyles(isVeryScreenSmall, isMedium, isScreenLg)
-                              .listItemTextstyle
-                          }
-                        />
+                        <div>{formik.values.lastname}</div>
                       )}
                     </ListItem>
 
@@ -305,7 +293,9 @@ const Profile = () => {
                           .listItem
                       }
                     >
-                      <ListItemText primary="Second Last Name:" />
+                      <div style={sxStyles(null, null, null).listItemNameLg}>
+                        Second lastname:
+                      </div>
                       {isEditMode ? (
                         <TextField
                           id="secondlastname"
@@ -323,13 +313,7 @@ const Profile = () => {
                           sx={customTextField}
                         />
                       ) : (
-                        <ListItemText
-                          primary={formik.values.secondlastname}
-                          sx={{
-                            flex: 1,
-                            paddingRight: "13rem",
-                          }}
-                        />
+                        <div>{formik.values.secondlastname}</div>
                       )}
                     </ListItem>
 
@@ -340,7 +324,9 @@ const Profile = () => {
                           .listItem
                       }
                     >
-                      <ListItemText primary="Student ID:" />
+                      <div style={sxStyles(null, null, null).listItemNameLg}>
+                        Student ID:
+                      </div>
                       {isEditMode ? (
                         <TextField
                           id="studentid"
@@ -357,13 +343,7 @@ const Profile = () => {
                           sx={customTextField}
                         />
                       ) : (
-                        <ListItemText
-                          primary={formik.values.studentid}
-                          sx={
-                            sxStyles(isVeryScreenSmall, isMedium, isScreenLg)
-                              .listItemTextstyle
-                          }
-                        />
+                        <div>{formik.values.studentid}</div>
                       )}
                     </ListItem>
                   </List>
@@ -373,44 +353,36 @@ const Profile = () => {
                 <Grid item xs={12} sm={6} md={6}>
                   <List>
                     {/*Birthdate item */}
-                    <ListItem
-                      sx={
-                        sxStyles(isVeryScreenSmall, isMedium, isScreenLg)
-                          .listItem
-                      }
-                    >
-                      <ListItemText
-                        primary={`Date or Birth: `}
-                        sx={{ width: "0%" }}
-                      />
+                    <ListItem>
+                      <div
+                        style={
+                          sxStyles(isVeryScreenSmall, isMedium, isScreenLg)
+                            .listItemNameLg
+                        }
+                      >
+                        Date or Birth:
+                      </div>
                       {isEditMode ? (
-                        <TextField
-                          id="birthdate"
-                          name="birthdate"
-                          value={formik.values.birthdate}
-                          onChange={formik.handleChange}
-                          error={
-                            formik.touched.birthdate &&
-                            !!formik.errors.birthdate
-                          }
-                          helperText={
-                            formik.touched.birthdate && formik.errors.birthdate
-                          }
-                          sx={customTextField}
-                          type="date"
-                        />
+                        <div style={{ paddingLeft: "20%" }}>
+                          <TextField
+                            id="birthdate"
+                            name="birthdate"
+                            value={formik.values.birthdate}
+                            onChange={formik.handleChange}
+                            error={
+                              formik.touched.birthdate &&
+                              !!formik.errors.birthdate
+                            }
+                            helperText={
+                              formik.touched.birthdate &&
+                              formik.errors.birthdate
+                            }
+                            sx={customTextField}
+                            type="date"
+                          />
+                        </div>
                       ) : (
-                        <ListItemText
-                          primary={formik.values.birthdate}
-                          sx={{
-                            flex: 1,
-                            paddingRight: "10rem",
-                            ...(isScreenLg && {
-                              flex: 1,
-                              paddingRight: "5rem",
-                            }),
-                          }}
-                        />
+                        <div>{formik.values.birthdate}</div>
                       )}
                     </ListItem>
 
@@ -421,37 +393,30 @@ const Profile = () => {
                           .listItem
                       }
                     >
-                      <ListItemText primary={`Phone Number:`} />
+                      <div style={sxStyles(null, null, null).listItemNameLg}>
+                        Phone number:
+                      </div>
 
                       {isEditMode ? (
-                        <TextField
-                          id="cell_phone"
-                          name="cell_phone"
-                          value={formik.values.cell_phone}
-                          onChange={formik.handleChange}
-                          error={
-                            formik.touched.cell_phone &&
-                            !!formik.errors.cell_phone
-                          }
-                          helperText={
-                            formik.touched.cell_phone &&
-                            formik.errors.cell_phone
-                          }
-                          sx={customTextField}
-                        />
+                        <div style={{ paddingLeft: "20%" }}>
+                          <TextField
+                            id="cell_phone"
+                            name="cell_phone"
+                            value={formik.values.cell_phone}
+                            onChange={formik.handleChange}
+                            error={
+                              formik.touched.cell_phone &&
+                              !!formik.errors.cell_phone
+                            }
+                            helperText={
+                              formik.touched.cell_phone &&
+                              formik.errors.cell_phone
+                            }
+                            sx={customTextField}
+                          />
+                        </div>
                       ) : (
-                        <ListItemText
-                          primary={formik.values.cell_phone}
-                          sx={{
-                            flex: 1,
-                            paddingRight: "15rem",
-
-                            ...(isScreenLg && {
-                              flex: 1,
-                              paddingRight: "9rem",
-                            }),
-                          }}
-                        />
+                        <div>{formik.values.cell_phone}</div>
                       )}
                     </ListItem>
 
@@ -462,65 +427,66 @@ const Profile = () => {
                           .listItem
                       }
                     >
-                      <ListItemText primary={`Alternative Phone Number: `} />
+                      <div style={sxStyles(null, null, null).listItemNameXl}>
+                        Alternative Phone Number:
+                      </div>
                       {isEditMode ? (
-                        <TextField
-                          id="alternative_phone"
-                          name="alternative_phone"
-                          value={formik.values.alternative_phone}
-                          onChange={formik.handleChange}
-                          error={
-                            formik.touched.alternative_phone &&
-                            !!formik.errors.alternative_phone
-                          }
-                          helperText={
-                            formik.touched.alternative_phone &&
-                            formik.errors.alternative_phone
-                          }
-                          sx={customTextField}
-                        />
+                        <div style={{ paddingLeft: "2%" }}>
+                          <TextField
+                            id="alternative_phone"
+                            name="alternative_phone"
+                            value={formik.values.alternative_phone}
+                            onChange={formik.handleChange}
+                            error={
+                              formik.touched.alternative_phone &&
+                              !!formik.errors.alternative_phone
+                            }
+                            helperText={
+                              formik.touched.alternative_phone &&
+                              formik.errors.alternative_phone
+                            }
+                            sx={customTextField}
+                          />
+                        </div>
                       ) : (
-                        <ListItemText
-                          primary={formik.values.alternative_phone}
-                          sx={{
-                            flex: 1,
-                            paddingRight: "9rem",
-                            ...(isScreenLg && {
-                              flex: 1,
-                              paddingRight: "4rem",
-                            }),
-                          }}
-                        />
+                        <div>{formik.values.alternative_phone}</div>
                       )}
                     </ListItem>
 
                     {/*Email */}
                     <ListItem>
-                      <ListItemText primary={`Email: `} />
+                      <div
+                        style={
+                          sxStyles(isVeryScreenSmall, isMedium, isScreenLg)
+                            .listItemNameLg
+                        }
+                      >
+                        Email:
+                      </div>
                       {isEditMode ? (
-                        <TextField
-                          id="email"
-                          name="email"
-                          value={formik.values.email}
-                          onChange={formik.handleChange}
-                          error={formik.touched.email && !!formik.errors.email}
-                          helperText={
-                            formik.touched.email && formik.errors.email
-                          }
-                          sx={customTextField}
-                        />
+                        <div style={{ paddingLeft: "20%" }}>
+                          <TextField
+                            id="email"
+                            name="email"
+                            value={formik.values.email}
+                            onChange={formik.handleChange}
+                            error={
+                              formik.touched.email && !!formik.errors.email
+                            }
+                            helperText={
+                              formik.touched.email && formik.errors.email
+                            }
+                            sx={customTextField}
+                          />
+                        </div>
                       ) : (
-                        <ListItemText
-                          primary={formik.values.email}
-                          sx={{
-                            flex: 1,
-                            paddingRight: "18rem",
-                            ...(isScreenLg && {
-                              flex: 1,
-                              paddingRight: "11rem",
-                            }),
+                        <div
+                          style={{
+                            paddingRight: "14rem",
                           }}
-                        />
+                        >
+                          {formik.values.email}
+                        </div>
                       )}
                     </ListItem>
 
@@ -531,35 +497,34 @@ const Profile = () => {
                           .listItem
                       }
                     >
-                      <ListItemText primary={`Institucional Email: `} />
+                      <div
+                        style={
+                          sxStyles(isVeryScreenSmall, isMedium, isScreenLg)
+                            .listItemNameLg
+                        }
+                      >
+                        Institucional Email:
+                      </div>
                       {isEditMode ? (
-                        <TextField
-                          id="institucional_email"
-                          name="institucional_email"
-                          value={formik.values.institucional_email}
-                          onChange={formik.handleChange}
-                          error={
-                            formik.touched.institucional_email &&
-                            !!formik.errors.institucional_email
-                          }
-                          helperText={
-                            formik.touched.institucional_email &&
-                            formik.errors.institucional_email
-                          }
-                          sx={customTextField}
-                        />
+                        <div style={{ paddingLeft: "20%" }}>
+                          <TextField
+                            id="institucional_email"
+                            name="institucional_email"
+                            value={formik.values.institucional_email}
+                            onChange={formik.handleChange}
+                            error={
+                              formik.touched.institucional_email &&
+                              !!formik.errors.institucional_email
+                            }
+                            helperText={
+                              formik.touched.institucional_email &&
+                              formik.errors.institucional_email
+                            }
+                            sx={customTextField}
+                          />
+                        </div>
                       ) : (
-                        <ListItemText
-                          primary={formik.values.institucional_email}
-                          sx={{
-                            flex: 1,
-                            paddingRight: "13rem",
-                            ...(isScreenLg && {
-                              flex: 1,
-                              paddingRight: "8rem",
-                            }),
-                          }}
-                        />
+                        <div>{formik.values.institucional_email}</div>
                       )}
                     </ListItem>
                   </List>
@@ -591,10 +556,9 @@ const Profile = () => {
                           .listItem
                       }
                     >
-                      <ListItemText
-                        primary={`Entrance Academic Year:`}
-                        sx={{ width: "22%" }}
-                      />
+                      <h3 style={sxStyles(null, null, null).listItemNameLg}>
+                        Entrance Year:{" "}
+                      </h3>
                       {isEditMode ? (
                         <TextField
                           id="entranceYear"
@@ -628,7 +592,9 @@ const Profile = () => {
                           .listItem
                       }
                     >
-                      <ListItemText primary={`Campus Main:`} />
+                      <h3 style={sxStyles(null, null, null).listItemNameLg}>
+                        Campus
+                      </h3>
                       {isEditMode ? (
                         <TextField
                           id="campusMain"
@@ -663,7 +629,9 @@ const Profile = () => {
                           .listItem
                       }
                     >
-                      <ListItemText primary={`Entrance Term:`} />
+                      <h3 style={sxStyles(null, null, null).listItemNameLg}>
+                        Entrance Terms
+                      </h3>
                       {isEditMode ? (
                         <TextField
                           id="entranceTerm"
@@ -685,7 +653,6 @@ const Profile = () => {
                           primary={formik.values.entranceTerm}
                           sx={{
                             flex: 1,
-                            paddingRight: "15rem",
                           }}
                         />
                       )}
@@ -710,12 +677,9 @@ const Profile = () => {
                           .listItem
                       }
                     >
-                      <ListItemText
-                        primary={`Line 1:`}
-                        sx={{
-                          width: "0rem",
-                        }}
-                      />
+                      <h3 style={sxStyles(null, null, null).listItemName}>
+                        Line 1:
+                      </h3>
                       {isEditMode ? (
                         <TextField
                           id="line1"
@@ -729,13 +693,7 @@ const Profile = () => {
                           sx={customTextField}
                         />
                       ) : (
-                        <ListItemText
-                          primary={formik.values.line1}
-                          sx={{
-                            flex: 1,
-                            paddingRight: "10rem",
-                          }}
-                        />
+                        <ListItemText primary={formik.values.line1} />
                       )}
                     </ListItem>
 
@@ -746,12 +704,9 @@ const Profile = () => {
                           .listItem
                       }
                     >
-                      <ListItemText
-                        primary={`Line 2:`}
-                        sx={{
-                          width: "0rem",
-                        }}
-                      />
+                      <h3 style={sxStyles(null, null, null).listItemName}>
+                        Line 3:{" "}
+                      </h3>
                       {isEditMode ? (
                         <TextField
                           id="line2"
@@ -769,7 +724,6 @@ const Profile = () => {
                           primary={formik.values.line2}
                           sx={{
                             flex: 1,
-                            paddingRight: "10rem",
                           }}
                         />
                       )}
@@ -782,12 +736,9 @@ const Profile = () => {
                           .listItem
                       }
                     >
-                      <ListItemText
-                        primary={`City:`}
-                        sx={{
-                          width: "0rem",
-                        }}
-                      />
+                      <h3 style={sxStyles(null, null, null).listItemName}>
+                        City:{" "}
+                      </h3>
                       {isEditMode ? (
                         <TextField
                           id="city"
@@ -803,7 +754,6 @@ const Profile = () => {
                           primary={formik.values.city}
                           sx={{
                             flex: 1,
-                            paddingRight: "10rem",
                           }}
                         />
                       )}
@@ -816,12 +766,9 @@ const Profile = () => {
                           .listItem
                       }
                     >
-                      <ListItemText
-                        primary={`State:`}
-                        sx={{
-                          width: "0rem",
-                        }}
-                      />
+                      <h3 style={sxStyles(null, null, null).listItemName}>
+                        State:
+                      </h3>
                       {isEditMode ? (
                         <TextField
                           id="state"
@@ -852,12 +799,9 @@ const Profile = () => {
                           .listItem
                       }
                     >
-                      <ListItemText
-                        primary={`Zip Code:`}
-                        sx={{
-                          width: "0rem",
-                        }}
-                      />
+                      <h3 style={sxStyles(null, null, null).listItemName}>
+                        Zip code:
+                      </h3>
                       {isEditMode ? (
                         <TextField
                           id="zipcode"
@@ -877,7 +821,6 @@ const Profile = () => {
                           primary={formik.values.zipcode}
                           sx={{
                             flex: 1,
-                            paddingRight: "10rem",
                           }}
                         />
                       )}
