@@ -132,9 +132,9 @@ const sxStyles = (isVeryScreenSmall: any, isMedium: any, isScreenLg: any) => ({
     fontWeight: "normal",
   },
 
-  divText:{
-    
-  }
+  textFieldSeparator: {
+    paddingLeft: "20%",
+  },
 });
 
 export default sxStyles;

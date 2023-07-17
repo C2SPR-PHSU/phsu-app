@@ -33,9 +33,16 @@
 .title-personal-information{
   font-family: $gothamBlack !important;
   color: $primary;
-  font-size: 1.3rem;
-  padding: 2rem 1rem 0rem; 
+  font-size: 1.7rem !important;
+  padding: 6rem 1rem 0rem !important; 
  
+}
+
+.title-academic-information{
+  font-family: $gothamBlack !important;
+  color: $primary;
+  font-size: 1.7rem !important;
+  padding: 0.2rem 1rem 0rem !important; 
 }
 
 .title {
@@ -43,8 +50,8 @@
   font-size: 2rem;
   color: $warning;
   padding-left: 1.5rem;
-  padding-top: 2%;
-  padding-bottom: 1.3rem;
+  padding-top: 0rem !important;
+  padding-bottom: 1.2rem !important;
 }
 
 .list-name {
