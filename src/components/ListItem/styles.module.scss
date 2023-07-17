@@ -39,10 +39,11 @@ $size: 30px;
   font-size: $size;
   font-weight: bold;
   color: $mainBlue;
-  text-decoration: none;
+  text-decoration: underline #009999;
+  text-underline-offset: 8px;
 
   &:hover {
-    text-decoration: underline;
+    text-decoration: underline #009999;
     cursor: pointer;
   }
 }
