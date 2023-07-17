@@ -25,47 +25,49 @@ export type UserProfile = {
   program: string;
 };
 
-type ok = {
+type ResponseGetDetails = {
   code: number;
   data: UserProfile;
   message: string;
 };
 
-type Data = {
+type ResponseActions = {
   action: string;
   id: string;
 };
 
-type okModify = {
+type IProfileModifyResponse = {
   code: number;
-  data: Data;
+  data: ResponseActions;
 };
 
+//
 export const UserDetails = async (token: string): Promise<UserProfile> => {
   try {
     api.resource = userDetails;
     api.token = token;
 
-    const res = (await api.get()) as ok; // Especificar el tipo de retorno
+    const res: ResponseGetDetails = await api.get(); // Espera a que api.get() se resuelva
 
-    return Promise.resolve(res.data);
+    return res.data;
   } catch (error) {
     throw error;
   }
 };
 
+// send to modify
 export const UserModify = async (
   token: string,
   usermodify: Partial<UserProfile>
-): Promise<Data> => {
+): Promise<ResponseActions> => {
   try {
     api.resource = userDetails;
     api.token = token;
 
-    const res = await api.post<okModify>({
+    const res = await api.post<IProfileModifyResponse>({
       body: usermodify,
     });
-    return Promise.resolve(res.data);
+    return res.data;
   } catch (error) {
     throw error;
   }

@@ -11,7 +11,7 @@ import {
 } from "@mui/material";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
-import profileScss from "./profile.module.scss";
+import profileScss from "./Profile.module.scss";
 import sxStyles from "./ItemSx";
 import CameraAltIcon from "@mui/icons-material/CameraAlt";
 import { useFormik } from "formik";
@@ -449,7 +449,17 @@ const Profile = () => {
                           />
                         </div>
                       ) : (
-                        <div>{formik.values.alternative_phone}</div>
+                        <ListItemText
+                          primary={formik.values.alternative_phone}
+                          sx={{
+                            flex: 1,
+                            paddingRight: "9rem",
+                            ...(isScreenLg && {
+                              flex: 1,
+                              paddingRight: "4rem",
+                            }),
+                          }}
+                        />
                       )}
                     </ListItem>
 
