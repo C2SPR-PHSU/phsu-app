@@ -179,7 +179,7 @@ export default function BasicTable({
             }),
           }}
         >
-          <CustomizedProgressBars />
+          <CustomizedProgressBars center={true} />
         </Box>
       </Table>
     </TableContainer>

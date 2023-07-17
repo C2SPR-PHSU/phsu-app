@@ -2,6 +2,11 @@ import Box from "@mui/material/Box";
 import CircularProgress, {
   circularProgressClasses,
 } from "@mui/material/CircularProgress";
+import React from "react"; // Importamos React desde "react" para que la sintaxis funcione
+
+type CustomizedProgressBarsProps = {
+  center: boolean;
+};
 
 // Inspired by the former Facebook spinners.
 function FacebookCircularProgress() {
@@ -39,19 +44,26 @@ function FacebookCircularProgress() {
   );
 }
 
-export default function CustomizedProgressBars() {
+const CustomizedProgressBars: React.FC<CustomizedProgressBarsProps> = ({
+  center,
+}) => {
   return (
     <Box
       sx={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        height: "100vh",
-        width: "100%",
-        backgroundColor: "rgba(0, 0, 0, 0)", // Fondo transparente
+        backgroundColor: "rgba(0, 0, 0, 0)",
+
+        ...(center && {
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100vh",
+          width: "100%",
+        }),
       }}
     >
       <FacebookCircularProgress />
     </Box>
   );
-}
+};
+
+export default CustomizedProgressBars; // Quitamos el "const" antes de "CustomizedProgressBars"
