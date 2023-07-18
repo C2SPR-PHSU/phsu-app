@@ -22,6 +22,7 @@ import { UserDetails } from "./users";
 import { UserProfile } from "./users";
 import useAuthStore from "@/hooks/useAuthStore";
 import { UserModify } from "./users";
+import useAlert from "@/hooks/useAlert";
 
 const Profile = () => {
   const theme = useTheme();
@@ -30,7 +31,7 @@ const Profile = () => {
   const isMedium = useMediaQuery(theme.breakpoints.down("lg"));
   const [isEditMode, setIsEditMode] = useState(false);
   const token = useAuthStore((state: any) => state.token);
-  const cities = "City";
+  const { setAlert } = useAlert();
 
   const [userProfile, setUserProfile] = useState<Partial<UserProfile>>({});
 
@@ -94,14 +95,18 @@ const Profile = () => {
       program: userProfile?.program || "",
     },
     validationSchema: validationSchema,
-    onSubmit: (values) => {
+    onSubmit: async (values) => {
       if (formik.isValid) {
         console.log(values);
         setIsEditMode(!isEditMode);
-        const response = UserModify(token, values);
-        console.log("soy response", response);
+        const response = await UserModify(token, values);
+        response.action;
+
+        if (response.action === "update") {
+          setAlert("Update successfully!", "success");
+        }
       } else {
-        alert("Please fix the errors before saving."); // Advertencia de error
+        setAlert("Something happened. Try again later", "error");
       }
     },
   });

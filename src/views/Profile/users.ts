@@ -1,6 +1,6 @@
 /* eslint-disable no-useless-catch */
 import api from "@/utils/services/api";
-import { userDetails } from "@/utils";
+import { userDetails, userModify } from "@/utils";
 
 export type UserProfile = {
   email: string;
@@ -47,7 +47,7 @@ export const UserDetails = async (token: string): Promise<UserProfile> => {
     api.resource = userDetails;
     api.token = token;
 
-    const res: ResponseGetDetails = await api.get(); // Espera a que api.get() se resuelva
+    const res: ResponseGetDetails = await api.get();
 
     return res.data;
   } catch (error) {
@@ -61,7 +61,7 @@ export const UserModify = async (
   usermodify: Partial<UserProfile>
 ): Promise<ResponseActions> => {
   try {
-    api.resource = userDetails;
+    api.resource = userModify;
     api.token = token;
 
     const res = await api.post<IProfileModifyResponse>({
