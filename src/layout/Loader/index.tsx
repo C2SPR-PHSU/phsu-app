@@ -20,7 +20,7 @@ function FacebookCircularProgress() {
           color: (theme) =>
             theme.palette.grey[theme.palette.mode === "light" ? 200 : 800],
         }}
-        size={60}
+        size={50}
         thickness={4}
         value={100}
       />
@@ -37,7 +37,7 @@ function FacebookCircularProgress() {
             strokeLinecap: "round",
           },
         }}
-        size={60}
+        size={50}
         thickness={4}
       />
     </Box>
