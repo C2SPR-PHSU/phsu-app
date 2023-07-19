@@ -22,7 +22,16 @@ const Home = () => {
   };
 
   return (
-    <Grid container sx={{ minHeight: "90vh" }}>
+    <Grid
+      container
+      sx={{
+        minHeight: "90vh",
+        ...(isMobile && {
+          minHeight: "73vh",
+          paddingBottom: "30vh",
+        }),
+      }}
+    >
       <Grid
         item
         xs={12}
@@ -57,10 +66,11 @@ const Home = () => {
             sx={{
               marginTop: "2rem",
               fontSize: "2rem",
+              paddingBottom: "0.7rem",
               ...(isMobile && {
                 fontSize: "1.4rem",
-                marginTop: "0rem",
                 paddingLeft: "1rem",
+                paddingTop: "2rem",
               }),
             }}
           >

@@ -6,7 +6,7 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import { Button, Typography } from "@mui/material";
+import { Button, IconButton, Typography } from "@mui/material";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import DownloadIcon from "@mui/icons-material/Download";
 import useAuthStore from "@/hooks/useAuthStore";
@@ -80,7 +80,11 @@ export default function BasicTable({
       }}
     >
       <Table
-        sx={{ width: "100%", justifyContent: "space-around" }}
+        sx={{
+          width: "100%",
+          justifyContent: "space-around",
+          // backgroundColor: "red",
+        }}
         aria-label="simple table"
       >
         <TableHead>
@@ -101,7 +105,7 @@ export default function BasicTable({
             </TableCell>
             <TableCell
               sx={{
-                paddingLeft: "11%",
+                paddingLeft: "8%",
                 fontSize: "1.5rem",
                 ...(isMobile && {
                   fontSize: "1rem",
@@ -140,33 +144,32 @@ export default function BasicTable({
             userServices?.map((row, index) => (
               <TableRow
                 key={index}
-                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                sx={{
+                  "&:last-child td, &:last-child th": { border: 0 },
+                }}
               >
-                <TableCell
-                  component="th"
-                  scope="row"
-                  sx={{
-                    fontSize: "1.2rem",
-                    display: "flex",
-                    flexDirection: "row",
-                  }}
-                >
+                <TableCell component="th" scope="row">
                   <Typography
                     className={styles["typography"]}
-                    sx={{ paddingTop: "1rem" }}
+                    sx={{
+                      display: "none",
+                      ...(isMobile && {
+                        display: "flex",
+                      }),
+                    }}
                   >
                     {row.service}
                   </Typography>
                   <Typography
                     className={styles["typography"]}
                     sx={{
-                      paddingTop: "1rem",
-                      ...(isMobile && {
-                        display: "none",
+                      display: "none",
+                      ...(!isMobile && {
+                        display: "flex",
                       }),
                     }}
                   >
-                    - {row.campus_name}
+                    {row.service} - {row.campus_name}
                   </Typography>
                 </TableCell>
                 <TableCell
@@ -177,16 +180,17 @@ export default function BasicTable({
                     fontSize: "1.2rem",
                   }}
                 >
-                  {formatDate(row.created)}
+                  <Typography
+                    className={styles["typography"]}
+                    sx={{ ...(!isMobile && { paddingTop: "1rem" }) }}
+                  >
+                    {formatDate(row.created)}
+                  </Typography>
                 </TableCell>
                 <TableCell
                   align="center"
                   sx={{
-                    fontFamily: "GothamMedium !important",
-                    fontWeight: "bolder !important",
-                    fontSize: "1.2rem",
-                    padding: "1.2rem !important",
-
+                    paddingTop: "1.5rem",
                     ...(isMobile && {
                       display: "none",
                     }),
@@ -195,21 +199,58 @@ export default function BasicTable({
                   <StatusButton statusName={row.status_desc as string} />
                 </TableCell>
                 <TableCell
-                  align="center"
                   sx={{
-                    fontFamily: "GothamMedium !important",
-                    fontWeight: "bolder !important",
-                    fontSize: "1.2rem",
+                    paddingTop: "1.5rem",
+                    justifyContent: "space-around",
+                    display: "flex",
+                    paddingLeft: "20%",
+                    ...(isMobile && {
+                      paddingTop: "1.7rem",
+                    }),
                   }}
                 >
-                  <VisibilityIcon
-                    sx={{ color: "#009999", cursor: "pointer" }}
+                  <IconButton
                     onClick={() => {
                       handleModal(`${row.service} - ${row.campus_name}`);
                       setDocumentId(row.campus_id);
                     }}
-                  />
-                  <DownloadIcon sx={{ color: "rgba(0, 168, 168, 0.42)" }} />
+                    sx={{
+                      ...(isMobile && {
+                        backgroundColor: "#009999",
+                        width: "1.7rem",
+                        height: "1.7rem",
+                      }),
+                    }}
+                  >
+                    <VisibilityIcon
+                      sx={{
+                        color: "#009999",
+                        cursor: "pointer",
+                        ...(isMobile && {
+                          color: "white",
+                        }),
+                      }}
+                    />
+                  </IconButton>
+
+                  <IconButton
+                    sx={{
+                      ...(isMobile && {
+                        width: "1.8rem",
+                        height: "1.8rem",
+                        backgroundColor: "rgba(0, 168, 168, 0.42)",
+                      }),
+                    }}
+                  >
+                    <DownloadIcon
+                      sx={{
+                        color: "rgba(0, 168, 168, 0.42)",
+                        ...(isMobile && {
+                          color: "white",
+                        }),
+                      }}
+                    />
+                  </IconButton>
                 </TableCell>
               </TableRow>
             ))}
