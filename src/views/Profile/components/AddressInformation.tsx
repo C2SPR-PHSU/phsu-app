@@ -55,7 +55,13 @@ const AddressInformation = ({ isEditMode, formik }) => {
         <ListItem
           sx={sxStyles(isVeryScreenSmall, isMedium, isScreenLg).listItem}
         >
-          <div style={sxStyles(null, null, null).listItemNameLg}>Line 3: </div>
+          <div
+            style={
+              sxStyles(isVeryScreenSmall, isMedium, isScreenLg).listItemNameLg
+            }
+          >
+            Line 3:{" "}
+          </div>
           {isEditMode ? (
             <div
               style={

@@ -12,20 +12,21 @@ import sxStyles from "../ItemSx";
 import profileScss from "../../Profile/profile.module.scss";
 import customTextField from "../sxTexField";
 
-const PersonalInformation = ({ isEditMode, formik }) => {
+const PersonalInformation2 = ({ isEditMode, formik }) => {
   const { isScreenLg, isVeryScreenSmall, isMedium } = useMediaQueries();
 
   return (
     <Grid item xs={12} sm={6} md={6}>
       <List>
-        {/*First Name item */}
-        <ListItem
-          sx={sxStyles(isVeryScreenSmall, isMedium, isScreenLg).listItem}
-        >
-          <div style={sxStyles(null, null, null).listItemNameLg}>
-            First Name:
+        {/*Birthdate item */}
+        <ListItem>
+          <div
+            style={
+              sxStyles(isVeryScreenSmall, isMedium, isScreenLg).listItemNameLg
+            }
+          >
+            Date or Birth:
           </div>
-
           {isEditMode ? (
             <div
               style={
@@ -34,33 +35,29 @@ const PersonalInformation = ({ isEditMode, formik }) => {
               }
             >
               <TextField
-                id="firstname"
-                name="firstname"
-                value={formik.values.firstname}
+                id="birthdate"
+                name="birthdate"
+                value={formik.values.birthdate}
                 onChange={formik.handleChange}
-                error={formik.touched.firstname && !!formik.errors.firstname}
-                helperText={formik.touched.firstname && formik.errors.firstname}
+                error={formik.touched.birthdate && !!formik.errors.birthdate}
+                helperText={formik.touched.birthdate && formik.errors.birthdate}
                 sx={customTextField}
+                type="date"
               />
             </div>
           ) : (
-            <ListItemText
-              primary={formik.values.firstname}
-              sx={
-                sxStyles(isVeryScreenSmall, isMedium, isScreenLg)
-                  .listItemTextstyle
-              }
-            />
+            <div>{formik.values.birthdate}</div>
           )}
         </ListItem>
 
-        {/*Middlename item */}
+        {/*phonenumber item */}
         <ListItem
           sx={sxStyles(isVeryScreenSmall, isMedium, isScreenLg).listItem}
         >
           <div style={sxStyles(null, null, null).listItemNameLg}>
-            Middle Name:
+            Phone number:
           </div>
+
           {isEditMode ? (
             <div
               style={
@@ -69,28 +66,28 @@ const PersonalInformation = ({ isEditMode, formik }) => {
               }
             >
               <TextField
-                id="middlename"
-                name="middlename"
-                value={formik.values.middlename}
+                id="cell_phone"
+                name="cell_phone"
+                value={formik.values.cell_phone}
                 onChange={formik.handleChange}
-                error={formik.touched.middlename && !!formik.errors.middlename}
+                error={formik.touched.cell_phone && !!formik.errors.cell_phone}
                 helperText={
-                  formik.touched.middlename && formik.errors.middlename
+                  formik.touched.cell_phone && formik.errors.cell_phone
                 }
                 sx={customTextField}
               />
             </div>
           ) : (
-            <div>{formik.values.middlename}</div>
+            <div>{formik.values.cell_phone}</div>
           )}
         </ListItem>
 
-        {/*lastname item */}
+        {/*Alternative phonenumber */}
         <ListItem
           sx={sxStyles(isVeryScreenSmall, isMedium, isScreenLg).listItem}
         >
           <div style={sxStyles(null, null, null).listItemNameLg}>
-            Last Name:
+            Alternative Phone:
           </div>
           {isEditMode ? (
             <div
@@ -100,60 +97,34 @@ const PersonalInformation = ({ isEditMode, formik }) => {
               }
             >
               <TextField
-                id="lastname"
-                name="lastname"
-                value={formik.values.lastname}
-                onChange={formik.handleChange}
-                error={formik.touched.lastname && !!formik.errors.lastname}
-                helperText={formik.touched.lastname && formik.errors.lastname}
-                sx={customTextField}
-              />
-            </div>
-          ) : (
-            <div>{formik.values.lastname}</div>
-          )}
-        </ListItem>
-
-        {/*Second lastname item */}
-        <ListItem
-          sx={sxStyles(isVeryScreenSmall, isMedium, isScreenLg).listItem}
-        >
-          <div style={sxStyles(null, null, null).listItemNameLg}>
-            Second lastname:
-          </div>
-          {isEditMode ? (
-            <div
-              style={
-                sxStyles(isVeryScreenSmall, isMedium, isScreenLg)
-                  .textFieldSeparator
-              }
-            >
-              <TextField
-                id="secondlastname"
-                name="secondlastname"
-                value={formik.values.secondlastname}
+                id="alternative_phone"
+                name="alternative_phone"
+                value={formik.values.alternative_phone}
                 onChange={formik.handleChange}
                 error={
-                  formik.touched.secondlastname &&
-                  !!formik.errors.secondlastname
+                  formik.touched.alternative_phone &&
+                  !!formik.errors.alternative_phone
                 }
                 helperText={
-                  formik.touched.secondlastname && formik.errors.secondlastname
+                  formik.touched.alternative_phone &&
+                  formik.errors.alternative_phone
                 }
                 sx={customTextField}
               />
             </div>
           ) : (
-            <div>{formik.values.secondlastname}</div>
+            <div>{formik.values.alternative_phone}</div>
           )}
         </ListItem>
 
-        {/*studentid item */}
-        <ListItem
-          sx={sxStyles(isVeryScreenSmall, isMedium, isScreenLg).listItem}
-        >
-          <div style={sxStyles(null, null, null).listItemNameLg}>
-            Student ID:
+        {/*Email */}
+        <ListItem>
+          <div
+            style={
+              sxStyles(isVeryScreenSmall, isMedium, isScreenLg).listItemNameLg
+            }
+          >
+            Personal Email:
           </div>
           {isEditMode ? (
             <div
@@ -163,17 +134,56 @@ const PersonalInformation = ({ isEditMode, formik }) => {
               }
             >
               <TextField
-                id="studentid"
-                name="studentid"
-                value={formik.values.studentid}
+                id="email"
+                name="email"
+                value={formik.values.email}
                 onChange={formik.handleChange}
-                error={formik.touched.studentid && !!formik.errors.studentid}
-                helperText={formik.touched.studentid && formik.errors.studentid}
+                error={formik.touched.email && !!formik.errors.email}
+                helperText={formik.touched.email && formik.errors.email}
                 sx={customTextField}
               />
             </div>
           ) : (
-            <div>{formik.values.studentid}</div>
+            <div>{formik.values.email}</div>
+          )}
+        </ListItem>
+
+        {/*Institucional email item */}
+        <ListItem
+          sx={sxStyles(isVeryScreenSmall, isMedium, isScreenLg).listItem}
+        >
+          <div
+            style={
+              sxStyles(isVeryScreenSmall, isMedium, isScreenLg).listItemNameLg
+            }
+          >
+            Institucional Email:
+          </div>
+          {isEditMode ? (
+            <div
+              style={
+                sxStyles(isVeryScreenSmall, isMedium, isScreenLg)
+                  .textFieldSeparator
+              }
+            >
+              <TextField
+                id="institucional_email"
+                name="institucional_email"
+                value={formik.values.institucional_email}
+                onChange={formik.handleChange}
+                error={
+                  formik.touched.institucional_email &&
+                  !!formik.errors.institucional_email
+                }
+                helperText={
+                  formik.touched.institucional_email &&
+                  formik.errors.institucional_email
+                }
+                sx={customTextField}
+              />
+            </div>
+          ) : (
+            <div>{formik.values.institucional_email}</div>
           )}
         </ListItem>
       </List>
@@ -181,4 +191,4 @@ const PersonalInformation = ({ isEditMode, formik }) => {
   );
 };
 
-export default PersonalInformation;
+export default PersonalInformation2;
