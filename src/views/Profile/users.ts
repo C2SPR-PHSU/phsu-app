@@ -41,7 +41,7 @@ type IProfileModifyResponse = {
   data: ResponseActions;
 };
 
-//
+// get dataUser
 export const UserDetails = async (token: string): Promise<UserProfile> => {
   try {
     api.resource = userDetails;
