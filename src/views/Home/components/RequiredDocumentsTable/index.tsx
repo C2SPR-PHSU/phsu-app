@@ -12,6 +12,7 @@ import { tableHeaders } from "./constants";
 import StatusButton from "@/components/StatusButton";
 import { IRequiredDocumentsProps, IUserDocumentsData } from "../../types";
 import VisibilityIcon from "@mui/icons-material/Visibility";
+import CustomizedProgressBars from "@/layout/Loader";
 
 interface RequiredDocumentsTableProps {
   documentList: IUserDocumentsData[];
@@ -74,10 +75,21 @@ const RequiredDocumentsTable = ({
               );
             })
           ) : (
-            <TableRow>
-              <TableCell align="center" scope="row">
+            <TableRow
+              sx={{
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "center",
+                alignItems: "center",
+                paddingLeft: "120%",
+                paddingTop: "5%",
+                paddingBottom: "5%",
+              }}
+            >
+              {/* <TableCell align="center" scope="row">
                 <Typography textAlign="center">No content here</Typography>
-              </TableCell>
+              </TableCell> */}
+              <CustomizedProgressBars center={false} />
             </TableRow>
           )}
         </TableBody>
