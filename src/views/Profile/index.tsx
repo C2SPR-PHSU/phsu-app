@@ -1,18 +1,7 @@
-import {
-  Grid,
-  Box,
-  Button,
-  List,
-  ListItem,
-  ListItemText,
-  Typography,
-  Divider,
-  TextField,
-} from "@mui/material";
+import { Grid, Box, Typography, Divider } from "@mui/material";
 import profileScss from "./profile.module.scss";
 import sxStyles from "./ItemSx";
 import { useFormik } from "formik";
-import customTextField from "./sxTexField";
 import { useState, useEffect } from "react";
 import { validationSchema } from "./validateconstants";
 import { UserDetails } from "./users";
