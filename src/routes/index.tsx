@@ -3,7 +3,6 @@ import { Home, Login, Register, RequestServices } from "@/views";
 import { UnauthorizedLayout, AuthorizedLayout } from "@/layout";
 import { PATH } from "./constants";
 import useAuthStore from "@/hooks/useAuthStore";
-import Profile from "@/views/Profile";
 import Error404 from "@/views/Error500";
 
 const Root = () => {
@@ -23,7 +22,6 @@ const Root = () => {
             path={PATH.REQUEST_SERVICES}
             element={<RequestServices />}
           ></Route>
-          <Route path={PATH.PROFILE} element={<Profile />} />
         </Route>
       )}
       <Route path={PATH.NOT_FOUND} element={<Error404 />} />

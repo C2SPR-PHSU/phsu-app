@@ -60,7 +60,7 @@ export default function BasicTable({
             <TableCell
               align="center"
               sx={{
-                fontFamily: "GothamMedium",
+                fontFamily: "GothamMedium !important",
                 fontWeight: "bolder !important",
                 fontSize: "1.5rem",
               }}

@@ -4,5 +4,4 @@ export const PATH = {
   REGISTER: "/register",
   NOT_FOUND: "/not-found",
   REQUEST_SERVICES: "/request-services",
-  PROFILE: "/profile",
 };
