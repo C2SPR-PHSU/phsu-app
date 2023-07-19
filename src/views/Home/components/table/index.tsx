@@ -6,7 +6,7 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import { Button } from "@mui/material";
+import { Button, Typography } from "@mui/material";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import DownloadIcon from "@mui/icons-material/Download";
 import useAuthStore from "@/hooks/useAuthStore";
@@ -14,6 +14,9 @@ import axios from "axios";
 import StatusButton from "@/components/StatusButton";
 import { getUserServices } from "../../functions";
 import { IUserServicesData } from "../../types";
+import useMediaQuery from "@mui/material/useMediaQuery";
+import { useTheme } from "@mui/material/styles";
+import styles from "./styles.module.scss";
 
 interface IBasicTableProps {
   handleModal: (prop: string) => void;
@@ -27,6 +30,9 @@ export default function BasicTable({
   const token = useAuthStore((state: any) => state.token);
 
   const [userServices, setUserServices] = useState<IUserServicesData[]>([]);
+
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
   const statusDictionary: { [key: number]: string } = {
     0: "To Upload",
@@ -48,54 +54,84 @@ export default function BasicTable({
     }
   };
 
+  function formatDate(inputDate: string) {
+    const date = new Date(inputDate);
+
+    //
+    const day = date.getDate().toString().padStart(2, "0");
+    const month = (date.getMonth() + 1).toString().padStart(2, "0"); // Sumamos 1 al mes, ya que en JavaScript los meses empiezan desde 0 (enero) hasta 11 (diciembre).
+    const year = date.getFullYear().toString();
+
+    //
+    const formattedDate = `${day}/${month}/${year}`;
+
+    return formattedDate;
+  }
+
   useEffect(() => {
     getUserServicesRows();
   }, []);
 
   return (
-    <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 650 }} aria-label="simple table">
+    <TableContainer
+      component={Paper}
+      sx={{
+        padding: "1rem",
+      }}
+    >
+      <Table
+        sx={{ width: "100%", justifyContent: "space-around" }}
+        aria-label="simple table"
+      >
         <TableHead>
           <TableRow>
             <TableCell
-              align="center"
               sx={{
-                fontFamily: "GothamMedium",
-                fontWeight: "bolder !important",
                 fontSize: "1.5rem",
+                display: "flex",
+                justifyContent: "center",
+                ...(isMobile && {
+                  fontSize: "1rem",
+                  paddingLeft: "0rem",
+                  justifyContent: "flex-start",
+                }),
               }}
             >
-              Service
+              <Typography className={styles["typography"]}>Service</Typography>
+            </TableCell>
+            <TableCell
+              sx={{
+                paddingLeft: "11%",
+                fontSize: "1.5rem",
+                ...(isMobile && {
+                  fontSize: "1rem",
+                  paddingLeft: "3%",
+                }),
+              }}
+            >
+              <Typography className={styles["typography"]}>Time</Typography>
+            </TableCell>
+            <TableCell
+              sx={{
+                paddingLeft: "4%",
+                fontSize: "1.5rem",
+                ...(isMobile && {
+                  display: "none",
+                }),
+              }}
+            >
+              <Typography className={styles["typography"]}>Status</Typography>
             </TableCell>
             <TableCell
               align="center"
               sx={{
-                fontFamily: "GothamMedium !important",
-                fontWeight: "bolder !important",
                 fontSize: "1.5rem",
+                ...(isMobile && {
+                  fontSize: "1rem",
+                }),
               }}
             >
-              Time
-            </TableCell>
-            <TableCell
-              align="center"
-              sx={{
-                fontFamily: "GothamMedium !important",
-                fontWeight: "bolder !important",
-                fontSize: "1.5rem",
-              }}
-            >
-              Status
-            </TableCell>
-            <TableCell
-              align="center"
-              sx={{
-                fontFamily: "GothamMedium !important",
-                fontWeight: "bolder !important",
-                fontSize: "1.5rem",
-              }}
-            >
-              Action
+              <Typography className={styles["typography"]}>Action</Typography>
             </TableCell>
           </TableRow>
         </TableHead>
@@ -110,12 +146,28 @@ export default function BasicTable({
                   component="th"
                   scope="row"
                   sx={{
-                    fontFamily: "GothamMedium !important",
-                    fontWeight: "bolder !important",
                     fontSize: "1.2rem",
+                    display: "flex",
+                    flexDirection: "row",
                   }}
                 >
-                  {row.service} - {row.campus_name}
+                  <Typography
+                    className={styles["typography"]}
+                    sx={{ paddingTop: "1rem" }}
+                  >
+                    {row.service}
+                  </Typography>
+                  <Typography
+                    className={styles["typography"]}
+                    sx={{
+                      paddingTop: "1rem",
+                      ...(isMobile && {
+                        display: "none",
+                      }),
+                    }}
+                  >
+                    - {row.campus_name}
+                  </Typography>
                 </TableCell>
                 <TableCell
                   align="center"
@@ -125,7 +177,7 @@ export default function BasicTable({
                     fontSize: "1.2rem",
                   }}
                 >
-                  {row.created}
+                  {formatDate(row.created)}
                 </TableCell>
                 <TableCell
                   align="center"
@@ -134,6 +186,10 @@ export default function BasicTable({
                     fontWeight: "bolder !important",
                     fontSize: "1.2rem",
                     padding: "1.2rem !important",
+
+                    ...(isMobile && {
+                      display: "none",
+                    }),
                   }}
                 >
                   <StatusButton statusName={row.status_desc as string} />
