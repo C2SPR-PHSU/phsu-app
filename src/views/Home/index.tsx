@@ -14,7 +14,7 @@ const Home = () => {
   const [campusId, setCampusId] = useState("");
 
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
   const handleModal = (prop: string) => {
     setDocTitle(prop);

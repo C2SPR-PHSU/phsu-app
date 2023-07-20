@@ -1,26 +1,14 @@
 import { useEffect, useState } from "react";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Paper,
-  Tab,
-  Box,
-  Grid,
-  Modal,
-  Typography,
-} from "@mui/material";
+import { Tab, Box, Grid, Modal, Typography } from "@mui/material";
 import { TabContext, TabList, TabPanel } from "@mui/lab";
 import ClearIcon from "@mui/icons-material/Clear";
 import useAuthStore from "@/hooks/useAuthStore";
 import { IRequiredDocumentsProps, IUserDocumentsData } from "../../types";
 import { getUserDocuments } from "../functions";
-import { modalStyle } from "./constants";
 import styles from "./styles.module.scss";
 import RequiredDocumentsTable from "../RequiredDocumentsTable";
+import useMediaQuery from "@mui/material/useMediaQuery";
+import { useTheme } from "@mui/material/styles";
 
 const RequiredDocuments = ({
   title,
@@ -31,6 +19,9 @@ const RequiredDocuments = ({
   const [value, setValue] = useState("1");
   const [documentList, setDocumentList] = useState<IUserDocumentsData[]>([]);
   const token = useAuthStore((state: any) => state.token);
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+  const isMobileSmall = useMediaQuery(theme.breakpoints.down("sm"));
 
   useEffect(() => {
     return () => {
@@ -45,6 +36,15 @@ const RequiredDocuments = ({
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
     setValue(newValue);
   };
+
+  //
+  function truncateText(texto: string): string {
+    if (texto.length <= 28) {
+      return texto;
+    } else {
+      return texto.slice(0, 28);
+    }
+  }
 
   const requestUserDocument = async () => {
     try {
@@ -66,17 +66,66 @@ const RequiredDocuments = ({
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
     >
-      <Box sx={modalStyle}>
+      <Box
+        sx={{
+          position: "absolute",
+          top: "50%",
+          left: "50%",
+          transform: "translate(-50%, -50%)",
+          width: "65vw",
+          maxHeight: "90vh",
+          overflowY: "auto",
+          p: 4,
+          bgcolor: "#ffffff",
+          opacity: "1",
+
+          ...(isMobile && {
+            width: "93vw",
+            borderRadius: 2,
+            padding: "0.3rem",
+          }),
+        }}
+      >
         <Grid container>
           <TabContext value={value}>
             <Grid container>
-              <Grid item xs={8}>
-                <Typography variant="h6" className={styles["subtitle"]}>
+              <Grid item xs={12} xl={8}>
+                <Typography
+                  variant="h6"
+                  className={styles["subtitle"]}
+                  sx={{
+                    ...(isMobileSmall && {
+                      display: "none",
+                    }),
+                  }}
+                >
                   {title}
+                </Typography>
+
+                <Typography
+                  variant="h6"
+                  className={styles["subtitle"]}
+                  sx={{
+                    display: "none",
+                    ...(isMobileSmall && {
+                      fontSize: "0.9rem",
+                      paddingTop: "1rem",
+                      display: "flex",
+                    }),
+                  }}
+                >
+                  {truncateText(title)}
                 </Typography>
               </Grid>
               <Grid item xs={4}>
-                <Box>
+                <Box
+                  sx={{
+                    ...(isMobileSmall && {
+                      width: "50vw",
+                      paddingRight: "2rem",
+                    }),
+                  }}
+                >
                   <TabList
                     onChange={handleChange}
                     aria-label="lab API tabs example"

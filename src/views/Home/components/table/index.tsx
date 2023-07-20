@@ -6,11 +6,10 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import { Button, IconButton, Typography } from "@mui/material";
+import { IconButton, Typography } from "@mui/material";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import DownloadIcon from "@mui/icons-material/Download";
 import useAuthStore from "@/hooks/useAuthStore";
-import axios from "axios";
 import StatusButton from "@/components/StatusButton";
 import { getUserServices } from "../../functions";
 import { IUserServicesData } from "../../types";
@@ -32,7 +31,7 @@ export default function BasicTable({
   const [userServices, setUserServices] = useState<IUserServicesData[]>([]);
 
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
   const statusDictionary: { [key: number]: string } = {
     0: "To Upload",
@@ -70,7 +69,7 @@ export default function BasicTable({
 
   useEffect(() => {
     getUserServicesRows();
-  }, []);
+  });
 
   return (
     <TableContainer
@@ -83,7 +82,6 @@ export default function BasicTable({
         sx={{
           width: "100%",
           justifyContent: "space-around",
-          // backgroundColor: "red",
         }}
         aria-label="simple table"
       >
@@ -91,17 +89,23 @@ export default function BasicTable({
           <TableRow>
             <TableCell
               sx={{
-                fontSize: "1.5rem",
                 display: "flex",
                 justifyContent: "center",
                 ...(isMobile && {
-                  fontSize: "1rem",
                   paddingLeft: "0rem",
                   justifyContent: "flex-start",
                 }),
               }}
             >
-              <Typography className={styles["typography"]}>Service</Typography>
+              <Typography
+                className={styles["typography"]}
+                sx={{
+                  fontSize: "1.5rem",
+                  ...(isMobile && { fontSize: "1rem" }),
+                }}
+              >
+                Service
+              </Typography>
             </TableCell>
             <TableCell
               sx={{
@@ -113,7 +117,15 @@ export default function BasicTable({
                 }),
               }}
             >
-              <Typography className={styles["typography"]}>Time</Typography>
+              <Typography
+                className={styles["typography"]}
+                sx={{
+                  fontSize: "1.5rem",
+                  ...(isMobile && { fontSize: "1rem" }),
+                }}
+              >
+                Time
+              </Typography>
             </TableCell>
             <TableCell
               sx={{
@@ -124,7 +136,15 @@ export default function BasicTable({
                 }),
               }}
             >
-              <Typography className={styles["typography"]}>Status</Typography>
+              <Typography
+                className={styles["typography"]}
+                sx={{
+                  fontSize: "1.5rem",
+                  ...(isMobile && { fontSize: "1rem" }),
+                }}
+              >
+                Status
+              </Typography>
             </TableCell>
             <TableCell
               align="center"
@@ -135,7 +155,15 @@ export default function BasicTable({
                 }),
               }}
             >
-              <Typography className={styles["typography"]}>Action</Typography>
+              <Typography
+                className={styles["typography"]}
+                sx={{
+                  fontSize: "1.5rem",
+                  ...(isMobile && { fontSize: "1rem" }),
+                }}
+              >
+                Action
+              </Typography>
             </TableCell>
           </TableRow>
         </TableHead>
@@ -203,7 +231,8 @@ export default function BasicTable({
                     paddingTop: "1.5rem",
                     justifyContent: "space-around",
                     display: "flex",
-                    paddingLeft: "20%",
+                    paddingLeft: "30%",
+                    paddingRight: "30%",
                     ...(isMobile && {
                       paddingTop: "1.7rem",
                     }),
