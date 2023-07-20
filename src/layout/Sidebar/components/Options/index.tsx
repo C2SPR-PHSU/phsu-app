@@ -6,10 +6,12 @@ const Sidebar = ({
   text,
   redirect,
   children,
+  textColor,
 }: {
   text: string;
   redirect?: string;
   children: ReactNode;
+  textColor: string;
 }) => {
   const navigate = useNavigate();
 
@@ -25,7 +27,10 @@ const Sidebar = ({
       onClick={() => navigate(`${redirect ?? "/"}`)}
     >
       {children}
-      <Typography variant="body1" sx={{ color: "white", textAlign: "center" }}>
+      <Typography
+        variant="body1"
+        sx={{ color: textColor, textAlign: "center" }}
+      >
         {text}
       </Typography>
     </Box>
