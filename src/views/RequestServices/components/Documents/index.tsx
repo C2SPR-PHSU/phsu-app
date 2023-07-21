@@ -2,6 +2,7 @@ import { ChangeEvent, useState, useEffect } from "react";
 import { Grid, Box, Typography, Button } from "@mui/material";
 import UploadIcon from "@mui/icons-material/Upload";
 import VisibilityIcon from "@mui/icons-material/Visibility";
+import DeleteIcon from '@mui/icons-material/Delete';
 import CheckIcon from "@mui/icons-material/Check";
 import { uploadDocument } from "@/views/RequestServices/functions";
 import useAuthStore from "@/hooks/useAuthStore";
@@ -136,6 +137,27 @@ const Documents = ({
                       <VisibilityIcon sx={{ color: "#e0e0e0" }} />
                     </div>
                 }
+
+
+                <div className={styles["rounded-div"]}>
+                  <Button
+                    component="label"
+                    sx={{
+                      minWidth: "16px !important",
+                      padding: "0px !important",
+                    }}
+                    startIcon={
+                      <DeleteIcon
+                        sx={{
+                          color: "#e0e0e0",
+                          cursor: "pointer",
+                          fontSize: "24px !important",
+                        }}
+                      />
+                    }
+                  >
+                  </Button>
+                </div>
               </div>
             </Grid>
           </div>
