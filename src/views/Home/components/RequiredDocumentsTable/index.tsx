@@ -7,6 +7,7 @@ import {
   TableHead,
   TableRow,
   Paper,
+  Box,
   Typography,
 } from "@mui/material";
 import { tableHeaders } from "./constants";
@@ -47,109 +48,182 @@ const RequiredDocumentsTable = ({
 
   if (isMobile) {
     return (
-      <TableContainer
-        component={Paper}
-        sx={{
-          height: "auto",
-          display: "flex",
-        }}
-      >
-        <Table aria-label="simple table">
-          <TableHead sx={{ display: "flex" }}>
-            <TableRow>
-              {tableHeaders?.map((header) => {
-                return (
-                  <TableCell align="center" key={header.id}>
-                    {header.title}
-                  </TableCell>
-                );
-              })}
-            </TableRow>
-          </TableHead>
-          <TableBody
-            sx={{ gap: "1rem", display: "flex", flexDirection: "column" }}
+      <>
+        <Box sx={{ display: "flex", flexDirection: "row" }}>
+          <TableContainer
+            component={Paper}
+            sx={{
+              height: "auto",
+              display: "flex",
+            }}
           >
-            {documentList.length ? (
-              documentList?.map((row, index) => {
-                return (
-                  <TableRow
-                    key={index}
-                    sx={{
-                      "&:last-child td, &:last-child th": { border: 0 },
-                    }}
-                  >
-                    <TableCell
-                      component="th"
-                      scope="row"
-                      sx={{
-                        backgroundColor: "#f4f4f4",
-                        borderTopLeftRadius: "10px",
-                        borderBottomLeftRadius: "10px",
-                        minWidth: "18rem",
-                      }}
-                    >
-                      {row.description}
-                    </TableCell>
-
-                    <TableCell
-                      align="center"
-                      sx={{
-                        backgroundColor: "#f4f4f4",
-                      }}
-                    >
-                      {formatDate(row.created)}
-                    </TableCell>
-                    <TableCell
-                      align="center"
-                      sx={{
-                        backgroundColor: "#f4f4f4",
-                      }}
-                    >
-                      <StatusButton statusName={row.status_desc as string} />
-                    </TableCell>
-
-                    {/* actions */}
-                    <TableCell
-                      align="center"
-                      sx={{
-                        backgroundColor: "#f4f4f4",
-                        borderTopRightRadius: "10px",
-                        borderBottomRightRadius: "10px",
-                      }}
-                    >
-                      {row.url ? (
-                        <a
-                          href={row.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          <VisibilityIcon
-                            sx={{ color: "#009999", cursor: "pointer" }}
-                          />
-                        </a>
-                      ) : (
-                        <VisibilityIcon
+            <Table aria-label="simple table">
+              <TableHead sx={{ display: "flex" }}>
+                <TableRow>
+                  {tableHeaders?.map((header) => {
+                    if (header.title !== "Action") {
+                      return (
+                        <TableCell align="center" key={header.id}>
+                          {header.title}
+                        </TableCell>
+                      );
+                    }
+                    return null;
+                  })}
+                </TableRow>
+              </TableHead>
+              <TableBody
+                sx={{ gap: "0.5rem", display: "flex", flexDirection: "column" }}
+              >
+                {documentList.length ? (
+                  documentList?.map((row, index) => {
+                    return (
+                      <TableRow
+                        key={index}
+                        sx={{
+                          "&:last-child td, &:last-child th": { border: 0 },
+                        }}
+                      >
+                        <TableCell
+                          component="th"
+                          scope="row"
                           sx={{
-                            color: "#009999",
-                            cursor: "default",
-                            opacity: 0.5,
+                            backgroundColor: "#f4f4f4",
+                            borderTopLeftRadius: "10px",
+                            borderBottomLeftRadius: "10px",
+                            minWidth: "90vw",
                           }}
-                        />
-                      )}
+                        >
+                          {row.description}
+                        </TableCell>
+
+                        <TableCell
+                          align="center"
+                          sx={{
+                            backgroundColor: "#f4f4f4",
+                          }}
+                        >
+                          {formatDate(row.created)}
+                        </TableCell>
+                        <TableCell
+                          align="center"
+                          sx={{
+                            backgroundColor: "#f4f4f4",
+                          }}
+                        >
+                          <StatusButton
+                            statusName={row.status_desc as string}
+                          />
+                        </TableCell>
+                      </TableRow>
+                    );
+                  })
+                ) : (
+                  <TableRow>
+                    <TableCell align="center" scope="row">
+                      <Typography textAlign="center">
+                        No content here
+                      </Typography>
                     </TableCell>
                   </TableRow>
-                );
-              })
-            ) : (
-              <TableRow>
-                <TableCell align="center" scope="row">
-                  <Typography textAlign="center">No content here</Typography>
-                </TableCell>
-              </TableRow>
-            )}
-          </TableBody>
-        </Table>
-      </TableContainer>
+                )}
+              </TableBody>
+            </Table>
+          </TableContainer>
+
+          <TableContainer
+            component={Paper}
+            sx={{
+              height: "auto",
+              display: "flex",
+              maxWidth: "6rem",
+              borderLeftColor: "#383838",
+            }}
+          >
+            <Table aria-label="simple table">
+              <TableHead sx={{ display: "flex" }}>
+                <TableRow>
+                  {tableHeaders?.map((header) => {
+                    if (header.title === "Action") {
+                      return (
+                        <TableCell
+                          align="center"
+                          key={header.id}
+                          sx={{ paddingLeft: "1.5rem" }}
+                        >
+                          {header.title}
+                        </TableCell>
+                      );
+                    }
+                    return null;
+                  })}
+                </TableRow>
+              </TableHead>
+              <TableBody
+                sx={{ gap: "0.5rem", display: "flex", flexDirection: "column" }}
+              >
+                {documentList.length ? (
+                  documentList?.map((row, index) => {
+                    return (
+                      <TableRow
+                        key={index}
+                        sx={{
+                          "&:last-child td, &:last-child th": { border: 0 },
+                        }}
+                      >
+                        {/* actions */}
+                        <TableCell
+                          align="center"
+                          sx={{
+                            backgroundColor: "#f4f4f4",
+                            borderTopRightRadius: "10px",
+                            borderBottomRightRadius: "10px",
+                            minWidth: "6rem",
+                            maxHeight: "5vh",
+                          }}
+                        >
+                          {row.url ? (
+                            <a
+                              href={row.url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
+                              <VisibilityIcon
+                                sx={{
+                                  color: "#009999",
+                                  cursor: "pointer",
+                                  width: "1.7rem",
+                                  height: "1.75rem",
+                                }}
+                              />
+                            </a>
+                          ) : (
+                            <VisibilityIcon
+                              sx={{
+                                color: "#009999",
+                                cursor: "default",
+                                opacity: 0.5,
+                              }}
+                            />
+                          )}
+                        </TableCell>
+                      </TableRow>
+                    );
+                  })
+                ) : (
+                  <TableRow>
+                    <TableCell align="center" scope="row">
+                      <Typography textAlign="center">
+                        No content here
+                      </Typography>
+                    </TableCell>
+                  </TableRow>
+                )}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </Box>
+      </>
     );
   }
 
