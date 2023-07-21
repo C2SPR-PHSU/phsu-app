@@ -30,6 +30,7 @@ const MyTextField: React.FC<MyTextFieldProps> = ({
     onValueChange(name, newValue);
   };
 
+
   const primaryColor = "#009999";
   const placeholderColor = "rgba(51, 51, 51, 0.4)";
 
@@ -66,12 +67,12 @@ const MyTextField: React.FC<MyTextFieldProps> = ({
       fullWidth
       value={value}
       onChange={handleChange}
-      disabled
+      name={name}
     />
   );
 };
 
-export default function BasicAccordion() {
+export default function BasicAccordion({ setPersonalForm, personalForm }: any) {
 
   const token = useAuthStore((state: any) => state.token);
   const { setAlert } = useAlert();
@@ -79,6 +80,7 @@ export default function BasicAccordion() {
   const [personalInfo, setPersonalInfo] = useState<IUserInfoData>();
 
   useEffect(() => {
+    console.log(personalForm)
     getUserPersonalInformation();
   }, [])
 
@@ -86,10 +88,58 @@ export default function BasicAccordion() {
     try {
       const response = await getUserInformation(token);
       setPersonalInfo(response)
+      const {
+        first_name,
+        middle_name,
+        last_name,
+        second_last_name,
+        birthdate,
+        cell_phone,
+        student_id,
+        email
+      } = response;
+
+      setPersonalForm({
+        first_name,
+        middle_name,
+        last_name,
+        second_last_name,
+        birthdate,
+        cell_phone,
+        student_id,
+        email
+      });
+
     } catch (error) {
       setAlert('Personal Information failed', 'error')
     }
   }
+
+  const handlePersonalFormChange = (key: string, newValue: string) => {
+    setPersonalForm((prevState: any) => ({
+      ...prevState,
+      [key]: newValue,
+    }));
+  };
+
+  // const handleDateChange = (key: string, newDate: Dayjs | null) => {
+  //   if (newDate) {
+  //     setPersonalForm((prevState: any) => ({
+  //       ...prevState,
+  //       [key]: newDate.format(), // convertir la fecha Dayjs a string
+  //     }));
+  //   }
+  // };
+
+  const handleDateChange = (key: string, newDate: Dayjs | null) => {
+    if (newDate) {
+      const adjustedDate = newDate.add(12, 'hour'); // agregar 12 horas a la fecha
+      setPersonalForm((prevState: any) => ({
+        ...prevState,
+        [key]: adjustedDate.format(), // convertir la fecha Dayjs a string
+      }));
+    }
+  };
 
   return (
     <>
@@ -119,10 +169,10 @@ export default function BasicAccordion() {
                   <div>
                     <CustomLabel name="First Name" required={true} />
                     <MyTextField
-                      name="firstName"
+                      name="first_name"
                       placeholder="First Name"
-                      value={personalInfo?.first_name || ''}
-                      onValueChange={() => console.log('here')}
+                      value={personalForm?.first_name || ''}
+                      onValueChange={(name, value) => handlePersonalFormChange(name, value)}
                     />
                   </div>
                 </Grid>
@@ -130,10 +180,10 @@ export default function BasicAccordion() {
                   <div>
                     <CustomLabel name="Middle Name" required={false} />
                     <MyTextField
-                      name="middleName"
+                      name="middle_name"
                       placeholder="Middle Name"
-                      value={personalInfo?.middle_name || ''}
-                      onValueChange={() => console.log('here')}
+                      value={personalForm?.middle_name || ''}
+                      onValueChange={(name, value) => handlePersonalFormChange(name, value)}
                     />
                   </div>
                 </Grid>
@@ -141,10 +191,10 @@ export default function BasicAccordion() {
                   <div>
                     <CustomLabel name="Last Name" required={true} />
                     <MyTextField
-                      name="lastName"
+                      name="last_name"
                       placeholder="Last Name"
-                      value={personalInfo?.last_name || ''}
-                      onValueChange={() => console.log('here')}
+                      value={personalForm?.last_name || ''}
+                      onValueChange={(name, value) => handlePersonalFormChange(name, value)}
                     />
                   </div>
                 </Grid>
@@ -154,8 +204,8 @@ export default function BasicAccordion() {
                   <MyTextField
                     name="secondLastName"
                     placeholder="Second Last Name"
-                    value={personalInfo?.second_last_name || ''}
-                    onValueChange={() => console.log('here')}
+                    value={personalForm?.second_last_name || ''}
+                    onValueChange={(name, value) => handlePersonalFormChange(name, value)}
                   />
                 </Grid>
                 <Grid item xs={12} sm={6} md={4}>
@@ -189,18 +239,17 @@ export default function BasicAccordion() {
                       }}
                       value={dayjs(personalInfo?.birthdate)}
                       slotProps={{ textField: { size: "small", fullWidth: true } }}
-                      disabled
-                      readOnly
+                      onChange={(date: Dayjs | null) => handleDateChange('birthdate', date)}
                     />
                   </LocalizationProvider>
                 </Grid>
                 <Grid item xs={12} sm={6} md={4}>
                   <CustomLabel name="Phone Number" required={true} />
                   <MyTextField
-                    name="phoneNumber"
+                    name="cell_phone"
                     placeholder="Phone Number"
-                    value={personalInfo?.cell_phone || ''}
-                    onValueChange={() => console.log('here')}
+                    value={personalForm?.cell_phone || ''}
+                    onValueChange={(name, value) => handlePersonalFormChange(name, value)}
                   />
                 </Grid>
                 <Grid item xs={12} sm={6} md={4}>
@@ -208,17 +257,17 @@ export default function BasicAccordion() {
                   <MyTextField
                     name="email"
                     placeholder="Email"
-                    value={personalInfo?.email || ''}
-                    onValueChange={() => console.log('here')}
+                    value={personalForm?.email || ''}
+                    onValueChange={(name, value) => handlePersonalFormChange(name, value)}
                   />
                 </Grid>
                 <Grid item xs={12} sm={6} md={4}>
                   <CustomLabel name="Student Id" required={true} />
                   <MyTextField
-                    name="studentId"
+                    name="student_id"
                     placeholder="Student Id"
-                    value={personalInfo?.student_id || ''}
-                    onValueChange={() => console.log('here')}
+                    value={personalForm?.student_id || ''}
+                    onValueChange={(name, value) => handlePersonalFormChange(name, value)}
                   />
                 </Grid>
               </Grid>

@@ -32,6 +32,32 @@ const RequestServices = () => {
   const [submitStatusCode, setSubmitStatusCode] = useState<number>();
   const [campusData, setCampusData] = useState<ICampusData | null>(null);
 
+  const [formsValid, setFormsValid] = useState(false);
+
+
+  const [academicForm, setAcademicForm] = useState({
+    campus_id: '',
+    term_id: '',
+    academic_year: ''
+  });
+
+  const checkFormsValid = () => {
+    const formValues = [...Object.values(personalForm), ...Object.values(academicForm)];
+    return formValues.every(value => value !== null && value !== undefined && value !== '');
+  }
+
+
+  const [personalForm, setPersonalForm] = useState({
+    first_name: '',
+    middle_name: '',
+    last_name: '',
+    second_last_name: '',
+    birthdate: '',
+    cell_phone: '',
+    student_id: '',
+    email: ''
+  });
+
   useEffect(() => {
     getAllCampuses();
   }, []);
@@ -50,6 +76,12 @@ const RequestServices = () => {
   useEffect(() => {
     console.log(campusStatus)
   }, [campusStatus]);
+
+  useEffect(() => {
+    console.log(academicForm)
+    //console.log(personalForm)
+    setFormsValid(checkFormsValid());
+  }, [personalForm, academicForm]);
 
 
   const getAllCampuses = async () => {
@@ -249,22 +281,25 @@ const RequestServices = () => {
               <AccordionAcademicInfo
                 campusData={campusData}
                 campusId={selectedCampus}
-                entranceTermId={(id) => setEntranceTermId(id)}
-                academicYearId={(id) => setAcademicYear(id)}
+                academicForm={academicForm}
+                setAcademicForm={setAcademicForm}
               />
             </div>
             <div className={styles["accordions-wrapper"]}>
-              <AccordionServiceRequest />
+              <AccordionServiceRequest
+                personalForm={personalForm}
+                setPersonalForm={setPersonalForm} />
             </div>
           </Grid>
 
           <ActionButtons
             campusStatus={campusStatus}
             selectedCampus={selectedCampus}
-            selectedETerm={entranceTermId}
-            selectedAYear={academicYear}
             enabledSubmit={displayList}
-            getUserCampusInfo={(id) => getUserCampusInfo(id)}
+            getUserCampusInfo={(id: any) => getUserCampusInfo(id)}
+            formsValid={formsValid}
+            personalForm={personalForm}
+            academicForm={academicForm}
           />
         </Grid>
       </Box>

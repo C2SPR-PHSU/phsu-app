@@ -18,13 +18,13 @@ import { getAcademicYears, getEntranceTerms } from '@/views/RequestServices/func
 import { set } from "lodash";
 
 interface IAccordionAcademicInfoProps {
-  campusData: ICampusData,
+  campusData: any,
   campusId: string;
-  entranceTermId: (id: number) => void;
-  academicYearId: (id: number) => void;
+  academicForm: any;
+  setAcademicForm: any;
 }
 
-const AccordionAcademicInfo = ({ campusData, campusId, entranceTermId, academicYearId }: IAccordionAcademicInfoProps) => {
+const AccordionAcademicInfo = ({ campusData, campusId, academicForm, setAcademicForm }: IAccordionAcademicInfoProps) => {
 
   const [selectedAYear, setSelectedAYear] = useState('');
   const [academicYears, setAcademicYears] = useState<number[]>([]);
@@ -39,15 +39,21 @@ const AccordionAcademicInfo = ({ campusData, campusId, entranceTermId, academicY
 
 
   useEffect(() => {
+    console.log(campusData?.term_id);
     if (!campusData) return;
-    setSelectedAYear(campusData.academic_year !== '' ? campusData.academic_year : '');
-    setSelectedETerm(campusData.term_id !== 0 ? campusData.term_id.toString() : '');
-    console.log(campusData);
+    setSelectedAYear(campusData.academic_year);
+    setSelectedETerm(campusData.term_id);
+    setAcademicForm({
+      campus_id: campusId,
+      term_id: campusData.term_id || academicForm.term_id,
+      academic_year: campusData.academic_year || academicForm.academic_year
+    });
   }, [campusData]);
 
 
   useEffect(() => {
     if (campusId) getAllEntranceTerms();
+
   }, [campusId])
 
   const getAllAcademicYears = async () => {
@@ -58,11 +64,20 @@ const AccordionAcademicInfo = ({ campusData, campusId, entranceTermId, academicY
   }
 
   const getAllEntranceTerms = async () => {
+    handleAcademicFormChange('campus_id', campusId);
     try {
       const response = await getEntranceTerms(campusId);
       setEntranceTerms(response)
     } catch (error) { console.log(error) }
   }
+
+  const handleAcademicFormChange = (key: string, newValue: string) => {
+    setAcademicForm((prevState: any) => ({
+      ...prevState,
+      [key]: newValue,
+    }));
+  };
+
 
   return (
     <>
@@ -90,12 +105,12 @@ const AccordionAcademicInfo = ({ campusData, campusId, entranceTermId, academicY
               <FormControl fullWidth={true} variant="outlined" sx={selectStyles}>
                 <CustomLabel name="Entrance Academic Year" required={true} />
                 <Select
-                  value={selectedAYear || "placeholder"}
+                  value={academicForm.academic_year || "placeholder"}
                   onChange={e => {
-                    setSelectedAYear(e.target.value)
-                    academicYearId(parseInt(e.target.value))
-                  }
-                  }
+                    const newValue = e.target.value;
+                    setSelectedAYear(newValue);
+                    handleAcademicFormChange('academic_year', newValue);
+                  }}
                 >
                   <MenuItem value={"placeholder"} disabled>
                     Select Academic Year
@@ -110,12 +125,12 @@ const AccordionAcademicInfo = ({ campusData, campusId, entranceTermId, academicY
               <FormControl fullWidth={true} variant="outlined" sx={selectStyles} disabled={campusId === ''}>
                 <CustomLabel name="Entrance Term" required={true} />
                 <Select
-                  value={selectedETerm || "placeholder"}
+                  value={academicForm.term_id || "placeholder"}
                   onChange={e => {
-                    setSelectedETerm(e.target.value)
-                    entranceTermId(parseInt(e.target.value))
-                  }
-                  }
+                    const newValue = e.target.value;
+                    setSelectedETerm(newValue);
+                    handleAcademicFormChange('term_id', newValue);
+                  }}
                 >
                   <MenuItem value={"placeholder"} disabled>
                     Select Entrance Term

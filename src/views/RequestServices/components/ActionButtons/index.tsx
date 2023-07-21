@@ -9,6 +9,7 @@ import {
 } from "@/views/RequestServices/functions";
 import useAlert from "@/hooks/useAlert";
 import useAuthStore from "@/hooks/useAuthStore";
+import { UserModify } from "./../../../Profile/users";
 
 interface IActionButtonsProps {
   campusStatus: number;
@@ -18,16 +19,18 @@ interface IActionButtonsProps {
   selectedAYear: number;
   enabledSubmit: boolean;
   getUserCampusInfo: (id: string) => void;
+  formsValid: boolean;
 }
 
 const ActionButtons = ({
   campusStatus,
   selectedCampus,
-  selectedETerm,
-  selectedAYear,
   enabledSubmit,
   getUserCampusInfo,
-}: IActionButtonsProps) => {
+  formsValid,
+  academicForm,
+  personalForm
+}: any) => {
   useEffect(() => {
     console.log(campusStatus, " ", enabledSubmit);
   }, []);
@@ -49,15 +52,23 @@ const ActionButtons = ({
     try {
       await updateAcademicInformation(
         parseInt(selectedCampus),
-        selectedETerm,
-        selectedAYear,
+        academicForm.term_id,
+        academicForm.academic_year,
         token
       );
+      const response = await UserModify(token, personalForm);
+      response.action;
       setAlert("Info sent successfully!", "success");
     } catch (error) {
       setAlert("Something happened. Try again later", "error");
     }
   };
+
+
+  useEffect(() => {
+    console.log(campusStatus, ' ', selectedCampus, ' ', formsValid)
+  }, [campusStatus, selectedCampus, formsValid]);
+
 
   return (
     <Grid
@@ -79,7 +90,7 @@ const ActionButtons = ({
                 color: "white",
               },
             }}
-            disabled={campusStatus > 0 || !enabledSubmit}
+            disabled={campusStatus > 0 || !selectedCampus || !formsValid}
           >
             SUBMIT
           </Button>
@@ -87,7 +98,7 @@ const ActionButtons = ({
         <Button
           variant="contained"
           className={styles["button-save"]}
-          disabled={selectedETerm && selectedAYear ? false : true}
+          disabled={!formsValid}
           onClick={() => sendAcademicInformation()}
         >
           SAVE

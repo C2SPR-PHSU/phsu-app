@@ -46,19 +46,21 @@ const Documents = ({
 
 
   const handleUpload = async (e: ChangeEvent<HTMLInputElement>) => {
+    console.log('test')
     if (!e.target.files) return;
     const document = e.target.files[0];
     try {
       await uploadDocument({ campusId, documentId, document, token });
-      setChecked(true)
       requestUserDocuments();
       setAlert('Documents uploaded Successfully!', 'success')
+      setChecked(true)
       getUserCampusInfo(campusId.toString());
     } catch (error) {
       setChecked(false)
       setAlert('Something happened. Try again later', 'error')
     }
   };
+
 
 
   return (
