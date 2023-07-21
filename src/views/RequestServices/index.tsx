@@ -12,7 +12,7 @@ import { CustomLabel } from "@/components";
 import { selectStyles, optionsService, servicesTextDescription, servicesTextTitle } from './constants';
 import { getCampuses, getCampusDocuments, getUserCampus } from "./functions";
 import { Documents, AccordionServiceRequest, AccordionAcademicInfo, ActionButtons } from './components';
-import { IAllCampusesData, ICampusDocumentsData, IUserDocumentsData } from './types'
+import { IAllCampusesData, ICampusDocumentsData, IUserDocumentsData, ICampusData } from './types'
 import styles from "./styles.module.scss";
 import { getAllUserDocuments } from "./functions"
 
@@ -30,6 +30,7 @@ const RequestServices = () => {
   const [academicYear, setAcademicYear] = useState<number>(0);
   const [userDocuments, setUserDocuments] = useState<IUserDocumentsData[]>([]);
   const [submitStatusCode, setSubmitStatusCode] = useState<number>();
+  const [campusData, setCampusData] = useState<ICampusData | null>(null);
 
   useEffect(() => {
     getAllCampuses();
@@ -64,6 +65,7 @@ const RequestServices = () => {
     try {
       const response = await getUserCampus(campusId, token);
       setCampusStatus(parseInt(response.status));
+      setCampusData(response);
     } catch (error) {
       console.log(error);
     }
@@ -245,6 +247,7 @@ const RequestServices = () => {
           <Grid item xs={12} md={12} lg={12} sx={{ paddingBottom: "1.2rem" }}>
             <div className={styles["accordions-wrapper"]}>
               <AccordionAcademicInfo
+                campusData={campusData}
                 campusId={selectedCampus}
                 entranceTermId={(id) => setEntranceTermId(id)}
                 academicYearId={(id) => setAcademicYear(id)}

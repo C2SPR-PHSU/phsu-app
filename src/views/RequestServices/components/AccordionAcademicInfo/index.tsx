@@ -13,16 +13,18 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import styles from "./styles.module.scss";
 import CustomLabel from '@/components/CustomLabel';
 import { selectStyles } from '@/views/RequestServices/constants';
-import { IEntranceTermsData } from '@/views/RequestServices/types';
+import { IEntranceTermsData, ICampusData } from '@/views/RequestServices/types';
 import { getAcademicYears, getEntranceTerms } from '@/views/RequestServices/functions';
+import { set } from "lodash";
 
 interface IAccordionAcademicInfoProps {
+  campusData: ICampusData,
   campusId: string;
   entranceTermId: (id: number) => void;
   academicYearId: (id: number) => void;
 }
 
-const AccordionAcademicInfo = ({ campusId, entranceTermId, academicYearId }: IAccordionAcademicInfoProps) => {
+const AccordionAcademicInfo = ({ campusData, campusId, entranceTermId, academicYearId }: IAccordionAcademicInfoProps) => {
 
   const [selectedAYear, setSelectedAYear] = useState('');
   const [academicYears, setAcademicYears] = useState<number[]>([]);
@@ -32,6 +34,17 @@ const AccordionAcademicInfo = ({ campusId, entranceTermId, academicYearId }: IAc
   useEffect(() => {
     getAllAcademicYears();
   }, [])
+
+
+
+
+  useEffect(() => {
+    if (!campusData) return;
+    setSelectedAYear(campusData.academic_year !== '' ? campusData.academic_year : '');
+    setSelectedETerm(campusData.term_id !== 0 ? campusData.term_id.toString() : '');
+    console.log(campusData);
+  }, [campusData]);
+
 
   useEffect(() => {
     if (campusId) getAllEntranceTerms();
@@ -53,13 +66,15 @@ const AccordionAcademicInfo = ({ campusId, entranceTermId, academicYearId }: IAc
 
   return (
     <>
-      <Accordion sx={{
-        backgroundColor: "#efefef",
-        width: "100%",
-        borderRadius: "5px",
-        padding: "0.5rem",
-        marginBottom: "1.5rem !important"
-      }}>
+      <Accordion
+        expanded={true}
+        sx={{
+          backgroundColor: "#efefef",
+          width: "100%",
+          borderRadius: "5px",
+          padding: "0.5rem",
+          marginBottom: "1.5rem !important"
+        }}>
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
           aria-controls="panel1a-content"

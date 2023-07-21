@@ -18,7 +18,7 @@ export interface IAllCampusesResponse {
   data: IAllCampusesData[];
 }
 
-interface ICampusData {
+export interface ICampusData {
   academic_year: string;
   created: string;
   id: number;
