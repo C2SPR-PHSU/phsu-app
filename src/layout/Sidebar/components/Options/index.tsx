@@ -2,7 +2,7 @@ import { ReactNode } from "react";
 import { Box, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
-const Sidebar = ({
+const Options = ({
   text,
   redirect,
   children,
@@ -32,4 +32,4 @@ const Sidebar = ({
   );
 };
 
-export default Sidebar;
+export default Options;

@@ -124,7 +124,7 @@ export default function BasicTable({
                   ...(isMobile && { fontSize: "1rem" }),
                 }}
               >
-                Time
+                Expiration Date
               </Typography>
             </TableCell>
             <TableCell

@@ -39,3 +39,9 @@ export interface IRequiredDocumentsProps {
   campusId: string;
   handleClose: () => void;
 }
+
+export interface IMessageModal {
+  open: boolean;
+  handleClose: () => void;
+  message: string;
+}

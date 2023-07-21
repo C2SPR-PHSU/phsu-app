@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   Table,
   TableBody,
@@ -12,6 +13,8 @@ import { tableHeaders } from "./constants";
 import StatusButton from "@/components/StatusButton";
 import { IUserDocumentsData } from "../../types";
 import VisibilityIcon from "@mui/icons-material/Visibility";
+import ChatIcon from "@mui/icons-material/Chat";
+import MessageModal from "../MessageModal";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
 interface RequiredDocumentsTableProps {
@@ -148,6 +151,14 @@ const RequiredDocumentsTable = ({
     );
   }
 
+  const [openModal, setOpenModal] = useState(false);
+  const [modalMessage, setModalMessage] = useState("");
+
+  const displayModal = (message: string) => {
+    setOpenModal(true);
+    setModalMessage(message);
+  };
+
   return (
     <TableContainer component={Paper}>
       <Table aria-label="simple table">
@@ -166,44 +177,59 @@ const RequiredDocumentsTable = ({
           {documentList.length ? (
             documentList?.map((row, index) => {
               return (
-                <TableRow
-                  key={index}
-                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                >
-                  <TableCell component="th" scope="row">
-                    <Typography>{row.description}</Typography>
-                  </TableCell>
+                <>
+                  <TableRow
+                    key={index}
+                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                  >
+                    <TableCell component="th" scope="row">
+                      <Typography>{row.description}</Typography>
+                    </TableCell>
 
-                  <TableCell align="center">
-                    {formatDate(row.created)}
-                  </TableCell>
-                  <TableCell align="center">
-                    <StatusButton statusName={row.status_desc as string} />
-                  </TableCell>
+                    <TableCell align="center">
+                      {formatDate(row.created)}
+                    </TableCell>
+                    <TableCell align="center">
+                      <StatusButton statusName={row.status_desc as string} />
+                    </TableCell>
 
-                  {/* actions */}
-                  <TableCell align="center">
-                    {row.url ? (
-                      <a
-                        href={row.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        <VisibilityIcon
-                          sx={{ color: "#009999", cursor: "pointer" }}
-                        />
-                      </a>
-                    ) : (
-                      <VisibilityIcon
-                        sx={{
-                          color: "#009999",
-                          cursor: "default",
-                          opacity: 0.5,
-                        }}
-                      />
-                    )}
-                  </TableCell>
-                </TableRow>
+                    {/* actions */}
+                    <TableCell align="center">
+                      <>
+                        {row.url ? (
+                          <a
+                            href={row.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            <VisibilityIcon
+                              sx={{ color: "#009999", cursor: "pointer" }}
+                            />
+                          </a>
+                        ) : (
+                          <VisibilityIcon
+                            sx={{
+                              color: "#009999",
+                              cursor: "default",
+                              opacity: 0.5,
+                            }}
+                          />
+                        )}
+                        {row.ob_message && (
+                          <ChatIcon
+                            sx={{
+                              fontSize: "1.4rem",
+                              color: "#f7941d",
+                              cursor: "pointer",
+                              marginLeft: "0.5rem !important",
+                            }}
+                            onClick={() => displayModal(row.ob_message)}
+                          />
+                        )}
+                      </>
+                    </TableCell>
+                  </TableRow>
+                </>
               );
             })
           ) : (
@@ -215,6 +241,11 @@ const RequiredDocumentsTable = ({
           )}
         </TableBody>
       </Table>
+      <MessageModal
+        open={openModal}
+        message={modalMessage}
+        handleClose={() => setOpenModal(false)}
+      />
     </TableContainer>
   );
 };
