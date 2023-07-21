@@ -6,7 +6,7 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import { IconButton, Typography } from "@mui/material";
+import { IconButton, Typography, Box } from "@mui/material";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import DownloadIcon from "@mui/icons-material/Download";
 import useAuthStore from "@/hooks/useAuthStore";
@@ -71,6 +71,216 @@ export default function BasicTable({
     getUserServicesRows();
   });
 
+  if (isMobile) {
+    return (
+      <Box sx={{ display: "flex", flexDirection: "row" }}>
+        <TableContainer
+          component={Paper}
+          sx={{
+            padding: "1rem",
+          }}
+        >
+          <Table
+            sx={{
+              width: "100%",
+              justifyContent: "space-around",
+            }}
+            aria-label="simple table"
+          >
+            <TableHead>
+              <TableRow>
+                <TableCell
+                  sx={{
+                    paddingLeft: "0rem",
+                    justifyContent: "flex-start",
+                  }}
+                >
+                  <Typography
+                    className={styles["typography"]}
+                    sx={{
+                      fontSize: "1rem",
+                      paddingLeft: "1rem",
+                    }}
+                  >
+                    Service
+                  </Typography>
+                </TableCell>
+                <TableCell
+                  sx={{
+                    fontSize: "1rem",
+                    paddingLeft: "3%",
+                  }}
+                >
+                  <Typography
+                    className={styles["typography"]}
+                    sx={{
+                      fontSize: "1rem",
+                    }}
+                  >
+                    Time
+                  </Typography>
+                </TableCell>
+                <TableCell
+                  sx={{
+                    paddingLeft: "4%",
+                  }}
+                >
+                  <Typography
+                    className={styles["typography"]}
+                    sx={{
+                      fontSize: "1rem",
+                    }}
+                  >
+                    Status
+                  </Typography>
+                </TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {userServices &&
+                userServices?.map((row, index) => (
+                  <TableRow
+                    key={index}
+                    sx={{
+                      "&:last-child td, &:last-child th": { border: 0 },
+                    }}
+                  >
+                    <TableCell component="th" scope="row">
+                      <Typography
+                        className={styles["typography"]}
+                        sx={{
+                          display: "flex",
+                        }}
+                      >
+                        {row.service}
+                      </Typography>
+                    </TableCell>
+                    <TableCell align="center">
+                      <Typography
+                        className={styles["typography"]}
+                        sx={{ paddingTop: "1rem" }}
+                      >
+                        {formatDate(row.created)}
+                      </Typography>
+                    </TableCell>
+                    <TableCell
+                      align="center"
+                      sx={{
+                        paddingTop: "1.5rem",
+                      }}
+                    >
+                      <StatusButton statusName={row.status_desc as string} />
+                    </TableCell>
+                  </TableRow>
+                ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+
+        <TableContainer
+          component={Paper}
+          sx={{
+            width: 130,
+            paddingTop: "1rem",
+          }}
+        >
+          <Table
+            sx={{
+              justifyContent: "space-around",
+            }}
+            aria-label="simple table"
+          >
+            <TableHead>
+              <TableRow>
+                <TableCell
+                  align="center"
+                  sx={{
+                    ...(isMobile && {
+                      fontSize: "1rem",
+                    }),
+                  }}
+                >
+                  <Typography
+                    className={styles["typography"]}
+                    sx={{
+                      fontSize: "1rem",
+                    }}
+                  >
+                    Action
+                  </Typography>
+                </TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {userServices &&
+                userServices?.map((row, index) => (
+                  <TableRow
+                    key={index}
+                    sx={{
+                      "&:last-child td, &:last-child th": { border: 0 },
+                    }}
+                  >
+                    <TableCell
+                      sx={{
+                        paddingTop: "1.7rem",
+                        paddingRight: "3%",
+                        paddingLeft: "3%",
+                        display: "flex",
+                        justifyContent: "center",
+                      }}
+                    >
+                      <Box
+                        sx={{
+                          display: "flex",
+                          flexDirection: "row",
+                          justifyContent: "space-around",
+                          minWidth: "5rem",
+                          paddingBottom: "0.5rem",
+                        }}
+                      >
+                        <IconButton
+                          onClick={() => {
+                            handleModal(`${row.service} - ${row.campus_name}`);
+                            setDocumentId(row.campus_id);
+                          }}
+                          sx={{
+                            backgroundColor: "#009999",
+                            width: "1.7rem",
+                            height: "1.7rem",
+                            marginRight: "1rem",
+                          }}
+                        >
+                          <VisibilityIcon
+                            sx={{
+                              color: "white",
+                            }}
+                          />
+                        </IconButton>
+
+                        <IconButton
+                          sx={{
+                            width: "1.8rem",
+                            height: "1.8rem",
+                            backgroundColor: "rgba(0, 168, 168, 0.42)",
+                          }}
+                        >
+                          <DownloadIcon
+                            sx={{
+                              color: "white",
+                            }}
+                          />
+                        </IconButton>
+                      </Box>
+                    </TableCell>
+                  </TableRow>
+                ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </Box>
+    );
+  }
+
   return (
     <TableContainer
       component={Paper}
@@ -91,17 +301,12 @@ export default function BasicTable({
               sx={{
                 display: "flex",
                 justifyContent: "center",
-                ...(isMobile && {
-                  paddingLeft: "0rem",
-                  justifyContent: "flex-start",
-                }),
               }}
             >
               <Typography
                 className={styles["typography"]}
                 sx={{
                   fontSize: "1.2rem",
-                  ...(isMobile && { fontSize: "1rem", paddingLeft: "1rem" }),
                 }}
               >
                 Service
@@ -110,54 +315,36 @@ export default function BasicTable({
             <TableCell
               sx={{
                 paddingLeft: "8%",
-                fontSize: "1.5rem",
-                ...(isMobile && {
-                  fontSize: "1rem",
-                  paddingLeft: "3%",
-                }),
               }}
             >
               <Typography
                 className={styles["typography"]}
                 sx={{
                   fontSize: "1.2rem",
-                  ...(isMobile && { fontSize: "1rem" }),
                 }}
               >
-                Expiration Date
+                Time
               </Typography>
             </TableCell>
             <TableCell
               sx={{
                 paddingLeft: "4%",
-                ...(isMobile && {
-                  display: "none",
-                }),
               }}
             >
               <Typography
                 className={styles["typography"]}
                 sx={{
                   fontSize: "1.2rem",
-                  ...(isMobile && { fontSize: "1rem" }),
                 }}
               >
                 Status
               </Typography>
             </TableCell>
-            <TableCell
-              align="center"
-              sx={{
-                ...(isMobile && {
-                  fontSize: "1rem",
-                }),
-              }}
-            >
+            <TableCell align="center" sx={{}}>
               <Typography
                 className={styles["typography"]}
                 sx={{
                   fontSize: "1.2rem",
-                  ...(isMobile && { fontSize: "1rem" }),
                 }}
               >
                 Action
@@ -178,31 +365,23 @@ export default function BasicTable({
                   <Typography
                     className={styles["typography"]}
                     sx={{
-                      display: "none",
-                      ...(isMobile && {
-                        display: "flex",
-                      }),
+                      display: "flex",
                     }}
                   >
                     {row.service}
                   </Typography>
+
                   <Typography
                     className={styles["typography"]}
                     sx={{
                       display: "none",
-                      ...(!isMobile && {
-                        display: "flex",
-                      }),
                     }}
                   >
                     {row.service} - {row.campus_name}
                   </Typography>
                 </TableCell>
                 <TableCell align="center">
-                  <Typography
-                    className={styles["typography"]}
-                    sx={{ ...(!isMobile && { paddingTop: "1rem" }) }}
-                  >
+                  <Typography className={styles["typography"]}>
                     {formatDate(row.created)}
                   </Typography>
                 </TableCell>
@@ -210,9 +389,6 @@ export default function BasicTable({
                   align="center"
                   sx={{
                     paddingTop: "1.5rem",
-                    ...(isMobile && {
-                      display: "none",
-                    }),
                   }}
                 >
                   <StatusButton statusName={row.status_desc as string} />
@@ -224,11 +400,6 @@ export default function BasicTable({
                     display: "flex",
                     paddingLeft: "30%",
                     paddingRight: "30%",
-                    ...(isMobile && {
-                      paddingTop: "1.7rem",
-                      paddingRight: "3%",
-                      paddingLeft: "3%",
-                    }),
                   }}
                 >
                   <IconButton
@@ -236,40 +407,19 @@ export default function BasicTable({
                       handleModal(`${row.service} - ${row.campus_name}`);
                       setDocumentId(row.campus_id);
                     }}
-                    sx={{
-                      ...(isMobile && {
-                        backgroundColor: "#009999",
-                        width: "1.7rem",
-                        height: "1.7rem",
-                      }),
-                    }}
                   >
                     <VisibilityIcon
                       sx={{
                         color: "#009999",
                         cursor: "pointer",
-                        ...(isMobile && {
-                          color: "white",
-                        }),
                       }}
                     />
                   </IconButton>
 
-                  <IconButton
-                    sx={{
-                      ...(isMobile && {
-                        width: "1.8rem",
-                        height: "1.8rem",
-                        backgroundColor: "rgba(0, 168, 168, 0.42)",
-                      }),
-                    }}
-                  >
+                  <IconButton>
                     <DownloadIcon
                       sx={{
                         color: "rgba(0, 168, 168, 0.42)",
-                        ...(isMobile && {
-                          color: "white",
-                        }),
                       }}
                     />
                   </IconButton>

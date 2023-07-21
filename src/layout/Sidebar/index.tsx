@@ -14,7 +14,7 @@ const Sidebar = () => {
   const token = useAuthStore((state: any) => state.token);
 
   const handleLogout = async () => {
-    await logOut(token);
+    // await logOut(token);
     logout();
   };
 
