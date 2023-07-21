@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import { tableHeaders } from "./constants";
 import StatusButton from "@/components/StatusButton";
-import { IRequiredDocumentsProps, IUserDocumentsData } from "../../types";
+import { IUserDocumentsData } from "../../types";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
@@ -38,26 +38,119 @@ const RequiredDocumentsTable = ({
     return formattedDate;
   }
 
-  return (
-    <TableContainer
-      component={Paper}
-      sx={{
-        ...(isMobile && {
-          height: "55vh",
-          display: "flex",
-          flexDirection: "row",
-        }),
-      }}
-    >
-      <Table
+  // <-----------------------------View Mobile------------------------------------>
+
+  if (isMobile) {
+    return (
+      <TableContainer
+        component={Paper}
         sx={{
-          minWidth: 750,
-          ...(isMobile && {
-            maxWidth: 150,
-          }),
+          height: "auto",
+          display: "flex",
         }}
-        aria-label="simple table"
       >
+        <Table aria-label="simple table">
+          <TableHead sx={{ display: "flex" }}>
+            <TableRow>
+              {tableHeaders?.map((header) => {
+                return (
+                  <TableCell align="center" key={header.id}>
+                    {header.title}
+                  </TableCell>
+                );
+              })}
+            </TableRow>
+          </TableHead>
+          <TableBody
+            sx={{ gap: "1rem", display: "flex", flexDirection: "column" }}
+          >
+            {documentList.length ? (
+              documentList?.map((row, index) => {
+                return (
+                  <TableRow
+                    key={index}
+                    sx={{
+                      "&:last-child td, &:last-child th": { border: 0 },
+                    }}
+                  >
+                    <TableCell
+                      component="th"
+                      scope="row"
+                      sx={{
+                        backgroundColor: "#f4f4f4",
+                        borderTopLeftRadius: "10px",
+                        borderBottomLeftRadius: "10px",
+                        minWidth: "18rem",
+                      }}
+                    >
+                      {row.description}
+                    </TableCell>
+
+                    <TableCell
+                      align="center"
+                      sx={{
+                        backgroundColor: "#f4f4f4",
+                      }}
+                    >
+                      {formatDate(row.created)}
+                    </TableCell>
+                    <TableCell
+                      align="center"
+                      sx={{
+                        backgroundColor: "#f4f4f4",
+                      }}
+                    >
+                      <StatusButton statusName={row.status_desc as string} />
+                    </TableCell>
+
+                    {/* actions */}
+                    <TableCell
+                      align="center"
+                      sx={{
+                        backgroundColor: "#f4f4f4",
+                        borderTopRightRadius: "10px",
+                        borderBottomRightRadius: "10px",
+                      }}
+                    >
+                      {row.url ? (
+                        <a
+                          href={row.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          <VisibilityIcon
+                            sx={{ color: "#009999", cursor: "pointer" }}
+                          />
+                        </a>
+                      ) : (
+                        <VisibilityIcon
+                          sx={{
+                            color: "#009999",
+                            cursor: "default",
+                            opacity: 0.5,
+                          }}
+                        />
+                      )}
+                    </TableCell>
+                  </TableRow>
+                );
+              })
+            ) : (
+              <TableRow>
+                <TableCell align="center" scope="row">
+                  <Typography textAlign="center">No content here</Typography>
+                </TableCell>
+              </TableRow>
+            )}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    );
+  }
+
+  return (
+    <TableContainer component={Paper}>
+      <Table aria-label="simple table">
         <TableHead>
           <TableRow>
             {tableHeaders?.map((header) => {
@@ -78,8 +171,9 @@ const RequiredDocumentsTable = ({
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                 >
                   <TableCell component="th" scope="row">
-                    {row.description}
+                    <Typography>{row.description}</Typography>
                   </TableCell>
+
                   <TableCell align="center">
                     {formatDate(row.created)}
                   </TableCell>
