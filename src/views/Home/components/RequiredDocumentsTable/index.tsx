@@ -60,16 +60,33 @@ const RequiredDocumentsTable = ({
             <Table aria-label="simple table">
               <TableHead sx={{ display: "flex" }}>
                 <TableRow>
-                  {tableHeaders?.map((header) => {
-                    if (header.title !== "Action") {
-                      return (
-                        <TableCell align="center" key={header.id}>
-                          {header.title}
-                        </TableCell>
-                      );
-                    }
-                    return null;
-                  })}
+                  {/* <---------------------------------- Item 1 minWidth 90vw -------------------------------------- */}
+                  {tableHeaders && tableHeaders.length > 0 && (
+                    <TableCell
+                      align="left"
+                      key={tableHeaders[0].id}
+                      sx={{ minWidth: "90vw" }}
+                    >
+                      {tableHeaders[0].title}
+                    </TableCell>
+                  )}
+
+                  {/* <-------------------- And by default, the rest only have left padding ------------------------> */}
+                  {tableHeaders &&
+                    tableHeaders.slice(1).map((header) => {
+                      if (header.title !== "Action") {
+                        return (
+                          <TableCell
+                            align="center"
+                            key={header.id}
+                            sx={{ paddingLeft: "2.5rem" }}
+                          >
+                            {header.title}
+                          </TableCell>
+                        );
+                      }
+                      return null;
+                    })}
                 </TableRow>
               </TableHead>
               <TableBody
@@ -147,7 +164,6 @@ const RequiredDocumentsTable = ({
                     if (header.title === "Action") {
                       return (
                         <TableCell
-                          align="center"
                           key={header.id}
                           sx={{ paddingLeft: "1.5rem" }}
                         >
