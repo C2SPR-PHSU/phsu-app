@@ -6,3 +6,8 @@ export interface IUserLogin {
   message: string;
   data: IUserLoginData;
 }
+
+export interface ILogOut {
+  code: number;
+  message: string;
+}
