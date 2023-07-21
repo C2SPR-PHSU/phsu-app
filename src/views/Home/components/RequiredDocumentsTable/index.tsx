@@ -26,6 +26,8 @@ const RequiredDocumentsTable = ({
 }: RequiredDocumentsTableProps) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+  const [openModal, setOpenModal] = useState(false);
+  const [modalMessage, setModalMessage] = useState("");
 
   function formatDate(inputDate: string) {
     const date = new Date(inputDate);
@@ -150,9 +152,6 @@ const RequiredDocumentsTable = ({
       </TableContainer>
     );
   }
-
-  const [openModal, setOpenModal] = useState(false);
-  const [modalMessage, setModalMessage] = useState("");
 
   const displayModal = (message: string) => {
     setOpenModal(true);
