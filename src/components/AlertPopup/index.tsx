@@ -11,7 +11,7 @@ const AlertPopup = () => {
           width: '20%',
           position: 'fixed',
           "z-index": 999,
-          right: '2%',
+          left: '2%',
           bottom: '2%'
         }} 
         spacing={2}
