@@ -39,10 +39,22 @@ const RequiredDocumentsTable = ({
   }
 
   return (
-    <TableContainer component={Paper}>
+    <TableContainer
+      component={Paper}
+      sx={{
+        ...(isMobile && {
+          height: "55vh",
+          display: "flex",
+          flexDirection: "row",
+        }),
+      }}
+    >
       <Table
         sx={{
-          minWidth: 650,
+          minWidth: 750,
+          ...(isMobile && {
+            maxWidth: 150,
+          }),
         }}
         aria-label="simple table"
       >
@@ -74,6 +86,8 @@ const RequiredDocumentsTable = ({
                   <TableCell align="center">
                     <StatusButton statusName={row.status_desc as string} />
                   </TableCell>
+
+                  {/* actions */}
                   <TableCell align="center">
                     {row.url ? (
                       <a

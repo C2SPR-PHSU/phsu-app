@@ -65,6 +65,10 @@ const RequiredDocuments = ({
       onClose={handleClose}
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
+      sx={{
+        outline: "none",
+        border: "none",
+      }}
     >
       <Box
         sx={{
@@ -83,6 +87,7 @@ const RequiredDocuments = ({
             width: "93vw",
             borderRadius: 2,
             padding: "0.3rem",
+            height: "80vh",
           }),
         }}
       >
@@ -90,6 +95,7 @@ const RequiredDocuments = ({
           <TabContext value={value}>
             <Grid container>
               <Grid item xs={12} xl={8}>
+                {/* version standar */}
                 <Typography
                   variant="h6"
                   className={styles["subtitle"]}
@@ -102,15 +108,17 @@ const RequiredDocuments = ({
                   {title}
                 </Typography>
 
+                {/* version mobile */}
                 <Typography
                   variant="h6"
                   className={styles["subtitle"]}
                   sx={{
                     display: "none",
                     ...(isMobileSmall && {
-                      fontSize: "0.9rem",
+                      fontSize: "1.3rem",
                       paddingTop: "1rem",
                       display: "flex",
+                      paddingLeft: "1rem",
                     }),
                   }}
                 >
@@ -122,7 +130,6 @@ const RequiredDocuments = ({
                   sx={{
                     ...(isMobileSmall && {
                       width: "50vw",
-                      paddingRight: "2rem",
                     }),
                   }}
                 >
@@ -133,17 +140,51 @@ const RequiredDocuments = ({
                     indicatorColor="primary"
                     centered
                   >
-                    <Tab label="Sent" value="1" />
-                    <Tab label="Received" value="2" />
+                    <Tab
+                      label="Sent"
+                      value="1"
+                      sx={{
+                        sdisplay: "flex",
+                        textTransform: "none",
+                        ...(isMobile && {
+                          fontSize: "1.1rem",
+                        }),
+                      }}
+                    />
+                    <Tab
+                      label="Received"
+                      value="2"
+                      sx={{
+                        sdisplay: "flex",
+                        textTransform: "none",
+                        ...(isMobile && {
+                          fontSize: "1.1rem",
+                        }),
+                      }}
+                    />
                   </TabList>
                 </Box>
               </Grid>
             </Grid>
             <Grid item xs={12}>
-              <TabPanel value="1">
+              <TabPanel
+                value="1"
+                sx={{
+                  ...(isMobile && {
+                    padding: "0.4rem",
+                  }),
+                }}
+              >
                 <RequiredDocumentsTable documentList={documentList} />
               </TabPanel>
-              <TabPanel value="2">
+              <TabPanel
+                value="2"
+                sx={{
+                  ...(isMobile && {
+                    padding: "0.4rem",
+                  }),
+                }}
+              >
                 <RequiredDocumentsTable documentList={documentList} />
               </TabPanel>
             </Grid>

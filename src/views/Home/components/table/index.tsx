@@ -100,8 +100,8 @@ export default function BasicTable({
               <Typography
                 className={styles["typography"]}
                 sx={{
-                  fontSize: "1.5rem",
-                  ...(isMobile && { fontSize: "1rem" }),
+                  fontSize: "1.2rem",
+                  ...(isMobile && { fontSize: "1rem", paddingLeft: "1rem" }),
                 }}
               >
                 Service
@@ -120,7 +120,7 @@ export default function BasicTable({
               <Typography
                 className={styles["typography"]}
                 sx={{
-                  fontSize: "1.5rem",
+                  fontSize: "1.2rem",
                   ...(isMobile && { fontSize: "1rem" }),
                 }}
               >
@@ -130,7 +130,6 @@ export default function BasicTable({
             <TableCell
               sx={{
                 paddingLeft: "4%",
-                fontSize: "1.5rem",
                 ...(isMobile && {
                   display: "none",
                 }),
@@ -139,7 +138,7 @@ export default function BasicTable({
               <Typography
                 className={styles["typography"]}
                 sx={{
-                  fontSize: "1.5rem",
+                  fontSize: "1.2rem",
                   ...(isMobile && { fontSize: "1rem" }),
                 }}
               >
@@ -149,7 +148,6 @@ export default function BasicTable({
             <TableCell
               align="center"
               sx={{
-                fontSize: "1.5rem",
                 ...(isMobile && {
                   fontSize: "1rem",
                 }),
@@ -158,7 +156,7 @@ export default function BasicTable({
               <Typography
                 className={styles["typography"]}
                 sx={{
-                  fontSize: "1.5rem",
+                  fontSize: "1.2rem",
                   ...(isMobile && { fontSize: "1rem" }),
                 }}
               >
@@ -200,14 +198,7 @@ export default function BasicTable({
                     {row.service} - {row.campus_name}
                   </Typography>
                 </TableCell>
-                <TableCell
-                  align="center"
-                  sx={{
-                    fontFamily: "GothamMedium !important",
-                    fontWeight: "bolder !important",
-                    fontSize: "1.2rem",
-                  }}
-                >
+                <TableCell align="center">
                   <Typography
                     className={styles["typography"]}
                     sx={{ ...(!isMobile && { paddingTop: "1rem" }) }}
@@ -235,6 +226,8 @@ export default function BasicTable({
                     paddingRight: "30%",
                     ...(isMobile && {
                       paddingTop: "1.7rem",
+                      paddingRight: "3%",
+                      paddingLeft: "3%",
                     }),
                   }}
                 >
