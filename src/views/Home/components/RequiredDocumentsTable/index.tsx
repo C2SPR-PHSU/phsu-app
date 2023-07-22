@@ -18,6 +18,9 @@ import ChatIcon from "@mui/icons-material/Chat";
 import MessageModal from "../MessageModal";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
+
+import RequiredDocumentsTableMobile from "../RequieredDocumentsTableMobile";
+
 interface RequiredDocumentsTableProps {
   documentList: IUserDocumentsData[];
 }
@@ -29,6 +32,8 @@ const RequiredDocumentsTable = ({
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
   const [openModal, setOpenModal] = useState(false);
   const [modalMessage, setModalMessage] = useState("");
+
+  // const [componentHeights, setComponentHeights] = useState<number[]>([]);
 
   function formatDate(inputDate: string) {
     const date = new Date(inputDate);
@@ -44,201 +49,10 @@ const RequiredDocumentsTable = ({
     return formattedDate;
   }
 
-  // <-----------------------------View Mobile------------------------------------>
-
   if (isMobile) {
     return (
       <>
-        <Box sx={{ display: "flex", flexDirection: "row" }}>
-          <TableContainer
-            component={Paper}
-            sx={{
-              height: "auto",
-              display: "flex",
-            }}
-          >
-            <Table aria-label="simple table">
-              <TableHead sx={{ display: "flex" }}>
-                <TableRow>
-                  {/* <---------------------------------- Item 1 minWidth 90vw -------------------------------------- */}
-                  {tableHeaders && tableHeaders.length > 0 && (
-                    <TableCell
-                      align="left"
-                      key={tableHeaders[0].id}
-                      sx={{ minWidth: "90vw" }}
-                    >
-                      {tableHeaders[0].title}
-                    </TableCell>
-                  )}
-
-                  {/* <-------------------- And by default, the rest only have left padding ------------------------> */}
-                  {tableHeaders &&
-                    tableHeaders.slice(1).map((header) => {
-                      if (header.title !== "Action") {
-                        return (
-                          <TableCell
-                            align="center"
-                            key={header.id}
-                            sx={{ paddingLeft: "2.5rem" }}
-                          >
-                            {header.title}
-                          </TableCell>
-                        );
-                      }
-                      return null;
-                    })}
-                </TableRow>
-              </TableHead>
-              <TableBody
-                sx={{ gap: "0.5rem", display: "flex", flexDirection: "column" }}
-              >
-                {documentList.length ? (
-                  documentList?.map((row, index) => {
-                    return (
-                      <TableRow
-                        key={index}
-                        sx={{
-                          "&:last-child td, &:last-child th": { border: 0 },
-                        }}
-                      >
-                        <TableCell
-                          component="th"
-                          scope="row"
-                          sx={{
-                            backgroundColor: "#f4f4f4",
-                            borderTopLeftRadius: "10px",
-                            borderBottomLeftRadius: "10px",
-                            minWidth: "90vw",
-                          }}
-                        >
-                          {row.description}
-                        </TableCell>
-
-                        <TableCell
-                          align="center"
-                          sx={{
-                            backgroundColor: "#f4f4f4",
-                          }}
-                        >
-                          {formatDate(row.created)}
-                        </TableCell>
-                        <TableCell
-                          align="center"
-                          sx={{
-                            backgroundColor: "#f4f4f4",
-                          }}
-                        >
-                          <StatusButton
-                            statusName={row.status_desc as string}
-                          />
-                        </TableCell>
-                      </TableRow>
-                    );
-                  })
-                ) : (
-                  <TableRow>
-                    <TableCell align="center" scope="row">
-                      <Typography textAlign="center">
-                        No content here
-                      </Typography>
-                    </TableCell>
-                  </TableRow>
-                )}
-              </TableBody>
-            </Table>
-          </TableContainer>
-
-          <TableContainer
-            component={Paper}
-            sx={{
-              height: "auto",
-              display: "flex",
-              maxWidth: "6rem",
-              borderLeftColor: "#383838",
-            }}
-          >
-            <Table aria-label="simple table">
-              <TableHead sx={{ display: "flex" }}>
-                <TableRow>
-                  {tableHeaders?.map((header) => {
-                    if (header.title === "Action") {
-                      return (
-                        <TableCell
-                          key={header.id}
-                          sx={{ paddingLeft: "1.5rem" }}
-                        >
-                          {header.title}
-                        </TableCell>
-                      );
-                    }
-                    return null;
-                  })}
-                </TableRow>
-              </TableHead>
-              <TableBody
-                sx={{ gap: "0.5rem", display: "flex", flexDirection: "column" }}
-              >
-                {documentList.length ? (
-                  documentList?.map((row, index) => {
-                    return (
-                      <TableRow
-                        key={index}
-                        sx={{
-                          "&:last-child td, &:last-child th": { border: 0 },
-                        }}
-                      >
-                        {/* actions */}
-                        <TableCell
-                          align="center"
-                          sx={{
-                            backgroundColor: "#f4f4f4",
-                            borderTopRightRadius: "10px",
-                            borderBottomRightRadius: "10px",
-                            minWidth: "6rem",
-                            maxHeight: "5vh",
-                          }}
-                        >
-                          {row.url ? (
-                            <a
-                              href={row.url}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                            >
-                              <VisibilityIcon
-                                sx={{
-                                  color: "#009999",
-                                  cursor: "pointer",
-                                  width: "1.7rem",
-                                  height: "1.75rem",
-                                }}
-                              />
-                            </a>
-                          ) : (
-                            <VisibilityIcon
-                              sx={{
-                                color: "#009999",
-                                cursor: "default",
-                                opacity: 0.5,
-                              }}
-                            />
-                          )}
-                        </TableCell>
-                      </TableRow>
-                    );
-                  })
-                ) : (
-                  <TableRow>
-                    <TableCell align="center" scope="row">
-                      <Typography textAlign="center">
-                        No content here
-                      </Typography>
-                    </TableCell>
-                  </TableRow>
-                )}
-              </TableBody>
-            </Table>
-          </TableContainer>
-        </Box>
+        <RequiredDocumentsTableMobile documentList={documentList} />
       </>
     );
   }

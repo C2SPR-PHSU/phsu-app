@@ -98,7 +98,7 @@ export default function BasicTable({
                   <Typography
                     className={styles["typography"]}
                     sx={{
-                      fontSize: "1rem",
+                      fontSize: "0.9rem",
                       paddingLeft: "1rem",
                     }}
                   >
@@ -107,14 +107,13 @@ export default function BasicTable({
                 </TableCell>
                 <TableCell
                   sx={{
-                    fontSize: "1rem",
                     paddingLeft: "3%",
                   }}
                 >
                   <Typography
                     className={styles["typography"]}
                     sx={{
-                      fontSize: "1rem",
+                      fontSize: "0.9rem",
                     }}
                   >
                     Time
@@ -128,7 +127,7 @@ export default function BasicTable({
                   <Typography
                     className={styles["typography"]}
                     sx={{
-                      fontSize: "1rem",
+                      fontSize: "0.9rem",
                     }}
                   >
                     Status
@@ -150,6 +149,7 @@ export default function BasicTable({
                         className={styles["typography"]}
                         sx={{
                           display: "flex",
+                          fontSize: "0.9rem",
                         }}
                       >
                         {row.service}
@@ -158,7 +158,7 @@ export default function BasicTable({
                     <TableCell align="center">
                       <Typography
                         className={styles["typography"]}
-                        sx={{ paddingTop: "1rem" }}
+                        sx={{ fontSize: "0.9rem" }}
                       >
                         {formatDate(row.created)}
                       </Typography>
@@ -166,7 +166,7 @@ export default function BasicTable({
                     <TableCell
                       align="center"
                       sx={{
-                        paddingTop: "1.5rem",
+                        paddingTop: "1rem",
                       }}
                     >
                       <StatusButton statusName={row.status_desc as string} />
@@ -222,7 +222,7 @@ export default function BasicTable({
                   >
                     <TableCell
                       sx={{
-                        paddingTop: "1.7rem",
+                        paddingTop: "1.299rem",
                         paddingRight: "3%",
                         paddingLeft: "3%",
                         display: "flex",
