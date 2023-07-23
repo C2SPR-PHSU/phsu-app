@@ -13,6 +13,9 @@ import {
 import { tableHeaders } from "../RequiredDocumentsTable/constants";
 import StatusButton from "@/components/StatusButton";
 import { IUserDocumentsData } from "../../types";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import MessageModal from "../MessageModal";
+import ChatIcon from "@mui/icons-material/Chat";
 
 interface RequiredDocumentsTableProps {
   documentList: IUserDocumentsData[];
@@ -21,158 +24,187 @@ interface RequiredDocumentsTableProps {
 const RequiredDocumentsTableMobile: React.FC<RequiredDocumentsTableProps> = ({
   documentList,
 }) => {
-  // References
-  const table1HeightRef = useRef<HTMLDivElement | null>(null);
-  const table2HeightRef = useRef<HTMLDivElement | null>(null);
+  // reference
+  const myheight = useRef<HTMLDivElement | null>(null);
+  const myheightCell = useRef<HTMLDivElement | null>(null);
 
-  // State to keep track of row heights
-  const [table1RowHeights, setTable1RowHeights] = useState<number[]>([]);
-  const [table2RowHeights, setTable2RowHeights] = useState<number[]>([]);
+  const [minHeightValue, setMinHeightValue] = useState(100);
+  const [minHeightValueCell, setMinHeightValueCell] = useState(100);
 
-  // Function to calculate maximum height among all rows
-  const calculateMaxHeight = (heights: number[]) => {
-    return Math.max(...heights);
-  };
+  const [openModal, setOpenModal] = useState(false);
+  const [modalMessage, setModalMessage] = useState("");
 
-  // Effect to calculate maximum heights and set them to all rows in both tables
+  function formatDate(inputDate: string) {
+    const date = new Date(inputDate);
+    const day = date.getDate().toString().padStart(2, "0");
+    const month = (date.getMonth() + 1).toString().padStart(2, "0");
+    const year = date.getFullYear().toString();
+    const formattedDate = `${day}/${month}/${year}`;
+    return formattedDate;
+  }
+
   useEffect(() => {
-    const table1MaxHeight = calculateMaxHeight(table1RowHeights);
-    const table2MaxHeight = calculateMaxHeight(table2RowHeights);
-
-    setTable1RowHeights(
-      table1RowHeights.map(() => table1MaxHeight) // Set all heights to the maximum
-    );
-
-    setTable2RowHeights(
-      table2RowHeights.map(() => table2MaxHeight) // Set all heights to the maximum
-    );
-  }, [table1RowHeights, table2RowHeights]);
-
-  // Function to handle row height calculation
-  const handleRowHeight = (index: number) => {
-    if (table1HeightRef.current && table2HeightRef.current) {
-      // Get individual row heights for both tables
-      const table1RowHeight =
-        table1HeightRef.current.children[index]?.clientHeight || 0;
-      const table2RowHeight =
-        table2HeightRef.current.children[index]?.clientHeight || 0;
-
-      // Update the state with the new heights
-      setTable1RowHeights((prevHeights) => {
-        const newHeights = [...prevHeights];
-        newHeights[index] = table1RowHeight;
-        return newHeights;
-      });
-
-      setTable2RowHeights((prevHeights) => {
-        const newHeights = [...prevHeights];
-        newHeights[index] = table2RowHeight;
-        return newHeights;
-      });
+    // Verificar si la referencia está disponible y calcular la altura real
+    if (myheight.current) {
+      setMinHeightValue(myheight.current.offsetHeight);
     }
-  };
+    if (myheightCell.current) {
+      setMinHeightValueCell(myheightCell.current.offsetHeight);
+    }
+  }, [myheight, myheightCell]);
 
-  // Other existing code...
+  // <----------------------------- View Mobile ------------------------------------>
+
+  const displayModal = (message: string) => {
+    setOpenModal(true);
+    setModalMessage(message);
+  };
 
   return (
-    <>
-      {/* ... Existing code ... */}
-
-      <Box
-        sx={{ display: "flex", flexDirection: "row", backgroundColor: "red" }}
-      >
-        {/* Mobile Table 1 */}
-        <TableContainer
-          component={Paper}
-          sx={{ height: "auto", display: "flex" }}
-          ref={table1HeightRef} // Set the ref to the TableContainer
-        >
-          <Table aria-label="simple table">
-            <TableHead sx={{ display: "flex" }}>
-              {/* ... Existing code ... */}
-            </TableHead>
-            <TableBody
-              sx={{ gap: "0.5rem", display: "flex", flexDirection: "column" }}
-            >
-              {documentList.length ? (
-                documentList?.map((row, index) => {
+    <TableContainer sx={{ display: "flex", flexDirection: "row" }}>
+      <TableContainer>
+        <Table aria-label="simple table">
+          <TableHead>
+            <TableRow>
+              {tableHeaders?.map((header) => {
+                if (header.title !== "Action") {
                   return (
-                    <TableRow
-                      key={index}
-                      sx={{
-                        "&:last-child td, &:last-child th": { border: 0 },
-                      }}
-                      ref={(el) => handleRowHeight(index)} // Set the ref to each TableRow
-                    >
-                      {/* ... Existing code ... */}
-                    </TableRow>
+                    <TableCell align="center" key={header.id}>
+                      <div ref={myheight}>{header.title}</div>
+                    </TableCell>
                   );
-                })
-              ) : (
-                <TableRow>
-                  <TableCell align="center" scope="row">
-                    <Typography textAlign="center">No content here</Typography>
-                  </TableCell>
-                </TableRow>
-              )}
-            </TableBody>
-          </Table>
-        </TableContainer>
-
-        {/* Table 2 */}
-        <TableContainer
-          component={Paper}
-          sx={{
-            height: "auto",
-            display: "flex",
-            maxWidth: "6rem",
-            borderLeftColor: "#383838",
-          }}
-          ref={table2HeightRef} // Set the ref to the TableContainer
-        >
-          <Table aria-label="simple table">
-            <TableHead sx={{ display: "flex" }}>
-              {/* ... Existing code ... */}
-            </TableHead>
-            <TableBody
-              sx={{ gap: "0.5rem", display: "flex", flexDirection: "column" }}
-            >
-              {documentList.length ? (
-                documentList?.map((row, index) => {
-                  return (
+                }
+              })}
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {documentList.length ? (
+              documentList?.map((row, index) => {
+                return (
+                  <>
                     <TableRow
                       key={index}
-                      sx={{
-                        "&:last-child td, &:last-child th": { border: 0 },
-                      }}
+                      sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                     >
-                      <TableCell
-                        sx={{
-                          backgroundColor: "#f4f4f4",
-                          borderTopRightRadius: "10px",
-                          borderBottomRightRadius: "10px",
-                          minWidth: "6rem",
-                          padding: 0,
-                          height: table2RowHeights[index] || "auto", // Set the height dynamically from the state
-                        }}
-                      >
-                        {/* ... Existing code ... */}
+                      <TableCell component="th" scope="row" ref={myheightCell}>
+                        <Typography>{row.description}</Typography>
+                      </TableCell>
+
+                      <TableCell align="center">
+                        {formatDate(row.created)}
+                      </TableCell>
+                      <TableCell align="center">
+                        <StatusButton statusName={row.status_desc as string} />
                       </TableCell>
                     </TableRow>
+                  </>
+                );
+              })
+            ) : (
+              <TableRow>
+                <TableCell align="center" scope="row">
+                  <Typography textAlign="center">No content here</Typography>
+                </TableCell>
+              </TableRow>
+            )}
+          </TableBody>
+        </Table>
+        <MessageModal
+          open={openModal}
+          message={modalMessage}
+          handleClose={() => setOpenModal(false)}
+        />
+      </TableContainer>
+      <TableContainer sx={{ width: "15vh" }}>
+        <Table aria-label="simple table">
+          <TableHead>
+            <TableRow>
+              {tableHeaders?.map((header) => {
+                if (header.title === "Action") {
+                  return (
+                    <TableCell align="center" key={header.id}>
+                      <div
+                        style={{
+                          minHeight: minHeightValue,
+                        }}
+                      >
+                        {header.title}
+                      </div>
+                    </TableCell>
                   );
-                })
-              ) : (
-                <TableRow>
-                  <TableCell align="center" scope="row">
-                    <Typography textAlign="center">No content here</Typography>
-                  </TableCell>
-                </TableRow>
-              )}
-            </TableBody>
-          </Table>
-        </TableContainer>
-      </Box>
-    </>
+                }
+              })}
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {documentList.length ? (
+              documentList?.map((row, index) => {
+                return (
+                  <>
+                    <TableRow
+                      key={index}
+                      sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                    >
+                      {/* actions */}
+                      <TableCell align="center">
+                        <div
+                          style={{
+                            minHeight: minHeightValueCell,
+                          }}
+                        >
+                          {row.url ? (
+                            <a
+                              href={row.url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
+                              <VisibilityIcon
+                                sx={{ color: "#009999", cursor: "pointer" }}
+                              />
+                            </a>
+                          ) : (
+                            <VisibilityIcon
+                              sx={{
+                                color: "#009999",
+                                cursor: "default",
+                                opacity: 0.5,
+                              }}
+                            />
+                          )}
+                          {row.ob_message && (
+                            <ChatIcon
+                              sx={{
+                                fontSize: "1.4rem",
+                                color: "#f7941d",
+                                cursor: "pointer",
+                                marginLeft: "0.5rem !important",
+                              }}
+                              onClick={() => displayModal(row.ob_message)}
+                            />
+                          )}
+                          {myheightCell.current?.offsetHeight}
+                        </div>
+                      </TableCell>
+                    </TableRow>
+                  </>
+                );
+              })
+            ) : (
+              <TableRow>
+                <TableCell align="center" scope="row">
+                  <Typography textAlign="center">No content here</Typography>
+                </TableCell>
+              </TableRow>
+            )}
+          </TableBody>
+        </Table>
+        <MessageModal
+          open={openModal}
+          message={modalMessage}
+          handleClose={() => setOpenModal(false)}
+        />
+      </TableContainer>
+    </TableContainer>
   );
 };
 
