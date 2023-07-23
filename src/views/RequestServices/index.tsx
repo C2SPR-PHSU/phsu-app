@@ -28,7 +28,7 @@ const RequestServices = () => {
   const [selectedService, setSelectedService] = useState('');
   const [entranceTermId, setEntranceTermId] = useState<number>(0);
   const [academicYear, setAcademicYear] = useState<number>(0);
-  const [userDocuments, setUserDocuments] = useState<IUserDocumentsData[]>([]);
+  const [userDocuments, setUserDocuments] = useState<ICampusDocumentsData[]>([]);
   const [submitStatusCode, setSubmitStatusCode] = useState<number>();
   const [campusData, setCampusData] = useState<ICampusData | null>(null);
 
@@ -106,7 +106,6 @@ const RequestServices = () => {
   const getDocumentsByCampus = async (id: number) => {
     try {
       const response = await getCampusDocuments(id);
-      setDocumentList(response);
     } catch (error) {
       console.log(error);
     }
@@ -116,6 +115,7 @@ const RequestServices = () => {
     try {
       const response = await getAllUserDocuments(selectedCampus, token);
       setUserDocuments(response);
+      setDocumentList(response);
     } catch (error) {
       console.log(error);
     }
@@ -293,6 +293,7 @@ const RequestServices = () => {
           </Grid>
 
           <ActionButtons
+            campusData={campusData}
             campusStatus={campusStatus}
             selectedCampus={selectedCampus}
             enabledSubmit={displayList}

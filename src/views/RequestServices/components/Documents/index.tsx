@@ -40,9 +40,8 @@ const Documents = ({
   useEffect(() => {
     const doc = userDocuments?.find(doc => doc.id === documentId);
     setCurrentDocument(doc || null);
-
     // console.log(currentDocument)
-  }, [documentId, userDocuments]);
+  }, [documentId, userDocuments, checked]);
 
 
   const handleUpload = async (e: ChangeEvent<HTMLInputElement>) => {

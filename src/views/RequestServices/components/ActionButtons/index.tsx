@@ -18,6 +18,7 @@ interface IActionButtonsProps {
   selectedETerm: number;
   selectedAYear: number;
   enabledSubmit: boolean;
+  campusData: any;
   getUserCampusInfo: (id: string) => void;
   formsValid: boolean;
 }
@@ -29,7 +30,8 @@ const ActionButtons = ({
   getUserCampusInfo,
   formsValid,
   academicForm,
-  personalForm
+  personalForm,
+  campusData
 }: any) => {
   useEffect(() => {
     console.log(campusStatus, " ", enabledSubmit);
@@ -70,6 +72,17 @@ const ActionButtons = ({
   }, [campusStatus, selectedCampus, formsValid]);
 
 
+  const checkFormsValid = () => {
+    const formValues = [...Object.values(personalForm), ...Object.values(academicForm)];
+    // Verificar si campusData tiene las claves 'academic_year' y 'term_id' y si sus valores no son null o ''
+    if ('academic_year' in campusData && 'term_id' in campusData) {
+      formValues.push(campusData.academic_year, campusData.term_id);
+    }
+    return formValues.every(value => value !== null && value !== undefined && value !== '');
+  }
+
+
+
   return (
     <Grid
       item
@@ -90,7 +103,7 @@ const ActionButtons = ({
                 color: "white",
               },
             }}
-            disabled={campusStatus > 0 || !selectedCampus || !formsValid}
+            disabled={campusStatus == 0 || !selectedCampus || !formsValid}
           >
             SUBMIT
           </Button>
