@@ -90,14 +90,22 @@ const RequiredDocumentsTableMobile: React.FC<RequiredDocumentsTableProps> = ({
                           "&::-webkit-scrollbar-thumb": {
                             backgroundColor: "transparent",
                           },
+                          backgroundColor: "#e9e8e8",
+                          paddingLeft: "1rem",
+                          borderBottomLeftRadius: "10px",
+                          borderTopLeftRadius: "10px",
+                          paddingRight: "0rem",
+                          width: "210%",
                         }}
                       >
-                        <Typography>{row.description}</Typography>
+                        <Typography sx={{ width: "13rem" }}>
+                          {row.description}
+                        </Typography>
                       </Box>
                     </TableCell>
 
-                    <TableCell align="center">
-                      {formatDate(row.created)}
+                    <TableCell>
+                      <Typography>{formatDate(row.created)}</Typography>
                     </TableCell>
                     <TableCell
                       align="center"
@@ -143,7 +151,11 @@ const RequiredDocumentsTableMobile: React.FC<RequiredDocumentsTableProps> = ({
                     sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                   >
                     {/* actions */}
-                    <TableCell align="center">
+                    <TableCell
+                      sx={{
+                        paddingLeft: 0,
+                      }}
+                    >
                       <Box
                         sx={{
                           display: "flex",
@@ -153,6 +165,10 @@ const RequiredDocumentsTableMobile: React.FC<RequiredDocumentsTableProps> = ({
                           overflowY: "auto",
                           minHeight: "4.5rem",
                           maxHeight: "4.5rem",
+                          backgroundColor: "#e9e8e8",
+                          width: "100%",
+                          borderTopRightRadius: "10px",
+                          borderBottomRightRadius: "10px",
                         }}
                       >
                         {row.url ? (
