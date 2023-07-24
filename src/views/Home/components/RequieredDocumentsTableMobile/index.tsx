@@ -72,7 +72,14 @@ const RequiredDocumentsTableMobile: React.FC<RequiredDocumentsTableProps> = ({
                       borderBottomLeftRadius: "5px",
                     }}
                   >
-                    <TableCell component="th" scope="row">
+                    <TableCell
+                      component="th"
+                      scope="row"
+                      sx={{
+                        paddingTop: "0.5rem",
+                        paddingBottom: "0.5rem",
+                      }}
+                    >
                       <Box
                         key={row.id}
                         sx={{
@@ -154,6 +161,8 @@ const RequiredDocumentsTableMobile: React.FC<RequiredDocumentsTableProps> = ({
                     <TableCell
                       sx={{
                         paddingLeft: 0,
+                        paddingTop: "0.5rem",
+                        paddingBottom: "0.5rem",
                       }}
                     >
                       <Box
