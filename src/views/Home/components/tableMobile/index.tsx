@@ -66,7 +66,7 @@ const BasicTableMobile: React.FC<IBasicTableProps> = ({
       component={Paper}
       sx={{ padding: "1rem", display: "flex", flexDirection: "row" }}
     >
-      <TableContainer sx={{ width: "95vh" }}>
+      <TableContainer sx={{ width: "100vh" }}>
         <Table
           sx={{ width: "100%", justifyContent: "space-around" }}
           aria-label="simple table"
@@ -77,7 +77,7 @@ const BasicTableMobile: React.FC<IBasicTableProps> = ({
               <TableCell sx={{ display: "flex", justifyContent: "center" }}>
                 <span
                   className={styles["typography"]}
-                  style={{ fontSize: "1rem" }}
+                  style={{ fontSize: "1.1rem", paddingBottom: "0.05rem" }}
                 >
                   Service
                 </span>

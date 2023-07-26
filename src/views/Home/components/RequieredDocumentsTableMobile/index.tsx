@@ -102,7 +102,7 @@ const RequiredDocumentsTableMobile: React.FC<RequiredDocumentsTableProps> = ({
                           borderBottomLeftRadius: "10px",
                           borderTopLeftRadius: "10px",
                           paddingRight: "0rem",
-                          width: "210%",
+                          width: "193%",
                         }}
                       >
                         <Typography sx={{ width: "13rem" }}>
