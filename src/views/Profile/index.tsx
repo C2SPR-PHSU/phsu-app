@@ -20,7 +20,7 @@ import PersonalInformation2 from "./components/PersonalInformation2";
 
 const Profile = () => {
   const { isScreenLg, isVeryScreenSmall, isMedium } = useMediaQueries();
-  const [isEditMode, setIsEditMode] = useState(false);
+  const [isEditMode, setIsEditMode] = useState(true);
   const token = useAuthStore((state: any) => state.token);
   const { setAlert } = useAlert();
 
@@ -105,6 +105,11 @@ const Profile = () => {
     },
   });
 
+  const test = (param: string) => {
+    console.log(param)
+    setIsEditMode(!isEditMode)
+  }
+
   return (
     <>
       <form onSubmit={formik.handleSubmit}>
@@ -127,7 +132,7 @@ const Profile = () => {
 
                 <ProfilePhoto />
 
-                <ProfileButtons isEditMode={isEditMode} />
+                <ProfileButtons isEditMode={isEditMode} submitClick={(param) => test(param)} />
               </Grid>
             </Box>
 
@@ -146,10 +151,7 @@ const Profile = () => {
               </Typography>
               <Grid container sx={{ paddingBottom: "10%" }}>
                 <PersonalInformation isEditMode={isEditMode} formik={formik} />
-
-                {/*Personal Information 2 */}
                 <PersonalInformation2 isEditMode={isEditMode} formik={formik} />
-
                 <Divider
                   orientation="horizontal"
                   sx={{
@@ -158,11 +160,7 @@ const Profile = () => {
                     paddingTop: "1rem",
                   }}
                 />
-
-                {/*Academic Information */}
                 <AcademicInformation isEditMode={isEditMode} formik={formik} />
-
-                {/*Adress */}
                 <AddressInformation isEditMode={isEditMode} formik={formik} />
               </Grid>
             </Box>
