@@ -6,14 +6,17 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import { Button } from "@mui/material";
+import { IconButton, Typography, Box } from "@mui/material";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import DownloadIcon from "@mui/icons-material/Download";
 import useAuthStore from "@/hooks/useAuthStore";
-import axios from "axios";
 import StatusButton from "@/components/StatusButton";
 import { getUserServices } from "../../functions";
 import { IUserServicesData } from "../../types";
+import useMediaQuery from "@mui/material/useMediaQuery";
+import { useTheme } from "@mui/material/styles";
+import styles from "./styles.module.scss";
+import BasicTableMobile from "../tableMobile";
 
 interface IBasicTableProps {
   handleModal: (prop: string) => void;
@@ -27,6 +30,9 @@ export default function BasicTable({
   const token = useAuthStore((state: any) => state.token);
 
   const [userServices, setUserServices] = useState<IUserServicesData[]>([]);
+
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
   const statusDictionary: { [key: number]: string } = {
     0: "To Upload",
@@ -48,54 +54,101 @@ export default function BasicTable({
     }
   };
 
+  function formatDate(inputDate: string) {
+    const date = new Date(inputDate);
+
+    //
+    const day = date.getDate().toString().padStart(2, "0");
+    const month = (date.getMonth() + 1).toString().padStart(2, "0"); // Sumamos 1 al mes, ya que en JavaScript los meses empiezan desde 0 (enero) hasta 11 (diciembre).
+    const year = date.getFullYear().toString();
+
+    //
+    const formattedDate = `${day}/${month}/${year}`;
+
+    return formattedDate;
+  }
+
   useEffect(() => {
     getUserServicesRows();
-  }, []);
+  });
+
+  if (isMobile) {
+    return (
+      <BasicTableMobile
+        handleModal={(prop) => handleModal(prop)}
+        setDocumentId={(prop) => setDocumentId(prop)}
+      />
+    );
+  }
 
   return (
-    <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 650 }} aria-label="simple table">
+    <TableContainer
+      component={Paper}
+      sx={{
+        padding: "1rem",
+      }}
+    >
+      <Table
+        sx={{
+          width: "100%",
+          justifyContent: "space-around",
+        }}
+        aria-label="simple table"
+      >
         <TableHead>
           <TableRow>
             <TableCell
-              align="center"
               sx={{
-                fontFamily: "GothamMedium",
-                fontWeight: "bolder !important",
-                fontSize: "1.5rem",
+                display: "flex",
+                justifyContent: "center",
               }}
             >
-              Service
+              <Typography
+                className={styles["typography"]}
+                sx={{
+                  fontSize: "1.2rem",
+                }}
+              >
+                Service
+              </Typography>
             </TableCell>
             <TableCell
-              align="center"
               sx={{
-                fontFamily: "GothamMedium !important",
-                fontWeight: "bolder !important",
-                fontSize: "1.5rem",
+                paddingLeft: "8%",
               }}
             >
-              Expiration Date
+              <Typography
+                className={styles["typography"]}
+                sx={{
+                  fontSize: "1.2rem",
+                }}
+              >
+                Time
+              </Typography>
             </TableCell>
             <TableCell
-              align="center"
               sx={{
-                fontFamily: "GothamMedium !important",
-                fontWeight: "bolder !important",
-                fontSize: "1.5rem",
+                paddingLeft: "4%",
               }}
             >
-              Status
+              <Typography
+                className={styles["typography"]}
+                sx={{
+                  fontSize: "1.2rem",
+                }}
+              >
+                Status
+              </Typography>
             </TableCell>
-            <TableCell
-              align="center"
-              sx={{
-                fontFamily: "GothamMedium !important",
-                fontWeight: "bolder !important",
-                fontSize: "1.5rem",
-              }}
-            >
-              Action
+            <TableCell align="center" sx={{}}>
+              <Typography
+                className={styles["typography"]}
+                sx={{
+                  fontSize: "1.2rem",
+                }}
+              >
+                Action
+              </Typography>
             </TableCell>
           </TableRow>
         </TableHead>
@@ -104,56 +157,72 @@ export default function BasicTable({
             userServices?.map((row, index) => (
               <TableRow
                 key={index}
-                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                sx={{
+                  "&:last-child td, &:last-child th": { border: 0 },
+                }}
               >
-                <TableCell
-                  component="th"
-                  scope="row"
-                  sx={{
-                    fontFamily: "GothamMedium !important",
-                    fontWeight: "bolder !important",
-                    fontSize: "1.2rem",
-                  }}
-                >
-                  {row.service} - {row.campus_name}
+                <TableCell component="th" scope="row">
+                  <Typography
+                    className={styles["typography"]}
+                    sx={{
+                      display: "flex",
+                    }}
+                  >
+                    {row.service}
+                  </Typography>
+
+                  <Typography
+                    className={styles["typography"]}
+                    sx={{
+                      display: "none",
+                    }}
+                  >
+                    {row.service} - {row.campus_name}
+                  </Typography>
+                </TableCell>
+                <TableCell align="center">
+                  <Typography className={styles["typography"]}>
+                    {formatDate(row.created)}
+                  </Typography>
                 </TableCell>
                 <TableCell
                   align="center"
                   sx={{
-                    fontFamily: "GothamMedium !important",
-                    fontWeight: "bolder !important",
-                    fontSize: "1.2rem",
-                  }}
-                >
-                  {row.created}
-                </TableCell>
-                <TableCell
-                  align="center"
-                  sx={{
-                    fontFamily: "GothamMedium !important",
-                    fontWeight: "bolder !important",
-                    fontSize: "1.2rem",
-                    padding: "1.2rem !important",
+                    paddingTop: "1.5rem",
                   }}
                 >
                   <StatusButton statusName={row.status_desc as string} />
                 </TableCell>
                 <TableCell
-                  align="center"
                   sx={{
-                    fontFamily: "GothamMedium !important",
-                    fontWeight: "bolder !important",
-                    fontSize: "1.2rem",
+                    paddingTop: "1.5rem",
+                    justifyContent: "space-around",
+                    display: "flex",
+                    paddingLeft: "30%",
+                    paddingRight: "30%",
                   }}
                 >
-                  <VisibilityIcon
-                    sx={{ color: "#009999", cursor: "pointer" }}
+                  <IconButton
                     onClick={() => {
                       handleModal(`${row.service} - ${row.campus_name}`);
                       setDocumentId(row.campus_id);
                     }}
-                  />
-                  <DownloadIcon sx={{ color: "rgba(0, 168, 168, 0.42)" }} />
+                  >
+                    <VisibilityIcon
+                      sx={{
+                        color: "#009999",
+                        cursor: "pointer",
+                      }}
+                    />
+                  </IconButton>
+
+                  <IconButton>
+                    <DownloadIcon
+                      sx={{
+                        color: "rgba(0, 168, 168, 0.42)",
+                      }}
+                    />
+                  </IconButton>
                 </TableCell>
               </TableRow>
             ))}
