@@ -7,13 +7,20 @@ import TransitEnterexitIcon from "@mui/icons-material/TransitEnterexit";
 import Options from "./components/Options";
 import { PATH } from "@/routes/constants";
 import useAuthStore from "@/hooks/useAuthStore";
+import { logOut } from "@/utils/";
 
 const Sidebar = () => {
   const logout = useAuthStore((state: any) => state.setLogout);
+  const token = useAuthStore((state: any) => state.token);
 
-  const handleLogout = () => {
-    // Call the logout function to log out the user
-    logout();
+  const handleLogout = async () => {
+    try {
+      await logOut(token);
+      logout();
+    } catch (error) {
+      console.log("error");
+      logout();
+    }
   };
 
   return (
@@ -35,6 +42,7 @@ const Sidebar = () => {
       <Options
         children={<PersonIcon sx={{ color: "white", fontSize: "1.5rem" }} />}
         text="Profile"
+        redirect={PATH.PROFILE}
       />
 
       <Box onClick={handleLogout}>

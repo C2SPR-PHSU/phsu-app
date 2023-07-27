@@ -23,12 +23,15 @@ export default function Header() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const setLogin = useAuthStore((state: any) => state.setLogin);
-  const isAuthenticated = useAuthStore((state: any) => state.isAuthenticated);
   const { setAlert } = useAlert();
 
-  useEffect(() => {
-    if (isAuthenticated) setAlert();
-  }, [isAuthenticated]);
+  const authenticateUser = async () => {
+    try {
+      await setLogin(email, password);
+    } catch (error) {
+      if (error instanceof Error) setAlert(error.message, "error")
+    }
+  }
 
   return (
     <AppBar position="static">
@@ -119,7 +122,7 @@ export default function Header() {
           <Button
             variant="contained"
             className={styles["header-button"]}
-            onClick={() => setLogin(email, password)}
+            onClick={() => authenticateUser()}
           >
             Log In
           </Button>
