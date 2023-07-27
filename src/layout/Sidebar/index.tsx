@@ -7,18 +7,18 @@ import TransitEnterexitIcon from "@mui/icons-material/TransitEnterexit";
 import Options from "./components/Options";
 import { PATH } from "@/routes/constants";
 import useAuthStore from "@/hooks/useAuthStore";
-import { logOut } from '@/utils/'
+import { logOut } from "@/utils/";
 
 const Sidebar = () => {
   const logout = useAuthStore((state: any) => state.setLogout);
   const token = useAuthStore((state: any) => state.token);
 
-  const handleLogout = async() => {
+  const handleLogout = async () => {
     try {
       await logOut(token);
       logout();
     } catch (error) {
-      console.log('error')
+      console.log("error");
       logout();
     }
   };

@@ -8,7 +8,6 @@
   background-position-y: bottom;
   height: 40vh;
   width: 100%;
-
   .text-container {
     display: flex;
     justify-content: center;
@@ -22,21 +21,14 @@
     }
   }
 }
-
 .information-container {
   .subtitle {
     font-weight: bolder !important;
     font-family: $gothamBlack;
-    color: $warning;
-    margin-top: 2rem !important;
-    font-size: 2rem;
+    color: $warning; 
   }
-
   .description {
     color: $secondary;
     font-family: $gotham;
-    font-weight: bolder;
-    margin-top: 2rem !important;
-    font-size: 1rem;
   }
 }
