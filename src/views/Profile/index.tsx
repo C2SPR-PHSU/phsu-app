@@ -1,5 +1,5 @@
 import { Grid, Box, Typography, Divider } from "@mui/material";
-import profileScss from "./profile.module.scss";
+import profileScss from "./Profile.module.scss";
 import sxStyles from "./ItemSx";
 import { useFormik } from "formik";
 import { useState, useEffect } from "react";

@@ -1,6 +1,6 @@
+/* eslint-disable no-useless-catch */
 import api from "@/utils/services/api";
 import { register } from "@/utils";
-import { IUserLogin } from "@/types/responses";
 
 interface IUserRegisterParams {
   email: string;
@@ -19,6 +19,11 @@ interface IUserRegisterParams {
   password: string;
 }
 
+export type Ok = {
+  code: number;
+  message: string;
+};
+
 export const requestRegister = async ({
   email,
   cell_phone,
@@ -34,11 +39,11 @@ export const requestRegister = async ({
   address_city,
   address_zipcode,
   password,
-}: IUserRegisterParams) => {
+}: IUserRegisterParams): Promise<Ok> => {
   try {
     api.resource = register;
 
-    const res = await api.post({
+    const res = (await api.post({
       body: {
         email,
         cell_phone,
@@ -55,8 +60,9 @@ export const requestRegister = async ({
         address_zipcode,
         password,
       },
-    });
-    return res;
+    })) as Ok;
+
+    return Promise.resolve(res);
   } catch (error) {
     throw error;
   }

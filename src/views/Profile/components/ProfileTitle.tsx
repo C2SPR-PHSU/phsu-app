@@ -1,7 +1,7 @@
 import { Typography } from "@mui/material";
 import { useMediaQueries } from "./BMediaQuerys";
 import sxStyles from "../ItemSx";
-import profileScss from "../../Profile/profile.module.scss";
+import profileScss from "../../Profile/Profile.module.scss";
 
 const ProfileTitle = () => {
   const { isScreenLg, isVeryScreenSmall, isMedium } = useMediaQueries();
