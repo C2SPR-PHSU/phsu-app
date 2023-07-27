@@ -7,25 +7,29 @@ export const servicesList = [
   {
     number: "1",
     listItem: "Admissions Documents",
-    description: "Upload the admissions requirements for processing your candidate file and evaluation for admission to the University. Track the progress and get notifications of status or required actions.",
+    description:
+      " Upload the admissions requirements for processing your candidate file and evaluation for admission to the University. Track the progress and get notifications of status or required actions.  ",
     url: "#",
   },
   {
     number: "2",
     listItem: "Credentialing Process",
-    description: "Submit the required documents for clinical activities credentialing. You can track the revision progress and get status notifications or required actions here.",
+    description:
+      " Submit the required documents for clinical activities credentialing. You can track the revision progress and get status notifications or required actions here.",
     url: "#",
   },
   {
     number: "3",
     listItem: "Financial Aid Documents Upload",
-    description: "Upload the Financial Aid requirements, track the progress, and get notifications of status or required actions.",
+    description:
+      " Upload the Financial Aid requirements, track the progress, and get notifications of status or required actions.",
     url: "#",
   },
   {
     number: "4",
     listItem: "Transcript Requests",
-    description: "A convenient, fast, and effective way of requesting a PHSU transcript of credits.",
+    description:
+      " A convenient, fast, and effective way of requesting a PHSU transcript of credits.",
     url: "#",
   },
   {
@@ -37,13 +41,15 @@ export const servicesList = [
   {
     number: "6",
     listItem: "Certificate of Graduation",
-    description: "A convenient, fast, and effective way of requesting a Graduation Certification.",
+    description:
+      "A convenient, fast, and effective way of requesting a Graduation Certification.",
     url: "#",
   },
   {
     number: "7",
     listItem: "Reasonable Accommodations Application",
-    description: "Apply for reasonable accommodations and upload the required documents for evaluation. Track the progress and get notifications of status or required actions.",
+    description:
+      "Apply for reasonable accommodations and upload the required documents for evaluation. Track the progress and get notifications of status or required actions.",
     url: "#",
   },
 ];
