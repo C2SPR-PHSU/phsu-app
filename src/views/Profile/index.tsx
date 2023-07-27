@@ -168,7 +168,6 @@ const Profile = () => {
             </Box>
           </Box>
         </Box>
-        s
       </form>
     </>
   );

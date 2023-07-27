@@ -19,7 +19,7 @@ const AddressInformation = ({ isEditMode, formik }) => {
       <List>
         <Typography
           variant="h6"
-          className={profileScss["title-academic-information"]}
+          className={profileScss["title-address-information"]}
         >
           Address
         </Typography>
