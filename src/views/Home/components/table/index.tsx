@@ -70,7 +70,7 @@ export default function BasicTable({
 
   useEffect(() => {
     getUserServicesRows();
-  });
+  }, []);
 
   if (isMobile) {
     return (
