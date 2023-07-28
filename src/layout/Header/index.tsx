@@ -15,6 +15,7 @@ import useAuthStore from "@/hooks/useAuthStore";
 import useAlert from "@/hooks/useAlert";
 import { PATH } from "@/routes/constants";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function Header() {
   const primaryColor = "#009999";
@@ -24,10 +25,12 @@ export default function Header() {
   const [password, setPassword] = useState("");
   const setLogin = useAuthStore((state: any) => state.setLogin);
   const { setAlert } = useAlert();
+  const navigate = useNavigate();
 
   const authenticateUser = async () => {
     try {
       await setLogin(email, password);
+      navigate("/");
     } catch (error) {
       if (error instanceof Error) setAlert(error.message, "error")
     }
@@ -126,8 +129,8 @@ export default function Header() {
           >
             Log In
           </Button>
-          <div className={styles["icon-container"]}>
-            <LockRounded className={styles["header-button-variant"]} />
+          <div className={styles["icon-container"]}  onClick={() => navigate("/recovery")}>
+            <LockRounded className={styles["header-button-variant"]}  />
           </div>
         </Box>
       </Toolbar>
