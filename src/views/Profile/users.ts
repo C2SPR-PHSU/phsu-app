@@ -41,7 +41,7 @@ type IProfileModifyResponse = {
   data: ResponseActions;
 };
 
-//
+// get dataUser
 export const UserDetails = async (token: string): Promise<UserProfile> => {
   try {
     api.resource = userDetails;
@@ -59,7 +59,7 @@ export const UserDetails = async (token: string): Promise<UserProfile> => {
 export const UserModify = async (
   token: string,
   usermodify: Partial<UserProfile>
-): Promise<ResponseActions> => {
+): Promise<IProfileModifyResponse> => {
   try {
     api.resource = userModify;
     api.token = token;
@@ -67,7 +67,7 @@ export const UserModify = async (
     const res = await api.post<IProfileModifyResponse>({
       body: usermodify,
     });
-    return res.data;
+    return res;
   } catch (error) {
     throw error;
   }

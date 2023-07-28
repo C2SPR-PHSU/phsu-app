@@ -61,6 +61,7 @@ const ActionButtons = ({
       const response = await UserModify(token, personalForm);
       response.action;
       setAlert("Info sent successfully!", "success");
+      setIsDataSaved(true);
     } catch (error) {
       setAlert("Something happened. Try again later", "error");
     }
