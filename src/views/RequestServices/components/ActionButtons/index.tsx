@@ -20,7 +20,6 @@ interface IActionButtonsProps {
   enabledSubmit: boolean;
   campusData: any;
   getUserCampusInfo: (id: string) => void;
-  formsValid: boolean;
 }
 
 const ActionButtons = ({
@@ -28,7 +27,6 @@ const ActionButtons = ({
   selectedCampus,
   enabledSubmit,
   getUserCampusInfo,
-  formsValid,
   academicForm,
   personalForm,
   campusData
@@ -61,7 +59,6 @@ const ActionButtons = ({
       const response = await UserModify(token, personalForm);
       response.action;
       setAlert("Info sent successfully!", "success");
-      setIsDataSaved(true);
     } catch (error) {
       setAlert("Something happened. Try again later", "error");
     }
@@ -69,18 +66,27 @@ const ActionButtons = ({
 
 
   useEffect(() => {
-    console.log(campusStatus, ' ', selectedCampus, ' ', formsValid)
-  }, [campusStatus, selectedCampus, formsValid]);
+    console.log(academicForm)
+    checkFormsValid();
+    console.log(campusStatus, ' ', selectedCampus, checkFormsValid())
+  }, [campusStatus, selectedCampus, academicForm, personalForm]);
 
 
   const checkFormsValid = () => {
-    const formValues = [...Object.values(personalForm), ...Object.values(academicForm)];
-    // Verificar si campusData tiene las claves 'academic_year' y 'term_id' y si sus valores no son null o ''
-    if ('academic_year' in campusData && 'term_id' in campusData) {
-      formValues.push(campusData.academic_year, campusData.term_id);
-    }
-    return formValues.every(value => value !== null && value !== undefined && value !== '');
-  }
+    const formValues = [{ ...personalForm }, { ...academicForm }];
+
+    formValues.forEach(form => {
+      Object.entries(form).forEach(([key, value]) => {
+        if (value === null || value === undefined || value === '') {
+          console.log(`Invalid field: ${key}, Value: ${value}`);
+        }
+      });
+    });
+
+    return formValues.every(form =>
+      Object.values(form).every(value => value !== null && value !== undefined && value !== '' && value.toString() !== '0')
+    );
+  };
 
 
 
@@ -104,7 +110,7 @@ const ActionButtons = ({
                 color: "white",
               },
             }}
-            disabled={campusStatus == 0 || !selectedCampus || !formsValid}
+            disabled={campusStatus == 0 || !selectedCampus || !checkFormsValid()}
           >
             SUBMIT
           </Button>
@@ -112,7 +118,7 @@ const ActionButtons = ({
         <Button
           variant="contained"
           className={styles["button-save"]}
-          disabled={!formsValid}
+          disabled={!checkFormsValid()}
           onClick={() => sendAcademicInformation()}
         >
           SAVE

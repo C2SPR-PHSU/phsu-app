@@ -37,20 +37,12 @@ const RequestServices = () => {
   const [submitStatusCode, setSubmitStatusCode] = useState<number>();
   const [campusData, setCampusData] = useState<ICampusData | null>(null);
 
-  const [formsValid, setFormsValid] = useState(false);
-
 
   const [academicForm, setAcademicForm] = useState({
     campus_id: '',
     term_id: '',
     academic_year: ''
   });
-
-  const checkFormsValid = () => {
-    const formValues = [...Object.values(personalForm), ...Object.values(academicForm)];
-    return formValues.every(value => value !== null && value !== undefined && value !== '');
-  }
-
 
   const [personalForm, setPersonalForm] = useState({
     first_name: '',
@@ -81,7 +73,6 @@ const RequestServices = () => {
   useEffect(() => {
     console.log(campusStatus);
   }, [campusStatus]);
-
 
   const getAllCampuses = async () => {
     try {
@@ -297,7 +288,6 @@ const RequestServices = () => {
             selectedCampus={selectedCampus}
             enabledSubmit={displayList}
             getUserCampusInfo={(id: any) => getUserCampusInfo(id)}
-            formsValid={formsValid}
             personalForm={personalForm}
             academicForm={academicForm}
           />

@@ -33,12 +33,13 @@ const RecoveryToken = () => {
 
 
   const checkToken = async () => {
+    console.log('here')
     try {
       const api = new ApiRequest();
-      api.resource = "/user/";
+      api.resource = "/user";
       api.token = token;
 
-      const response = await api.post({
+      const response = await api.get({
       });
 
       console.log(response)
