@@ -19,9 +19,11 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import styles from "./Register.module.scss";
 import useAlert from "@/hooks/useAlert";
+import useAuthStore from "@/hooks/useAuthStore";
 
 export default function Registration() {
   const { setAlert } = useAlert();
+  const setLogin = useAuthStore((state: any) => state.setLogin);
 
   const [validate, setValidate] = useState(false);
 
@@ -185,7 +187,7 @@ export default function Registration() {
   // Send data user
   const senUserForRegister = async () => {
     try {
-      const response = await requestRegister({
+      await requestRegister({
         email: formik.values.email,
         cell_phone: formik.values.phoneNumber,
         student_id: formik.values.studentId,
@@ -201,12 +203,10 @@ export default function Registration() {
         address_zipcode: formik.values.addressZipcode,
         password: formik.values.password,
       });
-      setAlert("Successful Registration", "success");
-      console.log("-----> ", response);
+      setAlert("Register successfully!", "success");
+      await setLogin(formik.values.email, formik.values.password);
       navigate("/");
     } catch (error) {
-      console.log(error);
-      //
       setAlert("Something happened. Try again", "error");
     }
   };
