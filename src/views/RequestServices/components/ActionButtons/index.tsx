@@ -28,6 +28,8 @@ const ActionButtons = ({
   enabledSubmit,
   getUserCampusInfo,
 }: IActionButtonsProps) => {
+
+  const [isDataSaved, setIsDataSaved] = useState(false);
   useEffect(() => {
     console.log(campusStatus, " ", enabledSubmit);
   }, []);
@@ -54,6 +56,7 @@ const ActionButtons = ({
         token
       );
       setAlert("Info sent successfully!", "success");
+      setIsDataSaved(true);
     } catch (error) {
       setAlert("Something happened. Try again later", "error");
     }
@@ -79,7 +82,7 @@ const ActionButtons = ({
                 color: "white",
               },
             }}
-            disabled={campusStatus > 0 || !enabledSubmit}
+            disabled={campusStatus > 0 || !enabledSubmit || !isDataSaved}
           >
             SUBMIT
           </Button>
