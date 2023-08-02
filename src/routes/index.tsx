@@ -28,6 +28,8 @@ const Root = () => {
             element={<RequestServices />}
           ></Route>
           <Route path={PATH.PROFILE} element={<Profile />} />
+          <Route path={PATH.RECOVERY} element={<Recovery />} />
+          <Route path={PATH.RECOVERY_TOKEN} element={<RecoveryToken />} />
         </Route>
       )}
       <Route path={PATH.NOT_FOUND} element={<Error404 />} />
