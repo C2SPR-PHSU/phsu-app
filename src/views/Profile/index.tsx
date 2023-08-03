@@ -109,9 +109,10 @@ const Profile = () => {
     <>
       <form onSubmit={formik.handleSubmit}>
         <Grid container>
-          <Grid item xs={12} sx={{ padding: '3rem 9rem'}}>
+          <Grid item xs={4} sx={{ paddingLeft: '9rem'}}>
             <ProfileTitle />
           </Grid>
+          <Grid item xs={8}></Grid>
           <Grid item xs={4} sx={{ display: 'flex', flexDirection: 'column'}}>
             <ProfilePhoto />
             <ProfileButtons isEditMode={isEditMode} />
