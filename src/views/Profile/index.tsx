@@ -44,9 +44,8 @@ const Profile = () => {
     }
   };
 
-  const updateUserProfile = async(values: any) => {
+  const updateUserProfile = async(values: UserProfile) => {
     try {
-      console.log({values})
       await editProfile(token, values);
       setAlert("Information updated successfully!", "success")
       setIsEditMode(false);

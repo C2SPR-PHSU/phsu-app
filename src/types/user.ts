@@ -23,6 +23,6 @@ export interface UserProfile {
   address_city: string;
   address_state: string;
   address_zipcode: string;
-  password: string;
+  password?: string;
   program: string;
 };
