@@ -1,30 +1,27 @@
-import { Grid, Box, Typography, Divider } from "@mui/material";
+import { Grid, Typography, Divider } from "@mui/material";
 import profileScss from "./Profile.module.scss";
-import sxStyles from "./ItemSx";
 import { useFormik } from "formik";
 import { useState, useEffect } from "react";
 import { validationSchema } from "./validateconstants";
-import { UserDetails } from "./users";
-import { UserProfile } from "./users";
-import useAuthStore from "@/hooks/useAuthStore";
+import { UserProfile, UserDetails } from "./users";
 import { UserModify } from "./users";
-import { useMediaQueries } from "./components/BMediaQuerys";
-import ProfileButtons from "./components/ProfileButtons";
-import ProfilePhoto from "./components/ProfilePhoto";
-import ProfileTitle from "./components/ProfileTitle";
-import PersonalInformation from "./components/PersonalInformation";
-import AcademicInformation from "./components/AcademicInformation";
-import AddressInformation from "./components/AddressInformation";
+import useAuthStore from "@/hooks/useAuthStore";
 import useAlert from "@/hooks/useAlert";
-import PersonalInformation2 from "./components/PersonalInformation2";
+import { 
+  ProfilePhoto, 
+  ProfileButtons, 
+  ProfileTitle, 
+  PersonalInformation, 
+  AcademicInformation, 
+  AddressInformation, 
+  PersonalInformation2 } from "./components";
 
 const Profile = () => {
-  // const { isScreenLg, isVeryScreenSmall, isMedium } = useMediaQueries();
   const [isEditMode, setIsEditMode] = useState(false);
+  const [userProfile, setUserProfile] = useState<Partial<UserProfile>>({});
+
   const token = useAuthStore((state: any) => state.token);
   const { setAlert } = useAlert();
-
-  const [userProfile, setUserProfile] = useState<Partial<UserProfile>>({});
 
   useEffect(() => {
     const fetchUserProfile = async () => {
