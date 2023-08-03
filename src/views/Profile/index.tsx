@@ -3,7 +3,7 @@ import profileScss from "./Profile.module.scss";
 import { useFormik } from "formik";
 import { useState, useEffect } from "react";
 import { validationSchema } from "./validateconstants";
-import { UserDetails } from "./users";
+import { getUserDetails } from "./users";
 import { UserProfile } from "@/types/user";
 import { editProfile } from "@/utils/functions";
 import useAuthStore from "@/hooks/useAuthStore";
@@ -17,59 +17,36 @@ import {
   AddressInformation, 
   PersonalInformation2 } from "./components";
 import { initialValues } from './constants';
+import { setUserDataInFormik } from './utils';
 
 const Profile = () => {
   const [isEditMode, setIsEditMode] = useState(false);
-  const [userProfile, setUserProfile] = useState<Partial<UserProfile>>({});
 
   const token = useAuthStore((state: any) => state.token);
   const { setAlert } = useAlert();
 
   useEffect(() => {
-    const fetchUserProfile = async () => {
-      try {
-        const profile = await UserDetails(token);
-        setUserProfile(profile);
-        console.log(profile);
-        console.log(userProfile);
-        // Actualizar las initialValues de formik con los datos obtenidos
-        formik.setValues({
-          email: profile?.email || "",
-          cell_phone: profile?.cell_phone || "",
-          studentid: profile?.student_id || "",
-          firstname: profile?.first_name || "",
-          middlename: profile?.middle_name || "",
-          lastname: profile?.last_name || "",
-          secondlastname: profile?.second_last_name || "",
-          birthdate: profile?.birthdate || "",
-          line1: profile?.address_line1 || "",
-          line2: profile?.address_line2 || "",
-          state: profile?.address_state || "",
-          city: profile?.address_city || "",
-          zipcode: profile?.address_zipcode || "",
-          alternative_phone: profile?.alternative_phone || "",
-          institucional_email: profile?.institucional_email || "",
-          entranceYear: profile?.entrance_year || "",
-          campusMain: profile?.campus || "",
-          entranceTerm: profile?.entrance_terms || "",
-          program: profile?.program || "",
-        });
-      } catch (error) {
-        console.error("Error:", error);
-      }
-    };
-
     fetchUserProfile();
   }, [token]);
-
+  
   const formik = useFormik({
     initialValues,
     validationSchema: validationSchema,
     onSubmit: values => updateUserProfile(values)
   });
 
+  const fetchUserProfile = async () => {
+    try {
+      const profile = await getUserDetails(token);
+      formik.setValues(setUserDataInFormik(profile));
+    } catch (error) {
+      setAlert("Something went wrong getting the user data", "error")
+    }
+  };
+
   const updateUserProfile = async(values: any) => {
     try {
+      console.log({values})
       await editProfile(token, values);
       setAlert("Information updated successfully!", "success")
       setIsEditMode(false);

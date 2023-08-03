@@ -20,15 +20,13 @@ export const logOut = async (token: string) => {
 
 export const editProfile = async (
   token: string,
-  usermodify: Partial<UserProfile>
+  body: UserProfile
 ) => {
   try {
     api.resource = updateUserProfile;
     api.token = token;
 
-    const res = await api.post<IProfileModifyResponse>({
-      body: usermodify,
-    });
+    const res = await api.post<IProfileModifyResponse>({ body });
 
     return res.data;
   } catch (error) {

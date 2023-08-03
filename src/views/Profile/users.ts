@@ -11,7 +11,7 @@ type ResponseGetDetails = {
 };
 
 // get dataUser
-export const UserDetails = async (token: string) => {
+export const getUserDetails = async (token: string) => {
   try {
     api.resource = userDetails;
     api.token = token;

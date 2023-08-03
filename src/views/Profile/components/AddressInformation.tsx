@@ -19,25 +19,25 @@ const AddressInformation = ({ isEditMode, formik }) => {
     {
       !isEditMode ? (
         <>
-          <Box sx={{ display: 'flex', paddingBottom: '1rem'}}>
-            <Typography sx={{ width: '100%' }}>Address Line 1: &nbsp;</Typography>
-            <Typography sx={{ lineBreak: 'anywhere'}}>{formik.values.line1}</Typography>
+          <Box sx={{ display: 'flex', paddingBottom: '1rem', width: '100%'}}>
+            <Typography>Address Line 1: &nbsp;</Typography>
+            <Typography sx={{ lineBreak: 'anywhere'}}>{formik.values.address_line1}</Typography>
+          </Box>
+          <Box sx={{ display: 'flex', paddingBottom: '1rem', width: '100%'}}>
+            <Typography>Address Line 2: &nbsp;</Typography>
+            <Typography sx={{ lineBreak: 'anywhere' }}>{formik.values.address_line2}</Typography>
           </Box>
           <Box sx={{ display: 'flex', paddingBottom: '1rem'}}>
-            <Typography sx={{ width: '100%' }}>Address Line 2: &nbsp;</Typography>
-            <Typography sx={{ lineBreak: 'anywhere' }}>{formik.values.line2}</Typography>
+            <Typography>City: &nbsp;</Typography>
+            <Typography>{formik.values.address_city}</Typography>
           </Box>
           <Box sx={{ display: 'flex', paddingBottom: '1rem'}}>
-            <Typography sx={{ width: '100%' }}>City: &nbsp;</Typography>
-            <Typography>{formik.values.city}</Typography>
+            <Typography>State: &nbsp;</Typography>
+            <Typography>{formik.values.address_state}</Typography>
           </Box>
           <Box sx={{ display: 'flex', paddingBottom: '1rem'}}>
-            <Typography sx={{ width: '100%' }}>State: &nbsp;</Typography>
-            <Typography>{formik.values.state}</Typography>
-          </Box>
-          <Box sx={{ display: 'flex', paddingBottom: '1rem'}}>
-            <Typography sx={{ width: '100%' }}>Zip code: &nbsp;</Typography>
-            <Typography>{formik.values.zipcode}</Typography>
+            <Typography>Zip code: &nbsp;</Typography>
+            <Typography>{formik.values.address_zipcode}</Typography>
           </Box>
         </>
       ) : (
@@ -46,60 +46,60 @@ const AddressInformation = ({ isEditMode, formik }) => {
             <Box sx={{ display: 'flex'}}>
               <Typography>Address Line 1: &nbsp;</Typography>
               <TextField
-                id="line1"
-                name="line1"
-                value={formik.values.line1}
+                id="address_line1"
+                name="address_line1"
+                value={formik.values.address_line1}
                 onChange={formik.handleChange}
-                error={formik.touched.line1 && !!formik.errors.line1}
-                helperText={formik.touched.line1 && formik.errors.line1}
+                error={formik.touched.address_line1 && !!formik.errors.address_line1}
+                helperText={formik.touched.address_line1 && formik.errors.address_line1}
                 sx={customTextField}
               />
             </Box>
             <Box sx={{ display: 'flex'}}>
               <Typography>Address Line 2: &nbsp;</Typography>
               <TextField
-                id="line2"
-                name="line2"
-                value={formik.values.line2}
+                id="address_line2"
+                name="address_line2"
+                value={formik.values.address_line2}
                 onChange={formik.handleChange}
-                error={formik.touched.line2 && !!formik.errors.line2}
-                helperText={formik.touched.line2 && formik.errors.line2}
+                error={formik.touched.address_line2 && !!formik.errors.address_line2}
+                helperText={formik.touched.address_line2 && formik.errors.address_line2}
                 sx={customTextField}
               />
             </Box>
             <Box sx={{ display: 'flex'}}>
               <Typography>City: &nbsp;</Typography>
               <TextField
-                id="city"
-                name="city"
-                value={formik.values.city}
+                id="address_city"
+                name="address_city"
+                value={formik.values.address_city}
                 onChange={formik.handleChange}
-                error={formik.touched.city && !!formik.errors.city}
-                helperText={formik.touched.city && formik.errors.city}
+                error={formik.touched.address_city && !!formik.errors.address_city}
+                helperText={formik.touched.address_city && formik.errors.address_city}
                 sx={customTextField}
               />
             </Box>
             <Box sx={{ display: 'flex'}}>
               <Typography>State: &nbsp;</Typography>
               <TextField
-                id="state"
-                name="state"
-                value={formik.values.state}
+                id="address_state"
+                name="address_state"
+                value={formik.values.address_state}
                 onChange={formik.handleChange}
-                error={formik.touched.state && !!formik.errors.state}
-                helperText={formik.touched.state && formik.errors.state}
+                error={formik.touched.address_state && !!formik.errors.address_state}
+                helperText={formik.touched.address_state && formik.errors.address_state}
                 sx={customTextField}
               />
             </Box>
             <Box sx={{ display: 'flex'}}>
               <Typography>Zip code: &nbsp;</Typography>
               <TextField
-                id="zipcode"
-                name="zipcode"
-                value={formik.values.zipcode}
+                id="address_zipcode"
+                name="address_zipcode"
+                value={formik.values.address_zipcode}
                 onChange={formik.handleChange}
-                error={formik.touched.zipcode && !!formik.errors.zipcode}
-                helperText={formik.touched.zipcode && formik.errors.zipcode}
+                error={formik.touched.address_zipcode && !!formik.errors.address_zipcode}
+                helperText={formik.touched.address_zipcode && formik.errors.address_zipcode}
                 sx={customTextField}
               />
             </Box>

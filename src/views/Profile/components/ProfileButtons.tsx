@@ -30,7 +30,6 @@ const ProfileButtons = ({ isEditMode, activateEditForm }: IProfileButtons) => {
         <Button
             variant="outlined"
             className={profileScss["profiles-button"]}
-            type="submit"
             onClick={() => activateEditForm()}
           >
             Edit Profile

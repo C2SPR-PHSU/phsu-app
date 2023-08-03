@@ -13,23 +13,23 @@ const PersonalInformation = ({ isEditMode, formik }) => {
         <>
           <Box sx={{ display: 'flex', paddingBottom: '1rem'}}>
             <Typography>First Name: &nbsp;</Typography>  
-            <Typography sx={{ lineBreak: 'anywhere'}}>{formik.values.firstname}</Typography>
+            <Typography sx={{ lineBreak: 'anywhere'}}>{formik.values.first_name}</Typography>
           </Box>
           <Box sx={{ display: 'flex', paddingBottom: '1rem'}}>
             <Typography>Middle Name: &nbsp;</Typography>
-            <Typography sx={{ lineBreak: 'anywhere'}}>{formik.values.middlename}</Typography>
+            <Typography sx={{ lineBreak: 'anywhere'}}>{formik.values.middle_name}</Typography>
           </Box>
           <Box sx={{ display: 'flex', paddingBottom: '1rem'}}>
             <Typography>Last Name: &nbsp;</Typography>
-            <Typography sx={{ lineBreak: 'anywhere'}}>{formik.values.lastname}</Typography>
+            <Typography sx={{ lineBreak: 'anywhere'}}>{formik.values.last_name}</Typography>
           </Box>
           <Box sx={{ display: 'flex', paddingBottom: '1rem'}}>
           <Typography>Second Last Name: &nbsp;</Typography>
-            <Typography sx={{ lineBreak: 'anywhere'}}>{formik.values.secondlastname}</Typography>
+            <Typography sx={{ lineBreak: 'anywhere'}}>{formik.values.second_last_name}</Typography>
           </Box>
           <Box sx={{ display: 'flex', paddingBottom: '1rem'}}>
             <Typography>Student ID: &nbsp;</Typography>
-            <Typography sx={{ lineBreak: 'anywhere'}}>{formik.values.studentid}</Typography>
+            <Typography sx={{ lineBreak: 'anywhere'}}>{formik.values.student_id}</Typography>
           </Box>
         </>
       ) : (
@@ -37,25 +37,25 @@ const PersonalInformation = ({ isEditMode, formik }) => {
           <Box sx={{ display: 'flex', paddingBottom: '1rem' }}>
             <Typography>First Name: &nbsp;</Typography>  
             <TextField
-              id="firstname"
-              name="firstname"
-              value={formik.values.firstname}
+              id="first_name"
+              name="first_name"
+              value={formik.values.first_name}
               onChange={formik.handleChange}
-              error={formik.touched.firstname && !!formik.errors.firstname}
-              helperText={formik.touched.firstname && formik.errors.firstname}
+              error={formik.touched.first_name && !!formik.errors.first_name}
+              helperText={formik.touched.first_name && formik.errors.first_name}
               sx={customTextField}
             />
           </Box>
           <Box sx={{ display: 'flex', paddingBottom: '1rem' }}>
             <Typography>Middle Name: &nbsp;</Typography>
             <TextField
-              id="middlename"
-              name="middlename"
-              value={formik.values.middlename}
+              id="middle_name"
+              name="middle_name"
+              value={formik.values.middle_name}
               onChange={formik.handleChange}
-              error={formik.touched.middlename && !!formik.errors.middlename}
+              error={formik.touched.middle_name && !!formik.errors.middle_name}
               helperText={
-                formik.touched.middlename && formik.errors.middlename
+                formik.touched.middle_name && formik.errors.middle_name
               }
               sx={customTextField}
             />
@@ -63,28 +63,28 @@ const PersonalInformation = ({ isEditMode, formik }) => {
           <Box sx={{ display: 'flex', paddingBottom: '1rem' }}>
             <Typography>Last Name: &nbsp;</Typography>
             <TextField
-              id="lastname"
-              name="lastname"
-              value={formik.values.lastname}
+              id="last_name"
+              name="last_name"
+              value={formik.values.last_name}
               onChange={formik.handleChange}
-              error={formik.touched.lastname && !!formik.errors.lastname}
-              helperText={formik.touched.lastname && formik.errors.lastname}
+              error={formik.touched.last_name && !!formik.errors.last_name}
+              helperText={formik.touched.last_name && formik.errors.last_name}
               sx={customTextField}
             />
           </Box>
           <Box sx={{ display: 'flex', paddingBottom: '1rem' }}>
             <Typography>Second Last Name: &nbsp;</Typography>
             <TextField
-              id="secondlastname"
-              name="secondlastname"
-              value={formik.values.secondlastname}
+              id="second_last_name"
+              name="second_last_name"
+              value={formik.values.second_last_name}
               onChange={formik.handleChange}
               error={
-                formik.touched.secondlastname &&
-                !!formik.errors.secondlastname
+                formik.touched.second_last_name &&
+                !!formik.errors.second_last_name
               }
               helperText={
-                formik.touched.secondlastname && formik.errors.secondlastname
+                formik.touched.second_last_name && formik.errors.second_last_name
               }
               sx={customTextField}
             />
@@ -92,12 +92,12 @@ const PersonalInformation = ({ isEditMode, formik }) => {
           <Box sx={{ display: 'flex', paddingBottom: '1rem' }}>
             <Typography>Student ID: &nbsp;</Typography>
             <TextField
-              id="studentid"
-              name="studentid"
-              value={formik.values.studentid}
+              id="student_id"
+              name="student_id"
+              value={formik.values.student_id}
               onChange={formik.handleChange}
-              error={formik.touched.studentid && !!formik.errors.studentid}
-              helperText={formik.touched.studentid && formik.errors.studentid}
+              error={formik.touched.student_id && !!formik.errors.student_id}
+              helperText={formik.touched.student_id && formik.errors.student_id}
               sx={customTextField}
             />
           </Box>

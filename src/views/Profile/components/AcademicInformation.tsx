@@ -19,15 +19,15 @@ const AcademicInformation = ({ isEditMode, formik }) => {
         <>
           <Box sx={{ display: 'flex', paddingBottom: '1rem'}}>
             <Typography>Entrance Academic Year: &nbsp;</Typography>
-            <Typography sx={{ lineBreak: 'anywhere'}}>{formik.values.birthdate}</Typography>
+            <Typography sx={{ lineBreak: 'anywhere'}}>{formik.values.entrance_year}</Typography>
           </Box>
           <Box sx={{ display: 'flex', paddingBottom: '1rem'}}>
             <Typography>Campus: &nbsp;</Typography>
-            <Typography sx={{ lineBreak: 'anywhere'}}>{formik.values.birthdate}</Typography>
+            <Typography sx={{ lineBreak: 'anywhere'}}>{formik.values.campus}</Typography>
           </Box>
           <Box sx={{ display: 'flex', paddingBottom: '1rem'}}>
             <Typography>Entrance Term: &nbsp;</Typography>
-            <Typography sx={{ lineBreak: 'anywhere'}}>{formik.values.birthdate}</Typography>
+            <Typography sx={{ lineBreak: 'anywhere'}}>{formik.values.entrance_terms}</Typography>
           </Box>
         </> 
       ) : (
@@ -35,41 +35,38 @@ const AcademicInformation = ({ isEditMode, formik }) => {
           <Box sx={{ display: 'flex', paddingBottom: '1rem'}}>  
             <Typography>Entrance Academic Year: &nbsp;</Typography>
             <TextField
-              id="birthdate"
-              name="birthdate"
-              value={formik.values.birthdate}
+              id="entrance_year"
+              name="entrance_year"
+              value={formik.values.entrance_year}
               onChange={formik.handleChange}
-              error={formik.touched.birthdate && !!formik.errors.birthdate}
-              helperText={formik.touched.birthdate && formik.errors.birthdate}
+              error={formik.touched.entrance_year && !!formik.errors.entrance_year}
+              helperText={formik.touched.entrance_year && formik.errors.entrance_year}
               sx={customTextField}
-              type="date"
-              />
+            />
           </Box>
           <Box sx={{ display: 'flex', paddingBottom: '1rem'}}>  
             <Typography>Campus: &nbsp;</Typography>
             <TextField
-              id="birthdate"
-              name="birthdate"
-              value={formik.values.birthdate}
+              id="campus"
+              name="campus"
+              value={formik.values.campus}
               onChange={formik.handleChange}
-              error={formik.touched.birthdate && !!formik.errors.birthdate}
-              helperText={formik.touched.birthdate && formik.errors.birthdate}
+              error={formik.touched.campus && !!formik.errors.campus}
+              helperText={formik.touched.campus && formik.errors.campus}
               sx={customTextField}
-              type="date"
-              />
+            />
           </Box>
           <Box sx={{ display: 'flex', paddingBottom: '1rem'}}>  
             <Typography>Entrance Term: &nbsp;</Typography>
             <TextField
-              id="birthdate"
-              name="birthdate"
-              value={formik.values.birthdate}
+              id="entrance_terms"
+              name="entrance_terms"
+              value={formik.values.entrance_terms}
               onChange={formik.handleChange}
-              error={formik.touched.birthdate && !!formik.errors.birthdate}
-              helperText={formik.touched.birthdate && formik.errors.birthdate}
+              error={formik.touched.entrance_terms && !!formik.errors.entrance_terms}
+              helperText={formik.touched.entrance_terms && formik.errors.entrance_terms}
               sx={customTextField}
-              type="date"
-              />
+            />
           </Box>
         </>
       )

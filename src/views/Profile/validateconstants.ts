@@ -1,30 +1,31 @@
 import * as Yup from "yup";
 
 export const validationSchema = Yup.object().shape({
-  firstname: Yup.string()
+  first_name: Yup.string()
     .matches(/^[A-Za-z]+$/, "Only letters")
     .nullable()
     .min(3, "Minimum of 3 characters")
     .max(20, "Maximum of 20 characters"),
-  middlename: Yup.string()
+  middle_name: Yup.string()
     .matches(/^[A-Za-z]+$/, "Only letters")
     .nullable()
     .min(3, "Minimum of 3 characters")
     .max(20, "Maximum of 20 characters"),
-  lastname: Yup.string()
+  last_name: Yup.string()
     .matches(/^[A-Za-z]+$/, "Only letters")
     .nullable()
     .min(3, "Minimum of 3 characters")
     .max(20, "Maximum of 20 characters"),
-  secondlastname: Yup.string()
+  second_last_name: Yup.string()
     .matches(/^[A-Za-z]+$/, "Only letters")
     .nullable()
     .min(3, "Minimum of 3 characters")
     .max(20, "Maximum of 20 characters"),
-  studentid: Yup.string()
+  student_id: Yup.string()
     .matches(/^[0-9]+$/, "Only numbers")
     .nullable()
     .max(15, "Maximum of 15 characters"),
+  birthdate: Yup.string().max(100, "Maximum of 100 characters"),
   cell_phone: Yup.string()
     .matches(/^[0-9]+$/, "Only numbers")
     .nullable()
@@ -33,41 +34,49 @@ export const validationSchema = Yup.object().shape({
     .matches(/^[0-9-]+$/, "Only numbers and hyphens")
     .nullable()
     .max(15, "Maximum of 15 characters"),
-  entranceYear: Yup.string()
-    .matches(/^[0-9]+$/, "Only numbers")
-    .nullable()
-    .max(15, "Maximum of 15 characters"),
   email: Yup.string().email("Invalid email format").nullable(),
-  birthdate: Yup.string().max(100, "Maximum of 100 characters"),
   institucional_email: Yup.string()
     .email("Invalid email format")
     .nullable()
     .max(100, "Maximum of 100 characters"),
-  line1: Yup.string()
-    .matches(/^[A-Za-z0-9\s]+$/, "Only letters, numbers, and spaces")
-    .max(15, "Maximum of 15 characters")
-    .nullable(),
-  program: Yup.string()
-    .matches(/^[A-Za-z-]+$/, "Only letters and hyphens are allowed")
+  entrance_year: Yup.string()
+    .matches(/^[0-9]+$/, "Only numbers")
     .nullable()
     .max(15, "Maximum of 15 characters"),
-  campusMain: Yup.string()
+  campus: Yup.string()
     .matches(/^[A-Za-z]+$/, "Only letters")
     .nullable()
     .min(3, "Minimum of 3 characters")
     .max(20, "Maximum of 20 characters"),
-  city: Yup.string()
+  entrance_terms: Yup.string()
+    .matches(/^[A-Za-z]+$/, "Only letters")
+    .nullable()
+    .min(3, "Minimum of 3 characters")
+    .max(20, "Maximum of 20 characters"),
+  address_line1: Yup.string()
+    .matches(/^[A-Za-z0-9\s]+$/, "Only letters, numbers, and spaces")
+    .max(15, "Maximum of 15 characters")
+    .nullable(),
+  address_line2: Yup.string()
+    .matches(/^[A-Za-z0-9\s]+$/, "Only letters, numbers, and spaces")
+    .max(15, "Maximum of 15 characters")
+    .nullable(),
+  address_city: Yup.string()
     .matches(/^[A-Za-z\s]+$/, "Only letters and spaces")
     .nullable()
     .min(3, "Minimum of 3 characters")
     .max(20, "Maximum of 20 characters"),
-  state: Yup.string()
+  address_state: Yup.string()
     .matches(/^[A-Za-z\s]+$/, "Only letters and spaces")
     .nullable()
     .min(3, "Minimum of 3 characters")
     .max(20, "Maximum of 20 characters"),
-  zipcode: Yup.string()
+  address_zipcode: Yup.string()
     .matches(/^[0-9]+$/, "Only numbers")
+    .nullable()
+    .max(15, "Maximum of 15 characters"),
+  program: Yup.string()
+    .matches(/^[A-Za-z-]+$/, "Only letters and hyphens are allowed")
     .nullable()
     .max(15, "Maximum of 15 characters"),
 });
