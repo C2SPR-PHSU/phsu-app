@@ -124,8 +124,12 @@ const Profile = () => {
                   Personal Information
                 </Typography>
               </Grid>
-              <PersonalInformation isEditMode={isEditMode} formik={formik} />
-              <PersonalInformation2 isEditMode={isEditMode} formik={formik} />
+              <Grid item xs={12} sm={6}>
+                <PersonalInformation isEditMode={isEditMode} formik={formik} />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <PersonalInformation2 isEditMode={isEditMode} formik={formik} />
+              </Grid>
               <Divider
                 orientation="horizontal"
                 sx={{
@@ -134,8 +138,12 @@ const Profile = () => {
                   paddingTop: "1rem",
                 }}
               />
-              <AcademicInformation isEditMode={isEditMode} formik={formik} />
-              <AddressInformation isEditMode={isEditMode} formik={formik} />
+              <Grid item xs={12} sm={6} sx={{ paddingTop: '2rem' }}>
+                <AcademicInformation isEditMode={isEditMode} formik={formik} />
+              </Grid>
+              <Grid item xs={12} sm={6} sx={{ paddingTop: '2rem', paddingRight: '3rem' }}>
+                <AddressInformation isEditMode={isEditMode} formik={formik} />
+              </Grid>
             </Grid>
           </Grid>
         </Grid>
