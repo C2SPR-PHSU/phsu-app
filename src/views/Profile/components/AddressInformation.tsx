@@ -7,60 +7,47 @@ import {
   Typography,
   ListItemText,
 } from "@mui/material";
-import { useMediaQueries } from "./BMediaQuerys";
-import sxStyles from "../ItemSx";
 import profileScss from "../../Profile/Profile.module.scss";
 import customTextField from "../sxTexField";
 
 const AddressInformation = ({ isEditMode, formik }) => {
 
   return (
-    <Grid container xs={12} sm={6} md={6} sx={{ paddingRight: '3rem' }}>
-      <Grid item xs={12}>
+    <Grid container xs={12} sm={6} md={6} sx={{ paddingTop: '2rem', paddingRight: '3rem' }}>
+      <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'flex-start'}}>
         <Typography
           variant="h5"
           className={profileScss["title-address-information"]}
         >
           Address
         </Typography>
-      </Grid>
       {
         !isEditMode ? (
           <>
-            <Grid item xs={12}>
-              <Box sx={{ display: 'flex'}}>
-                <Typography sx={{ width: '100%' }}>Line 1:</Typography>
-                <Typography sx={{ lineBreak: 'anywhere'}}>{formik.values.line1}</Typography>
-              </Box>
-            </Grid>
-            <Grid item xs={12}>
-              <Box sx={{ display: 'flex'}}>
-                <Typography sx={{ width: '100%' }}>Line 2:</Typography>
-                <Typography sx={{ lineBreak: 'anywhere'}}>{formik.values.line2}</Typography>
-              </Box>
-            </Grid>
-            <Grid item xs={12}>
-              <Box sx={{ display: 'flex'}}>
-                <Grid item xs={2}>City:</Grid>
-                <Typography sx={{ lineBreak: 'anywhere'}}>{formik.values.city}</Typography>
-              </Box>
-            </Grid>
-            <Grid item xs={12}>
-              <Box sx={{ display: 'flex'}}>
-                <Grid item xs={2}>State:</Grid>
-                <Typography sx={{ lineBreak: 'anywhere'}}>{formik.values.state}</Typography>
-              </Box>
-            </Grid>
-            <Grid item xs={12}>
-              <Box sx={{ display: 'flex'}}>
-                <Grid item xs={2}>Zip code:</Grid>
-                <Typography sx={{ lineBreak: 'anywhere'}}>{formik.values.zipcode}</Typography>
-              </Box>
-            </Grid>
+            <Box sx={{ display: 'flex'}}>
+              <Typography sx={{ width: '100%' }}>Line 1:</Typography>
+              <Typography sx={formik.values.line1.length > 50 && { lineBreak: 'anywhere'}}>{formik.values.line1}</Typography>
+            </Box>
+            <Box sx={{ display: 'flex'}}>
+              <Typography sx={{ width: '100%' }}>Line 2:</Typography>
+              <Typography sx={formik.values.line2.length > 50 && {lineBreak: 'anywhere'}}>{formik.values.line2}</Typography>
+            </Box>
+            <Box sx={{ display: 'flex'}}>
+              <Typography sx={{ width: '100%' }}>City:</Typography>
+              <Typography>{formik.values.city}</Typography>
+            </Box>
+            <Box sx={{ display: 'flex'}}>
+              <Typography sx={{ width: '100%' }}>State:</Typography>
+              <Typography>{formik.values.state}</Typography>
+            </Box>
+            <Box sx={{ display: 'flex'}}>
+              <Typography sx={{ width: '100%' }}>Zip code:</Typography>
+              <Typography>{formik.values.zipcode}</Typography>
+            </Box>
           </>
         ) : (
           <>
-            <Grid item xs={12}>
+            
               <Box sx={{ display: 'flex'}}>
                 <Typography>Line 1:</Typography>
                 <TextField
@@ -73,8 +60,6 @@ const AddressInformation = ({ isEditMode, formik }) => {
                   sx={customTextField}
                 />
               </Box>
-            </Grid>
-            <Grid item xs={12}>
               <Box sx={{ display: 'flex'}}>
                 <Typography>Line 2:</Typography>
                 <TextField
@@ -87,10 +72,8 @@ const AddressInformation = ({ isEditMode, formik }) => {
                   sx={customTextField}
                 />
               </Box>
-            </Grid>
-            <Grid item xs={12}>
               <Box sx={{ display: 'flex'}}>
-                <Typography>Line 2:</Typography>
+                <Typography>City</Typography>
                 <TextField
                   id="city"
                   name="city"
@@ -101,10 +84,8 @@ const AddressInformation = ({ isEditMode, formik }) => {
                   sx={customTextField}
                 />
               </Box>
-            </Grid>
-            <Grid item xs={12}>
               <Box sx={{ display: 'flex'}}>
-                <Grid item xs={2}>State:</Grid>
+                <Typography>State:</Typography>
                 <TextField
                   id="state"
                   name="state"
@@ -115,10 +96,8 @@ const AddressInformation = ({ isEditMode, formik }) => {
                   sx={customTextField}
                 />
               </Box>
-            </Grid>
-            <Grid item xs={12}>
               <Box sx={{ display: 'flex'}}>
-                <Grid item xs={2}>Zip code:</Grid>
+                <Typography>Zip code:</Typography>
                 <TextField
                   id="zipcode"
                   name="zipcode"
@@ -129,10 +108,10 @@ const AddressInformation = ({ isEditMode, formik }) => {
                   sx={customTextField}
                 />
               </Box>
-            </Grid>
           </>
         )
       }
+      </Box>
     </Grid>
   );
 };

@@ -108,25 +108,25 @@ const Profile = () => {
   return (
     <>
       <form onSubmit={formik.handleSubmit}>
-        <Grid container>
-          <Grid item xs={4} sx={{ paddingLeft: '9rem'}}>
+        <Grid container sx={{ padding: '3rem' }}>
+          <Grid item xs={12} sx={{ paddingLeft: '5rem', marginBottom: '2rem'}}>
             <ProfileTitle />
           </Grid>
-          <Grid item xs={8}></Grid>
-          <Grid item xs={4} sx={{ display: 'flex', flexDirection: 'column'}}>
+          <Grid item xs={3} sx={{ display: 'flex', flexDirection: 'column', paddingTop: '1rem' }}>
             <ProfilePhoto />
             <ProfileButtons isEditMode={isEditMode} />
           </Grid>
-          <Grid item xs={8}>
+          <Grid item xs={9} sx={{ paddingTop: '1rem' }}>
             <Grid container>
-            <Grid item xs={12}>
-              <Typography
-                variant="h5"
-                className={profileScss["title-address-information"]}
-              >
-                Personal Information
-              </Typography>
-            </Grid>
+              <Grid item xs={12}>
+                <Typography
+                  variant="h5"
+                  className={profileScss["title-address-information"]}
+                  sx={{ paddingBottom: '1rem' }}
+                >
+                  Personal Information
+                </Typography>
+              </Grid>
               <PersonalInformation isEditMode={isEditMode} formik={formik} />
               <PersonalInformation2 isEditMode={isEditMode} formik={formik} />
               <Divider
