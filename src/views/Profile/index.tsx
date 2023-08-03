@@ -19,7 +19,7 @@ import useAlert from "@/hooks/useAlert";
 import PersonalInformation2 from "./components/PersonalInformation2";
 
 const Profile = () => {
-  const { isScreenLg, isVeryScreenSmall, isMedium } = useMediaQueries();
+  // const { isScreenLg, isVeryScreenSmall, isMedium } = useMediaQueries();
   const [isEditMode, setIsEditMode] = useState(false);
   const token = useAuthStore((state: any) => state.token);
   const { setAlert } = useAlert();
@@ -108,66 +108,39 @@ const Profile = () => {
   return (
     <>
       <form onSubmit={formik.handleSubmit}>
-        <Box sx={{ display: "flex" }}>
-          {/*Items, Photo and Buttons content (Box main)  */}
-          <Box sx={sxStyles(isVeryScreenSmall, isMedium, isScreenLg).boxMain}>
-            {/*Box de foto y botones */}
-            <Box
-              sx={
-                sxStyles(isVeryScreenSmall, isMedium, isScreenLg).boxButtoPhoto
-              }
-            >
-              <Grid
-                container
-                sx={
-                  sxStyles(isVeryScreenSmall, isMedium, null).containButtonPhoto
-                }
-              >
-                <ProfileTitle />
-
-                <ProfilePhoto />
-
-                <ProfileButtons isEditMode={isEditMode} />
-              </Grid>
-            </Box>
-
-            {/*Box con los grid de personal information */}
-            <Box
-              sx={
-                sxStyles(isVeryScreenSmall, isMedium, isScreenLg)
-                  .personalInformation
-              }
-            >
+        <Grid container>
+          <Grid item xs={12} sx={{ padding: '3rem 9rem'}}>
+            <ProfileTitle />
+          </Grid>
+          <Grid item xs={4} sx={{ display: 'flex', flexDirection: 'column'}}>
+            <ProfilePhoto />
+            <ProfileButtons isEditMode={isEditMode} />
+          </Grid>
+          <Grid item xs={8}>
+            <Grid container>
+            <Grid item xs={12}>
               <Typography
-                variant="h6"
-                className={profileScss["title-personal-information"]}
+                variant="h5"
+                className={profileScss["title-address-information"]}
               >
-                Personal information
+                Personal Information
               </Typography>
-              <Grid container sx={{ paddingBottom: "10%" }}>
-                <PersonalInformation isEditMode={isEditMode} formik={formik} />
-
-                {/*Personal Information 2 */}
-                <PersonalInformation2 isEditMode={isEditMode} formik={formik} />
-
-                <Divider
-                  orientation="horizontal"
-                  sx={{
-                    borderBottom: "1px solid gray",
-                    width: "95%",
-                    paddingTop: "1rem",
-                  }}
-                />
-
-                {/*Academic Information */}
-                <AcademicInformation isEditMode={isEditMode} formik={formik} />
-
-                {/*Adress */}
-                <AddressInformation isEditMode={isEditMode} formik={formik} />
-              </Grid>
-            </Box>
-          </Box>
-        </Box>
+            </Grid>
+              <PersonalInformation isEditMode={isEditMode} formik={formik} />
+              <PersonalInformation2 isEditMode={isEditMode} formik={formik} />
+              <Divider
+                orientation="horizontal"
+                sx={{
+                  borderBottom: "1px solid gray",
+                  width: "95%",
+                  paddingTop: "1rem",
+                }}
+              />
+              <AcademicInformation isEditMode={isEditMode} formik={formik} />
+              <AddressInformation isEditMode={isEditMode} formik={formik} />
+            </Grid>
+          </Grid>
+        </Grid>
       </form>
     </>
   );

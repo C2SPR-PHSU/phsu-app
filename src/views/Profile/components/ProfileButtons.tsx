@@ -10,7 +10,8 @@ const ProfileButtons = ({ isEditMode }) => {
   return (
     <Grid
       item
-      sx={sxStyles(isVeryScreenSmall, isMedium, isScreenLg).itemButtons}
+      // sx={sxStyles(isVeryScreenSmall, isMedium, isScreenLg).itemButtons}
+      sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}
     >
       <Button
         variant="outlined"
