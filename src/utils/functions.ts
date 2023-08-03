@@ -1,14 +1,34 @@
 import api from "@/utils/services/api";
 import {
   logout,
+  updateUserProfile
 } from "@/utils";
-import { ILogOut } from '@/types';
+import { ILogOut, IProfileModifyResponse } from '@/types/responses';
+import { UserProfile } from '@/types/user';
 
 export const logOut = async (token: string) => {
   try {
     api.resource = logout;
 
     const res = await api.post<ILogOut>({ body: { token }});
+
+    return res;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const editProfile = async (
+  token: string,
+  usermodify: Partial<UserProfile>
+) => {
+  try {
+    api.resource = updateUserProfile;
+    api.token = token;
+
+    const res = await api.post<IProfileModifyResponse>({
+      body: usermodify,
+    });
 
     return res.data;
   } catch (error) {

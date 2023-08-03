@@ -20,11 +20,11 @@ const AddressInformation = ({ isEditMode, formik }) => {
       !isEditMode ? (
         <>
           <Box sx={{ display: 'flex', paddingBottom: '1rem'}}>
-            <Typography sx={{ width: '100%' }}>Line 1: &nbsp;</Typography>
+            <Typography sx={{ width: '100%' }}>Address Line 1: &nbsp;</Typography>
             <Typography sx={{ lineBreak: 'anywhere'}}>{formik.values.line1}</Typography>
           </Box>
           <Box sx={{ display: 'flex', paddingBottom: '1rem'}}>
-            <Typography sx={{ width: '100%' }}>Line 2: &nbsp;</Typography>
+            <Typography sx={{ width: '100%' }}>Address Line 2: &nbsp;</Typography>
             <Typography sx={{ lineBreak: 'anywhere' }}>{formik.values.line2}</Typography>
           </Box>
           <Box sx={{ display: 'flex', paddingBottom: '1rem'}}>
@@ -44,7 +44,7 @@ const AddressInformation = ({ isEditMode, formik }) => {
         <>
           
             <Box sx={{ display: 'flex'}}>
-              <Typography>Line 1: &nbsp;</Typography>
+              <Typography>Address Line 1: &nbsp;</Typography>
               <TextField
                 id="line1"
                 name="line1"
@@ -56,7 +56,7 @@ const AddressInformation = ({ isEditMode, formik }) => {
               />
             </Box>
             <Box sx={{ display: 'flex'}}>
-              <Typography>Line 2: &nbsp;</Typography>
+              <Typography>Address Line 2: &nbsp;</Typography>
               <TextField
                 id="line2"
                 name="line2"

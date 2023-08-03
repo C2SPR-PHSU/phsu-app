@@ -1,26 +1,41 @@
 // ProfileButtons.js
 import { Grid, Button } from "@mui/material";
 import CameraAltIcon from "@mui/icons-material/CameraAlt";
-import { useMediaQueries } from "./BMediaQuerys";
-import sxStyles from "../ItemSx";
 import profileScss from "../../Profile/Profile.module.scss";
+import { useFormikContext } from 'formik';
 
-const ProfileButtons = ({ isEditMode }) => {
-  const { isScreenLg, isVeryScreenSmall, isMedium } = useMediaQueries();
+interface IProfileButtons {
+  isEditMode: boolean;
+  activateEditForm: () => void;
+}
+
+const ProfileButtons = ({ isEditMode, activateEditForm }: IProfileButtons) => {
+  
+  // const { submitForm } = useFormikContext() ?? {};
+
   return (
     <Grid
       item
-      // sx={sxStyles(isVeryScreenSmall, isMedium, isScreenLg).itemButtons}
       sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', paddingTop: '2rem'}}
     >
-      <Button
-        variant="outlined"
-        className={profileScss["profiles-button"]}
-        type="submit"
-      >
-        {isEditMode ? "Save Profile" : "Edit Profile"}
-      </Button>
-
+      {
+        isEditMode ? 
+        <Button
+          variant="outlined"
+          className={profileScss["profiles-button"]}
+          type="submit"
+        >
+          Save Profile
+        </Button> : 
+        <Button
+            variant="outlined"
+            className={profileScss["profiles-button"]}
+            type="submit"
+            onClick={() => activateEditForm()}
+          >
+            Edit Profile
+          </Button>
+      }
       <Button variant="outlined" className={profileScss["profiles-button"]}>
         Change
         <CameraAltIcon />

@@ -3,8 +3,9 @@ import profileScss from "./Profile.module.scss";
 import { useFormik } from "formik";
 import { useState, useEffect } from "react";
 import { validationSchema } from "./validateconstants";
-import { UserProfile, UserDetails } from "./users";
-import { UserModify } from "./users";
+import { UserDetails } from "./users";
+import { UserProfile } from "@/types/user";
+import { editProfile } from "@/utils/functions";
 import useAuthStore from "@/hooks/useAuthStore";
 import useAlert from "@/hooks/useAlert";
 import { 
@@ -15,6 +16,7 @@ import {
   AcademicInformation, 
   AddressInformation, 
   PersonalInformation2 } from "./components";
+import { initialValues } from './constants';
 
 const Profile = () => {
   const [isEditMode, setIsEditMode] = useState(false);
@@ -61,46 +63,21 @@ const Profile = () => {
   }, [token]);
 
   const formik = useFormik({
-    initialValues: {
-      email: userProfile?.email || "",
-      cell_phone: userProfile?.cell_phone || "",
-      studentid: userProfile?.student_id || "",
-      firstname: userProfile.first_name,
-      middlename: userProfile?.middle_name || "",
-      lastname: userProfile?.last_name || "",
-      secondlastname: userProfile?.second_last_name || "",
-      birthdate: userProfile?.birthdate || "",
-      line1: userProfile?.address_line1 || "",
-      line2: userProfile?.address_line2 || "",
-      state: userProfile?.address_state || "",
-      city: userProfile?.address_city || "",
-      zipcode: userProfile?.address_zipcode || "",
-      alternative_phone: userProfile?.alternative_phone || "",
-      institucional_email: userProfile?.institucional_email || "",
-      entranceYear: userProfile?.entrance_year || "",
-      campusMain: userProfile?.campus || "",
-      entranceTerm: userProfile?.entrance_terms || "",
-      program: userProfile?.program || "",
-    },
+    initialValues,
     validationSchema: validationSchema,
-    onSubmit: async (values) => {
-      if (formik.isValid) {
-        console.log(values);
-        setIsEditMode(!isEditMode);
-
-        if (isEditMode) {
-          const response = await UserModify(token, values);
-          if (response.code === 200 && response.data.action === "update") {
-            setAlert("Update successfullly", "success");
-          }
-
-          console.log("soy response", response);
-        }
-      } else {
-        alert("Please fix the errors before saving."); // Advertencia de error
-      }
-    },
+    onSubmit: values => updateUserProfile(values)
   });
+
+  const updateUserProfile = async(values: any) => {
+    try {
+      await editProfile(token, values);
+      setAlert("Information updated successfully!", "success")
+      setIsEditMode(false);
+    } catch (error) {
+      setIsEditMode(false);
+      setAlert("Something wrong happened. Please, try again later", "error")
+    }
+  }
 
   return (
     <>
@@ -111,7 +88,7 @@ const Profile = () => {
           </Grid>
           <Grid item xs={3} sx={{ display: 'flex', flexDirection: 'column', paddingTop: '2rem' }}>
             <ProfilePhoto />
-            <ProfileButtons isEditMode={isEditMode} />
+            <ProfileButtons isEditMode={isEditMode} activateEditForm={() => setIsEditMode(true)} />
           </Grid>
           <Grid item xs={9} sx={{ paddingTop: '2rem' }}>
             <Grid container>
