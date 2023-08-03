@@ -1,12 +1,7 @@
-import {
-  Box,
-  Grid,
-  List,
-  ListItem,
-  TextField,
-  Typography,
-  ListItemText,
-} from "@mui/material";
+import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid";
+import TextField from "@mui/material/TextField";
+import Typography from "@mui/material/Typography";
 import profileScss from "../../Profile/Profile.module.scss";
 import customTextField from "../sxTexField";
 

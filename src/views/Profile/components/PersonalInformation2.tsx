@@ -1,20 +1,11 @@
-import {
-  Box,
-  Grid,
-  List,
-  ListItem,
-  TextField,
-  Typography,
-  ListItemText,
-} from "@mui/material";
-import { useMediaQueries } from "./BMediaQuerys";
-import sxStyles from "../ItemSx";
+import Grid from "@mui/material/Grid";
+import TextField from "@mui/material/TextField";
+import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
 import profileScss from "../../Profile/Profile.module.scss";
 import customTextField from "../sxTexField";
 
 const PersonalInformation2 = ({ isEditMode, formik }) => {
-  const { isScreenLg, isVeryScreenSmall, isMedium } = useMediaQueries();
-
   return (
     <Grid container xs={12} sm={6} md={6}>
       <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'flex-start'}}>
