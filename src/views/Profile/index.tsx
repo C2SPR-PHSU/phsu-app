@@ -112,11 +112,11 @@ const Profile = () => {
           <Grid item xs={12} sx={{ paddingLeft: '5rem', marginBottom: '2rem'}}>
             <ProfileTitle />
           </Grid>
-          <Grid item xs={3} sx={{ display: 'flex', flexDirection: 'column', paddingTop: '1rem' }}>
+          <Grid item xs={3} sx={{ display: 'flex', flexDirection: 'column', paddingTop: '2rem' }}>
             <ProfilePhoto />
             <ProfileButtons isEditMode={isEditMode} />
           </Grid>
-          <Grid item xs={9} sx={{ paddingTop: '1rem' }}>
+          <Grid item xs={9} sx={{ paddingTop: '2rem' }}>
             <Grid container>
               <Grid item xs={12}>
                 <Typography

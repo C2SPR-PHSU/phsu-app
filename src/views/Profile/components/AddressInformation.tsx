@@ -18,30 +18,31 @@ const AddressInformation = ({ isEditMode, formik }) => {
         <Typography
           variant="h5"
           className={profileScss["title-address-information"]}
+          sx={{ paddingBottom: '1rem' }}
         >
           Address
         </Typography>
       {
         !isEditMode ? (
           <>
-            <Box sx={{ display: 'flex'}}>
-              <Typography sx={{ width: '100%' }}>Line 1:</Typography>
+            <Box sx={{ display: 'flex', paddingBottom: '1rem'}}>
+              <Typography sx={{ width: '100%' }}>Line 1: &nbsp;</Typography>
               <Typography sx={formik.values.line1.length > 50 && { lineBreak: 'anywhere'}}>{formik.values.line1}</Typography>
             </Box>
-            <Box sx={{ display: 'flex'}}>
-              <Typography sx={{ width: '100%' }}>Line 2:</Typography>
+            <Box sx={{ display: 'flex', paddingBottom: '1rem'}}>
+              <Typography sx={{ width: '100%' }}>Line 2: &nbsp;</Typography>
               <Typography sx={formik.values.line2.length > 50 && {lineBreak: 'anywhere'}}>{formik.values.line2}</Typography>
             </Box>
-            <Box sx={{ display: 'flex'}}>
-              <Typography sx={{ width: '100%' }}>City:</Typography>
+            <Box sx={{ display: 'flex', paddingBottom: '1rem'}}>
+              <Typography sx={{ width: '100%' }}>City: &nbsp;</Typography>
               <Typography>{formik.values.city}</Typography>
             </Box>
-            <Box sx={{ display: 'flex'}}>
-              <Typography sx={{ width: '100%' }}>State:</Typography>
+            <Box sx={{ display: 'flex', paddingBottom: '1rem'}}>
+              <Typography sx={{ width: '100%' }}>State: &nbsp;</Typography>
               <Typography>{formik.values.state}</Typography>
             </Box>
-            <Box sx={{ display: 'flex'}}>
-              <Typography sx={{ width: '100%' }}>Zip code:</Typography>
+            <Box sx={{ display: 'flex', paddingBottom: '1rem'}}>
+              <Typography sx={{ width: '100%' }}>Zip code: &nbsp;</Typography>
               <Typography>{formik.values.zipcode}</Typography>
             </Box>
           </>
@@ -49,7 +50,7 @@ const AddressInformation = ({ isEditMode, formik }) => {
           <>
             
               <Box sx={{ display: 'flex'}}>
-                <Typography>Line 1:</Typography>
+                <Typography>Line 1: &nbsp;</Typography>
                 <TextField
                   id="line1"
                   name="line1"
@@ -61,7 +62,7 @@ const AddressInformation = ({ isEditMode, formik }) => {
                 />
               </Box>
               <Box sx={{ display: 'flex'}}>
-                <Typography>Line 2:</Typography>
+                <Typography>Line 2: &nbsp;</Typography>
                 <TextField
                   id="line2"
                   name="line2"
@@ -73,7 +74,7 @@ const AddressInformation = ({ isEditMode, formik }) => {
                 />
               </Box>
               <Box sx={{ display: 'flex'}}>
-                <Typography>City</Typography>
+                <Typography>City: &nbsp;</Typography>
                 <TextField
                   id="city"
                   name="city"
@@ -85,7 +86,7 @@ const AddressInformation = ({ isEditMode, formik }) => {
                 />
               </Box>
               <Box sx={{ display: 'flex'}}>
-                <Typography>State:</Typography>
+                <Typography>State: &nbsp;</Typography>
                 <TextField
                   id="state"
                   name="state"
@@ -97,7 +98,7 @@ const AddressInformation = ({ isEditMode, formik }) => {
                 />
               </Box>
               <Box sx={{ display: 'flex'}}>
-                <Typography>Zip code:</Typography>
+                <Typography>Zip code: &nbsp;</Typography>
                 <TextField
                   id="zipcode"
                   name="zipcode"

@@ -12,29 +12,30 @@ const AcademicInformation = ({ isEditMode, formik }) => {
         <Typography
           variant="h5"
           className={profileScss["title-address-information"]}
+          sx={{ paddingBottom: '1rem' }}
         >
           Academic Information
         </Typography>
       {
         !isEditMode ? (
           <>
-            <Box sx={{ display: 'flex'}}>
-              <Typography>Entrance Academic Year:</Typography>
+            <Box sx={{ display: 'flex', paddingBottom: '1rem'}}>
+              <Typography>Entrance Academic Year: &nbsp;</Typography>
               <Typography sx={{ lineBreak: 'anywhere'}}>{formik.values.birthdate}</Typography>
             </Box>
-            <Box sx={{ display: 'flex'}}>
-              <Typography>Campus:</Typography>
+            <Box sx={{ display: 'flex', paddingBottom: '1rem'}}>
+              <Typography>Campus: &nbsp;</Typography>
               <Typography sx={{ lineBreak: 'anywhere'}}>{formik.values.birthdate}</Typography>
             </Box>
-            <Box sx={{ display: 'flex'}}>
-              <Typography>Entrance Term:</Typography>
+            <Box sx={{ display: 'flex', paddingBottom: '1rem'}}>
+              <Typography>Entrance Term: &nbsp;</Typography>
               <Typography sx={{ lineBreak: 'anywhere'}}>{formik.values.birthdate}</Typography>
             </Box>
           </> 
         ) : (
           <>
-            <Box sx={{ display: 'flex'}}>
-              <Typography>Entrance Academic Year:</Typography>
+            <Box sx={{ display: 'flex', paddingBottom: '1rem'}}>  
+              <Typography>Entrance Academic Year: &nbsp;</Typography>
               <TextField
                 id="birthdate"
                 name="birthdate"
@@ -46,8 +47,8 @@ const AcademicInformation = ({ isEditMode, formik }) => {
                 type="date"
                 />
             </Box>
-            <Box sx={{ display: 'flex'}}>
-              <Typography>Campus:</Typography>
+            <Box sx={{ display: 'flex', paddingBottom: '1rem'}}>  
+              <Typography>Campus: &nbsp;</Typography>
               <TextField
                 id="birthdate"
                 name="birthdate"
@@ -59,8 +60,8 @@ const AcademicInformation = ({ isEditMode, formik }) => {
                 type="date"
                 />
             </Box>
-            <Box sx={{ display: 'flex'}}>
-              <Typography>Entrance Term:</Typography>
+            <Box sx={{ display: 'flex', paddingBottom: '1rem'}}>  
+              <Typography>Entrance Term: &nbsp;</Typography>
               <TextField
                 id="birthdate"
                 name="birthdate"

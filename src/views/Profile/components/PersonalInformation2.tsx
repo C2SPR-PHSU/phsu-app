@@ -22,30 +22,30 @@ const PersonalInformation2 = ({ isEditMode, formik }) => {
         !isEditMode ? (
           <>
             <Box sx={{ display: 'flex', paddingBottom: '1rem' }}>
-              <Typography>Date or Birth: </Typography>
+              <Typography>Date or Birth: &nbsp;</Typography>
               <Typography sx={{ lineBreak: 'anywhere'}}>{formik.values.birthdate}</Typography>
             </Box>
             <Box sx={{ display: 'flex', paddingBottom: '1rem' }}>
-              <Typography>Phone number:</Typography>
+              <Typography>Phone number: &nbsp;</Typography>
               <Typography sx={{ lineBreak: 'anywhere'}}>{formik.values.cell_phone}</Typography>
             </Box>
             <Box sx={{ display: 'flex', paddingBottom: '1rem' }}>
-              <Typography>Alternative Phone Number:</Typography>
+              <Typography>Alternative Phone Number: &nbsp;</Typography>
               <Typography sx={{ lineBreak: 'anywhere'}}>{formik.values.alternative_phone}</Typography>
             </Box>
             <Box sx={{ display: 'flex', paddingBottom: '1rem' }}>
-              <Typography>Email:</Typography>
+              <Typography>Email: &nbsp;</Typography>
               <Typography sx={{ lineBreak: 'anywhere'}}>{formik.values.email}</Typography>
             </Box>
             <Box sx={{ display: 'flex', paddingBottom: '1rem' }}>
-              <Typography>Institucional Email:</Typography>
+              <Typography>Institucional Email: &nbsp;</Typography>
               <Typography sx={{ lineBreak: 'anywhere'}}>{formik.values.institucional_email}</Typography>
             </Box>
           </>
         ) : (
           <>
             <Box sx={{ display: 'flex', paddingBottom: '1rem' }}>
-              <Typography>Date or Birth: </Typography>
+              <Typography>Date or Birth: &nbsp;</Typography>
               <TextField
                 id="birthdate"
                 name="birthdate"
@@ -58,7 +58,7 @@ const PersonalInformation2 = ({ isEditMode, formik }) => {
               />
             </Box>
             <Box sx={{ display: 'flex', paddingBottom: '1rem' }}>
-              <Typography>Phone number:</Typography>
+              <Typography>Phone number: &nbsp;</Typography>
               <TextField
                 id="cell_phone"
                 name="cell_phone"
@@ -72,7 +72,7 @@ const PersonalInformation2 = ({ isEditMode, formik }) => {
               />
             </Box>
             <Box sx={{ display: 'flex', paddingBottom: '1rem' }}>
-              <Typography>Alternative Phone Number:</Typography>
+              <Typography>Alternative Phone Number: &nbsp;</Typography>
               <TextField
                 id="alternative_phone"
                 name="alternative_phone"
@@ -90,7 +90,7 @@ const PersonalInformation2 = ({ isEditMode, formik }) => {
               />
             </Box>
             <Box sx={{ display: 'flex', paddingBottom: '1rem' }}>
-              <Typography>Email:</Typography>
+              <Typography>Email: &nbsp;</Typography>
               <TextField
                 id="email"
                 name="email"
@@ -102,7 +102,7 @@ const PersonalInformation2 = ({ isEditMode, formik }) => {
               />
             </Box>
             <Box sx={{ display: 'flex', paddingBottom: '1rem' }}>
-              <Typography>Institucional Email:</Typography>
+              <Typography>Institucional Email: &nbsp;</Typography>
               <TextField
                 id="institucional_email"
                 name="institucional_email"

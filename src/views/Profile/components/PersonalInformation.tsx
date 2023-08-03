@@ -15,30 +15,30 @@ const PersonalInformation = ({ isEditMode, formik }) => {
         !isEditMode ? (
           <>
             <Box sx={{ display: 'flex', paddingBottom: '1rem'}}>
-              <Typography>First Name:</Typography>  
+              <Typography>First Name: &nbsp;</Typography>  
               <Typography sx={{ lineBreak: 'anywhere'}}>{formik.values.firstname}</Typography>
             </Box>
             <Box sx={{ display: 'flex', paddingBottom: '1rem'}}>
-              <Typography>Middle Name:</Typography>
+              <Typography>Middle Name: &nbsp;</Typography>
               <Typography sx={{ lineBreak: 'anywhere'}}>{formik.values.middlename}</Typography>
             </Box>
             <Box sx={{ display: 'flex', paddingBottom: '1rem'}}>
-              <Typography>Last Name:</Typography>
+              <Typography>Last Name: &nbsp;</Typography>
               <Typography sx={{ lineBreak: 'anywhere'}}>{formik.values.lastname}</Typography>
             </Box>
             <Box sx={{ display: 'flex', paddingBottom: '1rem'}}>
-            <Typography>Second Last Name:</Typography>
+            <Typography>Second Last Name: &nbsp;</Typography>
               <Typography sx={{ lineBreak: 'anywhere'}}>{formik.values.secondlastname}</Typography>
             </Box>
             <Box sx={{ display: 'flex', paddingBottom: '1rem'}}>
-              <Typography>Student ID:</Typography>
+              <Typography>Student ID: &nbsp;</Typography>
               <Typography sx={{ lineBreak: 'anywhere'}}>{formik.values.studentid}</Typography>
             </Box>
           </>
         ) : (
           <>
             <Box sx={{ display: 'flex', paddingBottom: '1rem' }}>
-              <Typography>First Name:</Typography>  
+              <Typography>First Name: &nbsp;</Typography>  
               <TextField
                 id="firstname"
                 name="firstname"
@@ -50,7 +50,7 @@ const PersonalInformation = ({ isEditMode, formik }) => {
               />
             </Box>
             <Box sx={{ display: 'flex', paddingBottom: '1rem' }}>
-              <Typography>Middle Name:</Typography>
+              <Typography>Middle Name: &nbsp;</Typography>
               <TextField
                 id="middlename"
                 name="middlename"
@@ -64,7 +64,7 @@ const PersonalInformation = ({ isEditMode, formik }) => {
               />
             </Box>
             <Box sx={{ display: 'flex', paddingBottom: '1rem' }}>
-              <Typography>Last Name:</Typography>
+              <Typography>Last Name: &nbsp;</Typography>
               <TextField
                 id="lastname"
                 name="lastname"
@@ -76,7 +76,7 @@ const PersonalInformation = ({ isEditMode, formik }) => {
               />
             </Box>
             <Box sx={{ display: 'flex', paddingBottom: '1rem' }}>
-              <Typography>Second Last Name:</Typography>
+              <Typography>Second Last Name: &nbsp;</Typography>
               <TextField
                 id="secondlastname"
                 name="secondlastname"
@@ -93,7 +93,7 @@ const PersonalInformation = ({ isEditMode, formik }) => {
               />
             </Box>
             <Box sx={{ display: 'flex', paddingBottom: '1rem' }}>
-              <Typography>Student ID:</Typography>
+              <Typography>Student ID: &nbsp;</Typography>
               <TextField
                 id="studentid"
                 name="studentid"
