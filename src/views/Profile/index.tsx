@@ -27,7 +27,7 @@ const Profile = () => {
 
   useEffect(() => {
     fetchUserProfile();
-    getUploadProfilePhoto(token);
+    // getUploadProfilePhoto(token);
   }, [token]);
   
   const formik = useFormik({
