@@ -21,7 +21,6 @@ import { setUserDataInFormik } from './utils';
 
 const Profile = () => {
   const [isEditMode, setIsEditMode] = useState(false);
-  const [imageUrl, setImageUrl] = useState('http://apiphsu.lobsys.net/avatar.php?t=4893439482342390482390432902390394085757895');
 
   const token = useAuthStore((state: any) => state.token);
   const { setAlert } = useAlert();
