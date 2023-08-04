@@ -4,7 +4,7 @@ import styles from "./styles.module.scss";
 import { Dialog, DialogContent, DialogContentText, DialogTitle, DialogActions } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 
-import { useLocation } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 
 
 import CustomLabel from "@/components/CustomLabel";
@@ -18,6 +18,7 @@ import useAlert from "@/hooks/useAlert";
 const RecoveryToken = () => {
 
 
+  const { t } = useParams();
 
   const [showPassword, setShowPassword] = useState(false);
   const [password, setPassword] = useState('');
@@ -27,7 +28,7 @@ const RecoveryToken = () => {
   const location = useLocation();
 
   const query = new URLSearchParams(location.search);
-  const [token, setToken] = useState(query.get('t') ?? '');
+  const [token, setToken] = useState(t ?? '');
   const [isTokenValid, setIsTokenValid] = useState(true);
   const { setAlert } = useAlert();
 

@@ -6,5 +6,5 @@ export const PATH = {
   REQUEST_SERVICES: "/request-services",
   PROFILE: "/profile",
   RECOVERY: "/recovery",
-  RECOVERY_TOKEN: "recovery-token",
+  RECOVERY_TOKEN: "/recovery-token/:t",
 };
