@@ -125,7 +125,10 @@ const Documents = ({
                   currentDocument && currentDocument.status !== '0' ?
                     <div className={styles["rounded-div"]}>
                       <VisibilityIcon
-                        sx={{ color: "#e0e0e0" }}
+                        sx={{
+                          fontSize: "24px !important",
+                          color: "#e0e0e0"
+                        }}
                         onClick={() => {
                           if (currentDocument.url !== '') {
                             window.open(currentDocument.url, "_blank")
@@ -135,7 +138,11 @@ const Documents = ({
                     </div>
                     :
                     <div className={styles["rounded-div-disabled"]}>
-                      <VisibilityIcon sx={{ color: "#e0e0e0" }} />
+                      <VisibilityIcon
+                        sx={{
+                          fontSize: "24px !important",
+                          color: "#e0e0e0"
+                        }} />
                     </div>
                 }
 
