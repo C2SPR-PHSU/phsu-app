@@ -96,6 +96,7 @@ const RequestServices = () => {
   const getDocumentsByCampus = async (id: number) => {
     try {
       const response = await getCampusDocuments(id);
+      setDocumentList(response);
     } catch (error) {
       console.log(error);
     }
@@ -105,7 +106,7 @@ const RequestServices = () => {
     try {
       const response = await getAllUserDocuments(selectedCampus, token);
       setUserDocuments(response);
-      setDocumentList(response);
+
     } catch (error) {
       console.log(error);
     }
@@ -253,6 +254,7 @@ const RequestServices = () => {
                       <Documents
                         title={document.description}
                         campusId={parseInt(selectedCampus, 10)}
+                        campusStatus={campusStatus}
                         documentId={document.id}
                         mandatory={document.mandatory}
                         getUserCampusInfo={(id) => getUserCampusInfo(id)}

@@ -13,6 +13,7 @@ import { IUserDocumentsData } from "../../types";
 interface IDocumentsProps {
   title: string;
   campusId: number;
+  campusStatus: number;
   documentId: string;
   mandatory: string;
   getUserCampusInfo: (id: string) => void;
@@ -23,6 +24,7 @@ interface IDocumentsProps {
 const Documents = ({
   title,
   campusId,
+  campusStatus,
   documentId,
   mandatory,
   getUserCampusInfo,
@@ -40,8 +42,8 @@ const Documents = ({
   useEffect(() => {
     const doc = userDocuments?.find(doc => doc.id === documentId);
     setCurrentDocument(doc || null);
-    // console.log(currentDocument)
-  }, [documentId, userDocuments, checked]);
+    console.log(currentDocument)
+  }, [documentId, userDocuments, checked, currentDocument]);
 
 
   const handleUpload = async (e: ChangeEvent<HTMLInputElement>) => {
@@ -144,74 +146,72 @@ const Documents = ({
 
                 {
                   currentDocument && currentDocument.status !== '0' ?
-                    <>
-                      <div className={styles["rounded-div"]}>
-                        <VisibilityIcon
-                          sx={{
-                            fontSize: "24px !important",
-                            color: "#e0e0e0"
-                          }}
-                          onClick={() => {
-                            if (currentDocument.url !== '') {
-                              window.open(currentDocument.url, "_blank")
-                            }
-                          }}
-                        />
-                      </div>
-
-                      <div className={styles["rounded-div"]}>
-                        <Button
-                          component="label"
-                          sx={{
-                            minWidth: "16px !important",
-                            padding: "0px !important",
-                          }}
-                          startIcon={
-                            <DeleteIcon
-                              sx={{
-                                color: "#e0e0e0",
-                                cursor: "pointer",
-                                fontSize: "24px !important",
-                              }}
-                              onClick={() => { deleteDialogOpen() }}
-                            />
+                    <div className={styles["rounded-div"]}>
+                      <VisibilityIcon
+                        sx={{
+                          fontSize: "24px !important",
+                          color: "#e0e0e0"
+                        }}
+                        onClick={() => {
+                          if (currentDocument.url !== '') {
+                            window.open(currentDocument.url, "_blank")
                           }
-                        >
-                        </Button>
-                      </div>
-                    </>
+                        }}
+                      />
+                    </div>
                     :
-                    <>
-                      <div className={styles["rounded-div-disabled"]}>
-                        <VisibilityIcon
-                          sx={{
-                            fontSize: "24px !important",
-                            color: "#e0e0e0"
-                          }}
-                        />
-                      </div>
+                    <div className={styles["rounded-div-disabled"]}>
+                      <VisibilityIcon
+                        sx={{
+                          fontSize: "24px !important",
+                          color: "#e0e0e0"
+                        }}
+                      />
+                    </div>
+                }
 
-                      <div className={styles["rounded-div-disabled"]}>
-                        <Button
-                          component="label"
-                          sx={{
-                            minWidth: "16px !important",
-                            padding: "0px !important",
-                          }}
-                          startIcon={
-                            <DeleteIcon
-                              sx={{
-                                color: "#e0e0e0",
-                                cursor: "pointer",
-                                fontSize: "24px !important",
-                              }}
-                            />
-                          }
-                        >
-                        </Button>
-                      </div>
-
-                    </>
+                {
+                  currentDocument && campusStatus < 2 ?
+                    <div className={styles["rounded-div"]}>
+                      <Button
+                        component="label"
+                        sx={{
+                          minWidth: "16px !important",
+                          padding: "0px !important",
+                        }}
+                        startIcon={
+                          <DeleteIcon
+                            sx={{
+                              color: "#e0e0e0",
+                              cursor: "pointer",
+                              fontSize: "24px !important",
+                            }}
+                            onClick={() => { deleteDialogOpen() }}
+                          />
+                        }
+                      >
+                      </Button>
+                    </div>
+                    :
+                    <div className={styles["rounded-div-disabled"]}>
+                      <Button
+                        component="label"
+                        sx={{
+                          minWidth: "16px !important",
+                          padding: "0px !important",
+                        }}
+                        startIcon={
+                          <DeleteIcon
+                            sx={{
+                              color: "#e0e0e0",
+                              cursor: "pointer",
+                              fontSize: "24px !important",
+                            }}
+                          />
+                        }
+                      >
+                      </Button>
+                    </div>
                 }
 
 
