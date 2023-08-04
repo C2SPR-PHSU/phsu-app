@@ -15,4 +15,5 @@ export const submitDocumentOnbase = "/user/document/sendOB/";
 export const userService = "/user/service/";
 export const userDetails = "/user";
 export const updateUserProfile = "/user/modify";
+export const uploadUserAvatar = "/user/avatar";
 export const logout = "/logout";

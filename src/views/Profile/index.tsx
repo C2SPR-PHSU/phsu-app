@@ -3,7 +3,7 @@ import profileScss from "./Profile.module.scss";
 import { useFormik } from "formik";
 import { useState, useEffect } from "react";
 import { validationSchema } from "./validateconstants";
-import { getUserDetails } from "./users";
+import { getUserDetails, uploadProfilePhoto } from "./users";
 import { UserProfile } from "@/types/user";
 import { editProfile } from "@/utils/functions";
 import useAuthStore from "@/hooks/useAuthStore";
@@ -55,6 +55,15 @@ const Profile = () => {
     }
   }
 
+  const uploadPhoto = async (e: any) => {
+    try {
+      await uploadProfilePhoto(token, e.target.files[0])
+      setAlert("Information updated successfully!", "success")
+    } catch (error) {
+      setAlert("Something wrong happened. Please, try again later", "error")
+    }
+  }
+
   return (
     <>
       <Grid container sx={{ padding: '3rem' }}>
@@ -67,6 +76,7 @@ const Profile = () => {
             isEditMode={isEditMode} 
             activateEditForm={() => setIsEditMode(true)}
             submitForm={formik.handleSubmit}
+            uploadPhoto={uploadPhoto}
           />
         </Grid>
         <Grid item xs={9} sx={{ paddingTop: '2rem' }}>
