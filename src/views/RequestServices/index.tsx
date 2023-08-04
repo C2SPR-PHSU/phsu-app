@@ -143,7 +143,7 @@ const RequestServices = () => {
             lg={12}
             sx={{ gap: "1rem", display: "flex", flexDirection: "column" }}
           >
-            <Typography className={styles["title-services"]}>
+            <Typography variant="h1" className={styles["title-services"]}>
               {servicesTextTitle}
             </Typography>
             <Typography className={styles["description-view-services"]}>
@@ -153,7 +153,7 @@ const RequestServices = () => {
 
           <div className={styles["first-row-title"]}>
             <Grid item xs={12} md={12}>
-              <Typography className={styles["campus-selection-title"]}>
+              <Typography variant="subtitle1">
                 Campus Selection
               </Typography>
             </Grid>
@@ -220,7 +220,7 @@ const RequestServices = () => {
           >
             {!displayList || selectedCampus === "0" ? (
               <>
-                <Typography className={styles["campus-selection-title"]}>
+                <Typography variant="subtitle1">
                   Documents
                 </Typography>
                 <Typography sx={{ color: "gray" }}>
@@ -231,17 +231,17 @@ const RequestServices = () => {
               <Grid container>
                 <div className={styles["document-th-wrapper"]}>
                   <Grid item xs={8}>
-                    <Typography className={styles["documents-th"]}>
+                    <Typography variant="body1">
                       Documents
                     </Typography>
                   </Grid>
                   <Grid item xs={2}>
-                    <Typography className={styles["actions-th"]}>
+                    <Typography variant="body1">
                       Actions
                     </Typography>
                   </Grid>
                   <Grid item xs={2}>
-                    <Typography className={styles["actions-th"]}>
+                    <Typography variant="body1">
                       Uploaded
                     </Typography>
                   </Grid>

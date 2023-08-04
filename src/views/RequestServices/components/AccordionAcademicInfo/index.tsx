@@ -95,7 +95,7 @@ const AccordionAcademicInfo = ({ campusData, campusId, academicForm, setAcademic
           aria-controls="panel1a-content"
           id="panel1a-header"
         >
-          <Typography className={styles["box-academic-i"]}>
+          <Typography variant="h6">
             Academic Information
           </Typography>
         </AccordionSummary>

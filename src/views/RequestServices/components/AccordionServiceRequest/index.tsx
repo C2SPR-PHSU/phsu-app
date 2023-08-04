@@ -157,7 +157,7 @@ export default function BasicAccordion({ setPersonalForm, personalForm }: any) {
           aria-controls="panel2a-content"
           id="panel2a-header"
         >
-          <Typography className={styles["box-academic-i"]}>
+          <Typography variant="h6">
             Personal Information
           </Typography>
         </AccordionSummary>
