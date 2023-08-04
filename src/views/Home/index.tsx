@@ -2,13 +2,20 @@ import { useState } from "react";
 import { Grid, Typography, Box } from "@mui/material";
 import styles from "./styles.module.scss";
 import BasicTable from "./components/table/index";
-// import useAlert from "@/hooks/useAlert";
+import useAlert from "@/hooks/useAlert";
 import RequiredDocuments from "./components/RequiredDocuments";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
+import useAuthStore from "@/hooks/useAuthStore";
+import { useNavigate } from "react-router-dom";
+import { logOut } from "@/utils/";
 
 const Home = () => {
-  // const { setAlert } = useAlert();
+  const { setAlert } = useAlert();
+  const logout = useAuthStore((state: any) => state.setLogout);
+  const token = useAuthStore((state: any) => state.token);
+  const navigate = useNavigate();
+
   const [openModal, setOpenModal] = useState(false);
   const [docTitle, setDocTitle] = useState("");
   const [campusId, setCampusId] = useState("");
@@ -20,6 +27,23 @@ const Home = () => {
     setDocTitle(prop);
     setOpenModal(true);
   };
+
+  const handleLogout = async () => {
+    try {
+      await logOut(token);
+      logout();
+      navigate('/')
+    } catch (error) {
+      navigate('/')
+      logout();
+    }
+  };
+
+  setTimeout(() => {
+    //LogOut after 30min - 1800000ms
+    setAlert("Session expired", "warning")
+    handleLogout()
+  }, 1800000);
 
   return (
     <Grid
