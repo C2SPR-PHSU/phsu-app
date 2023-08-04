@@ -27,7 +27,6 @@ const Profile = () => {
 
   useEffect(() => {
     fetchUserProfile();
-    // getUploadProfilePhoto(token);
   }, [token]);
   
   const formik = useFormik({
@@ -60,6 +59,7 @@ const Profile = () => {
     try {
       await uploadProfilePhoto(token, e.target.files[0])
       setAlert("Information updated successfully!", "success")
+      location.reload()
     } catch (error) {
       setAlert("Something wrong happened. Please, try again later", "error")
     }
@@ -106,10 +106,10 @@ const Profile = () => {
               }}
             />
             <Grid item xs={12} sm={6} sx={{ paddingTop: '2rem' }}>
-              <AcademicInformation isEditMode={isEditMode} formik={formik} />
+              <AddressInformation isEditMode={isEditMode} formik={formik} />
             </Grid>
             <Grid item xs={12} sm={6} sx={{ paddingTop: '2rem' }}>
-              <AddressInformation isEditMode={isEditMode} formik={formik} />
+              {/* <AcademicInformation isEditMode={isEditMode} formik={formik} /> */}
             </Grid>
           </Grid>
         </Grid>
