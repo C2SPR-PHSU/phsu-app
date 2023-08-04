@@ -3,7 +3,7 @@ import profileScss from "./Profile.module.scss";
 import { useFormik } from "formik";
 import { useState, useEffect } from "react";
 import { validationSchema } from "./validateconstants";
-import { getUserDetails, uploadProfilePhoto } from "./users";
+import { getUserDetails, uploadProfilePhoto, getUploadProfilePhoto } from "./users";
 import { UserProfile } from "@/types/user";
 import { editProfile } from "@/utils/functions";
 import useAuthStore from "@/hooks/useAuthStore";
@@ -27,6 +27,7 @@ const Profile = () => {
 
   useEffect(() => {
     fetchUserProfile();
+    getUploadProfilePhoto(token);
   }, [token]);
   
   const formik = useFormik({
