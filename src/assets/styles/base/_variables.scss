@@ -12,6 +12,14 @@
     font-style: normal;
 }
 
+body,
+h2,
+h4,
+h5,
+p,
+.MuiTypography-root {
+    font-family: 'Gotham-Medium' !important;
+}
 
 // Main
 $black: black;
