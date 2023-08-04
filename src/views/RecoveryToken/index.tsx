@@ -17,7 +17,6 @@ import useAlert from "@/hooks/useAlert";
 
 const RecoveryToken = () => {
 
-
   const { t } = useParams();
 
   const [showPassword, setShowPassword] = useState(false);
@@ -31,6 +30,12 @@ const RecoveryToken = () => {
   const [token, setToken] = useState(t ?? '');
   const [isTokenValid, setIsTokenValid] = useState(true);
   const { setAlert } = useAlert();
+
+  useEffect(() => {
+    if (token) {
+      checkToken();
+    }
+  }, [token]);
 
 
   const checkToken = async () => {
