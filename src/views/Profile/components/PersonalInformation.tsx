@@ -1,183 +1,116 @@
-import {
-  Box,
-  Grid,
-  List,
-  ListItem,
-  TextField,
-  Typography,
-  ListItemText,
-} from "@mui/material";
-import { useMediaQueries } from "./BMediaQuerys";
-import sxStyles from "../ItemSx";
+import TextField from "@mui/material/TextField";
+import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
 import profileScss from "../../Profile/Profile.module.scss";
 import customTextField from "../sxTexField";
+import { FormikProps } from "formik";
+import { UserProfile } from "@/types/user";
 
-const PersonalInformation = ({ isEditMode, formik }) => {
-  const { isScreenLg, isVeryScreenSmall, isMedium } = useMediaQueries();
+interface IPersonalInformation {
+  isEditMode: boolean;
+  formik: FormikProps<UserProfile>
+}
 
+const PersonalInformation = ({ isEditMode, formik }: IPersonalInformation) => {
   return (
-    <Grid item xs={12} sm={6} md={6}>
-      <List>
-        {/*First Name item */}
-        <ListItem
-          sx={sxStyles(isVeryScreenSmall, isMedium, isScreenLg).listItem}
-        >
-          <div style={sxStyles(null, null, null).listItemNameLg}>
-            First Name:
-          </div>
-
-          {isEditMode ? (
-            <div
-              style={
-                sxStyles(isVeryScreenSmall, isMedium, isScreenLg)
-                  .textFieldSeparator
-              }
-            >
-              <TextField
-                id="firstname"
-                name="firstname"
-                value={formik.values.firstname}
-                onChange={formik.handleChange}
-                error={formik.touched.firstname && !!formik.errors.firstname}
-                helperText={formik.touched.firstname && formik.errors.firstname}
-                sx={customTextField}
-              />
-            </div>
-          ) : (
-            <ListItemText
-              primary={formik.values.firstname}
-              sx={
-                sxStyles(isVeryScreenSmall, isMedium, isScreenLg)
-                  .listItemTextstyle
-              }
+    <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'flex-start'}}>
+    {
+      !isEditMode ? (
+        <>
+          <Box sx={{ display: 'flex', paddingBottom: '1rem' }}>
+            <Typography>First Name: &nbsp;</Typography>  
+            <Typography sx={{ lineBreak: 'anywhere'}}>{formik.values.first_name}</Typography>
+          </Box>
+          <Box sx={{ display: 'flex', paddingBottom: '1rem'}}>
+            <Typography>Middle Name: &nbsp;</Typography>
+            <Typography sx={{ lineBreak: 'anywhere'}}>{formik.values.middle_name}</Typography>
+          </Box>
+          <Box sx={{ display: 'flex', paddingBottom: '1rem'}}>
+            <Typography>Last Name: &nbsp;</Typography>
+            <Typography sx={{ lineBreak: 'anywhere'}}>{formik.values.last_name}</Typography>
+          </Box>
+          <Box sx={{ display: 'flex', paddingBottom: '1rem'}}>
+          <Typography>Second Last Name: &nbsp;</Typography>
+            <Typography sx={{ lineBreak: 'anywhere'}}>{formik.values.second_last_name}</Typography>
+          </Box>
+          <Box sx={{ display: 'flex', paddingBottom: '1rem'}}>
+            <Typography>Student ID: &nbsp;</Typography>
+            <Typography sx={{ lineBreak: 'anywhere'}}>{formik.values.student_id}</Typography>
+          </Box>
+        </>
+      ) : (
+        <>
+          <Box sx={{ display: 'flex', paddingBottom: '1rem', width: '100%' }}>
+            <Typography sx={{ width: '40%' }}>First Name: &nbsp;</Typography>  
+            <TextField
+              id="first_name"
+              name="first_name"
+              value={formik.values.first_name}
+              onChange={formik.handleChange}
+              error={formik.touched.first_name && !!formik.errors.first_name}
+              helperText={formik.touched.first_name && formik.errors.first_name}
+              sx={{...customTextField, width: '50%' }}
             />
-          )}
-        </ListItem>
-
-        {/*Middlename item */}
-        <ListItem
-          sx={sxStyles(isVeryScreenSmall, isMedium, isScreenLg).listItem}
-        >
-          <div style={sxStyles(null, null, null).listItemNameLg}>
-            Middle Name:
-          </div>
-          {isEditMode ? (
-            <div
-              style={
-                sxStyles(isVeryScreenSmall, isMedium, isScreenLg)
-                  .textFieldSeparator
+          </Box>
+          <Box sx={{ display: 'flex', paddingBottom: '1rem', width: '100%' }}>
+            <Typography sx={{ width: '40%' }}>Middle Name: &nbsp;</Typography>
+            <TextField
+              id="middle_name"
+              name="middle_name"
+              value={formik.values.middle_name}
+              onChange={formik.handleChange}
+              error={formik.touched.middle_name && !!formik.errors.middle_name}
+              helperText={
+                formik.touched.middle_name && formik.errors.middle_name
               }
-            >
-              <TextField
-                id="middlename"
-                name="middlename"
-                value={formik.values.middlename}
-                onChange={formik.handleChange}
-                error={formik.touched.middlename && !!formik.errors.middlename}
-                helperText={
-                  formik.touched.middlename && formik.errors.middlename
-                }
-                sx={customTextField}
-              />
-            </div>
-          ) : (
-            <div>{formik.values.middlename}</div>
-          )}
-        </ListItem>
-
-        {/*lastname item */}
-        <ListItem
-          sx={sxStyles(isVeryScreenSmall, isMedium, isScreenLg).listItem}
-        >
-          <div style={sxStyles(null, null, null).listItemNameLg}>
-            Last Name:
-          </div>
-          {isEditMode ? (
-            <div
-              style={
-                sxStyles(isVeryScreenSmall, isMedium, isScreenLg)
-                  .textFieldSeparator
+              sx={{...customTextField, width: '50%' }}
+            />
+          </Box>
+          <Box sx={{ display: 'flex', paddingBottom: '1rem', width: '100%' }}>
+            <Typography sx={{ width: '40%' }}>Last Name: &nbsp;</Typography>
+            <TextField
+              id="last_name"
+              name="last_name"
+              value={formik.values.last_name}
+              onChange={formik.handleChange}
+              error={formik.touched.last_name && !!formik.errors.last_name}
+              helperText={formik.touched.last_name && formik.errors.last_name}
+              sx={{...customTextField, width: '50%' }}
+            />
+          </Box>
+          <Box sx={{ display: 'flex', paddingBottom: '1rem', width: '100%' }}>
+            <Typography sx={{ width: '40%' }}>Second Last Name: &nbsp;</Typography>
+            <TextField
+              id="second_last_name"
+              name="second_last_name"
+              value={formik.values.second_last_name}
+              onChange={formik.handleChange}
+              error={
+                formik.touched.second_last_name &&
+                !!formik.errors.second_last_name
               }
-            >
-              <TextField
-                id="lastname"
-                name="lastname"
-                value={formik.values.lastname}
-                onChange={formik.handleChange}
-                error={formik.touched.lastname && !!formik.errors.lastname}
-                helperText={formik.touched.lastname && formik.errors.lastname}
-                sx={customTextField}
-              />
-            </div>
-          ) : (
-            <div>{formik.values.lastname}</div>
-          )}
-        </ListItem>
-
-        {/*Second lastname item */}
-        <ListItem
-          sx={sxStyles(isVeryScreenSmall, isMedium, isScreenLg).listItem}
-        >
-          <div style={sxStyles(null, null, null).listItemNameLg}>
-            Second lastname:
-          </div>
-          {isEditMode ? (
-            <div
-              style={
-                sxStyles(isVeryScreenSmall, isMedium, isScreenLg)
-                  .textFieldSeparator
+              helperText={
+                formik.touched.second_last_name && formik.errors.second_last_name
               }
-            >
-              <TextField
-                id="secondlastname"
-                name="secondlastname"
-                value={formik.values.secondlastname}
-                onChange={formik.handleChange}
-                error={
-                  formik.touched.secondlastname &&
-                  !!formik.errors.secondlastname
-                }
-                helperText={
-                  formik.touched.secondlastname && formik.errors.secondlastname
-                }
-                sx={customTextField}
-              />
-            </div>
-          ) : (
-            <div>{formik.values.secondlastname}</div>
-          )}
-        </ListItem>
-
-        {/*studentid item */}
-        <ListItem
-          sx={sxStyles(isVeryScreenSmall, isMedium, isScreenLg).listItem}
-        >
-          <div style={sxStyles(null, null, null).listItemNameLg}>
-            Student ID:
-          </div>
-          {isEditMode ? (
-            <div
-              style={
-                sxStyles(isVeryScreenSmall, isMedium, isScreenLg)
-                  .textFieldSeparator
-              }
-            >
-              <TextField
-                id="studentid"
-                name="studentid"
-                value={formik.values.studentid}
-                onChange={formik.handleChange}
-                error={formik.touched.studentid && !!formik.errors.studentid}
-                helperText={formik.touched.studentid && formik.errors.studentid}
-                sx={customTextField}
-              />
-            </div>
-          ) : (
-            <div>{formik.values.studentid}</div>
-          )}
-        </ListItem>
-      </List>
-    </Grid>
+              sx={{...customTextField, width: '50%' }}
+            />
+          </Box>
+          <Box sx={{ display: 'flex', paddingBottom: '1rem', width: '100%' }}>
+            <Typography sx={{ width: '40%' }}>Student ID: &nbsp;</Typography>
+            <TextField
+              id="student_id"
+              name="student_id"
+              value={formik.values.student_id}
+              onChange={formik.handleChange}
+              error={formik.touched.student_id && !!formik.errors.student_id}
+              helperText={formik.touched.student_id && formik.errors.student_id}
+              sx={{...customTextField, width: '50%' }}
+            />
+          </Box>
+        </>
+      )
+    }
+    </Box>
   );
 };
 

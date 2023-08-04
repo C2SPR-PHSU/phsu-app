@@ -7,7 +7,11 @@ import profileScss from "../../Profile/Profile.module.scss";
 const ProfilePhoto = () => {
   const { isScreenLg, isVeryScreenSmall, isMedium } = useMediaQueries();
   return (
-    <Grid item sx={sxStyles(isVeryScreenSmall, null, null).itemPhoto}>
+    <Grid 
+      item 
+      // sx={sxStyles(isVeryScreenSmall, null, null).itemPhoto}
+      sx={{ display: 'flex', padding: 0, justifyContent: 'center'}}
+    >
       <img
         src="https://randomuser.me/api/portraits/women/60.jpg"
         alt="user-photo"

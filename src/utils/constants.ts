@@ -14,5 +14,5 @@ export const userAcademicInformation = "user/campus/modify";
 export const submitDocumentOnbase = "/user/document/sendOB/";
 export const userService = "/user/service/";
 export const userDetails = "/user";
-export const userModify = "/user/modify";
+export const updateUserProfile = "/user/modify";
 export const logout = "/logout";

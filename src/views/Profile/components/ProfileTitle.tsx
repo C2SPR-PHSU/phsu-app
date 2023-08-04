@@ -7,9 +7,9 @@ const ProfileTitle = () => {
   const { isScreenLg, isVeryScreenSmall, isMedium } = useMediaQueries();
   return (
     <Typography
-      variant="h3"
+      variant="h4"
       className={profileScss["title"]}
-      sx={sxStyles(isVeryScreenSmall, isMedium, isScreenLg).title}
+      // sx={sxStyles(isVeryScreenSmall, isMedium, isScreenLg).title}
     >
       Profile
     </Typography>

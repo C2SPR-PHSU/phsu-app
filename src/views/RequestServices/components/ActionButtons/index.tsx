@@ -9,7 +9,7 @@ import {
 } from "@/views/RequestServices/functions";
 import useAlert from "@/hooks/useAlert";
 import useAuthStore from "@/hooks/useAuthStore";
-import { UserModify } from "./../../../Profile/users";
+import { editProfile } from "@/utils/functions";
 
 interface IActionButtonsProps {
   campusStatus: number;
@@ -56,7 +56,7 @@ const ActionButtons = ({
         academicForm.academic_year,
         token
       );
-      const response = await UserModify(token, personalForm);
+      const response = await editProfile(token, personalForm);
       response.action;
       setAlert("Info sent successfully!", "success");
     } catch (error) {
