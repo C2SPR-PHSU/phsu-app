@@ -40,3 +40,17 @@ export const uploadProfilePhoto = async (token: string, avatar: File) => {
     throw error;
   }
 };
+
+export const getUploadProfilePhoto = async (token: string) => {
+  try {
+    api.resource = uploadUserAvatar;
+    api.token = token;
+
+    const res = await api.get();
+    console.log(res)
+
+    return res;
+  } catch (error) {
+    throw error;
+  }
+};
