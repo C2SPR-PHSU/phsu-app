@@ -21,13 +21,13 @@ import { setUserDataInFormik } from './utils';
 
 const Profile = () => {
   const [isEditMode, setIsEditMode] = useState(false);
+  const [imageUrl, setImageUrl] = useState('http://apiphsu.lobsys.net/avatar.php?t=4893439482342390482390432902390394085757895');
 
   const token = useAuthStore((state: any) => state.token);
   const { setAlert } = useAlert();
 
   useEffect(() => {
     fetchUserProfile();
-    // getUploadProfilePhoto(token);
   }, [token]);
   
   const formik = useFormik({
@@ -60,6 +60,7 @@ const Profile = () => {
     try {
       await uploadProfilePhoto(token, e.target.files[0])
       setAlert("Information updated successfully!", "success")
+      location.reload()
     } catch (error) {
       setAlert("Something wrong happened. Please, try again later", "error")
     }
