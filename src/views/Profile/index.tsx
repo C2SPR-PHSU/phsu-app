@@ -97,7 +97,7 @@ const Profile = () => {
             <Grid item xs={12} sm={6} sx={{ paddingTop: '2rem' }}>
               <AcademicInformation isEditMode={isEditMode} formik={formik} />
             </Grid>
-            <Grid item xs={12} sm={6} sx={{ paddingTop: '2rem', paddingRight: '3rem' }}>
+            <Grid item xs={12} sm={6} sx={{ paddingTop: '2rem' }}>
               <AddressInformation isEditMode={isEditMode} formik={formik} />
             </Grid>
           </Grid>

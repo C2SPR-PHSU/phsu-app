@@ -3,8 +3,15 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import profileScss from "../../Profile/Profile.module.scss";
 import customTextField from "../sxTexField";
+import { FormikProps } from "formik";
+import { UserProfile } from "@/types/user";
 
-const PersonalInformation2 = ({ isEditMode, formik }) => {
+interface IPersonalInformation2 {
+  isEditMode: boolean;
+  formik: FormikProps<UserProfile>
+}
+
+const PersonalInformation2 = ({ isEditMode, formik }: IPersonalInformation2) => {
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'flex-start'}}>
     {
@@ -33,8 +40,8 @@ const PersonalInformation2 = ({ isEditMode, formik }) => {
         </>
       ) : (
         <>
-          <Box sx={{ display: 'flex', paddingBottom: '1rem' }}>
-            <Typography>Date or Birth: &nbsp;</Typography>
+          <Box sx={{ display: 'flex', paddingBottom: '1rem', width: '100%' }}>
+            <Typography sx={{ width: '40%' }}>Date or Birth: &nbsp;</Typography>
             <TextField
               id="birthdate"
               name="birthdate"
@@ -42,12 +49,12 @@ const PersonalInformation2 = ({ isEditMode, formik }) => {
               onChange={formik.handleChange}
               error={formik.touched.birthdate && !!formik.errors.birthdate}
               helperText={formik.touched.birthdate && formik.errors.birthdate}
-              sx={customTextField}
+              sx={{...customTextField, width: '50%' }}
               type="date"
             />
           </Box>
-          <Box sx={{ display: 'flex', paddingBottom: '1rem' }}>
-            <Typography>Phone number: &nbsp;</Typography>
+          <Box sx={{ display: 'flex', paddingBottom: '1rem', width: '100%' }}>
+            <Typography sx={{ width: '40%' }}>Phone number: &nbsp;</Typography>
             <TextField
               id="cell_phone"
               name="cell_phone"
@@ -57,11 +64,11 @@ const PersonalInformation2 = ({ isEditMode, formik }) => {
               helperText={
                 formik.touched.cell_phone && formik.errors.cell_phone
               }
-              sx={customTextField}
+              sx={{...customTextField, width: '50%' }}
             />
           </Box>
-          <Box sx={{ display: 'flex', paddingBottom: '1rem' }}>
-            <Typography>Alternative Phone Number: &nbsp;</Typography>
+          <Box sx={{ display: 'flex', paddingBottom: '1rem', width: '100%' }}>
+            <Typography sx={{ width: '40%' }}>Alternative Phone Number: &nbsp;</Typography>
             <TextField
               id="alternative_phone"
               name="alternative_phone"
@@ -75,11 +82,11 @@ const PersonalInformation2 = ({ isEditMode, formik }) => {
                 formik.touched.alternative_phone &&
                 formik.errors.alternative_phone
               }
-              sx={customTextField}
+              sx={{...customTextField, width: '50%' }}
             />
           </Box>
-          <Box sx={{ display: 'flex', paddingBottom: '1rem' }}>
-            <Typography>Email: &nbsp;</Typography>
+          <Box sx={{ display: 'flex', paddingBottom: '1rem', width: '100%' }}>
+            <Typography sx={{ width: '40%' }}>Email: &nbsp;</Typography>
             <TextField
               id="email"
               name="email"
@@ -87,11 +94,11 @@ const PersonalInformation2 = ({ isEditMode, formik }) => {
               onChange={formik.handleChange}
               error={formik.touched.email && !!formik.errors.email}
               helperText={formik.touched.email && formik.errors.email}
-              sx={customTextField}
+              sx={{...customTextField, width: '50%' }}
             />
           </Box>
-          <Box sx={{ display: 'flex', paddingBottom: '1rem' }}>
-            <Typography>Institucional Email: &nbsp;</Typography>
+          <Box sx={{ display: 'flex', paddingBottom: '1rem', width: '100%' }}>
+            <Typography sx={{ width: '40%' }}>Institutional Email: &nbsp;</Typography>
             <TextField
               id="institucional_email"
               name="institucional_email"
@@ -105,7 +112,7 @@ const PersonalInformation2 = ({ isEditMode, formik }) => {
                 formik.touched.institucional_email &&
                 formik.errors.institucional_email
               }
-              sx={customTextField}
+              sx={{...customTextField, width: '50%' }}
             />
           </Box>
         </>
