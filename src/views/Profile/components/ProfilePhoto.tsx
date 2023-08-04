@@ -16,18 +16,15 @@ const ProfilePhoto = () => {
     }
   }, [token])
   
-  console.log(imageUrl)
   return (
     <Grid 
       item 
-      // sx={sxStyles(isVeryScreenSmall, null, null).itemPhoto}
       sx={{ display: 'flex', padding: 0, justifyContent: 'center'}}
     >
       <img
-        // src="https://randomuser.me/api/portraits/women/60.jpg"
         src={imageUrl}
         alt="user-photo"
-        className={profileScss["img-profile-style"]} // Puedes utilizar sx para estilos específicos de la imagen
+        className={profileScss["img-profile-style"]} 
       />
     </Grid>
   );

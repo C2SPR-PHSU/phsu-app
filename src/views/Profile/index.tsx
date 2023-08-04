@@ -27,7 +27,6 @@ const Profile = () => {
 
   useEffect(() => {
     fetchUserProfile();
-    // getUploadProfilePhoto(token);
   }, [token]);
   
   const formik = useFormik({
@@ -60,6 +59,7 @@ const Profile = () => {
     try {
       await uploadProfilePhoto(token, e.target.files[0])
       setAlert("Information updated successfully!", "success")
+      location.reload()
     } catch (error) {
       setAlert("Something wrong happened. Please, try again later", "error")
     }
