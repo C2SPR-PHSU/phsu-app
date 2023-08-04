@@ -35,6 +35,13 @@ export interface IUploadDocument {
   token: string;
 }
 
+export interface IDeleteDocument {
+  campusId: number;
+  documentId: string;
+  token: string;
+}
+
+
 export interface IUserCampusResponse {
   code: string;
   message: string;
