@@ -33,7 +33,7 @@ const RequestServices = () => {
   const [selectedService, setSelectedService] = useState("");
   const [entranceTermId, setEntranceTermId] = useState<number>(0);
   const [academicYear, setAcademicYear] = useState<number>(0);
-  const [userDocuments, setUserDocuments] = useState<ICampusDocumentsData[]>([]);
+  const [userDocuments, setUserDocuments] = useState<IUserDocumentsData[]>([]);
   const [submitStatusCode, setSubmitStatusCode] = useState<number>();
   const [campusData, setCampusData] = useState<ICampusData | null>(null);
 

@@ -102,7 +102,7 @@ const AccordionAcademicInfo = ({ campusData, campusId, academicForm, setAcademic
         <AccordionDetails>
           <Grid container spacing={2} sx={{ py: 1 }}>
             <Grid item xs={12} sm={6} md={3}>
-              <FormControl fullWidth={true} variant="outlined" sx={selectStyles}>
+              <FormControl fullWidth={true} variant="outlined" sx={selectStyles} disabled={campusId === ''}>
                 <CustomLabel name="Entrance Academic Year" required={true} />
                 <Select
                   value={academicForm.academic_year || "placeholder"}

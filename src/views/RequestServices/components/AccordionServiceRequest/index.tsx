@@ -202,7 +202,7 @@ export default function BasicAccordion({ setPersonalForm, personalForm }: any) {
                 <Grid item xs={12} sm={6} md={4}>
                   <CustomLabel name="Second Last Name" required={false} />
                   <MyTextField
-                    name="secondLastName"
+                    name="second_last_name"
                     placeholder="Second Last Name"
                     value={personalForm?.second_last_name || ''}
                     onValueChange={(name, value) => handlePersonalFormChange(name, value)}
