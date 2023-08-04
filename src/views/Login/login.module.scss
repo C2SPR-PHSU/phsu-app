@@ -1,0 +1,55 @@
+@import "../../assets/styles";
+
+@mixin commonTextStyles {
+  color: $white;
+  font-weight: $heavy;
+  font-family: title;
+}
+
+.welcome-container {
+  position: relative;
+  max-width: 100%;
+  min-height: 100%;
+
+  .background-image {
+    background: linear-gradient(
+        to bottom,
+        rgba(0, 153, 153, 0.5),
+        rgba(0, 153, 153, 0.5)
+      ),
+      url("../../assets/Asset_1.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position-x: right;
+    height: 120vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .text {
+    @include commonTextStyles;
+    font-size: $bigTitle;
+    margin-bottom: 2rem;
+  }
+
+  .description {
+    @include commonTextStyles;
+    font-size: $bigDescription;
+    width: 60%;
+  }
+}
+
+.services-container {
+  padding: 2rem 4rem 0 6rem;
+}
+
+.upper-text-title {
+  color: $warning;
+  font-size: $mainTitle !important;
+  font-weight: bolder !important;
+  font-family: "GothamMedium";
+  margin-bottom: 2rem !important;
+}

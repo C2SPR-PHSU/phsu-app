@@ -6,7 +6,7 @@ const BASE_URL = DEV_URI;
 
 const MakeHeaders = () => {
   const headers = {
-    'Content-Type': 'application/json',
+    'Content-Type': 'multipart/form-data',
     Accept: 'application/json',
   };
   return { ...headers };
@@ -37,14 +37,15 @@ function responseParser<SuccessType>(response: AxiosResponse): SuccessType {
   return response.data;
 }
 
-const errorParser = (err: any) => {
+const errorParser = (err: any): { message: string, statusCode: number } => {
   let error = err;
   if (err.response && err.response.data) {
     // eslint-disable-next-line prefer-destructuring
-    error = err.response.data || {};
-    error.statusCode = err.response.status;
 
-    let message = error.message.server_message;
+    error = err.response.data || {};
+    error.statusCode = err.response.data.statusCode;
+
+    let message = error.message;
 
     throw makeError(error, message);
   }
@@ -81,6 +82,7 @@ const AxiosDispatchResponse = async <ResponseType, ParamsType>(
     parameters.params = qs;
   }
   try {
+    self.axiosInstance.defaults.headers.common['token'] = self.token
     const response: AxiosResponse = await self.axiosInstance[verb](self.resource, parameters);
     return responseParser<ResponseType>(response);
   } catch (e) {
@@ -91,9 +93,11 @@ const AxiosDispatchResponse = async <ResponseType, ParamsType>(
 let that: ApiRequest | null = null;
 class ApiRequest {
   resource = '';
+  token = '';
   axiosInstance: AxiosInstance;
   constructor() {
     this.resource = '';
+    this.token = '';
     this.axiosInstance = CreateAxiosInstance();
     that = this;
   }

@@ -1,3 +1,26 @@
+@font-face {
+    font-family: "Gotham-Black";
+    src: url("../../fonts/Gotham-Black.otf") format("opentype");
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Gotham-Medium";
+    src: url("../../fonts/GothamMedium.otf") format("opentype");
+    font-weight: normal;
+    font-style: normal;
+}
+
+body,
+h2,
+h4,
+h5,
+p,
+.MuiTypography-root {
+    font-family: 'Gotham-Medium' !important;
+}
+
 // Main
 $black: black;
 $white: #ffff;
@@ -6,6 +29,17 @@ $mainDark: #333333;
 $mainOrange: #f7941d;
 $darkGray: #e0e0e0;
 $lightGray: #f2f2f2;
+
+//PHSU
+
+$primary: #009999;
+$secondary: #333333;
+$warning: #f7941d;
+$primary-neutral: #e0e0e0;
+$secondary-neutral: #f2f2f2;
+$tertiary-neutral: #ffffff;
+$status-approved: #6abe53;
+$status-default: #939393;
 
 // Blue Color Palette
 $blue1: #cdfafa;
@@ -34,6 +68,7 @@ $grayCool: #1e282d;
 $hexBlack: #010a13;
 $grayText: #b2b2b2;
 $grayTextLight: #c7c7c9;
+$textMedium: 26px;
 
 $placeholderText: #9c9c9c;
 $blackText: #333333;
@@ -44,8 +79,15 @@ $small: 0.6rem;
 $regular: 0.7rem;
 $normal: 1rem;
 $large: 1.5rem;
+$bigDescription: 20px;
+$mainTitle: 40px;
+$bigTitle: 60px;
 
 // WEIGHT
 $light: 300;
 $heavy: 700;
 $superHeavy: 800;
+
+
+$gothamBlack: 'Gotham-Black';
+$gotham: 'Gotham-Medium';
