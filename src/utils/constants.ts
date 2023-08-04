@@ -9,6 +9,7 @@ export const campusTerms = "/campus/terms";
 export const userInfo = "/user";
 export const uploadDocuments = "/user/document/create";
 export const userDocuments = "/user/document";
+export const deleteDocuments = "/user/document/delete";
 export const userCampus = "/user/campus/";
 export const userAcademicInformation = "user/campus/modify";
 export const submitDocumentOnbase = "/user/document/sendOB/";

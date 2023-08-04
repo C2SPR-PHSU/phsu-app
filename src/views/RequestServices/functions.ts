@@ -11,6 +11,7 @@ import {
   userAcademicInformation,
   userInfo,
   userDocuments,
+  deleteDocuments,
 } from "@/utils";
 import {
   IUserCampusResponse,
@@ -22,6 +23,7 @@ import {
   IEntranceTermsResponse,
   IUserInfoResponse,
   IUserDocumentsResponse,
+  IDeleteDocument,
 } from "./types";
 
 export const getCampuses = async () => {
@@ -80,6 +82,27 @@ export const uploadDocument = async ({
         document_id: parseInt(documentId),
         document,
         force: 1,
+      },
+    });
+    return res.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const deleteDocument = async ({
+  campusId,
+  documentId,
+  token,
+}: IDeleteDocument) => {
+  try {
+    api.resource = deleteDocuments;
+    api.token = token;
+
+    const res = await api.post<ICampusDocumentResponse>({
+      body: {
+        campus_id: campusId,
+        document_id: parseInt(documentId)
       },
     });
     return res.data;

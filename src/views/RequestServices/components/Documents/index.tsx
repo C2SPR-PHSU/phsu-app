@@ -1,10 +1,10 @@
 import { ChangeEvent, useState, useEffect } from "react";
-import { Grid, Box, Typography, Button } from "@mui/material";
+import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Grid, Box, Typography, Button } from "@mui/material";
 import UploadIcon from "@mui/icons-material/Upload";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import DeleteIcon from '@mui/icons-material/Delete';
 import CheckIcon from "@mui/icons-material/Check";
-import { uploadDocument } from "@/views/RequestServices/functions";
+import { uploadDocument, deleteDocument } from "@/views/RequestServices/functions";
 import useAuthStore from "@/hooks/useAuthStore";
 import styles from "./styles.module.scss";
 import useAlert from "@/hooks/useAlert";
@@ -45,7 +45,6 @@ const Documents = ({
 
 
   const handleUpload = async (e: ChangeEvent<HTMLInputElement>) => {
-    console.log('test')
     if (!e.target.files) return;
     const document = e.target.files[0];
     try {
@@ -61,6 +60,28 @@ const Documents = ({
   };
 
 
+  const [open, setOpen] = useState(false);
+
+  const deleteDialogOpen = () => {
+    setOpen(true);
+  };
+
+  const deleteDialogClose = () => {
+    setOpen(false);
+  };
+
+  const handleDeleteDocument = async () => {
+    try {
+      await deleteDocument({ campusId, documentId, token });
+      requestUserDocuments();
+      setAlert('Documents Deleted Successfully!', 'success')
+      setChecked(false)
+      getUserCampusInfo(campusId.toString());
+    } catch (error) {
+      setAlert('Something happened. Try again later', 'error')
+    }
+    deleteDialogClose();
+  };
 
   return (
     <>
@@ -123,49 +144,78 @@ const Documents = ({
 
                 {
                   currentDocument && currentDocument.status !== '0' ?
-                    <div className={styles["rounded-div"]}>
-                      <VisibilityIcon
-                        sx={{
-                          fontSize: "24px !important",
-                          color: "#e0e0e0"
-                        }}
-                        onClick={() => {
-                          if (currentDocument.url !== '') {
-                            window.open(currentDocument.url, "_blank")
+                    <>
+                      <div className={styles["rounded-div"]}>
+                        <VisibilityIcon
+                          sx={{
+                            fontSize: "24px !important",
+                            color: "#e0e0e0"
+                          }}
+                          onClick={() => {
+                            if (currentDocument.url !== '') {
+                              window.open(currentDocument.url, "_blank")
+                            }
+                          }}
+                        />
+                      </div>
+
+                      <div className={styles["rounded-div"]}>
+                        <Button
+                          component="label"
+                          sx={{
+                            minWidth: "16px !important",
+                            padding: "0px !important",
+                          }}
+                          startIcon={
+                            <DeleteIcon
+                              sx={{
+                                color: "#e0e0e0",
+                                cursor: "pointer",
+                                fontSize: "24px !important",
+                              }}
+                              onClick={() => { deleteDialogOpen() }}
+                            />
                           }
-                        }}
-                      />
-                    </div>
+                        >
+                        </Button>
+                      </div>
+                    </>
                     :
-                    <div className={styles["rounded-div-disabled"]}>
-                      <VisibilityIcon
-                        sx={{
-                          fontSize: "24px !important",
-                          color: "#e0e0e0"
-                        }} />
-                    </div>
+                    <>
+                      <div className={styles["rounded-div-disabled"]}>
+                        <VisibilityIcon
+                          sx={{
+                            fontSize: "24px !important",
+                            color: "#e0e0e0"
+                          }}
+                        />
+                      </div>
+
+                      <div className={styles["rounded-div-disabled"]}>
+                        <Button
+                          component="label"
+                          sx={{
+                            minWidth: "16px !important",
+                            padding: "0px !important",
+                          }}
+                          startIcon={
+                            <DeleteIcon
+                              sx={{
+                                color: "#e0e0e0",
+                                cursor: "pointer",
+                                fontSize: "24px !important",
+                              }}
+                            />
+                          }
+                        >
+                        </Button>
+                      </div>
+
+                    </>
                 }
 
 
-                <div className={styles["rounded-div"]}>
-                  <Button
-                    component="label"
-                    sx={{
-                      minWidth: "16px !important",
-                      padding: "0px !important",
-                    }}
-                    startIcon={
-                      <DeleteIcon
-                        sx={{
-                          color: "#e0e0e0",
-                          cursor: "pointer",
-                          fontSize: "24px !important",
-                        }}
-                      />
-                    }
-                  >
-                  </Button>
-                </div>
+
               </div>
             </Grid>
           </div>
@@ -186,6 +236,26 @@ const Documents = ({
           </div>
         </Grid>
       </Grid>
+
+      <Dialog open={open} onClose={deleteDialogClose}>
+        <DialogTitle>
+          Confirm Delete
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Are you sure you want to delete this document?<br />
+            <b>{currentDocument?.description}</b>
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={deleteDialogClose}>
+            No
+          </Button>
+          <Button onClick={handleDeleteDocument}>
+            Yes
+          </Button>
+        </DialogActions>
+      </Dialog>
     </>
   );
 };
