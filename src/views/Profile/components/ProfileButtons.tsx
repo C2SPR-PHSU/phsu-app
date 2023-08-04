@@ -2,17 +2,15 @@
 import { Grid, Button } from "@mui/material";
 import CameraAltIcon from "@mui/icons-material/CameraAlt";
 import profileScss from "../../Profile/Profile.module.scss";
-import { useFormikContext } from 'formik';
+// import { useFormikContext } from 'formik';
 
 interface IProfileButtons {
   isEditMode: boolean;
   activateEditForm: () => void;
+  submitForm: () => void;
 }
 
-const ProfileButtons = ({ isEditMode, activateEditForm }: IProfileButtons) => {
-  
-  // const { submitForm } = useFormikContext() ?? {};
-
+const ProfileButtons = ({ isEditMode, activateEditForm, submitForm }: IProfileButtons) => {
   return (
     <Grid
       item
@@ -24,12 +22,14 @@ const ProfileButtons = ({ isEditMode, activateEditForm }: IProfileButtons) => {
           variant="outlined"
           className={profileScss["profiles-button"]}
           type="submit"
+          onClick={submitForm}
         >
           Save Profile
         </Button> : 
         <Button
             variant="outlined"
             className={profileScss["profiles-button"]}
+            type="button"
             onClick={() => activateEditForm()}
           >
             Edit Profile

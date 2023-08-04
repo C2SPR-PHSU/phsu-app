@@ -33,7 +33,7 @@ const Profile = () => {
     initialValues,
     validationSchema: validationSchema,
     onSubmit: values => updateUserProfile(values)
-  });
+  })
 
   const fetchUserProfile = async () => {
     try {
@@ -57,50 +57,52 @@ const Profile = () => {
 
   return (
     <>
-      <form onSubmit={formik.handleSubmit}>
-        <Grid container sx={{ padding: '3rem' }}>
-          <Grid item xs={12} sx={{ paddingLeft: '5rem', marginBottom: '2rem'}}>
-            <ProfileTitle />
-          </Grid>
-          <Grid item xs={3} sx={{ display: 'flex', flexDirection: 'column', paddingTop: '2rem' }}>
-            <ProfilePhoto />
-            <ProfileButtons isEditMode={isEditMode} activateEditForm={() => setIsEditMode(true)} />
-          </Grid>
-          <Grid item xs={9} sx={{ paddingTop: '2rem' }}>
-            <Grid container>
-              <Grid item xs={12}>
-                <Typography
-                  variant="h5"
-                  className={profileScss["title-address-information"]}
-                  sx={{ paddingBottom: '1rem' }}
-                >
-                  Personal Information
-                </Typography>
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <PersonalInformation isEditMode={isEditMode} formik={formik} />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <PersonalInformation2 isEditMode={isEditMode} formik={formik} />
-              </Grid>
-              <Divider
-                orientation="horizontal"
-                sx={{
-                  borderBottom: "1px solid gray",
-                  width: "95%",
-                  paddingTop: "1rem",
-                }}
-              />
-              <Grid item xs={12} sm={6} sx={{ paddingTop: '2rem' }}>
-                <AcademicInformation isEditMode={isEditMode} formik={formik} />
-              </Grid>
-              <Grid item xs={12} sm={6} sx={{ paddingTop: '2rem', paddingRight: '3rem' }}>
-                <AddressInformation isEditMode={isEditMode} formik={formik} />
-              </Grid>
+      <Grid container sx={{ padding: '3rem' }}>
+        <Grid item xs={12} sx={{ paddingLeft: '5rem', marginBottom: '2rem'}}>
+          <ProfileTitle />
+        </Grid>
+        <Grid item xs={3} sx={{ display: 'flex', flexDirection: 'column', paddingTop: '2rem' }}>
+          <ProfilePhoto />
+          <ProfileButtons 
+            isEditMode={isEditMode} 
+            activateEditForm={() => setIsEditMode(true)}
+            submitForm={formik.handleSubmit}
+          />
+        </Grid>
+        <Grid item xs={9} sx={{ paddingTop: '2rem' }}>
+          <Grid container>
+            <Grid item xs={12}>
+              <Typography
+                variant="h5"
+                className={profileScss["title-address-information"]}
+                sx={{ paddingBottom: '1rem' }}
+              >
+                Personal Information
+              </Typography>
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <PersonalInformation isEditMode={isEditMode} formik={formik} />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <PersonalInformation2 isEditMode={isEditMode} formik={formik} />
+            </Grid>
+            <Divider
+              orientation="horizontal"
+              sx={{
+                borderBottom: "1px solid gray",
+                width: "95%",
+                paddingTop: "1rem",
+              }}
+            />
+            <Grid item xs={12} sm={6} sx={{ paddingTop: '2rem' }}>
+              <AcademicInformation isEditMode={isEditMode} formik={formik} />
+            </Grid>
+            <Grid item xs={12} sm={6} sx={{ paddingTop: '2rem', paddingRight: '3rem' }}>
+              <AddressInformation isEditMode={isEditMode} formik={formik} />
             </Grid>
           </Grid>
         </Grid>
-      </form>
+      </Grid>
     </>
   );
 };
