@@ -31,7 +31,7 @@ const Profile = () => {
   
   const formik = useFormik({
     initialValues,
-    validationSchema: validationSchema,
+    validationSchema,
     onSubmit: values => updateUserProfile(values)
   })
 
