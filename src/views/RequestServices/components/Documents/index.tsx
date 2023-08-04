@@ -8,7 +8,7 @@ import { uploadDocument, deleteDocument } from "@/views/RequestServices/function
 import useAuthStore from "@/hooks/useAuthStore";
 import styles from "./styles.module.scss";
 import useAlert from "@/hooks/useAlert";
-import { IUserDocumentsData } from "../../types";
+import { IUserDocumentsData, ICampusDocumentsData } from "../../types";
 
 interface IDocumentsProps {
   title: string;
@@ -18,6 +18,7 @@ interface IDocumentsProps {
   mandatory: string;
   getUserCampusInfo: (id: string) => void;
   userDocuments: IUserDocumentsData[];
+  campusDocuments: ICampusDocumentsData[];
   requestUserDocuments: () => void;
 }
 
@@ -29,6 +30,7 @@ const Documents = ({
   mandatory,
   getUserCampusInfo,
   userDocuments,
+  campusDocuments,
   requestUserDocuments
 }: IDocumentsProps) => {
 
@@ -42,7 +44,7 @@ const Documents = ({
   useEffect(() => {
     const doc = userDocuments?.find(doc => doc.id === documentId);
     setCurrentDocument(doc || null);
-    console.log(currentDocument)
+    console.log(currentDocument?.description, ' ', currentDocument?.status)
   }, [documentId, userDocuments, checked, currentDocument]);
 
 
@@ -87,156 +89,157 @@ const Documents = ({
 
   return (
     <>
-      <Grid container>
-        <Grid item xs={10}>
-          <div className={styles["document-row-wrapper"]}>
-            <Grid item xs={10}>
-              <Typography
-                sx={{
-                  fontFamily: "GothamMedium !important",
-                  fontSize: "1.2rem",
-                  fontWeight: "bolder",
-                  display: "inline-block",
-                }}
-              >
-                {title}
-                {parseInt(mandatory) !== 0 && (
-                  <Typography
-                    sx={{
-                      fontFamily: "GothamMedium !important",
-                      fontSize: "1.2rem",
-                      fontWeight: "bolder",
-                      color: "red",
-                      display: "inline-block",
-                      paddingLeft: "8px !important",
-                    }}
-                  >
-                    *
-                  </Typography>
-                )}
-              </Typography>
-            </Grid>
-            <Grid item xs={2} gap={3}>
-              <div className={styles["document-actions-button"]}>
-                <div className={styles["rounded-div"]}>
-                  <Button
-                    component="label"
-                    sx={{
-                      minWidth: "16px !important",
-                      padding: "0px !important",
-                    }}
-                    startIcon={
-                      <UploadIcon
-                        sx={{
-                          color: "#e0e0e0",
-                          cursor: "pointer",
-                          fontSize: "24px !important",
-                        }}
-                      />
-                    }
-                  >
-                    <input
-                      type="file"
-                      accept=".pdf"
-                      onChange={(e) => handleUpload(e)}
-                      hidden
-                    />
-                  </Button>
-                </div>
-
-                {
-                  currentDocument && currentDocument.status !== '0' ?
-                    <div className={styles["rounded-div"]}>
-                      <VisibilityIcon
-                        sx={{
-                          fontSize: "24px !important",
-                          color: "#e0e0e0"
-                        }}
-                        onClick={() => {
-                          if (currentDocument.url !== '') {
-                            window.open(currentDocument.url, "_blank")
-                          }
-                        }}
-                      />
-                    </div>
-                    :
-                    <div className={styles["rounded-div-disabled"]}>
-                      <VisibilityIcon
-                        sx={{
-                          fontSize: "24px !important",
-                          color: "#e0e0e0"
-                        }}
-                      />
-                    </div>
-                }
-
-                {
-                  currentDocument && campusStatus < 2 ?
-                    <div className={styles["rounded-div"]}>
-                      <Button
-                        component="label"
-                        sx={{
-                          minWidth: "16px !important",
-                          padding: "0px !important",
-                        }}
-                        startIcon={
-                          <DeleteIcon
-                            sx={{
-                              color: "#e0e0e0",
-                              cursor: "pointer",
-                              fontSize: "24px !important",
-                            }}
-                            onClick={() => { deleteDialogOpen() }}
-                          />
-                        }
-                      >
-                      </Button>
-                    </div>
-                    :
-                    <div className={styles["rounded-div-disabled"]}>
-                      <Button
-                        component="label"
-                        sx={{
-                          minWidth: "16px !important",
-                          padding: "0px !important",
-                        }}
-                        startIcon={
-                          <DeleteIcon
-                            sx={{
-                              color: "#e0e0e0",
-                              cursor: "pointer",
-                              fontSize: "24px !important",
-                            }}
-                          />
-                        }
-                      >
-                      </Button>
-                    </div>
-                }
-
-
-
-              </div>
-            </Grid>
-          </div>
-        </Grid>
-
-        <Grid item xs={2}>
-          <div className={styles["update-column-wrapper"]}>
-            <Grid item xs={12}>
-              <Grid item xs={12}>
-                {
-                  currentDocument && currentDocument.status !== '0' ?
-                    <CheckIcon sx={{ color: "#f7941d" }} /> :
-                    null
-                }
+      {currentDocument && (
+        <Grid container>
+          <Grid item xs={10}>
+            <div className={styles["document-row-wrapper"]}>
+              <Grid item xs={10}>
+                <Typography
+                  sx={{
+                    fontFamily: "GothamMedium !important",
+                    fontSize: "1.2rem",
+                    fontWeight: "bolder",
+                    display: "inline-block",
+                  }}
+                >
+                  {title}
+                  {parseInt(mandatory) !== 0 && (
+                    <Typography
+                      sx={{
+                        fontFamily: "GothamMedium !important",
+                        fontSize: "1.2rem",
+                        fontWeight: "bolder",
+                        color: "red",
+                        display: "inline-block",
+                        paddingLeft: "8px !important",
+                      }}
+                    >
+                      *
+                    </Typography>
+                  )}
+                </Typography>
               </Grid>
+              <Grid item xs={2} gap={3}>
+                <div className={styles["document-actions-button"]}>
+                  <div className={styles["rounded-div"]}>
+                    <Button
+                      component="label"
+                      sx={{
+                        minWidth: "16px !important",
+                        padding: "0px !important",
+                      }}
+                      startIcon={
+                        <UploadIcon
+                          sx={{
+                            color: "#e0e0e0",
+                            cursor: "pointer",
+                            fontSize: "24px !important",
+                          }}
+                        />
+                      }
+                    >
+                      <input
+                        type="file"
+                        accept=".pdf"
+                        onChange={(e) => handleUpload(e)}
+                        hidden
+                      />
+                    </Button>
+                  </div>
 
-            </Grid>
-          </div>
+                  {
+                    currentDocument && currentDocument.status !== '0' ?
+                      <div className={styles["rounded-div"]}>
+                        <VisibilityIcon
+                          sx={{
+                            fontSize: "24px !important",
+                            color: "#e0e0e0"
+                          }}
+                          onClick={() => {
+                            if (currentDocument.url !== '') {
+                              window.open(currentDocument.url, "_blank")
+                            }
+                          }}
+                        />
+                      </div>
+                      :
+                      <div className={styles["rounded-div-disabled"]}>
+                        <VisibilityIcon
+                          sx={{
+                            fontSize: "24px !important",
+                            color: "#e0e0e0"
+                          }}
+                        />
+                      </div>
+                  }
+
+                  {
+                    currentDocument && currentDocument.status !== '0' && campusStatus < 2 ?
+                      <div className={styles["rounded-div"]}>
+                        <Button
+                          component="label"
+                          sx={{
+                            minWidth: "16px !important",
+                            padding: "0px !important",
+                          }}
+                          startIcon={
+                            <DeleteIcon
+                              sx={{
+                                color: "#e0e0e0",
+                                cursor: "pointer",
+                                fontSize: "24px !important",
+                              }}
+                              onClick={() => { deleteDialogOpen() }}
+                            />
+                          }
+                        >
+                        </Button>
+                      </div>
+                      :
+                      <div className={styles["rounded-div-disabled"]}>
+                        <Button
+                          component="label"
+                          sx={{
+                            minWidth: "16px !important",
+                            padding: "0px !important",
+                          }}
+                          startIcon={
+                            <DeleteIcon
+                              sx={{
+                                color: "#e0e0e0",
+                                cursor: "pointer",
+                                fontSize: "24px !important",
+                              }}
+                            />
+                          }
+                        >
+                        </Button>
+                      </div>
+                  }
+
+
+
+                </div>
+              </Grid>
+            </div>
+          </Grid>
+
+          <Grid item xs={2}>
+            <div className={styles["update-column-wrapper"]}>
+              <Grid item xs={12}>
+                <Grid item xs={12}>
+                  {
+                    currentDocument && currentDocument.status !== '0' ?
+                      <CheckIcon sx={{ color: "#f7941d" }} /> :
+                      null
+                  }
+                </Grid>
+
+              </Grid>
+            </div>
+          </Grid>
         </Grid>
-      </Grid>
-
+      )}
       <Dialog open={open} onClose={deleteDialogClose}>
         <DialogTitle>
           Confirm Delete

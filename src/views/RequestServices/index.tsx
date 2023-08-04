@@ -258,6 +258,7 @@ const RequestServices = () => {
                         documentId={document.id}
                         mandatory={document.mandatory}
                         getUserCampusInfo={(id) => getUserCampusInfo(id)}
+                        campusDocuments={documentList}
                         userDocuments={userDocuments}
                         requestUserDocuments={() => requestUserDocuments()}
                       />
