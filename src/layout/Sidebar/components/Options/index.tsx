@@ -6,10 +6,14 @@ const Options = ({
   text,
   redirect,
   children,
+  textColor,
+  fontSze,
 }: {
   text: string;
   redirect?: string;
   children: ReactNode;
+  textColor: string;
+  fontSze: string;
 }) => {
   const navigate = useNavigate();
 
@@ -25,7 +29,10 @@ const Options = ({
       onClick={() => navigate(`${redirect ?? "/"}`)}
     >
       {children}
-      <Typography variant="body1" sx={{ color: "white", textAlign: "center" }}>
+      <Typography
+        variant="body1"
+        sx={{ color: textColor, textAlign: "center", fontSize: fontSze }}
+      >
         {text}
       </Typography>
     </Box>
