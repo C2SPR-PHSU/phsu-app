@@ -66,7 +66,7 @@ export default function BasicTable({
     const year = date.getFullYear().toString();
 
     //
-    const formattedDate = `${day}/${month}/${year}`;
+    const formattedDate = `${month}/${day}/${year}`;
 
     return formattedDate;
   }

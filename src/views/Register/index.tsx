@@ -305,6 +305,7 @@ export default function Registration() {
             <CustomLabel name="Date of Birth" required={true} />
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DatePicker
+                format="MM/DD/YYYY"
                 sx={{...Date, width: '90%'}}
                 value={formik.values.birthdate}
                 onChange={(newValue) => {
