@@ -20,6 +20,9 @@ import * as Yup from "yup";
 import styles from "./Register.module.scss";
 import useAlert from "@/hooks/useAlert";
 import useAuthStore from "@/hooks/useAuthStore";
+import dayjs, { Dayjs } from 'dayjs';
+import { handleDateChange } from '@/utils/helpers';
+import { CustomTextField } from '../Profile/constants';
 
 export default function Registration() {
   const { setAlert } = useAlert();
@@ -295,16 +298,16 @@ export default function Registration() {
 
           <Grid item xs={12} sm={6} md={4}>
             <CustomLabel name="Date of Birth" required={true} />
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
-              <DatePicker
-                sx={{...Date, width: '90%'}}
-                value={formik.values.birthdate}
-                onChange={(newValue) => {
-                  formik.setFieldValue("birthdate", newValue);
-                }}
-                slotProps={{ textField: { size: "small", fullWidth: true } }}
-              />
-            </LocalizationProvider>
+            <TextField
+              id="birthdate"
+              name="birthdate"
+              value={formik.values.birthdate}
+              onChange={formik.handleChange}
+              error={formik.touched.birthdate && !!formik.errors.birthdate}
+              helperText={formik.touched.birthdate && formik.errors.birthdate}
+              sx={{...CustomTextField, width: '90%' }}
+              type="date"
+            />
           </Grid>
 
           {/* --------------------------------Phone Number-------------------------------------------------- */}

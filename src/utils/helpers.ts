@@ -1,4 +1,4 @@
-import dayjs from 'dayjs';
+import dayjs, { Dayjs } from 'dayjs';
 
 export const debounce = <A = unknown, R = void>(
   // source: https://stackblitz.com/github/Bwca/demo__use-debounce-hook?file=src%2Fdebounce%2Fdebounce.ts
@@ -26,3 +26,11 @@ export const debounce = <A = unknown, R = void>(
 export const getFormattedDate = (inputDate: string) => {
   return dayjs(inputDate).format('MM/DD/YYYY');
 }
+
+export const handleDateChange = (newDate: Dayjs | null) => {
+  if (newDate) {
+    const adjustedDate = newDate.add(12, 'hour'); // agregar 12 horas a la fecha
+    console.log(adjustedDate.format())
+    return adjustedDate.format()
+  }
+};
