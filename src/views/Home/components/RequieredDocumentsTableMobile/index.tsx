@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import {
   Box,
   Table,
@@ -34,6 +34,38 @@ const RequiredDocumentsTableMobile: React.FC<RequiredDocumentsTableProps> = ({
     const formattedDate = `${day}/${month}/${year}`;
     return formattedDate;
   }
+  // Box
+  const refArray = useRef<(HTMLDivElement | null)[]>([]);
+
+  // TableRow
+  const rowRefArray = useRef<(HTMLTableRowElement | null)[]>([]);
+
+  const [heights, setHeights] = useState<number[]>([]);
+  const [rowheights, setRowHeights] = useState<number[]>([]);
+
+  // Calculate and set heights on document list change
+  useEffect(() => {
+    const newHeights: number[] = [];
+    const newRowHeights: number[] = [];
+
+    refArray.current.forEach((ref) => {
+      if (ref) {
+        const { height } = ref.getBoundingClientRect();
+        newHeights.push(height);
+      }
+    });
+
+    setHeights(newHeights);
+
+    rowRefArray.current.forEach((rowRef) => {
+      if (rowRef) {
+        const { height } = rowRef.getBoundingClientRect();
+        newRowHeights.push(height);
+      }
+    });
+
+    setRowHeights(newRowHeights);
+  }, [documentList]);
 
   // <----------------------------- View Mobile ------------------------------------>
 
@@ -62,7 +94,7 @@ const RequiredDocumentsTableMobile: React.FC<RequiredDocumentsTableProps> = ({
           </TableHead>
           <TableBody>
             {documentList.length ? (
-              documentList?.map((row) => {
+              documentList?.map((row, index) => {
                 return (
                   <TableRow
                     key={row.id}
@@ -71,6 +103,7 @@ const RequiredDocumentsTableMobile: React.FC<RequiredDocumentsTableProps> = ({
                       borderTopLeftRadius: "5px",
                       borderBottomLeftRadius: "5px",
                     }}
+                    ref={(e) => (rowRefArray.current[index] = e)}
                   >
                     <TableCell
                       component="th"
@@ -81,15 +114,14 @@ const RequiredDocumentsTableMobile: React.FC<RequiredDocumentsTableProps> = ({
                       }}
                     >
                       <Box
-                        key={row.id}
+                        ref={(el) => (refArray.current[index] = el)}
                         sx={{
                           display: "flex",
                           flexDirection: "column",
                           justifyContent: "center",
                           overflowY: "auto",
-                          minHeight: "4.5rem",
-                          maxHeight: "4.5rem",
-                          minWidth: "12rem",
+
+                          minWidth: "4rem",
                           scrollbarWidth: "none",
                           "&::-webkit-scrollbar": {
                             width: "0.4em",
@@ -102,10 +134,10 @@ const RequiredDocumentsTableMobile: React.FC<RequiredDocumentsTableProps> = ({
                           borderBottomLeftRadius: "10px",
                           borderTopLeftRadius: "10px",
                           paddingRight: "0rem",
-                          width: "193%",
+                          width: "220%",
                         }}
                       >
-                        <Typography sx={{ width: "13rem" }}>
+                        <Typography sx={{ width: "11rem", padding: "0.5rem" }}>
                           {row.description}
                         </Typography>
                       </Box>
@@ -155,7 +187,13 @@ const RequiredDocumentsTableMobile: React.FC<RequiredDocumentsTableProps> = ({
                 return (
                   <TableRow
                     key={index}
-                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                    sx={{
+                      "&:last-child td, &:last-child th": { border: 0 },
+                      minHeight: `${rowheights[index]}px`,
+                      maxHeight: `${rowheights[index]}px`,
+                      display: "flex",
+                      flexDirection: "row",
+                    }}
                   >
                     {/* actions */}
                     <TableCell
@@ -163,6 +201,9 @@ const RequiredDocumentsTableMobile: React.FC<RequiredDocumentsTableProps> = ({
                         paddingLeft: 0,
                         paddingTop: "0.5rem",
                         paddingBottom: "0.5rem",
+                        width: "5rem",
+                        display: "flex",
+                        alignItems: "center",
                       }}
                     >
                       <Box
@@ -172,12 +213,13 @@ const RequiredDocumentsTableMobile: React.FC<RequiredDocumentsTableProps> = ({
                           alignItems: "center",
                           justifyContent: "center",
                           overflowY: "auto",
-                          minHeight: "4.5rem",
-                          maxHeight: "4.5rem",
                           backgroundColor: "#e9e8e8",
                           width: "100%",
                           borderTopRightRadius: "10px",
                           borderBottomRightRadius: "10px",
+                          minHeight: `${heights[index]}px`,
+                          maxHeight: `${heights[index]}px`,
+                          minWidth: "2rem",
                         }}
                       >
                         {row.url ? (
