@@ -6,6 +6,9 @@ import customTextField from "../sxTexField";
 import { FormikProps } from "formik";
 import { UserProfile } from "@/types/user";
 import { getFormattedDate } from '@/utils/helpers';
+import { CustomTextField } from '../constants';
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { DatePicker } from "@mui/x-date-pickers";
 
 interface IPersonalInformation2 {
   isEditMode: boolean;
@@ -43,7 +46,7 @@ const PersonalInformation2 = ({ isEditMode, formik }: IPersonalInformation2) => 
               onChange={formik.handleChange}
               error={formik.touched.birthdate && !!formik.errors.birthdate}
               helperText={formik.touched.birthdate && formik.errors.birthdate}
-              sx={{...customTextField, width: '50%' }}
+              sx={{...CustomTextField, width: '50%' }}
               type="date"
             />
           </Box>
@@ -58,7 +61,7 @@ const PersonalInformation2 = ({ isEditMode, formik }: IPersonalInformation2) => 
               helperText={
                 formik.touched.cell_phone && formik.errors.cell_phone
               }
-              sx={{...customTextField, width: '50%' }}
+              sx={{...CustomTextField, width: '50%' }}
             />
           </Box>
           <Box sx={{ display: 'flex', paddingBottom: '1rem', width: '100%' }}>
@@ -70,7 +73,7 @@ const PersonalInformation2 = ({ isEditMode, formik }: IPersonalInformation2) => 
               onChange={formik.handleChange}
               error={formik.touched.email && !!formik.errors.email}
               helperText={formik.touched.email && formik.errors.email}
-              sx={{...customTextField, width: '50%' }}
+              sx={{...CustomTextField, width: '50%' }}
             />
           </Box>
         </>
