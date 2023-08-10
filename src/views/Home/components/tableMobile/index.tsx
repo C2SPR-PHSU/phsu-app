@@ -9,46 +9,24 @@ import Paper from "@mui/material/Paper";
 import { Box, IconButton, Typography } from "@mui/material";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import DownloadIcon from "@mui/icons-material/Download";
-import useAuthStore from "@/hooks/useAuthStore";
 import StatusButton from "@/components/StatusButton";
-import { getUserServices } from "../../functions";
 import { IUserServicesData } from "../../types";
 import styles from "./styles.module.scss";
+import { formatDate } from "@/utils";
 
 interface IBasicTableProps {
   handleModal: (prop: string) => void;
   setDocumentId: (prop: string) => void;
+  getUserServicesRows: () => void;
+  userServices: IUserServicesData[];
 }
 
 const BasicTableMobile: React.FC<IBasicTableProps> = ({
   handleModal,
   setDocumentId,
+  getUserServicesRows,
+  userServices,
 }) => {
-  const token = useAuthStore((state: any) => state.token);
-  const logout = useAuthStore((state: any) => state.setLogout);
-
-  const [userServices, setUserServices] = useState<IUserServicesData[]>([]);
-
-  const getUserServicesRows = async () => {
-    try {
-      const response = await getUserServices("1", token);
-      setUserServices([response].flat());
-    } catch (error) {
-      if (error?.status === 404) {
-        logout();
-      }
-    }
-  };
-
-  function formatDate(inputDate: string) {
-    const date = new Date(inputDate);
-    const day = date.getDate().toString().padStart(2, "0");
-    const month = (date.getMonth() + 1).toString().padStart(2, "0");
-    const year = date.getFullYear().toString();
-    const formattedDate = `${month}/${day}/${year}`;
-    return formattedDate;
-  }
-
   const refArray = useRef<(HTMLDivElement | null)[]>([]);
 
   // TableRow
@@ -114,7 +92,7 @@ const BasicTableMobile: React.FC<IBasicTableProps> = ({
                   Time
                 </span>
               </TableCell>
-              <TableCell sx={{ padding: 0 }}>
+              <TableCell>
                 <Typography
                   className={styles["typography"]}
                   style={{ fontSize: "1rem", minWidth: "5rem" }}

@@ -17,6 +17,7 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
 import styles from "./styles.module.scss";
 import BasicTableMobile from "../tableMobile";
+import { formatDate } from "@/utils";
 
 interface IBasicTableProps {
   handleModal: (prop: string) => void;
@@ -57,20 +58,6 @@ export default function BasicTable({
     }
   };
 
-  function formatDate(inputDate: string) {
-    const date = new Date(inputDate);
-
-    //
-    const day = date.getDate().toString().padStart(2, "0");
-    const month = (date.getMonth() + 1).toString().padStart(2, "0"); // Sumamos 1 al mes, ya que en JavaScript los meses empiezan desde 0 (enero) hasta 11 (diciembre).
-    const year = date.getFullYear().toString();
-
-    //
-    const formattedDate = `${month}/${day}/${year}`;
-
-    return formattedDate;
-  }
-
   useEffect(() => {
     getUserServicesRows();
   }, []);
@@ -80,6 +67,8 @@ export default function BasicTable({
       <BasicTableMobile
         handleModal={(prop) => handleModal(prop)}
         setDocumentId={(prop) => setDocumentId(prop)}
+        getUserServicesRows={getUserServicesRows}
+        userServices={userServices}
       />
     );
   }

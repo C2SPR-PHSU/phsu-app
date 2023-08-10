@@ -15,6 +15,7 @@ import { IUserDocumentsData } from "../../types";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import MessageModal from "../MessageModal";
 import ChatIcon from "@mui/icons-material/Chat";
+import { formatDate } from "@/utils";
 
 interface RequiredDocumentsTableProps {
   documentList: IUserDocumentsData[];
@@ -25,17 +26,6 @@ const RequiredDocumentsTableMobile: React.FC<RequiredDocumentsTableProps> = ({
 }) => {
   const [openModal, setOpenModal] = useState(false);
   const [modalMessage, setModalMessage] = useState("");
-
-  // Function to format a date string
-  function formatDate(inputDate: string) {
-    const date = new Date(inputDate);
-    const formattedDate = `${date.getDate().toString().padStart(2, "0")}/${(
-      date.getMonth() + 1
-    )
-      .toString()
-      .padStart(2, "0")}/${date.getFullYear().toString()}`;
-    return formattedDate;
-  }
 
   // Refs for storing heights of table cells
   const refArray = useRef<(HTMLDivElement | null)[]>([]);
