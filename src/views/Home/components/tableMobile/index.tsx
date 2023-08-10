@@ -82,6 +82,14 @@ const BasicTableMobile: React.FC<IBasicTableProps> = ({
                   Time
                 </span>
               </TableCell>
+              <TableCell sx={{padding: 0}}>
+                <Typography
+                  className={styles["typography"]}
+                  style={{ fontSize: "1rem" }}
+                >
+                  Days Left
+                </Typography>
+              </TableCell>
               <TableCell sx={{ paddingLeft: "4%" }}>
                 <span
                   className={styles["typography"]}
@@ -128,6 +136,13 @@ const BasicTableMobile: React.FC<IBasicTableProps> = ({
                   <span className={styles["typography"]}>
                     {formatDate(row.created)}
                   </span>
+                </TableCell>
+                <TableCell
+                  align="center"
+                >
+                  <Typography className={styles["typography"]}>
+                    {row.days_to_expire}
+                  </Typography>
                 </TableCell>
                 <TableCell align="center" sx={{ paddingTop: "1.5rem" }}>
                   <StatusButton statusName={row.status_desc as string} />

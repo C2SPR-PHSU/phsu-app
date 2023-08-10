@@ -50,7 +50,7 @@ export default function BasicTable({
     try {
       const response = await getUserServices("1", token);
       setUserServices([response].flat());
-    } catch (error: unknown) {
+    } catch (error) {
       if(error?.status === 404) {
         logout();
       }
@@ -140,6 +140,20 @@ export default function BasicTable({
                   fontSize: "1.2rem",
                 }}
               >
+                Days Left
+              </Typography>
+            </TableCell>
+            <TableCell
+              sx={{
+                paddingLeft: "4%",
+              }}
+            >
+              <Typography
+                className={styles["typography"]}
+                sx={{
+                  fontSize: "1.2rem",
+                }}
+              >
                 Status
               </Typography>
             </TableCell>
@@ -186,6 +200,13 @@ export default function BasicTable({
                 <TableCell align="center">
                   <Typography className={styles["typography"]}>
                     {formatDate(row.created)}
+                  </Typography>
+                </TableCell>
+                <TableCell
+                  align="center"
+                >
+                  <Typography className={styles["typography"]}>
+                    {row.days_to_expire}
                   </Typography>
                 </TableCell>
                 <TableCell
