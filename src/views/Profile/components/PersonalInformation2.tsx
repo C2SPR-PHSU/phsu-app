@@ -5,11 +5,13 @@ import profileScss from "../../Profile/Profile.module.scss";
 import customTextField from "../sxTexField";
 import { FormikProps } from "formik";
 import { UserProfile } from "@/types/user";
+import { getFormattedDate } from '@/utils/helpers';
 
 interface IPersonalInformation2 {
   isEditMode: boolean;
   formik: FormikProps<UserProfile>
 }
+
 
 const PersonalInformation2 = ({ isEditMode, formik }: IPersonalInformation2) => {
   return (
@@ -19,7 +21,7 @@ const PersonalInformation2 = ({ isEditMode, formik }: IPersonalInformation2) => 
         <>
           <Box sx={{ display: 'flex', paddingBottom: '1rem' }}>
             <Typography>Date or Birth: &nbsp;</Typography>
-            <Typography sx={{ lineBreak: 'anywhere'}}>{formik.values.birthdate}</Typography>
+            <Typography sx={{ lineBreak: 'anywhere'}}>{getFormattedDate(formik.values.birthdate)}</Typography>
           </Box>
           <Box sx={{ display: 'flex', paddingBottom: '1rem' }}>
             <Typography>Phone number: &nbsp;</Typography>
