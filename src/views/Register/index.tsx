@@ -81,37 +81,29 @@ export default function Registration() {
         20,
         "Middle Name must be at most 20 characters"
       ),
-
       birthdate: Yup.string().required("Birthdate is required"),
-
       addressLine1: Yup.string()
         .required("Address Line 1 is required")
         .max(20, "Address Line 1 must be at most 20 characters"),
-
       addressLine2: Yup.string()
         .required("Address Line 2 is required")
         .max(20, "Address Line 2 must be at most 20 characters"),
-
       addressState: Yup.string()
         .required("Address State is required")
         .max(20, "Address State must be at most 20 characters"),
-
       addressCity: Yup.string()
         .required("Address City is required")
         .max(22, "Address City must be at most 22 characters"),
-
       addressZipcode: Yup.number().required("Address Zip Code is required"),
-
       password: Yup.string()
         .required("Password is required")
         .min(8, "Password must be at least 8 characters long")
         .oneOf([Yup.ref("repeatPassword")], "The passwords do not match")
         .max(20, "Password must be at most 20 characters"),
-
       repeatPassword: Yup.string()
         .matches(
-          /^(?=.*[A-Z])(?=.*\d)(?=.*[@.#$*!&%()?-])[A-Za-z\d@.#$*!&%()?-]{8,}$/,
-          "Password does not comply with the required structure"
+          /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*()\;])[a-zA-Z\d!@#$%^&*()\;]*$/,
+          "Password must contain at least one string, one number and one symbol"
         )
         .max(20, "Password must be at most 20 characters"),
     }),
@@ -305,7 +297,6 @@ export default function Registration() {
             <CustomLabel name="Date of Birth" required={true} />
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DatePicker
-                format="MM/DD/YYYY"
                 sx={{...Date, width: '90%'}}
                 value={formik.values.birthdate}
                 onChange={(newValue) => {
