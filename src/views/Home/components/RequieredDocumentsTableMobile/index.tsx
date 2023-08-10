@@ -114,7 +114,9 @@ const RequiredDocumentsTableMobile: React.FC<RequiredDocumentsTableProps> = ({
                       }}
                     >
                       <Box
-                        ref={(el) => (refArray.current[index] = el)}
+                        ref={(el: HTMLDivElement) =>
+                          (refArray.current[index] = el)
+                        }
                         sx={{
                           display: "flex",
                           flexDirection: "column",

@@ -6,7 +6,7 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import { IconButton, Typography, Box } from "@mui/material";
+import { IconButton, Typography } from "@mui/material";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import DownloadIcon from "@mui/icons-material/Download";
 import useAuthStore from "@/hooks/useAuthStore";
@@ -51,7 +51,7 @@ export default function BasicTable({
       const response = await getUserServices("1", token);
       setUserServices([response].flat());
     } catch (error) {
-      if(error?.status === 404) {
+      if (error?.status === 404) {
         logout();
       }
     }
@@ -202,9 +202,7 @@ export default function BasicTable({
                     {formatDate(row.created)}
                   </Typography>
                 </TableCell>
-                <TableCell
-                  align="center"
-                >
+                <TableCell align="center">
                   <Typography className={styles["typography"]}>
                     {row.days_to_expire}
                   </Typography>

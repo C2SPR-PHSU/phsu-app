@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -34,7 +34,7 @@ const BasicTableMobile: React.FC<IBasicTableProps> = ({
       const response = await getUserServices("1", token);
       setUserServices([response].flat());
     } catch (error) {
-      if(error?.status === 404) {
+      if (error?.status === 404) {
         logout();
       }
     }
@@ -48,6 +48,38 @@ const BasicTableMobile: React.FC<IBasicTableProps> = ({
     const formattedDate = `${month}/${day}/${year}`;
     return formattedDate;
   }
+
+  const refArray = useRef<(HTMLDivElement | null)[]>([]);
+
+  // TableRow
+  const rowRefArray = useRef<(HTMLTableRowElement | null)[]>([]);
+
+  const [heights, setHeights] = useState<number[]>([]);
+  const [rowheights, setRowHeights] = useState<number[]>([]);
+
+  // Calculate and set heights on document list change
+  useEffect(() => {
+    const newHeights: number[] = [];
+    const newRowHeights: number[] = [];
+
+    refArray.current.forEach((ref) => {
+      if (ref) {
+        const { height } = ref.getBoundingClientRect();
+        newHeights.push(height);
+      }
+    });
+
+    setHeights(newHeights);
+
+    rowRefArray.current.forEach((rowRef) => {
+      if (rowRef) {
+        const { height } = rowRef.getBoundingClientRect();
+        newRowHeights.push(height);
+      }
+    });
+
+    setRowHeights(newRowHeights);
+  }, [userServices]);
 
   useEffect(() => {
     getUserServicesRows();
@@ -82,10 +114,10 @@ const BasicTableMobile: React.FC<IBasicTableProps> = ({
                   Time
                 </span>
               </TableCell>
-              <TableCell sx={{padding: 0}}>
+              <TableCell sx={{ padding: 0 }}>
                 <Typography
                   className={styles["typography"]}
-                  style={{ fontSize: "1rem" }}
+                  style={{ fontSize: "1rem", minWidth: "5rem" }}
                 >
                   Days Left
                 </Typography>
@@ -107,10 +139,14 @@ const BasicTableMobile: React.FC<IBasicTableProps> = ({
                 sx={{
                   "&:last-child td, &:last-child th": { border: 0 },
                 }}
+                ref={(e) => (rowRefArray.current[index] = e)}
               >
                 <TableCell component="th" scope="row">
                   <span className={styles["typography"]}>
                     <Box
+                      ref={(el: HTMLDivElement) =>
+                        (refArray.current[index] = el)
+                      }
                       sx={{
                         display: "flex",
                         flexDirection: "column",
@@ -137,9 +173,7 @@ const BasicTableMobile: React.FC<IBasicTableProps> = ({
                     {formatDate(row.created)}
                   </span>
                 </TableCell>
-                <TableCell
-                  align="center"
-                >
+                <TableCell align="center">
                   <Typography className={styles["typography"]}>
                     {row.days_to_expire}
                   </Typography>
@@ -174,6 +208,8 @@ const BasicTableMobile: React.FC<IBasicTableProps> = ({
                 key={index}
                 sx={{
                   "&:last-child td, &:last-child th": { border: 0 },
+                  minHeight: `${rowheights[index]}px`,
+                  maxHeight: `${rowheights[index]}px`,
                 }}
               >
                 <TableCell>
@@ -183,8 +219,8 @@ const BasicTableMobile: React.FC<IBasicTableProps> = ({
                       flexDirection: "row",
                       alignItems: "center",
                       justifyContent: "center",
-                      minHeight: "4.5rem",
-                      maxHeight: "4.5rem",
+                      minHeight: `${heights[index]}px`,
+                      maxHeight: `${heights[index]}px`,
                     }}
                   >
                     <IconButton
