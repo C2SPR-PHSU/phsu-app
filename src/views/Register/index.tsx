@@ -11,17 +11,12 @@ import {
 import { useNavigate } from "react-router-dom";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import CustomLabel from "@/components/CustomLabel";
-import { DatePicker } from "@mui/x-date-pickers";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { requestRegister } from "./functions";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import styles from "./Register.module.scss";
 import useAlert from "@/hooks/useAlert";
 import useAuthStore from "@/hooks/useAuthStore";
-import dayjs, { Dayjs } from 'dayjs';
-import { handleDateChange } from '@/utils/helpers';
 import { CustomTextField } from '../Profile/constants';
 
 export default function Registration() {
