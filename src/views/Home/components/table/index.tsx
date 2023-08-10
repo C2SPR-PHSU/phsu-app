@@ -28,6 +28,7 @@ export default function BasicTable({
   setDocumentId,
 }: IBasicTableProps) {
   const token = useAuthStore((state: any) => state.token);
+  const logout = useAuthStore((state: any) => state.setLogout);
 
   const [userServices, setUserServices] = useState<IUserServicesData[]>([]);
 
@@ -49,8 +50,10 @@ export default function BasicTable({
     try {
       const response = await getUserServices("1", token);
       setUserServices([response].flat());
-    } catch (error) {
-      console.log(error);
+    } catch (error: unknown) {
+      if(error?.status === 404) {
+        logout();
+      }
     }
   };
 

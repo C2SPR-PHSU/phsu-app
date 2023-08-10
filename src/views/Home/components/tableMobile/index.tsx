@@ -25,26 +25,18 @@ const BasicTableMobile: React.FC<IBasicTableProps> = ({
   setDocumentId,
 }) => {
   const token = useAuthStore((state: any) => state.token);
+  const logout = useAuthStore((state: any) => state.setLogout);
 
   const [userServices, setUserServices] = useState<IUserServicesData[]>([]);
-
-  const statusDictionary: { [key: number]: string } = {
-    0: "To Upload",
-    1: "Uploaded",
-    2: "Sent",
-    3: "Received",
-    4: "Pending",
-    5: "Request for Additional Info",
-    6: "Approved",
-    7: "Denied",
-  };
 
   const getUserServicesRows = async () => {
     try {
       const response = await getUserServices("1", token);
       setUserServices([response].flat());
     } catch (error) {
-      console.log(error);
+      if(error?.status === 404) {
+        logout();
+      }
     }
   };
 
