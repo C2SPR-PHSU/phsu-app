@@ -34,9 +34,7 @@ const BasicTableMobile: React.FC<IBasicTableProps> = ({
       const response = await getUserServices("1", token);
       setUserServices([response].flat());
     } catch (error) {
-      if(error?.status === 404) {
-        logout();
-      }
+      if(error?.status === 404) logout()
     }
   };
 
