@@ -15,10 +15,12 @@
 body,
 h2,
 h4,
-h5,
-p,
-.MuiTypography-root {
+p {
     font-family: 'Gotham-Medium' !important;
+}
+
+h5 {
+    font-family: 'Gotham-Black' !important;
 }
 
 // Main

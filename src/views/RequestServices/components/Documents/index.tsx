@@ -229,7 +229,7 @@ const Documents = ({
                 <Grid item xs={12}>
                   {
                     currentDocument && currentDocument.status !== '0' ?
-                      <EditNoteIcon sx={{ color: "#f7941d", fontSize: "38px !important", }} /> :
+                      <CheckIcon sx={{ color: "#f7941d", fontSize: "25px !important", }} /> :
                       null
                   }
                 </Grid>
