@@ -4,6 +4,7 @@ import UploadIcon from "@mui/icons-material/Upload";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import DeleteIcon from '@mui/icons-material/Delete';
 import CheckIcon from "@mui/icons-material/Check";
+import EditNoteIcon from '@mui/icons-material/EditNote';
 import { uploadDocument, deleteDocument } from "@/views/RequestServices/functions";
 import useAuthStore from "@/hooks/useAuthStore";
 import styles from "./styles.module.scss";
@@ -148,32 +149,6 @@ const Documents = ({
                   </div>
 
                   {
-                    currentDocument && currentDocument.status !== '0' ?
-                      <div className={styles["rounded-div"]}>
-                        <VisibilityIcon
-                          sx={{
-                            fontSize: "24px !important",
-                            color: "#e0e0e0"
-                          }}
-                          onClick={() => {
-                            if (currentDocument.url !== '') {
-                              window.open(currentDocument.url, "_blank")
-                            }
-                          }}
-                        />
-                      </div>
-                      :
-                      <div className={styles["rounded-div-disabled"]}>
-                        <VisibilityIcon
-                          sx={{
-                            fontSize: "24px !important",
-                            color: "#e0e0e0"
-                          }}
-                        />
-                      </div>
-                  }
-
-                  {
                     currentDocument && currentDocument.status !== '0' && campusStatus < 2 ?
                       <div className={styles["rounded-div"]}>
                         <Button
@@ -217,7 +192,31 @@ const Documents = ({
                       </div>
                   }
 
-
+                  {
+                    currentDocument && currentDocument.status !== '0' ?
+                      <div className={styles["rounded-div"]}>
+                        <VisibilityIcon
+                          sx={{
+                            fontSize: "24px !important",
+                            color: "#e0e0e0"
+                          }}
+                          onClick={() => {
+                            if (currentDocument.url !== '') {
+                              window.open(currentDocument.url, "_blank")
+                            }
+                          }}
+                        />
+                      </div>
+                      :
+                      <div className={styles["rounded-div-disabled"]}>
+                        <VisibilityIcon
+                          sx={{
+                            fontSize: "24px !important",
+                            color: "#e0e0e0"
+                          }}
+                        />
+                      </div>
+                  }
 
                 </div>
               </Grid>
@@ -230,7 +229,7 @@ const Documents = ({
                 <Grid item xs={12}>
                   {
                     currentDocument && currentDocument.status !== '0' ?
-                      <CheckIcon sx={{ color: "#f7941d" }} /> :
+                      <EditNoteIcon sx={{ color: "#f7941d", fontSize: "38px !important", }} /> :
                       null
                   }
                 </Grid>

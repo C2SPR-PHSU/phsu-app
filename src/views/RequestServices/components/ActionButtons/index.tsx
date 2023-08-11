@@ -75,20 +75,26 @@ const ActionButtons = ({
   const checkFormsValid = () => {
     const formValues = [{ ...personalForm }, { ...academicForm }];
 
+    const isValidField = (key, value) => {
+      if (['middle_name', 'second_last_name'].includes(key)) {
+        // Estos campos pueden estar vacíos, por lo que los consideramos válidos en cualquier caso
+        return true;
+      }
+      return value !== null && value !== undefined && value !== '' && value.toString() !== '0';
+    };
+
     formValues.forEach(form => {
       Object.entries(form).forEach(([key, value]) => {
-        if (value === null || value === undefined || value === '') {
+        if (!isValidField(key, value)) {
           console.log(`Invalid field: ${key}, Value: ${value}`);
         }
       });
     });
 
     return formValues.every(form =>
-      Object.values(form).every(value => value !== null && value !== undefined && value !== '' && value.toString() !== '0')
+      Object.entries(form).every(([key, value]) => isValidField(key, value))
     );
   };
-
-
 
   return (
     <Grid
