@@ -35,6 +35,7 @@ const MyTextField: React.FC<MyTextFieldProps> = ({
   const placeholderColor = "rgba(51, 51, 51, 0.4)";
 
   const customTextField = {
+    backgroundColor: 'white',
     "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
       borderColor: primaryColor,
       borderRadius: 0,
@@ -213,6 +214,7 @@ export default function BasicAccordion({ setPersonalForm, personalForm }: any) {
                   <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <DatePicker
                       sx={{
+                        backgroundColor: 'white',
                         "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
                           borderColor: "#009999",
                           borderRadius: 0,

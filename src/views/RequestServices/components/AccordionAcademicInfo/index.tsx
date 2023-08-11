@@ -105,6 +105,7 @@ const AccordionAcademicInfo = ({ campusData, campusId, academicForm, setAcademic
               <FormControl fullWidth={true} variant="outlined" sx={selectStyles} disabled={campusId === ''}>
                 <CustomLabel name="Entrance Academic Year" required={true} />
                 <Select
+                  style={{ backgroundColor: 'white' }}
                   value={academicForm.academic_year || "placeholder"}
                   onChange={e => {
                     const newValue = e.target.value;
@@ -125,6 +126,7 @@ const AccordionAcademicInfo = ({ campusData, campusId, academicForm, setAcademic
               <FormControl fullWidth={true} variant="outlined" sx={selectStyles} disabled={campusId === ''}>
                 <CustomLabel name="Entrance Term" required={true} />
                 <Select
+                  style={{ backgroundColor: 'white' }}
                   value={academicForm.term_id || "placeholder"}
                   onChange={e => {
                     const newValue = e.target.value;
