@@ -31,8 +31,8 @@ export default function Header() {
     try {
       await setLogin(email, password);
       navigate("/");
-    } catch (error) {
-      if (error instanceof Error) setAlert(error.message, "error")
+    } catch (error: any) {
+      setAlert(error?.message, "error")
     }
   }
 
@@ -68,25 +68,30 @@ export default function Header() {
             variant="outlined"
             size="small"
             sx={{
+              backgroundColor: 'white !important',
               "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
                 borderColor: primaryColor,
                 borderRadius: 0,
                 border: "2px solid " + primaryColor,
               },
-              "&:hover .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline":
-                {
-                  borderColor: primaryColor,
-                },
-              "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline":
-                {
-                  borderColor: primaryColor,
-                },
+              "&:hover .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
+                borderColor: primaryColor,
+              },
+              "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline": {
+                borderColor: primaryColor,
+              },
+              "& .MuiOutlinedInput-root.Mui-focused": {
+                backgroundColor: 'white'
+              },
               "& .MuiInputLabel-outlined": {
                 fontSize: "1rem",
                 color: placeholderColor,
               },
               "& .MuiInputLabel-outlined.Mui-focused": {
                 color: primaryColor,
+              },
+              "& .MuiOutlinedInput-input": {
+                padding: "0.7rem",
               },
             }}
             onChange={(e) => setEmail(e.target.value)}
@@ -105,13 +110,13 @@ export default function Header() {
                 border: "2px solid " + primaryColor,
               },
               "&:hover .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline":
-                {
-                  borderColor: primaryColor,
-                },
+              {
+                borderColor: primaryColor,
+              },
               "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline":
-                {
-                  borderColor: primaryColor,
-                },
+              {
+                borderColor: primaryColor,
+              },
               "& .MuiInputLabel-outlined": {
                 fontSize: "1rem",
                 color: placeholderColor,
@@ -129,8 +134,8 @@ export default function Header() {
           >
             Log In
           </Button>
-          <div className={styles["icon-container"]}  onClick={() => navigate("/recovery")}>
-            <LockRounded className={styles["header-button-variant"]}  />
+          <div className={styles["icon-container"]} onClick={() => navigate("/recovery")}>
+            <LockRounded className={styles["header-button-variant"]} />
           </div>
         </Box>
       </Toolbar>

@@ -300,7 +300,7 @@ export default function Registration() {
               onChange={formik.handleChange}
               error={formik.touched.birthdate && !!formik.errors.birthdate}
               helperText={formik.touched.birthdate && formik.errors.birthdate}
-              sx={{...CustomTextField, width: '90%' }}
+              sx={{ ...CustomTextField, width: '90%' }}
               type="date"
             />
           </Grid>

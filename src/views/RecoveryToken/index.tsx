@@ -16,21 +16,29 @@ import { useEffect, useState } from "react";
 import useAlert from "@/hooks/useAlert";
 
 const RecoveryToken = () => {
-
+  // 1. Rearrange useState Hooks:
   const { t } = useParams();
-
+  const cleanT = cleanToken(t);
+  console.log(cleanT);
+  const [token, setToken] = useState(cleanT ?? '');
   const [showPassword, setShowPassword] = useState(false);
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
-  const navigate = useNavigate();
-  const location = useLocation();
-
-  const query = new URLSearchParams(location.search);
-  const [token, setToken] = useState(t ?? '');
   const [isTokenValid, setIsTokenValid] = useState(true);
-  const { setAlert } = useAlert();
 
+  const { setAlert } = useAlert();
+  const navigate = useNavigate();
+
+
+  // Other states and hooks...
+
+  // Helper function
+  function cleanToken(token: string) {
+    return token.startsWith("t=") ? token.slice(2) : token;
+  }
+
+  // 2. Rearrange useEffects:
   useEffect(() => {
     if (token) {
       checkToken();
@@ -39,7 +47,7 @@ const RecoveryToken = () => {
 
 
   const checkToken = async () => {
-    console.log('here')
+    console.log('checkToken:', token)
     try {
       const api = new ApiRequest();
       api.resource = "/user";
@@ -51,7 +59,6 @@ const RecoveryToken = () => {
       console.log(response)
 
     } catch (error) {
-      setAlert('Token Expired', 'error');
       setToken('');
       console.log(error);
       throw error;
@@ -74,13 +81,14 @@ const RecoveryToken = () => {
       console.log(response)
 
       if (response.code === 200) {
-        setAlert('Password Changed!');
+        setAlert('Password Changed!', "success");
         setTimeout(() => {
           navigate('/');
         }, 2000);
       }
 
     } catch (error) {
+      setAlert('Error', "error");
       setToken('');
       console.log(error);
       throw error;
@@ -159,7 +167,7 @@ const RecoveryToken = () => {
                     type={showPassword ? "text" : "password"}
                     name="password"
                     value={password}
-                    onChange={(e) => setPassword(e.target.value)}
+                    onChange={(e: any) => setPassword(e.target.value)}
                     size="small"
                     InputProps={{
                       endAdornment: (
@@ -184,7 +192,7 @@ const RecoveryToken = () => {
                     name="confirmPasword"
                     type={showPassword ? "text" : "password"}
                     value={confirmPassword}
-                    onChange={(e) => setConfirmPassword(e.target.value)}
+                    onChange={(e: any) => setConfirmPassword(e.target.value)}
                     size="small"
                     InputProps={{
                       endAdornment: (
