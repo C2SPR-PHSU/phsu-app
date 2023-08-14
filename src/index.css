@@ -12,10 +12,16 @@
   font-style: normal;
 }
 
+#root {
+  height: 100%;
+}
+
+
 html,
 body {
-  width: 100%;
   height: 100%;
+  margin: 0;
+  padding: 0;
 }
 
 .p {
@@ -24,4 +30,11 @@ body {
 
 h6 {
   font-family: "Gotham-Medium" !important;
+}
+
+.css-11lq3yg-MuiGrid-root {
+
+  height: 85vh;
+
+  /* This makes the container inherit the height of its parent */
 }

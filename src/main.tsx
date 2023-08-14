@@ -5,7 +5,7 @@ import Root from "@/routes";
 import { GlobalProvider } from "@/contexts/MainContext";
 import CssBaseline from "@mui/material/CssBaseline";
 import { AlertProvider } from "./contexts/AlertContext";
-import { ThemeProvider} from '@mui/material/styles';
+import { ThemeProvider } from '@mui/material/styles';
 import theme from '@/assets/styles/mui/theme';
 import "./index.css";
 

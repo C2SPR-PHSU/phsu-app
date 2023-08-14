@@ -10,7 +10,7 @@ const AuthorizedLayout = () => {
       <Grid item xs={12} md={1}>
         <Sidebar />
       </Grid>
-      <Grid item xs={12} md={11} sx={{ display: 'flex', alignItems: 'center', minHeight: '90vh'}}> 
+      <Grid item xs={12} md={11} sx={{ display: 'flex', alignItems: 'center', minHeight: '90vh' }}>
         <Outlet />
       </Grid>
       <Footer />
