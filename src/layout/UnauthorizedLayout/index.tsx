@@ -6,21 +6,42 @@ import styles from "./styles.module.scss";
 
 const UnautoziredLayout = () => {
   return (
-    <Grid container sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }} className={styles.soujitest}>
-      <AlertPopup />
+    // <Grid container sx={{ height: '100%', width: '100%', flexGrow: 1 }}>
 
-      <Grid item xs={12} sx={{ display: 'flex', alignItems: 'start', minHeight: '5vh' }}>
-        <Header />
-      </Grid>
+    //   <AlertPopup />
 
-      <Grid item xs={12} sx={{ flexGrow: 1, display: 'flex', alignItems: 'center', minHeight: '85vh' }}>
-        <Outlet />
-      </Grid>
+    //   <Grid item xs={12} sx={{ display: 'flex', flex: 'column', alignItems: 'start', background: 'red', maxHeight: '5vh' }}>
+    //     <Header />
+    //   </Grid>
 
-      <Grid item xs={12} sx={{ display: 'flex', alignItems: 'center', minHeight: '10vh', height: '10vh' }}>
-        <Footer />
-      </Grid>
-    </Grid>
+    //   <Grid item xs={12} sx={{ flexGrow: 1, display: 'flex', flex: 'column', alignItems: 'start', background: 'blue', maxHeight: '70vh' }}>
+    //     <Outlet />
+    //   </Grid>
+
+    //   <Grid item xs={12} sx={{ display: 'flex', flex: 'column', alignItems: 'end', background: 'yellow', maxHeight: '10vh' }}>
+    //    <Footer />
+    //   </Grid>
+    // </Grid>
+
+    <>
+      <div className="main-container">
+        <AlertPopup />
+
+        <div className="header-container">
+          <Header />
+        </div>
+
+        <div className="outlet-container">
+          <Outlet />
+        </div>
+
+        <div className="footer-container">
+          <Footer />
+        </div>
+      </div>
+
+    </>
+
   );
 };
 

@@ -32,9 +32,29 @@ h6 {
   font-family: "Gotham-Medium" !important;
 }
 
-.css-11lq3yg-MuiGrid-root {
+/* .css-11lq3yg-MuiGrid-root {
+  display: flex;
+  height: 100% !important;
+  /* This makes the container inherit the height of its parent 
+}*/
 
-  height: 85vh;
+.main-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
 
-  /* This makes the container inherit the height of its parent */
+.header-container {
+  display: block;
+}
+
+.outlet-container {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  overflow: auto;
+}
+
+.footer-container {
+  height: 10vh;
 }
