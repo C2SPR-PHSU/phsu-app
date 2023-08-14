@@ -2,7 +2,7 @@ import { Grid, Button, InputAdornment, IconButton, Typography } from "@mui/mater
 import CameraAltIcon from "@mui/icons-material/CameraAlt";
 import profileScss from "../../Profile/Profile.module.scss";
 import LockPersonIcon from '@mui/icons-material/LockPerson';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { Modal, TextField, Box } from "@mui/material";
 import { VisibilityOff } from "@mui/icons-material";
@@ -34,11 +34,17 @@ const ProfileButtons = ({ isEditMode, activateEditForm, submitForm, uploadPhoto 
   const [confirmPassword, setConfirmPassword] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
 
+
+  const [passwordError, setPasswordError] = useState('');
+
+
   const handleOpenModal = () => {
+    setPasswordError('');
     setOpenModal(true);
   };
 
   const handleCloseModal = () => {
+    setPasswordError('');
     setOpenModal(false);
   };
 
@@ -105,10 +111,33 @@ const ProfileButtons = ({ isEditMode, activateEditForm, submitForm, uploadPhoto 
   };
 
   const isPasswordValid = () => {
-    if (password !== '' && currentPassword !== '' && password === confirmPassword) return true;
+    if (password !== '' && currentPassword !== '' && password === confirmPassword && passwordError === '') return true;
     return false;
   }
 
+  function isPasswordValidFunction() {
+    // Regular expression to match password requirements
+    const passwordRegex = /^(?=.*[a-zA-Z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*();])[a-zA-Z\d!@#$%^&*();]{8,}$/;
+
+    if (!passwordRegex.test(password)) {
+      setPasswordError('Password must have at least 8 characters, a number, a capital letter, and a symbol.');
+      return false;
+    }
+
+    if (password !== confirmPassword) {
+      setPasswordError('Passwords must match.');
+      return false;
+    }
+
+    // If both checks pass, reset any previous error message and return true
+    setPasswordError('');
+    return true;
+  }
+
+
+  useEffect(() => {
+    isPasswordValidFunction()
+  }, [password, confirmPassword, currentPassword]);
   // ---- this will need refractoring later------///
   return (
     <Grid
@@ -254,10 +283,10 @@ const ProfileButtons = ({ isEditMode, activateEditForm, submitForm, uploadPhoto 
 
             </Grid>
 
-            <Grid item xs={12}>
-              {errorMsg && (
-                <Typography color="error">
-                  {errorMsg}
+            <Grid item xs={12} className="mb-1">
+              {passwordError && (
+                <Typography color="error" sx={{ fontSize: '12px' }}>
+                  {passwordError}
                 </Typography>
               )}
             </Grid>
