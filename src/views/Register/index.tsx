@@ -80,16 +80,16 @@ export default function Registration() {
       birthdate: Yup.string().required("Birthdate is required"),
       addressLine1: Yup.string()
         .required("Address Line 1 is required")
-        .max(20, "Address Line 1 must be at most 20 characters"),
+        .max(40, "Address Line 1 must be at most 40 characters"),
       addressLine2: Yup.string()
         .required("Address Line 2 is required")
-        .max(20, "Address Line 2 must be at most 20 characters"),
+        .max(40, "Address Line 2 must be at most 40 characters"),
       addressState: Yup.string()
         .required("Address State is required")
-        .max(20, "Address State must be at most 20 characters"),
+        .max(40, "Address State must be at most 40 characters"),
       addressCity: Yup.string()
         .required("Address City is required")
-        .max(22, "Address City must be at most 22 characters"),
+        .max(25, "Address City must be at most 25 characters"),
       addressZipcode: Yup.number()
         .typeError("Address Zip Code must be a number")
         .required("Address Zip Code is required"),
@@ -109,6 +109,9 @@ export default function Registration() {
     onSubmit: () => {
       setValidate(true);
     },
+
+    validateOnChange: true, // Esto garantiza que se validen los campos con cada cambio
+    validateOnBlur: true,
   });
 
   const [showPassword, setShowPassword] = useState(false);
@@ -230,7 +233,7 @@ export default function Registration() {
               placeholder="First Name"
               type="text"
               value={formik.values.firstName}
-              onChange={formik.handleChange}
+              onChange={formik.handleChange} onBlur={formik.handleBlur}
               sx={customTextField}
               error={
                 formik.touched.firstName && Boolean(formik.errors.firstName)
@@ -244,7 +247,7 @@ export default function Registration() {
             <CustomLabel name="Middle Name" required={false} />
             <TextField
               type="text"
-              onChange={formik.handleChange}
+              onChange={formik.handleChange} onBlur={formik.handleBlur}
               placeholder="Middle Name"
               name="middleName"
               value={formik.values.middleName}
@@ -261,7 +264,7 @@ export default function Registration() {
             <CustomLabel name="Last Name" required={true} />
             <TextField
               type="text"
-              onChange={formik.handleChange}
+              onChange={formik.handleChange} onBlur={formik.handleBlur}
               name="lastName"
               placeholder="Last Name"
               value={formik.values.lastName}
@@ -278,7 +281,7 @@ export default function Registration() {
               name="secondLastName"
               type="text"
               placeholder="Second Last Name"
-              onChange={formik.handleChange}
+              onChange={formik.handleChange} onBlur={formik.handleBlur}
               value={formik.values.secondLastName}
               error={
                 formik.touched.secondLastName &&
@@ -297,7 +300,7 @@ export default function Registration() {
               id="birthdate"
               name="birthdate"
               value={formik.values.birthdate}
-              onChange={formik.handleChange}
+              onChange={formik.handleChange} onBlur={formik.handleBlur}
               error={formik.touched.birthdate && !!formik.errors.birthdate}
               helperText={formik.touched.birthdate && formik.errors.birthdate}
               sx={{ ...CustomTextField, width: '90%' }}
@@ -313,7 +316,7 @@ export default function Registration() {
               name="phoneNumber"
               type="text"
               placeholder="Phone Number"
-              onChange={formik.handleChange}
+              onChange={formik.handleChange} onBlur={formik.handleBlur}
               value={formik.values.phoneNumber}
               error={
                 formik.touched.phoneNumber && Boolean(formik.errors.phoneNumber)
@@ -332,7 +335,7 @@ export default function Registration() {
               name="email"
               type="email"
               placeholder="Email"
-              onChange={formik.handleChange}
+              onChange={formik.handleChange} onBlur={formik.handleBlur}
               value={formik.values.email}
               error={formik.touched.email && Boolean(formik.errors.email)}
               helperText={formik.touched.email && formik.errors.email}
@@ -347,7 +350,7 @@ export default function Registration() {
               name="studentId"
               placeholder="Student ID"
               type="text"
-              onChange={formik.handleChange}
+              onChange={formik.handleChange} onBlur={formik.handleBlur}
               value={formik.values.studentId}
               error={
                 formik.touched.studentId && Boolean(formik.errors.studentId)
@@ -369,7 +372,7 @@ export default function Registration() {
             <CustomLabel name="Adress Line 1" required={true} />
             <TextField
               type="text"
-              onChange={formik.handleChange}
+              onChange={formik.handleChange} onBlur={formik.handleBlur}
               placeholder="Address Line 1"
               name="addressLine1"
               value={formik.values.addressLine1}
@@ -388,7 +391,7 @@ export default function Registration() {
             <CustomLabel name="Adress Line 2" required={true} />
             <TextField
               type="text"
-              onChange={formik.handleChange}
+              onChange={formik.handleChange} onBlur={formik.handleBlur}
               placeholder="Address Line 2"
               name="addressLine2"
               value={formik.values.addressLine2}
@@ -406,7 +409,7 @@ export default function Registration() {
             <CustomLabel name="City" required={true} />
             <TextField
               type="text"
-              onChange={formik.handleChange}
+              onChange={formik.handleChange} onBlur={formik.handleBlur}
               placeholder="Address City"
               name="addressCity"
               value={formik.values.addressCity}
@@ -426,7 +429,7 @@ export default function Registration() {
             <CustomLabel name="State" required={true} />
             <TextField
               type="text"
-              onChange={formik.handleChange}
+              onChange={formik.handleChange} onBlur={formik.handleBlur}
               placeholder="State"
               name="addressState"
               value={formik.values.addressState}
@@ -446,7 +449,7 @@ export default function Registration() {
             <CustomLabel name="Zip Code" required={true} />
             <TextField
               type="text"
-              onChange={formik.handleChange}
+              onChange={formik.handleChange} onBlur={formik.handleBlur}
               placeholder="Address Zipcode"
               name="addressZipcode"
               value={formik.values.addressZipcode}
@@ -479,7 +482,7 @@ export default function Registration() {
               type={showPassword ? "text" : "password"}
               name="password"
               value={formik.values.password}
-              onChange={formik.handleChange}
+              onChange={formik.handleChange} onBlur={formik.handleBlur}
               size="small"
               InputProps={{
                 endAdornment: (
@@ -507,7 +510,7 @@ export default function Registration() {
               name="repeatPassword"
               type={showPassword ? "text" : "password"}
               value={formik.values.repeatPassword}
-              onChange={formik.handleChange}
+              onChange={formik.handleChange} onBlur={formik.handleBlur}
               size="small"
               InputProps={{
                 endAdornment: (
