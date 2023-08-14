@@ -69,11 +69,9 @@ export default function Registration() {
         .matches(/^[0-9]+$/, "Cell Phone should only contain numbers")
         .max(20, "Cell Phone must be at most 20 characters"),
 
-      studentId: Yup.string()
+      studentId: Yup.number()
         .required("Student ID is required")
-        .min(6, "Password must be at least 6 characters long")
-        .matches(/^[0-9]+$/, "Cell Phone should only contain numbers")
-        .max(20, "Student ID must be at most 20 characters"),
+        .typeError("Student ID must be a number"),
 
       middleName: Yup.string().max(
         20,
@@ -92,17 +90,19 @@ export default function Registration() {
       addressCity: Yup.string()
         .required("Address City is required")
         .max(22, "Address City must be at most 22 characters"),
-      addressZipcode: Yup.number().required("Address Zip Code is required"),
+      addressZipcode: Yup.number()
+        .typeError("Address Zip Code must be a number")
+        .required("Address Zip Code is required"),
       password: Yup.string()
         .required("Password is required")
-        .min(8, "Password must be at least 8 characters long")
-        .oneOf([Yup.ref("repeatPassword")], "The passwords do not match")
+        .matches(
+          /^(?=.*[a-zA-Z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()\;])[a-zA-Z\d!@#$%^&*()\;]{8,}$/,
+          "Password must have at least 8 characters, a number, a capital letter and a symbol"
+        )
         .max(20, "Password must be at most 20 characters"),
       repeatPassword: Yup.string()
-        .matches(
-          /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*()\;])[a-zA-Z\d!@#$%^&*()\;]*$/,
-          "Password must contain at least one string, one number and one symbol"
-        )
+        .required("Confirm password is required")
+        .oneOf([Yup.ref('password')], 'Passwords must match')
         .max(20, "Password must be at most 20 characters"),
     }),
 

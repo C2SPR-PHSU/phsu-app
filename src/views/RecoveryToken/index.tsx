@@ -24,8 +24,7 @@ const RecoveryToken = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [errorMsg, setErrorMsg] = useState('');
-  const [isTokenValid, setIsTokenValid] = useState(true);
+  const [passwordError, setPasswordError] = useState('');
 
   const { setAlert } = useAlert();
   const navigate = useNavigate();
@@ -45,6 +44,10 @@ const RecoveryToken = () => {
     }
   }, [token]);
 
+
+  const goBack = () => {
+    navigate('/');
+  }
 
   const checkToken = async () => {
     console.log('checkToken:', token)
@@ -95,10 +98,6 @@ const RecoveryToken = () => {
     }
   };
 
-  const isPasswordValid = () => {
-    if (password !== '' && password === confirmPassword) return true;
-    return false;
-  }
 
   const primaryColor = "#009999";
   const placeholderColor = "rgba(51, 51, 51, 0.4)";
@@ -126,13 +125,44 @@ const RecoveryToken = () => {
     "& .MuiOutlinedInput-input": {
       padding: "0.7rem",
     },
+    // Estilo para el autocompletado
+    "& .MuiOutlinedInput-input:-webkit-autofill": {
+      WebkitBoxShadow: "0 0 0 1000px white inset",
+      WebkitTextFillColor: 'inherit', // Esto es para el color del texto, si quieres mantenerlo
+    },
   };
 
+  const isPasswordValid = () => {
+    if (password !== '' && password === confirmPassword && passwordError === '') return true;
+    return false;
+  }
+
+  function isPasswordValidFunction() {
+    // Regular expression to match password requirements
+    const passwordRegex = /^(?=.*[a-zA-Z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*();])[a-zA-Z\d!@#$%^&*();]{8,}$/;
+
+    if (!passwordRegex.test(password)) {
+      setPasswordError('Password must have at least 8 characters, a number, a capital letter, and a symbol.');
+      return false;
+    }
+
+    if (password !== confirmPassword) {
+      setPasswordError('Passwords must match.');
+      return false;
+    }
+
+    // If both checks pass, reset any previous error message and return true
+    setPasswordError('');
+    return true;
+  }
+
+  useEffect(() => {
+    isPasswordValidFunction();
+  }, [password, confirmPassword]);
 
   useEffect(() => {
     checkToken();
   }, []);
-
 
   return (
     <>
@@ -209,6 +239,14 @@ const RecoveryToken = () => {
                   />
                 </Grid>
 
+                <Grid item xs={12} className="mb-1 mt-1">
+                  {passwordError && (
+                    <Typography color="error" sx={{ fontSize: '12px' }}>
+                      {passwordError}
+                    </Typography>
+                  )}
+                </Grid>
+
                 <Box sx={{ marginBottom: "3rem !important" }}>
                   <Grid container spacing={2} justifyContent="start" sx={{ py: 4 }}>
                     <Grid item xs={12} sm={6}>
@@ -216,7 +254,7 @@ const RecoveryToken = () => {
                         variant="outlined"
                         className={styles.cancelButton}
                         fullWidth
-                        onClick={() => console.log('cancel')}
+                        onClick={() => goBack()}
                       >
                         Cancel
                       </Button>

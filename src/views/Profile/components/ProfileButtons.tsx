@@ -32,9 +32,6 @@ const ProfileButtons = ({ isEditMode, activateEditForm, submitForm, uploadPhoto 
   const [currentPassword, setCurrentPassword] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [errorMsg, setErrorMsg] = useState('');
-
-
   const [passwordError, setPasswordError] = useState('');
 
 
@@ -79,7 +76,13 @@ const ProfileButtons = ({ isEditMode, activateEditForm, submitForm, uploadPhoto 
     "& .MuiOutlinedInput-input": {
       padding: "0.7rem",
     },
+    // Estilo para el autocompletado
+    "& .MuiOutlinedInput-input:-webkit-autofill": {
+      WebkitBoxShadow: "0 0 0 1000px white inset",
+      WebkitTextFillColor: 'inherit', // Esto es para el color del texto, si quieres mantenerlo
+    },
   };
+
 
   const onSave = async () => {
     try {
@@ -205,6 +208,12 @@ const ProfileButtons = ({ isEditMode, activateEditForm, submitForm, uploadPhoto 
 
         >
           <Grid container>
+
+            <Grid item xs={12} className="mb-1  flex-center">
+              <Typography color="" sx={{ fontSize: '18px' }}>
+                Change Password
+              </Typography>
+            </Grid>
             {/* Grid para los inputs */}
             <Grid item xs={12}>
               <div className="mb-1">
@@ -256,7 +265,7 @@ const ProfileButtons = ({ isEditMode, activateEditForm, submitForm, uploadPhoto 
                 />
               </div>
             </Grid>
-            <Grid item xs={12} sx={{ marginBottom: 2 }}>
+            <Grid item xs={12} sx={{ marginBottom: 1 }}>
               <div className="mb-1">
                 <TextField
                   sx={customTextField}
@@ -283,7 +292,7 @@ const ProfileButtons = ({ isEditMode, activateEditForm, submitForm, uploadPhoto 
 
             </Grid>
 
-            <Grid item xs={12} className="mb-1">
+            <Grid item xs={12} className="mb-1 mt-1">
               {passwordError && (
                 <Typography color="error" sx={{ fontSize: '12px' }}>
                   {passwordError}
