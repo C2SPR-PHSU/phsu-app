@@ -160,89 +160,98 @@ const ProfileButtons = ({ isEditMode, activateEditForm, submitForm, uploadPhoto 
         open={openModal}
         onClose={handleCloseModal}
         aria-labelledby="change-password-modal"
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center'
+        }}
       >
         <Box
           sx={{
-            position: 'absolute',
-            top: '50%',
-            left: '50%',
-            transform: 'translate(-50%, -50%)',
             bgcolor: 'white !important',
             boxShadow: 24,
             p: 4,
             width: 400
           }}
+
         >
-          <Grid container spacing={2}>
+          <Grid container>
             {/* Grid para los inputs */}
             <Grid item xs={12}>
-              <TextField
-                sx={customTextField}
-                size="small"
-                placeholder="Current Password"
-                type={showPassword ? "text" : "password"}
-                name="currentPassword"
-                fullWidth
-                InputProps={{
-                  endAdornment: (
-                    <InputAdornment position="end">
-                      <IconButton
-                        onClick={() => setShowPassword(!showPassword)}
-                        edge="end"
-                      >
-                        {showPassword ? <VisibilityOff /> : <Visibility />}
-                      </IconButton>
-                    </InputAdornment>
-                  ),
-                }}
-                onChange={(e: any) => setCurrentPassword(e.target.value)}
-              />
+              <div className="mb-1">
+                <TextField
+                  sx={customTextField}
+                  size="small"
+                  placeholder="Current Password"
+                  type={showPassword ? "text" : "password"}
+                  name="currentPassword"
+                  fullWidth
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <IconButton
+                          onClick={() => setShowPassword(!showPassword)}
+                          edge="end"
+                        >
+                          {showPassword ? <VisibilityOff /> : <Visibility />}
+                        </IconButton>
+                      </InputAdornment>
+                    ),
+                  }}
+                  onChange={(e: any) => setCurrentPassword(e.target.value)}
+                />
+              </div>
             </Grid>
-            <Grid item xs={12}>
-              <TextField
-                sx={customTextField}
-                size="small"
-                placeholder="Password"
-                type={showPassword ? "text" : "password"}
-                name="password"
-                fullWidth
-                InputProps={{
-                  endAdornment: (
-                    <InputAdornment position="end">
-                      <IconButton
-                        onClick={() => setShowPassword(!showPassword)}
-                        edge="end"
-                      >
-                        {showPassword ? <VisibilityOff /> : <Visibility />}
-                      </IconButton>
-                    </InputAdornment>
-                  ),
-                }}
-                onChange={(e: any) => setPassword(e.target.value)}
-              />
+            <Grid item xs={12} sx={{ marginBottom: 2 }}>
+              <div className="mb-1">
+                <TextField
+                  sx={customTextField}
+                  size="small"
+                  placeholder="Password"
+                  type={showPassword ? "text" : "password"}
+                  name="password"
+                  fullWidth
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <IconButton
+                          onClick={() => setShowPassword(!showPassword)}
+                          edge="end"
+                        >
+                          {showPassword ? <VisibilityOff /> : <Visibility />}
+                        </IconButton>
+                      </InputAdornment>
+                    ),
+                  }}
+                  onChange={(e: any) => setPassword(e.target.value)}
+                />
+              </div>
             </Grid>
-            <Grid item xs={12}>
-              <TextField
-                sx={customTextField}
-                size="small"
-                placeholder="Confirm Password"
-                type={showPassword ? "text" : "password"}
-                name="confirmPassword"
-                fullWidth
-                InputProps={{
-                  endAdornment: (
-                    <InputAdornment position="end">
-                      <IconButton
-                        onClick={() => setShowPassword(!showPassword)}
-                        edge="end"
-                      >
-                        {showPassword ? <VisibilityOff /> : <Visibility />}
-                      </IconButton>
-                    </InputAdornment>
-                  ),
-                }}
-                onChange={(e: any) => setConfirmPassword(e.target.value)}
-              />
+            <Grid item xs={12} sx={{ marginBottom: 2 }}>
+              <div className="mb-1">
+                <TextField
+                  sx={customTextField}
+                  size="small"
+                  placeholder="Confirm Password"
+                  type={showPassword ? "text" : "password"}
+                  name="confirmPassword"
+                  fullWidth
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <IconButton
+                          onClick={() => setShowPassword(!showPassword)}
+                          edge="end"
+                        >
+                          {showPassword ? <VisibilityOff /> : <Visibility />}
+                        </IconButton>
+                      </InputAdornment>
+                    ),
+                  }}
+                  onChange={(e: any) => setConfirmPassword(e.target.value)}
+                />
+              </div>
+
             </Grid>
 
             <Grid item xs={12}>
@@ -254,8 +263,8 @@ const ProfileButtons = ({ isEditMode, activateEditForm, submitForm, uploadPhoto 
             </Grid>
 
             {/* Grid para los botones */}
-            <Grid container item spacing={2} justifyContent="space-between">
-              <Grid item xs={6}>
+            <Grid container item justifyContent="center">
+              <Grid item xs={5} className="mr-1">
                 <Button
                   variant="outlined"
                   color="primary"
@@ -265,7 +274,7 @@ const ProfileButtons = ({ isEditMode, activateEditForm, submitForm, uploadPhoto 
                   Cancel
                 </Button>
               </Grid>
-              <Grid item xs={6}>
+              <Grid item xs={5}>
                 <Button
                   className={styles.submitButton}
                   disabled={!isPasswordValid()}
