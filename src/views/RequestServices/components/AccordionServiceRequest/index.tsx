@@ -150,7 +150,7 @@ export default function BasicAccordion({ setPersonalForm, personalForm }: any) {
           backgroundColor: "#efefef",
           width: "100%",
           borderRadius: "5px",
-          padding: "0.5rem",
+          padding: "0.5rem !important",
         }}
       >
         <AccordionSummary
@@ -162,118 +162,114 @@ export default function BasicAccordion({ setPersonalForm, personalForm }: any) {
             Personal Information
           </Typography>
         </AccordionSummary>
-        <AccordionDetails>
+        <AccordionDetails sx={{ width: 'calc(100% - 1.5rem)' }}>
           <Grid container spacing={2} sx={{ py: 1 }}>
-            <AccordionDetails>
-              <Grid container spacing={2} sx={{ py: 1 }}>
-                <Grid item xs={12} sm={6} md={4}>
-                  <div>
-                    <CustomLabel name="First Name" required={true} />
-                    <MyTextField
-                      name="first_name"
-                      placeholder="First Name"
-                      value={personalForm?.first_name || ''}
-                      onValueChange={(name, value) => handlePersonalFormChange(name, value)}
-                    />
-                  </div>
-                </Grid>
-                <Grid item xs={12} sm={6} md={4}>
-                  <div>
-                    <CustomLabel name="Middle Name" required={false} />
-                    <MyTextField
-                      name="middle_name"
-                      placeholder="Middle Name"
-                      value={personalForm?.middle_name || ''}
-                      onValueChange={(name, value) => handlePersonalFormChange(name, value)}
-                    />
-                  </div>
-                </Grid>
-                <Grid item xs={12} sm={6} md={4}>
-                  <div>
-                    <CustomLabel name="Last Name" required={true} />
-                    <MyTextField
-                      name="last_name"
-                      placeholder="Last Name"
-                      value={personalForm?.last_name || ''}
-                      onValueChange={(name, value) => handlePersonalFormChange(name, value)}
-                    />
-                  </div>
-                </Grid>
-                {/* Second Row */}
-                <Grid item xs={12} sm={6} md={4}>
-                  <CustomLabel name="Second Last Name" required={false} />
-                  <MyTextField
-                    name="second_last_name"
-                    placeholder="Second Last Name"
-                    value={personalForm?.second_last_name || ''}
-                    onValueChange={(name, value) => handlePersonalFormChange(name, value)}
-                  />
-                </Grid>
-                <Grid item xs={12} sm={6} md={4}>
-                  <CustomLabel name="Date of Birth" required={true} />
-                  <LocalizationProvider dateAdapter={AdapterDayjs}>
-                    <DatePicker
-                      sx={{
-                        backgroundColor: 'white',
-                        "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
-                          borderColor: "#009999",
-                          borderRadius: 0,
-                          border: "2px solid " + "#009999",
-                        },
-                        "&:hover .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline":
-                        {
-                          borderColor: "#009999",
-                        },
-                        "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline":
-                        {
-                          borderColor: "#009999",
-                        },
-                        "& .MuiInputLabel-outlined": {
-                          fontSize: "1rem",
-                          color: "#333333",
-                        },
-                        "& .MuiInputLabel-outlined.Mui-focused": {
-                          color: "#009999",
-                        },
-                        "& .MuiOutlinedInput-input": {
-                          padding: "0.7rem",
-                        },
-                      }}
-                      value={dayjs(personalInfo?.birthdate)}
-                      slotProps={{ textField: { size: "small", fullWidth: true } }}
-                      onChange={(date: Dayjs | null) => handleDateChange('birthdate', date)}
-                    />
-                  </LocalizationProvider>
-                </Grid>
-                <Grid item xs={12} sm={6} md={4}>
-                  <CustomLabel name="Phone Number" required={true} />
-                  <MyTextField
-                    name="cell_phone"
-                    placeholder="Phone Number"
-                    value={personalForm?.cell_phone || ''}
-                    onValueChange={(name, value) => handlePersonalFormChange(name, value)}
-                  />
-                </Grid>
-                <Grid item xs={12} sm={6} md={4}>
-                  <CustomLabel name="Email" required={true} />
-                  <MyTextField
-                    name="email"
-                    placeholder="Email"
-                    value={personalForm?.email || ''}
-                    onValueChange={(name, value) => handlePersonalFormChange(name, value)}
-                  />
-                </Grid>
-                <Grid item xs={12} sm={6} md={4}>
-                  <CustomLabel name="Student Id" required={true} />
-                  <MyTextField
-                    name="student_id"
-                    placeholder="Student Id"
-                    value={personalForm?.student_id || ''}
-                    onValueChange={(name, value) => handlePersonalFormChange(name, value)}
-                  />
-                </Grid>
-              </Grid>
-            </AccordionDetails>
+            <Grid item xs={12} sm={6} md={4}>
+              <div>
+                <CustomLabel name="First Name" required={true} />
+                <MyTextField
+                  name="first_name"
+                  placeholder="First Name"
+                  value={personalForm?.first_name || ''}
+                  onValueChange={(name, value) => handlePersonalFormChange(name, value)}
+                />
+              </div>
+            </Grid>
+            <Grid item xs={12} sm={6} md={4}>
+              <div>
+                <CustomLabel name="Middle Name" required={false} />
+                <MyTextField
+                  name="middle_name"
+                  placeholder="Middle Name"
+                  value={personalForm?.middle_name || ''}
+                  onValueChange={(name, value) => handlePersonalFormChange(name, value)}
+                />
+              </div>
+            </Grid>
+            <Grid item xs={12} sm={6} md={4}>
+              <div>
+                <CustomLabel name="Last Name" required={true} />
+                <MyTextField
+                  name="last_name"
+                  placeholder="Last Name"
+                  value={personalForm?.last_name || ''}
+                  onValueChange={(name, value) => handlePersonalFormChange(name, value)}
+                />
+              </div>
+            </Grid>
+            {/* Second Row */}
+            <Grid item xs={12} sm={6} md={4}>
+              <CustomLabel name="Second Last Name" required={false} />
+              <MyTextField
+                name="second_last_name"
+                placeholder="Second Last Name"
+                value={personalForm?.second_last_name || ''}
+                onValueChange={(name, value) => handlePersonalFormChange(name, value)}
+              />
+            </Grid>
+            <Grid item xs={12} sm={6} md={4}>
+              <CustomLabel name="Date of Birth" required={true} />
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DatePicker
+                  sx={{
+                    backgroundColor: 'white',
+                    "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
+                      borderColor: "#009999",
+                      borderRadius: 0,
+                      border: "2px solid " + "#009999",
+                    },
+                    "&:hover .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline":
+                    {
+                      borderColor: "#009999",
+                    },
+                    "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline":
+                    {
+                      borderColor: "#009999",
+                    },
+                    "& .MuiInputLabel-outlined": {
+                      fontSize: "1rem",
+                      color: "#333333",
+                    },
+                    "& .MuiInputLabel-outlined.Mui-focused": {
+                      color: "#009999",
+                    },
+                    "& .MuiOutlinedInput-input": {
+                      padding: "0.7rem",
+                    },
+                  }}
+                  value={dayjs(personalInfo?.birthdate)}
+                  slotProps={{ textField: { size: "small", fullWidth: true } }}
+                  onChange={(date: Dayjs | null) => handleDateChange('birthdate', date)}
+                />
+              </LocalizationProvider>
+            </Grid>
+            <Grid item xs={12} sm={6} md={4}>
+              <CustomLabel name="Phone Number" required={true} />
+              <MyTextField
+                name="cell_phone"
+                placeholder="Phone Number"
+                value={personalForm?.cell_phone || ''}
+                onValueChange={(name, value) => handlePersonalFormChange(name, value)}
+              />
+            </Grid>
+            <Grid item xs={12} sm={6} md={4}>
+              <CustomLabel name="Email" required={true} />
+              <MyTextField
+                name="email"
+                placeholder="Email"
+                value={personalForm?.email || ''}
+                onValueChange={(name, value) => handlePersonalFormChange(name, value)}
+              />
+            </Grid>
+            <Grid item xs={12} sm={6} md={4}>
+              <CustomLabel name="Student Id" required={true} />
+              <MyTextField
+                name="student_id"
+                placeholder="Student Id"
+                value={personalForm?.student_id || ''}
+                onValueChange={(name, value) => handlePersonalFormChange(name, value)}
+              />
+            </Grid>
           </Grid>
         </AccordionDetails>
       </Accordion>

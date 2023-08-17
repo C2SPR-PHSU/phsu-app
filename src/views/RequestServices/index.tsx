@@ -278,6 +278,7 @@ const RequestServices = () => {
                 setAcademicForm={setAcademicForm}
               />
             </div>
+
             <div className={styles["accordions-wrapper"]}>
               <AccordionServiceRequest
                 personalForm={personalForm}
