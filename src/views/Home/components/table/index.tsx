@@ -51,7 +51,7 @@ export default function BasicTable({
       const response = await getUserServices("1", token);
       setUserServices([response].flat());
     } catch (error) {
-      if(error?.status === 404) {
+      if (error?.status === 404) {
         logout();
       }
     }
@@ -182,7 +182,7 @@ export default function BasicTable({
                   <Typography
                     className={styles["typography"]}
                     sx={{
-                      display: "flex",
+                      display: "none",
                     }}
                   >
                     {row.service}
@@ -191,7 +191,7 @@ export default function BasicTable({
                   <Typography
                     className={styles["typography"]}
                     sx={{
-                      display: "none",
+                      display: "flex",
                     }}
                   >
                     {row.service} - {row.campus_name}
