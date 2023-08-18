@@ -92,7 +92,7 @@ export default function Registration() {
       addressCity: Yup.string()
         .required("Address City is required")
         .max(22, "Address City must be at most 22 characters"),
-      addressZipcode: Yup.number().required("Address Zip Code is required"),
+      addressZipcode: Yup.number().typeError('It must be a number').required("Address Zip Code is required"),
       password: Yup.string()
         .required("Password is required")
         .min(8, "Password must be at least 8 characters long")
@@ -101,8 +101,9 @@ export default function Registration() {
       repeatPassword: Yup.string()
         .matches(
           /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*()\;])[a-zA-Z\d!@#$%^&*()\;]*$/,
-          "Password must contain at least one string, one number and one symbol"
+          "Password must contain strings, numbers and symbols"
         )
+        .min(8, "Password must be at least 8 characters long")
         .max(20, "Password must be at most 20 characters"),
     }),
 
