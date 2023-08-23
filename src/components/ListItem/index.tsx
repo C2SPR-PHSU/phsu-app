@@ -12,7 +12,6 @@ const ListItem: React.FC<ResponsiveComponentProps> = ({
   number,
   listItem,
   description,
-  url,
 }) => {
   return (
     <Grid item xs={12} className={styles["container"]}>
@@ -20,11 +19,6 @@ const ListItem: React.FC<ResponsiveComponentProps> = ({
         <Typography className={styles["number"]}>{number}</Typography>
       </Box>
       <Box className={styles["services"]}>
-        {/* <Link href={url} className={styles["link"]}>
-          <Typography variant="h5" className={styles["list-item"]}>
-            {listItem}
-          </Typography>
-        </Link> */}
         <Typography variant="h5" className={styles["list-item"]}>
           {listItem}
         </Typography>

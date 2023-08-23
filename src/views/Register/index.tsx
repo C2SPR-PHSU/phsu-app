@@ -25,8 +25,6 @@ export default function Registration() {
   const { setAlert } = useAlert();
   const setLogin = useAuthStore((state: any) => state.setLogin);
 
-  const [validate, setValidate] = useState(false);
-
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -109,15 +107,17 @@ export default function Registration() {
         .max(20, "Password must be at most 20 characters"),
 
       repeatPassword: Yup.string()
+        .required("Password is required")
         .matches(
-          /^(?=.*[A-Z])(?=.*\d)(?=.*[@.#$*!&%()?-])[A-Za-z\d@.#$*!&%()?-]{8,}$/,
-          "Password does not comply with the required structure"
+          /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()\s;])[a-zA-Z\d!@#$%^&*()\s;]*$/,
+          "The password must contain at least one uppercase letter, lowercase letter, and number."
         )
+        .min(8, "Password must be at least 8 characters long")
         .max(20, "Password must be at most 20 characters"),
     }),
 
-    onSubmit: () => {
-      setValidate(true);
+    onSubmit: async () => {
+      await senUserForRegister();
     },
   });
 
@@ -137,6 +137,9 @@ export default function Registration() {
 
   const customTextField = {
     width: "90%",
+    "& .MuiInputBase-input": {
+      height: "1.9rem",
+    },
     "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
       borderColor: primaryColor,
       borderRadius: 0,
@@ -161,6 +164,9 @@ export default function Registration() {
   };
 
   const Date = {
+    "& .MuiInputBase-input": {
+      height: "1.8rem",
+    },
     "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
       borderColor: "#009999",
       borderRadius: 0,
@@ -210,11 +216,6 @@ export default function Registration() {
       setAlert("Something happened. Try again", "error");
     }
   };
-
-  if (validate) {
-    senUserForRegister();
-    setValidate(false);
-  }
 
   return (
     <Box className={styles.wrapper}>
@@ -305,7 +306,7 @@ export default function Registration() {
             <CustomLabel name="Date of Birth" required={true} />
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DatePicker
-                sx={{...Date, width: '90%'}}
+                sx={{ ...Date, width: "90%" }}
                 value={formik.values.birthdate}
                 onChange={(newValue) => {
                   formik.setFieldValue("birthdate", newValue);
@@ -542,7 +543,11 @@ export default function Registration() {
           </Grid>
         </Grid>
 
-        <Box sx={{ marginBottom: "3rem !important" }}>
+        <Box
+          sx={{
+            marginBottom: "3rem !important",
+          }}
+        >
           <Grid container spacing={2} justifyContent="start" sx={{ py: 4 }}>
             <Grid item xs={12} sm={3}>
               <Button

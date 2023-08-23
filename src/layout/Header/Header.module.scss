@@ -19,19 +19,23 @@
 
 .header-text {
   font-family: $gothamBlack !important;
-  font-size: 1.5rem !important;
+  font-size: 1.8rem !important;
   color: $warning;
   font-weight: bolder;
 }
 
 .header-icons {
-  font-size: 1.2rem !important;
+  font-size: 1.8rem !important;
   color: $warning;
+
 }
 
 .header-button {
   background-color: $primary !important;
   color: $tertiary-neutral !important;
+  width: 9rem;
+  height: 2.8rem;
+  font-size: 1.1rem !important;
 }
 
 .header-button-variant {

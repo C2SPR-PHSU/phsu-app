@@ -12,16 +12,18 @@
 .submitButton {
   background-color: $primary !important;
   color: $white !important;
+  height: 3rem;
 }
 
 .cancelButton {
   color: $primary !important;
   border-color: $primary !important;
+  height: 3rem;
 }
 
 .title {
   font-family: $gothamBlack !important;
-  font-size: 2rem;
+  font-size: 2.5rem !important;
   color: $warning;
   padding-left: 1rem;
 }
