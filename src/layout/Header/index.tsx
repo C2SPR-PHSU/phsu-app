@@ -32,9 +32,9 @@ export default function Header() {
       await setLogin(email, password);
       navigate("/");
     } catch (error) {
-      if (error instanceof Error) setAlert(error.message, "error")
+      if (error instanceof Error) setAlert(error.message, "error");
     }
-  }
+  };
 
   return (
     <AppBar position="static">
@@ -129,8 +129,11 @@ export default function Header() {
           >
             Log In
           </Button>
-          <div className={styles["icon-container"]}  onClick={() => navigate("/recovery")}>
-            <LockRounded className={styles["header-button-variant"]}  />
+          <div
+            className={styles["icon-container"]}
+            onClick={() => navigate("/recovery")}
+          >
+            <LockRounded className={styles["header-button-variant"]} />
           </div>
         </Box>
       </Toolbar>
