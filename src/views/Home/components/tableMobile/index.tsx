@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -9,43 +9,55 @@ import Paper from "@mui/material/Paper";
 import { Box, IconButton, Typography } from "@mui/material";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import DownloadIcon from "@mui/icons-material/Download";
-import useAuthStore from "@/hooks/useAuthStore";
 import StatusButton from "@/components/StatusButton";
-import { getUserServices } from "../../functions";
 import { IUserServicesData } from "../../types";
 import styles from "./styles.module.scss";
+import { formatDate } from "@/utils";
 
 interface IBasicTableProps {
   handleModal: (prop: string) => void;
   setDocumentId: (prop: string) => void;
+  getUserServicesRows: () => void;
+  userServices: IUserServicesData[];
 }
 
 const BasicTableMobile: React.FC<IBasicTableProps> = ({
   handleModal,
   setDocumentId,
+  getUserServicesRows,
+  userServices,
 }) => {
-  const token = useAuthStore((state: any) => state.token);
-  const logout = useAuthStore((state: any) => state.setLogout);
+  const refArray = useRef<(HTMLDivElement | null)[]>([]);
 
-  const [userServices, setUserServices] = useState<IUserServicesData[]>([]);
+  // TableRow
+  const rowRefArray = useRef<(HTMLTableRowElement | null)[]>([]);
 
-  const getUserServicesRows = async () => {
-    try {
-      const response = await getUserServices("1", token);
-      setUserServices([response].flat());
-    } catch (error) {
-      if(error?.status === 404) logout()
-    }
-  };
+  const [heights, setHeights] = useState<number[]>([]);
+  const [rowheights, setRowHeights] = useState<number[]>([]);
 
-  function formatDate(inputDate: string) {
-    const date = new Date(inputDate);
-    const day = date.getDate().toString().padStart(2, "0");
-    const month = (date.getMonth() + 1).toString().padStart(2, "0");
-    const year = date.getFullYear().toString();
-    const formattedDate = `${month}/${day}/${year}`;
-    return formattedDate;
-  }
+  // Calculate and set heights on document list change
+  useEffect(() => {
+    const newHeights: number[] = [];
+    const newRowHeights: number[] = [];
+
+    refArray.current.forEach((ref) => {
+      if (ref) {
+        const { height } = ref.getBoundingClientRect();
+        newHeights.push(height);
+      }
+    });
+
+    setHeights(newHeights);
+
+    rowRefArray.current.forEach((rowRef) => {
+      if (rowRef) {
+        const { height } = rowRef.getBoundingClientRect();
+        newRowHeights.push(height);
+      }
+    });
+
+    setRowHeights(newRowHeights);
+  }, [userServices]);
 
   useEffect(() => {
     getUserServicesRows();
@@ -80,10 +92,10 @@ const BasicTableMobile: React.FC<IBasicTableProps> = ({
                   Time
                 </span>
               </TableCell>
-              <TableCell sx={{padding: 0}}>
+              <TableCell>
                 <Typography
                   className={styles["typography"]}
-                  style={{ fontSize: "1rem" }}
+                  style={{ fontSize: "1rem", minWidth: "5rem" }}
                 >
                   Days Left
                 </Typography>
@@ -105,10 +117,14 @@ const BasicTableMobile: React.FC<IBasicTableProps> = ({
                 sx={{
                   "&:last-child td, &:last-child th": { border: 0 },
                 }}
+                ref={(e) => (rowRefArray.current[index] = e)}
               >
                 <TableCell component="th" scope="row">
                   <span className={styles["typography"]}>
                     <Box
+                      ref={(el: HTMLDivElement) =>
+                        (refArray.current[index] = el)
+                      }
                       sx={{
                         display: "flex",
                         flexDirection: "column",
@@ -135,9 +151,7 @@ const BasicTableMobile: React.FC<IBasicTableProps> = ({
                     {formatDate(row.created)}
                   </span>
                 </TableCell>
-                <TableCell
-                  align="center"
-                >
+                <TableCell align="center">
                   <Typography className={styles["typography"]}>
                     {row.days_to_expire}
                   </Typography>
@@ -172,6 +186,8 @@ const BasicTableMobile: React.FC<IBasicTableProps> = ({
                 key={index}
                 sx={{
                   "&:last-child td, &:last-child th": { border: 0 },
+                  minHeight: `${rowheights[index]}px`,
+                  maxHeight: `${rowheights[index]}px`,
                 }}
               >
                 <TableCell>
@@ -181,8 +197,8 @@ const BasicTableMobile: React.FC<IBasicTableProps> = ({
                       flexDirection: "row",
                       alignItems: "center",
                       justifyContent: "center",
-                      minHeight: "4.5rem",
-                      maxHeight: "4.5rem",
+                      minHeight: `${heights[index]}px`,
+                      maxHeight: `${heights[index]}px`,
                     }}
                   >
                     <IconButton
