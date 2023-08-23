@@ -3,6 +3,8 @@ import NoPage404 from "../../assets/404.png";
 import styles from "./StyleNoPage404.module.scss";
 import { ErrorResponse } from "./object";
 import { useNavigate } from "react-router-dom";
+import Fade from "@mui/material/Fade";
+import { useEffect, useState } from "react";
 
 const Error404 = () => {
   const navigate = useNavigate();
@@ -11,103 +13,122 @@ const Error404 = () => {
     navigate("/");
   };
 
+  const [checked, setChecked] = useState(false);
+
+  useEffect(() => {
+    if (!checked) {
+      const timeoutId = setTimeout(() => {
+        setChecked(true);
+      }, 3);
+
+      return () => {
+        clearTimeout(timeoutId);
+      };
+    }
+  }, [checked]);
+
   return (
-    <Box
-      sx={{
-        paddingLeft: "10%",
-        paddingRight: "10%",
-        paddingTop: "7%",
-      }}
-    >
-      <Grid
-        container
-        spacing={2}
+    <Fade in={checked}>
+      <Box
         sx={{
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "center",
-          paddingBottom: "20%",
-          width: "100%", // Añadido para ocupar todo el ancho del padre
+          paddingLeft: "10%",
+          paddingRight: "10%",
+          paddingTop: "7%",
         }}
       >
         <Grid
-          item
-          xs={12}
-          md={6}
-          lg={6}
+          container
+          spacing={2}
           sx={{
             display: "flex",
             flexDirection: "row",
-            justifyContent: "end",
+            justifyContent: "center",
+            paddingBottom: "20%",
+            width: "100%", // Añadido para ocupar todo el ancho del padre
           }}
         >
-          <Box sx={{ width: "65%", paddingTop: "13%" }}>
-            <Typography className={styles["title-404"]}>
-              {ErrorResponse.code}
-            </Typography>
-            <Typography className={styles["sub-title"]}>
-              {ErrorResponse.title}
-            </Typography>
-            <Typography className={styles["error-descriptions"]}>
-              {ErrorResponse.description}
-            </Typography>
-          </Box>
-        </Grid>
-        <Grid item xs={12} md={6} lg={6}>
-          <Box
+          <Grid
+            item
+            xs={12}
+            md={6}
+            lg={6}
             sx={{
               display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              height: "20rem",
+              flexDirection: "row",
+              justifyContent: "end",
             }}
           >
-            <img
-              src={NoPage404}
-              alt="Error 404"
-              style={{
-                maxWidth: "29rem",
+            <Box sx={{ width: "65%", paddingTop: "13%" }}>
+              <Typography className={styles["title-404"]}>
+                {ErrorResponse.code}
+              </Typography>
+              <Typography className={styles["sub-title"]}>
+                {ErrorResponse.title}
+              </Typography>
+              <Typography className={styles["error-descriptions"]}>
+                {ErrorResponse.description}
+              </Typography>
+            </Box>
+          </Grid>
+          <Grid item xs={12} md={6} lg={6}>
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                height: "20rem",
               }}
-            />
-          </Box>
-        </Grid>
+            >
+              <img
+                src={NoPage404}
+                alt="Error 404"
+                style={{
+                  maxWidth: "29rem",
+                }}
+              />
+            </Box>
+          </Grid>
 
-        <Grid
-          item
-          xs={12}
-          md={6}
-          lg={3}
-          sx={{
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "center",
-          }}
-        >
-          <Button
-            variant="outlined"
-            className={styles["button-page-main"]}
-            onClick={handleCancelClick}
+          <Grid
+            item
+            xs={12}
+            md={6}
+            lg={3}
+            sx={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "center",
+            }}
           >
-            Go to the main page
-          </Button>
+            <Button
+              variant="outlined"
+              className={styles["button-page-main"]}
+              onClick={handleCancelClick}
+            >
+              Go to the main page
+            </Button>
+          </Grid>
+          <Grid
+            item
+            xs={12}
+            md={6}
+            lg={3}
+            sx={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "center",
+            }}
+          >
+            <Button
+              variant="contained"
+              className={styles["button-new-request"]}
+            >
+              Create a new request.
+            </Button>
+          </Grid>
         </Grid>
-        <Grid
-          item
-          xs={12}
-          md={6}
-          lg={3}
-          sx={{
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "center",
-          }}
-        >
-          <Button variant="contained" className={styles["button-new-request"]}>
-            Create a new request.
-          </Button>
-        </Grid>
-      </Grid>
-    </Box>
+      </Box>
+    </Fade>
   );
 };
 

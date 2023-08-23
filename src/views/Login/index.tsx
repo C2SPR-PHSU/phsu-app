@@ -13,8 +13,20 @@ import {
 const Login = () => {
   const [checked, setChecked] = useState(false);
 
+  useEffect(() => {
+    if (!checked) {
+      const timeoutId = setTimeout(() => {
+        setChecked(true);
+      }, 5);
+
+      return () => {
+        clearTimeout(timeoutId);
+      };
+    }
+  }, [checked]);
+
   return (
-    <>
+    <Fade in={checked}>
       <Grid container>
         <Grid item xs={12} md={6}>
           <Box className={styles["welcome-container"]}>
@@ -50,7 +62,7 @@ const Login = () => {
           </Grid>
         </Grid>
       </Grid>
-    </>
+    </Fade>
   );
 };
 
