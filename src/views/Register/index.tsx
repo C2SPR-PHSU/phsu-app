@@ -63,6 +63,9 @@ export default function Registration() {
   };
 
   const Date = {
+    "& .MuiInputBase-input": {
+      height: "1.9rem",
+    },
     "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
       borderColor: "#009999",
       borderRadius: 0,

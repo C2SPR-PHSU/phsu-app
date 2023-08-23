@@ -7,6 +7,9 @@ const StateField = ({ formik }) => {
 
   const customTextField = {
     width: "90%",
+    "& .MuiInputBase-input": {
+      height: "1.9rem",
+    },
     "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
       borderColor: primaryColor,
       borderRadius: 0,
