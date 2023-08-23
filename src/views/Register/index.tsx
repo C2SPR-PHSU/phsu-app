@@ -17,13 +17,11 @@ import * as Yup from "yup";
 import styles from "./Register.module.scss";
 import useAlert from "@/hooks/useAlert";
 import useAuthStore from "@/hooks/useAuthStore";
-import { CustomTextField } from '../Profile/constants';
+import { CustomTextField } from "../Profile/constants";
 
 export default function Registration() {
   const { setAlert } = useAlert();
   const setLogin = useAuthStore((state: any) => state.setLogin);
-
-  const [validate, setValidate] = useState(false);
 
   const formik = useFormik({
     initialValues: {
@@ -92,23 +90,26 @@ export default function Registration() {
       addressCity: Yup.string()
         .required("Address City is required")
         .max(22, "Address City must be at most 22 characters"),
-      addressZipcode: Yup.number().typeError('It must be a number').required("Address Zip Code is required"),
+      addressZipcode: Yup.number()
+        .typeError("It must be a number")
+        .required("Address Zip Code is required"),
       password: Yup.string()
         .required("Password is required")
         .min(8, "Password must be at least 8 characters long")
         .oneOf([Yup.ref("repeatPassword")], "The passwords do not match")
         .max(20, "Password must be at most 20 characters"),
       repeatPassword: Yup.string()
+        .required("Password is required")
         .matches(
-          /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*()\;])[a-zA-Z\d!@#$%^&*()\;]*$/,
-          "Password must contain strings, numbers and symbols"
+          /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()\s;])[a-zA-Z\d!@#$%^&*()\s;]*$/,
+          "The password must contain at least one uppercase letter, lowercase letter, and number."
         )
         .min(8, "Password must be at least 8 characters long")
         .max(20, "Password must be at most 20 characters"),
     }),
 
-    onSubmit: () => {
-      setValidate(true);
+    onSubmit: async () => {
+      await senUserForRegister();
     },
   });
 
@@ -123,7 +124,7 @@ export default function Registration() {
     setShowPassword(!showPassword);
   };
 
-  const primaryColor = "#009999";
+  const primaryColor = "#018585";
   const placeholderColor = "rgba(51, 51, 51, 0.4)";
 
   const customTextField = {
@@ -147,31 +148,7 @@ export default function Registration() {
       color: primaryColor,
     },
     "& .MuiOutlinedInput-input": {
-      padding: "0.7rem",
-    },
-  };
-
-  const Date = {
-    "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
-      borderColor: "#009999",
-      borderRadius: 0,
-      border: "2px solid " + "#009999",
-    },
-    "&:hover .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
-      borderColor: "#009999",
-    },
-    "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline": {
-      borderColor: "#009999",
-    },
-    "& .MuiInputLabel-outlined": {
-      fontSize: "1rem",
-      color: "#333333",
-    },
-    "& .MuiInputLabel-outlined.Mui-focused": {
-      color: "#009999",
-    },
-    "& .MuiOutlinedInput-input": {
-      padding: "0.7rem",
+      padding: "0.9rem",
     },
   };
 
@@ -201,11 +178,6 @@ export default function Registration() {
       setAlert("Something happened. Try again", "error");
     }
   };
-
-  if (validate) {
-    senUserForRegister();
-    setValidate(false);
-  }
 
   return (
     <Box className={styles.wrapper}>
@@ -301,7 +273,7 @@ export default function Registration() {
               onChange={formik.handleChange}
               error={formik.touched.birthdate && !!formik.errors.birthdate}
               helperText={formik.touched.birthdate && formik.errors.birthdate}
-              sx={{...CustomTextField, width: '90%' }}
+              sx={{ ...CustomTextField, width: "90%" }}
               type="date"
             />
           </Grid>
@@ -342,7 +314,7 @@ export default function Registration() {
 
           {/*---------------------------Student Id--------------------------------------  */}
           <Grid item xs={12} sm={6} md={4}>
-            <CustomLabel name="Student Id" required={true} />
+            <CustomLabel name="Student ID" required={true} />
             <TextField
               sx={customTextField}
               name="studentId"
