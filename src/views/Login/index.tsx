@@ -22,12 +22,7 @@ const Login = () => {
             </Box>
           </Box>
         </Grid>
-        <Grid
-          item
-          xs={12}
-          md={6}
-          sx={{ display: "flex", alignItems: "center" }}
-        >
+        <Grid item xs={12} md={6} sx={{ display: "flex" }}>
           <Grid item xs={12} className={styles["services-container"]}>
             <Typography className={styles["upper-text-title"]}>
               {serviceTitle}
