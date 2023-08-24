@@ -11,15 +11,13 @@ import {
 import { useNavigate } from "react-router-dom";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import CustomLabel from "@/components/CustomLabel";
-import { DatePicker } from "@mui/x-date-pickers";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { requestRegister } from "./functions";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import styles from "./Register.module.scss";
 import useAlert from "@/hooks/useAlert";
 import useAuthStore from "@/hooks/useAuthStore";
+import { CustomTextField } from '../Profile/constants';
 
 export default function Registration() {
   const { setAlert } = useAlert();
@@ -81,38 +79,31 @@ export default function Registration() {
         20,
         "Middle Name must be at most 20 characters"
       ),
-
       birthdate: Yup.string().required("Birthdate is required"),
-
       addressLine1: Yup.string()
         .required("Address Line 1 is required")
         .max(20, "Address Line 1 must be at most 20 characters"),
-
       addressLine2: Yup.string()
         .required("Address Line 2 is required")
         .max(20, "Address Line 2 must be at most 20 characters"),
-
       addressState: Yup.string()
         .required("Address State is required")
         .max(20, "Address State must be at most 20 characters"),
-
       addressCity: Yup.string()
         .required("Address City is required")
         .max(22, "Address City must be at most 22 characters"),
-
-      addressZipcode: Yup.number().required("Address Zip Code is required"),
-
+      addressZipcode: Yup.number().typeError('It must be a number').required("Address Zip Code is required"),
       password: Yup.string()
         .required("Password is required")
         .min(8, "Password must be at least 8 characters long")
         .oneOf([Yup.ref("repeatPassword")], "The passwords do not match")
         .max(20, "Password must be at most 20 characters"),
-
       repeatPassword: Yup.string()
         .matches(
-          /^(?=.*[A-Z])(?=.*\d)(?=.*[@.#$*!&%()?-])[A-Za-z\d@.#$*!&%()?-]{8,}$/,
-          "Password does not comply with the required structure"
+          /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*()\;])[a-zA-Z\d!@#$%^&*()\;]*$/,
+          "Password must contain strings, numbers and symbols"
         )
+        .min(8, "Password must be at least 8 characters long")
         .max(20, "Password must be at most 20 characters"),
     }),
 
@@ -309,16 +300,16 @@ export default function Registration() {
 
           <Grid item xs={12} sm={6} md={4}>
             <CustomLabel name="Date of Birth" required={true} />
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
-              <DatePicker
-                sx={{...Date, width: '90%'}}
-                value={formik.values.birthdate}
-                onChange={(newValue) => {
-                  formik.setFieldValue("birthdate", newValue);
-                }}
-                slotProps={{ textField: { size: "small", fullWidth: true } }}
-              />
-            </LocalizationProvider>
+            <TextField
+              id="birthdate"
+              name="birthdate"
+              value={formik.values.birthdate}
+              onChange={formik.handleChange}
+              error={formik.touched.birthdate && !!formik.errors.birthdate}
+              helperText={formik.touched.birthdate && formik.errors.birthdate}
+              sx={{...CustomTextField, width: '90%' }}
+              type="date"
+            />
           </Grid>
 
           {/* --------------------------------Phone Number-------------------------------------------------- */}
