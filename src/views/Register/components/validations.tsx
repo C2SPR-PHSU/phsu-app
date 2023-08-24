@@ -11,10 +11,9 @@ export const registrationValidationSchema = Yup.object({
     .required("Last Name is required")
     .max(20, "Last Name must be at most 20 characters"),
 
-  secondLastName: Yup.string().max(
-    20,
-    "Second Last Name must be at most 20 characters"
-  ),
+    secondLastName: Yup.string()
+    .matches(/^[A-Za-z]+$/, "Second Last Name must contain only letters")
+    .max(20, "Second Last Name must be at most 20 characters"),
 
   email: Yup.string()
     .email("Invalid email address")
@@ -32,9 +31,10 @@ export const registrationValidationSchema = Yup.object({
     .matches(/^[0-9]+$/, "Cell Phone should only contain numbers")
     .max(20, "Student ID must be at most 20 characters"),
 
-  middleName: Yup.string().max(20, "Middle Name must be at most 20 characters"),
+    middleName: Yup.string()
+    .matches(/^[A-Za-z]+$/, "Middle Name must contain only letters")
+    .max(20, "Middle Name must be at most 20 characters"),
 
-  birthdate: Yup.string().required("Birthdate is required"),
 
   addressLine1: Yup.string()
     .required("Address Line 1 is required")
@@ -61,9 +61,13 @@ export const registrationValidationSchema = Yup.object({
     .max(20, "Password must be at most 20 characters"),
 
   repeatPassword: Yup.string()
-    .matches(
-      /^(?=.*[A-Z])(?=.*\d)(?=.*[@.#$*!&%()?-])[A-Za-z\d@.#$*!&%()?-]{8,}$/,
-      "Password does not comply with the required structure"
-    )
+  .matches(
+    /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}$/,
+    "Password must contain at least one uppercase letter, one digit, and be at least 8 characters"
+  )
     .max(20, "Password must be at most 20 characters"),
+
+    birthdate: Yup.date()
+    .max(new Date(new Date().getFullYear() - 84, 0, 1), 'Age must be up to 84 years.')
+    .required('Date of Birth is required'),
 });

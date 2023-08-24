@@ -147,7 +147,13 @@ export default function Registration() {
                 }}
                 slotProps={{ textField: { size: "small", fullWidth: true } }}
               />
+              {formik.touched.birthdate && formik.errors.birthdate && (
+              <p style={{ color: "red", fontWeight: "lighter", fontSize:12 }}>
+              {formik.errors.birthdate}
+            </p>
+              )}
             </LocalizationProvider>
+
           </Grid>
 
           {/* --------------------------------Phone Number-------------------------------------------------- */}
