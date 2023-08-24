@@ -19,6 +19,7 @@ import useAlert from "@/hooks/useAlert";
 import useAuthStore from "@/hooks/useAuthStore";
 import { CustomTextField } from "../Profile/constants";
 import Fade from "@mui/material/Fade";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
 
 export default function Registration() {
   const { setAlert } = useAlert();
@@ -114,6 +115,18 @@ export default function Registration() {
     },
   });
 
+  const theme = createTheme({
+    transitions: {
+      duration: {
+        enteringScreen: 380,
+        leavingScreen: 380,
+      },
+      easing: {
+        easeInOut: "cubic-bezier(0.4, 0, 0.2, 1)",
+      },
+    },
+  });
+
   const [showPassword, setShowPassword] = useState(false);
 
   const navigate = useNavigate();
@@ -195,366 +208,378 @@ export default function Registration() {
   }, [checked]);
 
   return (
-    <Fade in={checked}>
-      <Box className={styles.wrapper}>
-        <Typography variant="h4" gutterBottom className={styles.title}>
-          Registration
-        </Typography>
+    <ThemeProvider theme={theme}>
+      <Fade in={checked}>
+        <Box className={styles.wrapper}>
+          <Typography variant="h4" gutterBottom className={styles.title}>
+            Registration
+          </Typography>
 
-        <form onSubmit={formik.handleSubmit}>
-          {/* Personal Information Section */}
-          <Grid container spacing={2} sx={{ py: 1 }}>
-            <Grid item xs={12}>
-              <Typography variant="h6" gutterBottom>
-                Personal Information
-              </Typography>
-            </Grid>
-
-            {/* FistName */}
-            <Grid item xs={12} sm={6} md={4}>
-              <CustomLabel name="First Name" required={true} />
-              <TextField
-                id="firstName"
-                name="firstName"
-                placeholder="First Name"
-                type="text"
-                value={formik.values.firstName}
-                onChange={formik.handleChange}
-                sx={customTextField}
-                error={
-                  formik.touched.firstName && Boolean(formik.errors.firstName)
-                }
-                helperText={formik.touched.firstName && formik.errors.firstName}
-              />
-            </Grid>
-
-            {/* ---------------------------Middle Name---------------------------------------- */}
-            <Grid item xs={12} sm={6} md={4}>
-              <CustomLabel name="Middle Name" required={false} />
-              <TextField
-                type="text"
-                onChange={formik.handleChange}
-                placeholder="Middle Name"
-                name="middleName"
-                value={formik.values.middleName}
-                sx={customTextField}
-                error={
-                  formik.touched.middleName && Boolean(formik.errors.middleName)
-                }
-                helperText={
-                  formik.touched.middleName && formik.errors.middleName
-                }
-              />
-            </Grid>
-
-            {/* ---------------------------LastName------------------------------------------ */}
-            <Grid item xs={12} sm={6} md={4}>
-              <CustomLabel name="Last Name" required={true} />
-              <TextField
-                type="text"
-                onChange={formik.handleChange}
-                name="lastName"
-                placeholder="Last Name"
-                value={formik.values.lastName}
-                sx={customTextField}
-                error={
-                  formik.touched.lastName && Boolean(formik.errors.lastName)
-                }
-                helperText={formik.touched.lastName && formik.errors.lastName}
-              />
-            </Grid>
-            {/* ------------------------------Second LastName-------------------------------------- */}
-            <Grid item xs={12} sm={6} md={4}>
-              <CustomLabel name="Second Last Name" required={false} />
-              <TextField
-                sx={customTextField}
-                name="secondLastName"
-                type="text"
-                placeholder="Second Last Name"
-                onChange={formik.handleChange}
-                value={formik.values.secondLastName}
-                error={
-                  formik.touched.secondLastName &&
-                  Boolean(formik.errors.secondLastName)
-                }
-                helperText={
-                  formik.touched.secondLastName && formik.errors.secondLastName
-                }
-              />
-            </Grid>
-            {/* ------------------------------------------- Date of Birth --------------------------------------- */}
-
-            <Grid item xs={12} sm={6} md={4}>
-              <CustomLabel name="Date of Birth" required={true} />
-              <TextField
-                id="birthdate"
-                name="birthdate"
-                value={formik.values.birthdate}
-                onChange={formik.handleChange}
-                error={formik.touched.birthdate && !!formik.errors.birthdate}
-                helperText={formik.touched.birthdate && formik.errors.birthdate}
-                sx={{ ...CustomTextField, width: "90%" }}
-                type="date"
-              />
-            </Grid>
-
-            {/* --------------------------------Phone Number-------------------------------------------------- */}
-            <Grid item xs={12} sm={6} md={4}>
-              <CustomLabel name="Phone Number" required={true} />
-              <TextField
-                sx={customTextField}
-                name="phoneNumber"
-                type="text"
-                placeholder="Phone Number"
-                onChange={formik.handleChange}
-                value={formik.values.phoneNumber}
-                error={
-                  formik.touched.phoneNumber &&
-                  Boolean(formik.errors.phoneNumber)
-                }
-                helperText={
-                  formik.touched.phoneNumber && formik.errors.phoneNumber
-                }
-              />
-            </Grid>
-
-            {/* ----------------------------------------Email ---------------------------------------- */}
-            <Grid item xs={12} sm={6} md={4}>
-              <CustomLabel name="Email" required={true} />
-              <TextField
-                sx={customTextField}
-                name="email"
-                type="email"
-                placeholder="Email"
-                onChange={formik.handleChange}
-                value={formik.values.email}
-                error={formik.touched.email && Boolean(formik.errors.email)}
-                helperText={formik.touched.email && formik.errors.email}
-              />
-            </Grid>
-
-            {/*---------------------------Student Id--------------------------------------  */}
-            <Grid item xs={12} sm={6} md={4}>
-              <CustomLabel name="Student ID" required={true} />
-              <TextField
-                sx={customTextField}
-                name="studentId"
-                placeholder="Student ID"
-                type="text"
-                onChange={formik.handleChange}
-                value={formik.values.studentId}
-                error={
-                  formik.touched.studentId && Boolean(formik.errors.studentId)
-                }
-                helperText={formik.touched.studentId && formik.errors.studentId}
-              />
-            </Grid>
-          </Grid>
-
-          {/* Address Section */}
-          <Grid container spacing={2} sx={{ py: 1 }}>
-            <Grid item xs={12}>
-              <Typography variant="h6" gutterBottom>
-                Address
-              </Typography>
-            </Grid>
-            {/* --------------------------Adress Line 1----------------------------------------------- */}
-            <Grid item xs={12} sm={6} md={4}>
-              <CustomLabel name="Adress Line 1" required={true} />
-              <TextField
-                type="text"
-                onChange={formik.handleChange}
-                placeholder="Address Line 1"
-                name="addressLine1"
-                value={formik.values.addressLine1}
-                sx={customTextField}
-                error={
-                  formik.touched.addressLine1 &&
-                  Boolean(formik.errors.addressLine1)
-                }
-                helperText={
-                  formik.touched.addressLine1 && formik.errors.addressLine1
-                }
-              />
-            </Grid>
-            {/* ----------------------------"Adress Line 2----------------------------------------------- */}
-            <Grid item xs={12} sm={6} md={4}>
-              <CustomLabel name="Adress Line 2" required={true} />
-              <TextField
-                type="text"
-                onChange={formik.handleChange}
-                placeholder="Address Line 2"
-                name="addressLine2"
-                value={formik.values.addressLine2}
-                sx={customTextField}
-                error={
-                  formik.touched.addressLine2 &&
-                  Boolean(formik.errors.addressLine2)
-                }
-                helperText={
-                  formik.touched.addressLine2 && formik.errors.addressLine2
-                }
-              />
-            </Grid>
-            <Grid item xs={12} sm={6} md={4}>
-              <CustomLabel name="City" required={true} />
-              <TextField
-                type="text"
-                onChange={formik.handleChange}
-                placeholder="Address City"
-                name="addressCity"
-                value={formik.values.addressCity}
-                sx={customTextField}
-                error={
-                  formik.touched.addressCity &&
-                  Boolean(formik.errors.addressCity)
-                }
-                helperText={
-                  formik.touched.addressCity && formik.errors.addressCity
-                }
-              />
-            </Grid>
-
-            {/* -----------------------------State --------------------------------------------------------  */}
-
-            <Grid item xs={12} sm={6} md={4}>
-              <CustomLabel name="State" required={true} />
-              <TextField
-                type="text"
-                onChange={formik.handleChange}
-                placeholder="State"
-                name="addressState"
-                value={formik.values.addressState}
-                sx={customTextField}
-                error={
-                  formik.touched.addressState &&
-                  Boolean(formik.errors.addressState)
-                }
-                helperText={
-                  formik.touched.addressState && formik.errors.addressState
-                }
-              />
-            </Grid>
-
-            {/* ------------------------------------------------Zip Code----------------------------------- */}
-            <Grid item xs={12} sm={6} md={4}>
-              <CustomLabel name="Zip Code" required={true} />
-              <TextField
-                type="text"
-                onChange={formik.handleChange}
-                placeholder="Address Zipcode"
-                name="addressZipcode"
-                value={formik.values.addressZipcode}
-                sx={customTextField}
-                error={
-                  formik.touched.addressZipcode &&
-                  Boolean(formik.errors.addressZipcode)
-                }
-                helperText={
-                  formik.touched.addressZipcode && formik.errors.addressZipcode
-                }
-              />
-            </Grid>
-          </Grid>
-
-          {/* Password Creation Section */}
-          <Grid container spacing={2} sx={{ py: 1 }}>
-            <Grid item xs={12}>
-              <Typography variant="h6" gutterBottom>
-                Creation of Password
-              </Typography>
-            </Grid>
-
-            {/* -------------------------------------------------Password -----------------------------------------*/}
-            <Grid item xs={12} sm={6} md={4}>
-              <CustomLabel name="Password" required={true} />
-              <TextField
-                sx={customTextField}
-                placeholder="Password"
-                type={showPassword ? "text" : "password"}
-                name="password"
-                value={formik.values.password}
-                onChange={formik.handleChange}
-                size="small"
-                InputProps={{
-                  endAdornment: (
-                    <InputAdornment position="end">
-                      <IconButton
-                        onClick={handleTogglePasswordVisibility}
-                        edge="end"
-                      >
-                        {showPassword ? <VisibilityOff /> : <Visibility />}
-                      </IconButton>
-                    </InputAdornment>
-                  ),
-                }}
-                error={
-                  formik.touched.password && Boolean(formik.errors.password)
-                }
-                helperText={formik.touched.password && formik.errors.password}
-              />
-            </Grid>
-
-            {/* --------------------------------------------Repeat Password -------------------------------------------------------- */}
-            <Grid item xs={12} sm={6} md={4}>
-              <CustomLabel name="Confirm Password" required={true} />
-              <TextField
-                sx={customTextField}
-                placeholder="Confirm Password"
-                name="repeatPassword"
-                type={showPassword ? "text" : "password"}
-                value={formik.values.repeatPassword}
-                onChange={formik.handleChange}
-                size="small"
-                InputProps={{
-                  endAdornment: (
-                    <InputAdornment position="end">
-                      <IconButton
-                        onClick={handleTogglePasswordVisibility}
-                        edge="end"
-                      >
-                        {showPassword ? <VisibilityOff /> : <Visibility />}
-                      </IconButton>
-                    </InputAdornment>
-                  ),
-                }}
-                error={
-                  formik.touched.repeatPassword &&
-                  Boolean(formik.errors.repeatPassword)
-                }
-                helperText={
-                  formik.touched.repeatPassword && formik.errors.repeatPassword
-                }
-              />
-            </Grid>
-          </Grid>
-
-          <Box sx={{ marginBottom: "3rem !important" }}>
-            <Grid container spacing={2} justifyContent="start" sx={{ py: 4 }}>
-              <Grid item xs={12} sm={3}>
-                <Button
-                  variant="outlined"
-                  className={styles.cancelButton}
-                  fullWidth
-                  onClick={onCancelRegister}
-                >
-                  Cancel
-                </Button>
+          <form onSubmit={formik.handleSubmit}>
+            {/* Personal Information Section */}
+            <Grid container spacing={2} sx={{ py: 1 }}>
+              <Grid item xs={12}>
+                <Typography variant="h6" gutterBottom>
+                  Personal Information
+                </Typography>
               </Grid>
-              <Grid item xs={12} sm={3}>
-                <Button
-                  type="submit"
-                  variant="contained"
-                  fullWidth
-                  className={styles.submitButton}
-                >
-                  Sign up
-                </Button>
+
+              {/* FistName */}
+              <Grid item xs={12} sm={6} md={4}>
+                <CustomLabel name="First Name" required={true} />
+                <TextField
+                  id="firstName"
+                  name="firstName"
+                  placeholder="First Name"
+                  type="text"
+                  value={formik.values.firstName}
+                  onChange={formik.handleChange}
+                  sx={customTextField}
+                  error={
+                    formik.touched.firstName && Boolean(formik.errors.firstName)
+                  }
+                  helperText={
+                    formik.touched.firstName && formik.errors.firstName
+                  }
+                />
+              </Grid>
+
+              {/* ---------------------------Middle Name---------------------------------------- */}
+              <Grid item xs={12} sm={6} md={4}>
+                <CustomLabel name="Middle Name" required={false} />
+                <TextField
+                  type="text"
+                  onChange={formik.handleChange}
+                  placeholder="Middle Name"
+                  name="middleName"
+                  value={formik.values.middleName}
+                  sx={customTextField}
+                  error={
+                    formik.touched.middleName &&
+                    Boolean(formik.errors.middleName)
+                  }
+                  helperText={
+                    formik.touched.middleName && formik.errors.middleName
+                  }
+                />
+              </Grid>
+
+              {/* ---------------------------LastName------------------------------------------ */}
+              <Grid item xs={12} sm={6} md={4}>
+                <CustomLabel name="Last Name" required={true} />
+                <TextField
+                  type="text"
+                  onChange={formik.handleChange}
+                  name="lastName"
+                  placeholder="Last Name"
+                  value={formik.values.lastName}
+                  sx={customTextField}
+                  error={
+                    formik.touched.lastName && Boolean(formik.errors.lastName)
+                  }
+                  helperText={formik.touched.lastName && formik.errors.lastName}
+                />
+              </Grid>
+              {/* ------------------------------Second LastName-------------------------------------- */}
+              <Grid item xs={12} sm={6} md={4}>
+                <CustomLabel name="Second Last Name" required={false} />
+                <TextField
+                  sx={customTextField}
+                  name="secondLastName"
+                  type="text"
+                  placeholder="Second Last Name"
+                  onChange={formik.handleChange}
+                  value={formik.values.secondLastName}
+                  error={
+                    formik.touched.secondLastName &&
+                    Boolean(formik.errors.secondLastName)
+                  }
+                  helperText={
+                    formik.touched.secondLastName &&
+                    formik.errors.secondLastName
+                  }
+                />
+              </Grid>
+              {/* ------------------------------------------- Date of Birth --------------------------------------- */}
+
+              <Grid item xs={12} sm={6} md={4}>
+                <CustomLabel name="Date of Birth" required={true} />
+                <TextField
+                  id="birthdate"
+                  name="birthdate"
+                  value={formik.values.birthdate}
+                  onChange={formik.handleChange}
+                  error={formik.touched.birthdate && !!formik.errors.birthdate}
+                  helperText={
+                    formik.touched.birthdate && formik.errors.birthdate
+                  }
+                  sx={{ ...CustomTextField, width: "90%" }}
+                  type="date"
+                />
+              </Grid>
+
+              {/* --------------------------------Phone Number-------------------------------------------------- */}
+              <Grid item xs={12} sm={6} md={4}>
+                <CustomLabel name="Phone Number" required={true} />
+                <TextField
+                  sx={customTextField}
+                  name="phoneNumber"
+                  type="text"
+                  placeholder="Phone Number"
+                  onChange={formik.handleChange}
+                  value={formik.values.phoneNumber}
+                  error={
+                    formik.touched.phoneNumber &&
+                    Boolean(formik.errors.phoneNumber)
+                  }
+                  helperText={
+                    formik.touched.phoneNumber && formik.errors.phoneNumber
+                  }
+                />
+              </Grid>
+
+              {/* ----------------------------------------Email ---------------------------------------- */}
+              <Grid item xs={12} sm={6} md={4}>
+                <CustomLabel name="Email" required={true} />
+                <TextField
+                  sx={customTextField}
+                  name="email"
+                  type="email"
+                  placeholder="Email"
+                  onChange={formik.handleChange}
+                  value={formik.values.email}
+                  error={formik.touched.email && Boolean(formik.errors.email)}
+                  helperText={formik.touched.email && formik.errors.email}
+                />
+              </Grid>
+
+              {/*---------------------------Student Id--------------------------------------  */}
+              <Grid item xs={12} sm={6} md={4}>
+                <CustomLabel name="Student ID" required={true} />
+                <TextField
+                  sx={customTextField}
+                  name="studentId"
+                  placeholder="Student ID"
+                  type="text"
+                  onChange={formik.handleChange}
+                  value={formik.values.studentId}
+                  error={
+                    formik.touched.studentId && Boolean(formik.errors.studentId)
+                  }
+                  helperText={
+                    formik.touched.studentId && formik.errors.studentId
+                  }
+                />
               </Grid>
             </Grid>
-          </Box>
-        </form>
-      </Box>
-    </Fade>
+
+            {/* Address Section */}
+            <Grid container spacing={2} sx={{ py: 1 }}>
+              <Grid item xs={12}>
+                <Typography variant="h6" gutterBottom>
+                  Address
+                </Typography>
+              </Grid>
+              {/* --------------------------Adress Line 1----------------------------------------------- */}
+              <Grid item xs={12} sm={6} md={4}>
+                <CustomLabel name="Adress Line 1" required={true} />
+                <TextField
+                  type="text"
+                  onChange={formik.handleChange}
+                  placeholder="Address Line 1"
+                  name="addressLine1"
+                  value={formik.values.addressLine1}
+                  sx={customTextField}
+                  error={
+                    formik.touched.addressLine1 &&
+                    Boolean(formik.errors.addressLine1)
+                  }
+                  helperText={
+                    formik.touched.addressLine1 && formik.errors.addressLine1
+                  }
+                />
+              </Grid>
+              {/* ----------------------------"Adress Line 2----------------------------------------------- */}
+              <Grid item xs={12} sm={6} md={4}>
+                <CustomLabel name="Adress Line 2" required={true} />
+                <TextField
+                  type="text"
+                  onChange={formik.handleChange}
+                  placeholder="Address Line 2"
+                  name="addressLine2"
+                  value={formik.values.addressLine2}
+                  sx={customTextField}
+                  error={
+                    formik.touched.addressLine2 &&
+                    Boolean(formik.errors.addressLine2)
+                  }
+                  helperText={
+                    formik.touched.addressLine2 && formik.errors.addressLine2
+                  }
+                />
+              </Grid>
+              <Grid item xs={12} sm={6} md={4}>
+                <CustomLabel name="City" required={true} />
+                <TextField
+                  type="text"
+                  onChange={formik.handleChange}
+                  placeholder="Address City"
+                  name="addressCity"
+                  value={formik.values.addressCity}
+                  sx={customTextField}
+                  error={
+                    formik.touched.addressCity &&
+                    Boolean(formik.errors.addressCity)
+                  }
+                  helperText={
+                    formik.touched.addressCity && formik.errors.addressCity
+                  }
+                />
+              </Grid>
+
+              {/* -----------------------------State --------------------------------------------------------  */}
+
+              <Grid item xs={12} sm={6} md={4}>
+                <CustomLabel name="State" required={true} />
+                <TextField
+                  type="text"
+                  onChange={formik.handleChange}
+                  placeholder="State"
+                  name="addressState"
+                  value={formik.values.addressState}
+                  sx={customTextField}
+                  error={
+                    formik.touched.addressState &&
+                    Boolean(formik.errors.addressState)
+                  }
+                  helperText={
+                    formik.touched.addressState && formik.errors.addressState
+                  }
+                />
+              </Grid>
+
+              {/* ------------------------------------------------Zip Code----------------------------------- */}
+              <Grid item xs={12} sm={6} md={4}>
+                <CustomLabel name="Zip Code" required={true} />
+                <TextField
+                  type="text"
+                  onChange={formik.handleChange}
+                  placeholder="Address Zipcode"
+                  name="addressZipcode"
+                  value={formik.values.addressZipcode}
+                  sx={customTextField}
+                  error={
+                    formik.touched.addressZipcode &&
+                    Boolean(formik.errors.addressZipcode)
+                  }
+                  helperText={
+                    formik.touched.addressZipcode &&
+                    formik.errors.addressZipcode
+                  }
+                />
+              </Grid>
+            </Grid>
+
+            {/* Password Creation Section */}
+            <Grid container spacing={2} sx={{ py: 1 }}>
+              <Grid item xs={12}>
+                <Typography variant="h6" gutterBottom>
+                  Creation of Password
+                </Typography>
+              </Grid>
+
+              {/* -------------------------------------------------Password -----------------------------------------*/}
+              <Grid item xs={12} sm={6} md={4}>
+                <CustomLabel name="Password" required={true} />
+                <TextField
+                  sx={customTextField}
+                  placeholder="Password"
+                  type={showPassword ? "text" : "password"}
+                  name="password"
+                  value={formik.values.password}
+                  onChange={formik.handleChange}
+                  size="small"
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <IconButton
+                          onClick={handleTogglePasswordVisibility}
+                          edge="end"
+                        >
+                          {showPassword ? <VisibilityOff /> : <Visibility />}
+                        </IconButton>
+                      </InputAdornment>
+                    ),
+                  }}
+                  error={
+                    formik.touched.password && Boolean(formik.errors.password)
+                  }
+                  helperText={formik.touched.password && formik.errors.password}
+                />
+              </Grid>
+
+              {/* --------------------------------------------Repeat Password -------------------------------------------------------- */}
+              <Grid item xs={12} sm={6} md={4}>
+                <CustomLabel name="Confirm Password" required={true} />
+                <TextField
+                  sx={customTextField}
+                  placeholder="Confirm Password"
+                  name="repeatPassword"
+                  type={showPassword ? "text" : "password"}
+                  value={formik.values.repeatPassword}
+                  onChange={formik.handleChange}
+                  size="small"
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <IconButton
+                          onClick={handleTogglePasswordVisibility}
+                          edge="end"
+                        >
+                          {showPassword ? <VisibilityOff /> : <Visibility />}
+                        </IconButton>
+                      </InputAdornment>
+                    ),
+                  }}
+                  error={
+                    formik.touched.repeatPassword &&
+                    Boolean(formik.errors.repeatPassword)
+                  }
+                  helperText={
+                    formik.touched.repeatPassword &&
+                    formik.errors.repeatPassword
+                  }
+                />
+              </Grid>
+            </Grid>
+
+            <Box sx={{ marginBottom: "3rem !important" }}>
+              <Grid container spacing={2} justifyContent="start" sx={{ py: 4 }}>
+                <Grid item xs={12} sm={3}>
+                  <Button
+                    variant="outlined"
+                    className={styles.cancelButton}
+                    fullWidth
+                    onClick={onCancelRegister}
+                  >
+                    Cancel
+                  </Button>
+                </Grid>
+                <Grid item xs={12} sm={3}>
+                  <Button
+                    type="submit"
+                    variant="contained"
+                    fullWidth
+                    className={styles.submitButton}
+                  >
+                    Sign up
+                  </Button>
+                </Grid>
+              </Grid>
+            </Box>
+          </form>
+        </Box>
+      </Fade>
+    </ThemeProvider>
   );
 }

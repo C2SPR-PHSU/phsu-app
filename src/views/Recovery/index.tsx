@@ -1,24 +1,64 @@
-import { Grid, Box, Typography, TextField, Button, useTheme, useMediaQuery } from "@mui/material";
+import {
+  Grid,
+  Box,
+  Typography,
+  TextField,
+  Button,
+  useTheme,
+  useMediaQuery,
+} from "@mui/material";
 import styles from "./styles.module.scss";
 
-import { Dialog, DialogContent, DialogContentText, DialogTitle, DialogActions } from "@mui/material";
-
-
+import {
+  Dialog,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  DialogActions,
+} from "@mui/material";
+import Fade from "@mui/material/Fade";
 import CustomLabel from "@/components/CustomLabel";
 import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import ApiRequest from "@/utils/services/apiService";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
 
 const Recovery = () => {
+  const [checked, setChecked] = useState(false);
+
+  const themeAnimation = createTheme({
+    transitions: {
+      duration: {
+        enteringScreen: 230,
+        leavingScreen: 230,
+      },
+      easing: {
+        easeInOut: "cubic-bezier(0.4, 0, 0.2, 1)",
+      },
+    },
+  });
+
+  useEffect(() => {
+    if (!checked) {
+      const timeoutId = setTimeout(() => {
+        setChecked(true);
+      }, 5);
+
+      return () => {
+        clearTimeout(timeoutId);
+      };
+    }
+  }, [checked]);
+
   // Estados para manejar el modal
   const [open, setOpen] = useState(false);
-  const [message, setMessage] = useState('');
-  const [title, setTitle] = useState('');
+  const [message, setMessage] = useState("");
+  const [title, setTitle] = useState("");
 
   const theme = useTheme();
-  const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
+  const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
 
   const navigate = useNavigate();
   const formik = useFormik({
@@ -48,20 +88,18 @@ const Recovery = () => {
         if (response.code === 200) {
           // Abrimos el modal
           setOpen(true);
-          setTitle('Password recovery email sent');
-          setMessage('Please check your email inbox');
-
+          setTitle("Password recovery email sent");
+          setMessage("Please check your email inbox");
         }
-
-
       } catch (error) {
         setOpen(true);
-        setTitle('Password recovery');
-        setMessage('Email not registered in the Portal, please verify and enter the correct information');
+        setTitle("Password recovery");
+        setMessage(
+          "Email not registered in the Portal, please verify and enter the correct information"
+        );
         console.error(error);
       }
     },
-
   });
 
   // Button Cancel
@@ -98,89 +136,86 @@ const Recovery = () => {
   };
 
   return (
-    <>
-      <Grid container>
-        <Grid item xs={12} md={6}>
-          <Box className={styles["recovery-container"]}>
-            <Box className={styles["background-image"]}></Box>
-          </Box>
-        </Grid>
-
-        <Grid item xs={12} md={6}>
-          <Box
-            sx={{ display: "flex", gap: "1rem" }}
-            className={styles["container-recovey"]}
-          >
-            <Box>
-              <Typography className={styles["title-recovery"]}>
-                Password Recovery
-              </Typography>
-
-              <Typography className={styles["descriptions-recovery"]}>
-                Don't worry, we'll send a link to your email where you can reset
-                your password.
-              </Typography>
-
-              <form onSubmit={formik.handleSubmit}>
-                <Box className={styles["box-recovery"]}>
-                  <CustomLabel name="Email" required={true} />
-                  <Grid item xs={12} md={10}>
-                    <TextField
-                      id="email"
-                      placeholder="example@example.com"
-                      name="email"
-                      type="email"
-                      value={formik.values.email}
-                      onChange={formik.handleChange}
-                      sx={customTextField}
-                      error={
-                        formik.touched.email && Boolean(formik.errors.email)
-                      }
-                      helperText={formik.touched.email && formik.errors.email}
-                    />
-                  </Grid>
-                </Box>
-
-                <Box className={styles["box-buttons"]}>
-                  <Button
-                    variant="outlined"
-                    className={styles["button-cancel"]}
-                    onClick={handleCancelClick}
-                  >
-                    Cancel
-                  </Button>
-                  <Button type="submit" className={styles["button-recover"]}>
-                    Recover
-                  </Button>
-                </Box>
-              </form>
+    <ThemeProvider theme={themeAnimation}>
+      <Fade in={checked}>
+        <Grid container>
+          <Grid item xs={12} md={6}>
+            <Box className={styles["recovery-container"]}>
+              <Box className={styles["background-image"]}></Box>
             </Box>
-          </Box>
+          </Grid>
+
+          <Grid item xs={12} md={6}>
+            <Box
+              sx={{ display: "flex", gap: "1rem" }}
+              className={styles["container-recovey"]}
+            >
+              <Box>
+                <Typography className={styles["title-recovery"]}>
+                  Password Recovery
+                </Typography>
+
+                <Typography className={styles["descriptions-recovery"]}>
+                  Don't worry, we'll send a link to your email where you can
+                  reset your password.
+                </Typography>
+
+                <form onSubmit={formik.handleSubmit}>
+                  <Box className={styles["box-recovery"]}>
+                    <CustomLabel name="Email" required={true} />
+                    <Grid item xs={12} md={10}>
+                      <TextField
+                        id="email"
+                        placeholder="example@example.com"
+                        name="email"
+                        type="email"
+                        value={formik.values.email}
+                        onChange={formik.handleChange}
+                        sx={customTextField}
+                        error={
+                          formik.touched.email && Boolean(formik.errors.email)
+                        }
+                        helperText={formik.touched.email && formik.errors.email}
+                      />
+                    </Grid>
+                  </Box>
+
+                  <Box className={styles["box-buttons"]}>
+                    <Button
+                      variant="outlined"
+                      className={styles["button-cancel"]}
+                      onClick={handleCancelClick}
+                    >
+                      Cancel
+                    </Button>
+                    <Button type="submit" className={styles["button-recover"]}>
+                      Recover
+                    </Button>
+                  </Box>
+                </form>
+              </Box>
+            </Box>
+          </Grid>
+
+          <Dialog
+            fullScreen={fullScreen}
+            open={open}
+            onClose={() => setOpen(false)}
+            aria-labelledby="responsive-dialog-title"
+          >
+            <DialogTitle id="responsive-dialog-title">{title}</DialogTitle>
+            <DialogContent>
+              <DialogContentText>{message}</DialogContentText>
+            </DialogContent>
+            <DialogActions>
+              <Button autoFocus onClick={() => setOpen(false)}>
+                Cancel
+              </Button>
+            </DialogActions>
+          </Dialog>
         </Grid>
-
-
-        <Dialog
-          fullScreen={fullScreen}
-          open={open}
-          onClose={() => setOpen(false)}
-          aria-labelledby="responsive-dialog-title"
-        >
-          <DialogTitle id="responsive-dialog-title">
-            {title}
-          </DialogTitle>
-          <DialogContent>
-            <DialogContentText>
-              {message}
-            </DialogContentText>
-          </DialogContent>
-          <DialogActions>
-            <Button autoFocus onClick={() => setOpen(false)}>
-              Cancel
-            </Button>
-          </DialogActions>
-        </Dialog>
-      </Grid>
-    </>
+      </Fade>
+    </ThemeProvider>
   );
 };
 
