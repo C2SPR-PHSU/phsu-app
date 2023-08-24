@@ -23,8 +23,6 @@ export default function Registration() {
   const { setAlert } = useAlert();
   const setLogin = useAuthStore((state: any) => state.setLogin);
 
-  const [validate, setValidate] = useState(false);
-
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -99,6 +97,7 @@ export default function Registration() {
         .oneOf([Yup.ref("repeatPassword")], "The passwords do not match")
         .max(20, "Password must be at most 20 characters"),
       repeatPassword: Yup.string()
+        .required("Password is required")
         .matches(
           /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*()\;])[a-zA-Z\d!@#$%^&*()\;]*$/,
           "Password must contain strings, numbers and symbols"
@@ -107,8 +106,8 @@ export default function Registration() {
         .max(20, "Password must be at most 20 characters"),
     }),
 
-    onSubmit: () => {
-      setValidate(true);
+    onSubmit: async () => {
+      await senUserForRegister();
     },
   });
 
@@ -156,7 +155,7 @@ export default function Registration() {
 
   const Date = {
     "& .MuiInputBase-input": {
-      height: "1.9rem !important",
+      height: "1.9rem",
     },
     "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
       borderColor: "#009999",
@@ -207,11 +206,6 @@ export default function Registration() {
       setAlert("Something happened. Try again", "error");
     }
   };
-
-  if (validate) {
-    senUserForRegister();
-    setValidate(false);
-  }
 
   return (
     <Box className={styles.wrapper}>
@@ -539,7 +533,11 @@ export default function Registration() {
           </Grid>
         </Grid>
 
-        <Box sx={{ marginBottom: "3rem !important" }}>
+        <Box
+          sx={{
+            marginBottom: "3rem !important",
+          }}
+        >
           <Grid container spacing={2} justifyContent="start" sx={{ py: 4 }}>
             <Grid item xs={12} sm={3}>
               <Button
