@@ -137,6 +137,9 @@ export default function Registration() {
 
   const customTextField = {
     width: "90%",
+    "& .MuiInputBase-input": {
+      height: "1.9rem",
+    },
     "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
       borderColor: primaryColor,
       borderRadius: 0,
@@ -161,6 +164,9 @@ export default function Registration() {
   };
 
   const Date = {
+    "& .MuiInputBase-input": {
+      height: "1.9rem !important",
+    },
     "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
       borderColor: "#009999",
       borderRadius: 0,
@@ -550,19 +556,26 @@ export default function Registration() {
                 className={styles.cancelButton}
                 fullWidth
                 onClick={onCancelRegister}
+                style={{ textTransform: 'none' }}
               >
+
+                <span style={{ fontSize: '1.2rem' }}>
                 Cancel
+
+                </span>
               </Button>
             </Grid>
             <Grid item xs={12} sm={3}>
-              <Button
-                type="submit"
-                variant="contained"
-                fullWidth
-                className={styles.submitButton}
-              >
-                Sign up
-              </Button>
+            <Button
+            type="submit"
+            variant="contained"
+            fullWidth
+            className={styles.submitButton}
+            style={{ textTransform: 'none' }} // Cambia el texto del botón a minúsculas
+          >
+           <span style={{ fontSize: '1.2rem' }}>Sign Up</span> {/* Aumenta el tamaño del título */}
+          </Button>
+
             </Grid>
           </Grid>
         </Box>
