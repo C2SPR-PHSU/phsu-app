@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Grid, Typography, Box } from "@mui/material";
 import styles from "./styles.module.scss";
 import BasicTable from "./components/table/index";
@@ -9,23 +9,8 @@ import { useTheme } from "@mui/material/styles";
 import useAuthStore from "@/hooks/useAuthStore";
 import { useNavigate } from "react-router-dom";
 import { logOut } from "@/utils/";
-import Fade from "@mui/material/Fade";
 
 const Home = () => {
-  const [checked, setChecked] = useState(false);
-
-  useEffect(() => {
-    if (!checked) {
-      const timeoutId = setTimeout(() => {
-        setChecked(true);
-      }, 5);
-
-      return () => {
-        clearTimeout(timeoutId);
-      };
-    }
-  }, [checked]);
-
   const { setAlert } = useAlert();
   const logout = useAuthStore((state: any) => state.setLogout);
   const token = useAuthStore((state: any) => state.token);
@@ -61,7 +46,7 @@ const Home = () => {
   }, 3600000);
 
   return (
-    <Fade in={checked}>
+    <>
       <Grid
         container
         sx={{
@@ -156,7 +141,7 @@ const Home = () => {
           </Grid>
         </Grid>
       </Grid>
-    </Fade>
+    </>
   );
 };
 

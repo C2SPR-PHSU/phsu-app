@@ -30,23 +30,9 @@ import {
 } from "./types";
 import styles from "./styles.module.scss";
 import { getAllUserDocuments } from "./functions";
-import Fade from "@mui/material/Fade";
+import Grow from "@mui/material/Grow";
 
 const RequestServices = () => {
-  const [checked, setChecked] = useState(false);
-
-  useEffect(() => {
-    if (!checked) {
-      const timeoutId = setTimeout(() => {
-        setChecked(true);
-      }, 1);
-
-      return () => {
-        clearTimeout(timeoutId);
-      };
-    }
-  }, [checked]);
-
   const token = useAuthStore((state: any) => state.token);
 
   const [campusStatus, setCampusStatus] = useState(0);
@@ -144,7 +130,7 @@ const RequestServices = () => {
   };
 
   return (
-    <Fade in={checked}>
+    <>
       <Box
         sx={{
           display: "flex",
@@ -322,7 +308,7 @@ const RequestServices = () => {
           </Grid>
         </Box>
       </Box>
-    </Fade>
+    </>
   );
 };
 

@@ -3,11 +3,7 @@ import profileScss from "./Profile.module.scss";
 import { useFormik } from "formik";
 import { useState, useEffect } from "react";
 import { validationSchema } from "./validateconstants";
-import {
-  getUserDetails,
-  uploadProfilePhoto,
-  getUploadProfilePhoto,
-} from "./users";
+import { getUserDetails, uploadProfilePhoto } from "./users";
 import { UserProfile } from "@/types/user";
 import { editProfile } from "@/utils/functions";
 import useAuthStore from "@/hooks/useAuthStore";
@@ -17,29 +13,15 @@ import {
   ProfileButtons,
   ProfileTitle,
   PersonalInformation,
-  AcademicInformation,
   AddressInformation,
   PersonalInformation2,
 } from "./components";
 import { initialValues } from "./constants";
 import { setUserDataInFormik } from "./utils";
 import Fade from "@mui/material/Fade";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
 
 const Profile = () => {
-  const [checked, setChecked] = useState(false);
-
-  useEffect(() => {
-    if (!checked) {
-      const timeoutId = setTimeout(() => {
-        setChecked(true);
-      }, 7);
-
-      return () => {
-        clearTimeout(timeoutId);
-      };
-    }
-  }, [checked]);
-
   const [isEditMode, setIsEditMode] = useState(false);
 
   const token = useAuthStore((state: any) => state.token);
@@ -88,7 +70,7 @@ const Profile = () => {
   };
 
   return (
-    <Fade in={checked}>
+    <>
       <Grid container sx={{ padding: "3rem" }}>
         <Grid item xs={12} sx={{ paddingLeft: "5rem", marginBottom: "2rem" }}>
           <ProfileTitle />
@@ -96,7 +78,11 @@ const Profile = () => {
         <Grid
           item
           xs={3}
-          sx={{ display: "flex", flexDirection: "column", paddingTop: "2rem" }}
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            paddingTop: "2rem",
+          }}
         >
           <ProfilePhoto />
           <ProfileButtons
@@ -140,7 +126,7 @@ const Profile = () => {
           </Grid>
         </Grid>
       </Grid>
-    </Fade>
+    </>
   );
 };
 
