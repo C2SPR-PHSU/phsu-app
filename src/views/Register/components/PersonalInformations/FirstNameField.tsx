@@ -46,9 +46,12 @@ const FirstNameField = ({ formik }) => {
         value={formik.values.firstName}
         onChange={formik.handleChange}
         sx={customTextField}
-        error={formik.touched.firstName && Boolean(formik.errors.firstName)}
-        helperText={formik.touched.firstName && formik.errors.firstName}
       />
+          {formik.touched.firstName && formik.errors.firstName && (
+        <p style={{ color: "red", fontWeight: "lighter", fontSize:12 }}>
+        {formik.errors.firstName}
+        </p>
+      )}
     </Grid>
   );
 };

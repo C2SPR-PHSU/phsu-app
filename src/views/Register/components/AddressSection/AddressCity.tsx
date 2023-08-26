@@ -43,9 +43,13 @@ const AddresCity = ({ formik }) => {
         name="addressCity"
         value={formik.values.addressCity}
         sx={customTextField}
-        error={formik.touched.addressCity && Boolean(formik.errors.addressCity)}
-        helperText={formik.touched.addressCity && formik.errors.addressCity}
       />
+
+      {formik.touched.addressCity && formik.errors.addressCity && (
+        <p style={{ color: "red", fontWeight: "lighter", fontSize:12 }}>
+        {formik.errors.addressCity}
+        </p>
+      )}
     </Grid>
   );
 };

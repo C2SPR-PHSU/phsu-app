@@ -60,9 +60,13 @@ const PasswordField = ({
             </InputAdornment>
           ),
         }}
-        error={formik.touched.password && Boolean(formik.errors.password)}
-        helperText={formik.touched.password && formik.errors.password}
       />
+
+      {formik.touched.password && formik.errors.password && (
+        <p style={{ color: "red", fontWeight: "lighter", fontSize:12 }}>
+        {formik.errors.password}
+        </p>
+      )}
     </Grid>
   );
 };

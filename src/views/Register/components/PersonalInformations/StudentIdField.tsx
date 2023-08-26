@@ -43,9 +43,12 @@ const StudentIdField = ({ formik }) => {
         type="text"
         onChange={formik.handleChange}
         value={formik.values.studentId}
-        error={formik.touched.studentId && Boolean(formik.errors.studentId)}
-        helperText={formik.touched.studentId && formik.errors.studentId}
       />
+          {formik.touched.studentId && formik.errors.studentId && (
+        <p style={{ color: "red", fontWeight: "lighter", fontSize:12 }}>
+        {formik.errors.studentId}
+        </p>
+      )}
     </Grid>
   );
 };

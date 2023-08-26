@@ -43,9 +43,13 @@ const PhoneNumberField = ({ formik }) => {
         placeholder="Phone Number"
         onChange={formik.handleChange}
         value={formik.values.phoneNumber}
-        error={formik.touched.phoneNumber && Boolean(formik.errors.phoneNumber)}
-        helperText={formik.touched.phoneNumber && formik.errors.phoneNumber}
+      
       />
+          {formik.touched.phoneNumber && formik.errors.phoneNumber && (
+        <p style={{ color: "red", fontWeight: "lighter", fontSize:12 }}>
+        {formik.errors.phoneNumber}
+        </p>
+      )}
     </Grid>
   );
 };

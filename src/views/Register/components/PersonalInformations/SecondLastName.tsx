@@ -43,13 +43,13 @@ const SecondLastNameField = ({ formik }) => {
         placeholder="Second Last Name"
         onChange={formik.handleChange}
         value={formik.values.secondLastName}
-        error={
-          formik.touched.secondLastName && Boolean(formik.errors.secondLastName)
-        }
-        helperText={
-          formik.touched.secondLastName && formik.errors.secondLastName
-        }
+      
       />
+          {formik.touched.secondLastName && formik.errors.secondLastName && (
+        <p style={{ color: "red", fontWeight: "lighter", fontSize:12 }}>
+        {formik.errors.secondLastName}
+        </p>
+      )}
     </Grid>
   );
 };

@@ -60,13 +60,14 @@ const PasswordFieldConfirn = ({
             </InputAdornment>
           ),
         }}
-        error={
-          formik.touched.repeatPassword && Boolean(formik.errors.repeatPassword)
-        }
-        helperText={
-          formik.touched.repeatPassword && formik.errors.repeatPassword
-        }
+       
       />
+
+      {formik.touched.repeatPassword && formik.errors.repeatPassword && (
+        <p style={{ color: "red", fontWeight: "lighter", fontSize:12, width:'90%' }}>
+        {formik.errors.repeatPassword}
+        </p>
+      )}
     </Grid>
   );
 };

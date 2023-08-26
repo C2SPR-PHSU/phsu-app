@@ -43,11 +43,13 @@ const AddresLine2 = ({ formik }) => {
         name="addressLine2"
         value={formik.values.addressLine2}
         sx={customTextField}
-        error={
-          formik.touched.addressLine2 && Boolean(formik.errors.addressLine2)
-        }
-        helperText={formik.touched.addressLine2 && formik.errors.addressLine2}
       />
+
+      {formik.touched.addressLine2 && formik.errors.addressLine2 && (
+        <p style={{ color: "red", fontWeight: "lighter", fontSize:12 }}>
+        {formik.errors.addressLine2}
+        </p>
+      )}
     </Grid>
   );
 };

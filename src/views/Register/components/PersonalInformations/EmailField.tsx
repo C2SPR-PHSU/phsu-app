@@ -43,9 +43,12 @@ const EmailField = ({ formik }) => {
         placeholder="Email"
         onChange={formik.handleChange}
         value={formik.values.email}
-        error={formik.touched.email && Boolean(formik.errors.email)}
-        helperText={formik.touched.email && formik.errors.email}
       />
+         {formik.touched.email && formik.errors.email && (
+        <p style={{ color: "red", fontWeight: "lighter", fontSize:12 }}>
+        {formik.errors.email}
+        </p>
+      )}
     </Grid>
   );
 };

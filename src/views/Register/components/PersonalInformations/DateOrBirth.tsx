@@ -45,6 +45,12 @@ const DateOrBirth = ({ formik }) => {
           slotProps={{ textField: { size: "small", fullWidth: true } }}
         />
       </LocalizationProvider>
+
+      {formik.touched.birthdate && formik.errors.birthdate && (
+        <p style={{ color: "red", fontWeight: "lighter", fontSize:12 }}>
+        {formik.errors.birthdate}
+        </p>
+      )}
     </Grid>
   );
 };

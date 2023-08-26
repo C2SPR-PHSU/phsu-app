@@ -44,9 +44,13 @@ const MiddleNameField = ({ formik }) => {
         name="middleName"
         value={formik.values.middleName}
         sx={customTextField}
-        error={formik.touched.middleName && Boolean(formik.errors.middleName)}
-        helperText={formik.touched.middleName && formik.errors.middleName}
+       
       />
+        {formik.touched.middleName && formik.errors.middleName && (
+        <p style={{ color: "red", fontWeight: "lighter", fontSize:12 }}>
+        {formik.errors.middleName}
+        </p>
+      )}
     </Grid>
   );
 };

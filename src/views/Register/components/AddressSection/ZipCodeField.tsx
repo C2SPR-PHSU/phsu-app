@@ -43,13 +43,13 @@ const ZipCodeField = ({ formik }) => {
         name="addressZipcode"
         value={formik.values.addressZipcode}
         sx={customTextField}
-        error={
-          formik.touched.addressZipcode && Boolean(formik.errors.addressZipcode)
-        }
-        helperText={
-          formik.touched.addressZipcode && formik.errors.addressZipcode
-        }
       />
+
+      {formik.touched.addressZipcode && formik.errors.addressZipcode && (
+        <p style={{ color: "red", fontWeight: "lighter", fontSize:12 }}>
+        {formik.errors.addressZipcode}
+        </p>
+      )}
     </Grid>
   );
 };

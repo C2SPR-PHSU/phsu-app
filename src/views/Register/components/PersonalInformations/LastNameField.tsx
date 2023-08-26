@@ -43,9 +43,13 @@ const LastNameField = ({ formik }) => {
         placeholder="Last Name"
         value={formik.values.lastName}
         sx={customTextField}
-        error={formik.touched.lastName && Boolean(formik.errors.lastName)}
-        helperText={formik.touched.lastName && formik.errors.lastName}
       />
+        {formik.touched.lastName && formik.errors.lastName && (
+        <p style={{ color: "red", fontWeight: "lighter", fontSize:12 }}>
+        {formik.errors.lastName}
+        </p>
+      )}
+
     </Grid>
   );
 };

@@ -43,11 +43,12 @@ const StateField = ({ formik }) => {
         name="addressState"
         value={formik.values.addressState}
         sx={customTextField}
-        error={
-          formik.touched.addressState && Boolean(formik.errors.addressState)
-        }
-        helperText={formik.touched.addressState && formik.errors.addressState}
       />
+          {formik.touched.addressState && formik.errors.addressState && (
+        <p style={{ color: "red", fontWeight: "lighter", fontSize:12 }}>
+        {formik.errors.addressState}
+        </p>
+      )}
     </Grid>
   );
 };
