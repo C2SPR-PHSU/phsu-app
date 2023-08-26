@@ -16,6 +16,7 @@ import useAlert from "@/hooks/useAlert";
 import { useNavigate } from "react-router-dom";
 import Slide from "@mui/material/Slide";
 import { Login, Register } from "@/views";
+import Recovery from "@/views/Recovery";
 
 export default function Header() {
   const primaryColor = "#009999";
@@ -37,15 +38,20 @@ export default function Header() {
   };
 
   const [checked, setChecked] = useState<boolean | null>(null);
+  const [recoveryView, setRecoveryView] = useState(false);
+  //
   const containerRef = useRef(null);
-
   const ChangeToLogin = () => {
     setChecked(false);
-    navigate("/");
+    setRecoveryView(false);
   };
   const ChangeToRegister = () => {
     setChecked(true);
-    navigate("/");
+    setRecoveryView(false);
+  };
+
+  const ChangeRecoveryView = () => {
+    setRecoveryView(true);
   };
 
   return (
@@ -53,10 +59,22 @@ export default function Header() {
       <AppBar position="static">
         <Box className={styles["upper-header"]}>
           <Typography className={styles["upper-text"]}>
-            <Button onClick={ChangeToLogin}>Home</Button>
+            <Button
+              onClick={ChangeToLogin}
+              sx={{ color: "white", fontSize: 12 }}
+              size="small"
+            >
+              Home
+            </Button>
           </Typography>
           <Typography className={styles["upper-text"]}>
-            <Button onClick={ChangeToRegister}>Register</Button>
+            <Button
+              onClick={ChangeToRegister}
+              sx={{ color: "white", fontSize: 12 }}
+              size="small"
+            >
+              Register
+            </Button>
           </Typography>
         </Box>
         <Toolbar className={styles["auth-header"]}>
@@ -139,61 +157,87 @@ export default function Header() {
               variant="contained"
               className={styles["header-button"]}
               onClick={() => authenticateUser()}
+              size="small"
             >
               Log In
             </Button>
             <div
               className={styles["icon-container"]}
-              onClick={() => navigate("/recovery")}
+              onClick={() => ChangeRecoveryView()}
             >
               <LockRounded className={styles["header-button-variant"]} />
             </div>
           </Box>
         </Toolbar>
       </AppBar>
-      <Box
-        sx={{
-          height: "120vh",
-          // background: "red",
-          display: "flex",
-          flexDirection: "row",
-          overflow: "hidden",
-        }}
-        ref={containerRef}
-      >
-        {/* View default */}
-        {checked === null && (
-          <Box sx={{ minWidth: "100%" }} key="default">
-            <Login />
-          </Box>
-        )}
 
-        {/* Views width animations */}
-
-        {!checked && checked !== null ? (
-          <Slide
-            direction="right"
-            in={!checked}
-            container={containerRef.current}
-            key="login"
-          >
-            <Box sx={{ minWidth: "100%" }}>
-              <Login />
-            </Box>
-          </Slide>
-        ) : (
+      {recoveryView ? (
+        <Box
+          sx={{
+            height: "90%",
+            display: "flex",
+            flexDirection: "row",
+            overflow: "hidden",
+            minHeight: "85vh",
+          }}
+          ref={containerRef}
+        >
           <Slide
             direction="left"
-            in={checked}
+            in={recoveryView}
             container={containerRef.current}
-            key="register"
+            key="recovery"
           >
             <Box sx={{ minWidth: "100%" }}>
-              <Register />
+              <Recovery />
             </Box>
           </Slide>
-        )}
-      </Box>
+        </Box>
+      ) : (
+        <Box
+          sx={{
+            height: "90%",
+            display: "flex",
+            flexDirection: "row",
+            overflow: "hidden",
+            minHeight: "85vh",
+          }}
+          ref={containerRef}
+        >
+          {/* View default */}
+          {checked === null && (
+            <Box sx={{ minWidth: "100%" }} key="default">
+              <Login />
+            </Box>
+          )}
+
+          {/* Views width animations */}
+
+          {!checked && checked !== null ? (
+            <Slide
+              direction="right"
+              in={!checked}
+              container={containerRef.current}
+              key="login"
+            >
+              <Box sx={{ minWidth: "100%" }}>
+                <Login />
+              </Box>
+            </Slide>
+          ) : (
+            <Slide
+              direction="left"
+              in={checked}
+              container={containerRef.current}
+              key="register"
+            >
+              <Box sx={{ minWidth: "100%" }}>
+                <Register />
+              </Box>
+            </Slide>
+          )}
+        </Box>
+      )}
     </>
   );
 }
