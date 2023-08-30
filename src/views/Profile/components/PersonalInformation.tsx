@@ -5,7 +5,6 @@ import profileScss from "../../Profile/Profile.module.scss";
 import customTextField from "../sxTexField";
 import { FormikProps } from "formik";
 import { UserProfile } from "@/types/user";
-import { CustomTextField } from '../constants';
 
 interface IPersonalInformation {
   isEditMode: boolean;
@@ -50,7 +49,7 @@ const PersonalInformation = ({ isEditMode, formik }: IPersonalInformation) => {
               onChange={formik.handleChange}
               error={formik.touched.first_name && !!formik.errors.first_name}
               helperText={formik.touched.first_name && formik.errors.first_name}
-              sx={{...CustomTextField, width: '50%' }}
+              sx={{...customTextField, width: '50%' }}
             />
           </Box>
           <Box sx={{ display: 'flex', paddingBottom: '1rem', width: '100%' }}>
@@ -64,7 +63,7 @@ const PersonalInformation = ({ isEditMode, formik }: IPersonalInformation) => {
               helperText={
                 formik.touched.middle_name && formik.errors.middle_name
               }
-              sx={{...CustomTextField, width: '50%' }}
+              sx={{...customTextField, width: '50%' }}
             />
           </Box>
           <Box sx={{ display: 'flex', paddingBottom: '1rem', width: '100%' }}>
@@ -76,7 +75,7 @@ const PersonalInformation = ({ isEditMode, formik }: IPersonalInformation) => {
               onChange={formik.handleChange}
               error={formik.touched.last_name && !!formik.errors.last_name}
               helperText={formik.touched.last_name && formik.errors.last_name}
-              sx={{...CustomTextField, width: '50%' }}
+              sx={{...customTextField, width: '50%' }}
             />
           </Box>
           <Box sx={{ display: 'flex', paddingBottom: '1rem', width: '100%' }}>
@@ -93,7 +92,7 @@ const PersonalInformation = ({ isEditMode, formik }: IPersonalInformation) => {
               helperText={
                 formik.touched.second_last_name && formik.errors.second_last_name
               }
-              sx={{...CustomTextField, width: '50%' }}
+              sx={{...customTextField, width: '50%' }}
             />
           </Box>
           <Box sx={{ display: 'flex', paddingBottom: '1rem', width: '100%' }}>
@@ -105,7 +104,7 @@ const PersonalInformation = ({ isEditMode, formik }: IPersonalInformation) => {
               onChange={formik.handleChange}
               error={formik.touched.student_id && !!formik.errors.student_id}
               helperText={formik.touched.student_id && formik.errors.student_id}
-              sx={{...CustomTextField, width: '50%' }}
+              sx={{...customTextField, width: '50%' }}
             />
           </Box>
         </>

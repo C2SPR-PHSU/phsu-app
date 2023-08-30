@@ -25,16 +25,26 @@ const BasicTableMobile: React.FC<IBasicTableProps> = ({
   setDocumentId,
 }) => {
   const token = useAuthStore((state: any) => state.token);
-  const logout = useAuthStore((state: any) => state.setLogout);
 
   const [userServices, setUserServices] = useState<IUserServicesData[]>([]);
+
+  const statusDictionary: { [key: number]: string } = {
+    0: "To Upload",
+    1: "Uploaded",
+    2: "Sent",
+    3: "Received",
+    4: "Pending",
+    5: "Request for Additional Info",
+    6: "Approved",
+    7: "Denied",
+  };
 
   const getUserServicesRows = async () => {
     try {
       const response = await getUserServices("1", token);
       setUserServices([response].flat());
     } catch (error) {
-      if(error?.status === 404) logout()
+      console.log(error);
     }
   };
 
@@ -43,7 +53,7 @@ const BasicTableMobile: React.FC<IBasicTableProps> = ({
     const day = date.getDate().toString().padStart(2, "0");
     const month = (date.getMonth() + 1).toString().padStart(2, "0");
     const year = date.getFullYear().toString();
-    const formattedDate = `${month}/${day}/${year}`;
+    const formattedDate = `${day}/${month}/${year}`;
     return formattedDate;
   }
 
@@ -79,14 +89,6 @@ const BasicTableMobile: React.FC<IBasicTableProps> = ({
                 >
                   Time
                 </span>
-              </TableCell>
-              <TableCell sx={{padding: 0}}>
-                <Typography
-                  className={styles["typography"]}
-                  style={{ fontSize: "1rem" }}
-                >
-                  Days Left
-                </Typography>
               </TableCell>
               <TableCell sx={{ paddingLeft: "4%" }}>
                 <span
@@ -134,13 +136,6 @@ const BasicTableMobile: React.FC<IBasicTableProps> = ({
                   <span className={styles["typography"]}>
                     {formatDate(row.created)}
                   </span>
-                </TableCell>
-                <TableCell
-                  align="center"
-                >
-                  <Typography className={styles["typography"]}>
-                    {row.days_to_expire}
-                  </Typography>
                 </TableCell>
                 <TableCell align="center" sx={{ paddingTop: "1.5rem" }}>
                   <StatusButton statusName={row.status_desc as string} />

@@ -43,14 +43,11 @@ const errorParser = (err: any): { message: string, statusCode: number } => {
     // eslint-disable-next-line prefer-destructuring
 
     error = err.response.data || {};
-    console.log(typeof(err.response.status))
-    error.statusCode = err.response.status;
-
-    console.log(error)
+    error.statusCode = err.response.data.statusCode;
 
     let message = error.message;
 
-    // throw makeError(error, message);
+    throw makeError(error, message);
   }
   throw error;
 };
@@ -89,7 +86,7 @@ const AxiosDispatchResponse = async <ResponseType, ParamsType>(
     const response: AxiosResponse = await self.axiosInstance[verb](self.resource, parameters);
     return responseParser<ResponseType>(response);
   } catch (e) {
-    throw errorParser(e);
+    return errorParser(e);
   }
 };
 

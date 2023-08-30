@@ -40,10 +40,10 @@ const Home = () => {
   };
 
   setTimeout(() => {
-    //LogOut after 60min - 3600000ms
+    //LogOut after 30min - 1800000ms
     setAlert("Session expired", "warning")
     handleLogout()
-  }, 3600000);
+  }, 1800000);
 
   return (
     <Grid

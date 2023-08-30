@@ -23,7 +23,6 @@ const Profile = () => {
   const [isEditMode, setIsEditMode] = useState(false);
 
   const token = useAuthStore((state: any) => state.token);
-  const logout = useAuthStore((state: any) => state.setLogout);
   const { setAlert } = useAlert();
 
   useEffect(() => {
@@ -42,7 +41,6 @@ const Profile = () => {
       formik.setValues(setUserDataInFormik(profile));
     } catch (error) {
       setAlert("Something went wrong getting the user data", "error")
-      if(error?.status === 404) logout()
     }
   };
 

@@ -21,7 +21,7 @@
     background-repeat: no-repeat;
     background-size: cover;
     background-position-x: right;
-    height: 128vh;
+    height: 120vh;
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -43,14 +43,13 @@
 }
 
 .services-container {
-  padding: 2rem 4rem 0 3rem;
+  padding: 2rem 4rem 0 6rem;
 }
 
 .upper-text-title {
   color: $warning;
-  font-size: 38px !important;
+  font-size: $mainTitle !important;
   font-weight: bolder !important;
-  font-family: $gothamBlack !important;
+  font-family: "GothamMedium";
   margin-bottom: 2rem !important;
-  
 }

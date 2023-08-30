@@ -11,7 +11,6 @@ export interface IUserServicesData {
   status: string;
   created: string;
   status_desc: string;
-  days_to_expire: number;
 }
 
 export interface IUserDocumentsData {

@@ -44,7 +44,7 @@ const RequiredDocumentsTable = ({
     const year = date.getFullYear().toString();
 
     //
-    const formattedDate = `${month}/${day}/${year}`;
+    const formattedDate = `${day}/${month}/${year}`;
 
     return formattedDate;
   }

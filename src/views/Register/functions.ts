@@ -39,28 +39,11 @@ export const requestRegister = async ({
   address_city,
   address_zipcode,
   password,
-}: IUserRegisterParams) => {
+}: IUserRegisterParams): Promise<Ok> => {
   try {
     api.resource = register;
 
-    console.log({
-      email,
-      cell_phone,
-      student_id,
-      first_name,
-      middle_name,
-      last_name,
-      second_last_name,
-      birthdate,
-      address_line1,
-      address_line2,
-      address_state,
-      address_city,
-      address_zipcode,
-      password,
-    })
-
-    const res = await api.post({
+    const res = (await api.post({
       body: {
         email,
         cell_phone,
@@ -77,9 +60,9 @@ export const requestRegister = async ({
         address_zipcode,
         password,
       },
-    })
+    })) as Ok;
 
-    return res
+    return Promise.resolve(res);
   } catch (error) {
     throw error;
   }

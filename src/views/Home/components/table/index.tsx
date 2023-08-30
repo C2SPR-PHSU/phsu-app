@@ -28,7 +28,6 @@ export default function BasicTable({
   setDocumentId,
 }: IBasicTableProps) {
   const token = useAuthStore((state: any) => state.token);
-  const logout = useAuthStore((state: any) => state.setLogout);
 
   const [userServices, setUserServices] = useState<IUserServicesData[]>([]);
 
@@ -51,9 +50,7 @@ export default function BasicTable({
       const response = await getUserServices("1", token);
       setUserServices([response].flat());
     } catch (error) {
-      if(error?.status === 404) {
-        logout();
-      }
+      console.log(error);
     }
   };
 
@@ -66,7 +63,7 @@ export default function BasicTable({
     const year = date.getFullYear().toString();
 
     //
-    const formattedDate = `${month}/${day}/${year}`;
+    const formattedDate = `${day}/${month}/${year}`;
 
     return formattedDate;
   }
@@ -140,20 +137,6 @@ export default function BasicTable({
                   fontSize: "1.2rem",
                 }}
               >
-                Days Left
-              </Typography>
-            </TableCell>
-            <TableCell
-              sx={{
-                paddingLeft: "4%",
-              }}
-            >
-              <Typography
-                className={styles["typography"]}
-                sx={{
-                  fontSize: "1.2rem",
-                }}
-              >
                 Status
               </Typography>
             </TableCell>
@@ -200,13 +183,6 @@ export default function BasicTable({
                 <TableCell align="center">
                   <Typography className={styles["typography"]}>
                     {formatDate(row.created)}
-                  </Typography>
-                </TableCell>
-                <TableCell
-                  align="center"
-                >
-                  <Typography className={styles["typography"]}>
-                    {row.days_to_expire}
                   </Typography>
                 </TableCell>
                 <TableCell

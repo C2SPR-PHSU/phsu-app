@@ -32,9 +32,9 @@ export default function Header() {
       await setLogin(email, password);
       navigate("/");
     } catch (error) {
-      if (error instanceof Error) setAlert(error.message, "error");
+      if (error instanceof Error) setAlert(error.message, "error")
     }
-  };
+  }
 
   return (
     <AppBar position="static">
@@ -68,9 +68,6 @@ export default function Header() {
             variant="outlined"
             size="small"
             sx={{
-              "& .MuiInputBase-input": {
-                height: "1.8rem",
-              },
               "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
                 borderColor: primaryColor,
                 borderRadius: 0,
@@ -102,9 +99,6 @@ export default function Header() {
             variant="outlined"
             size="small"
             sx={{
-              "& .MuiInputBase-input": {
-                height: "1.8rem",
-              },
               "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
                 borderColor: primaryColor,
                 borderRadius: 0,
@@ -132,15 +126,11 @@ export default function Header() {
             variant="contained"
             className={styles["header-button"]}
             onClick={() => authenticateUser()}
-            style={{ textTransform: "none" }}
           >
             Log In
           </Button>
-          <div
-            className={styles["icon-container"]}
-            onClick={() => navigate("/recovery")}
-          >
-            <LockRounded className={styles["header-button-variant"]} />
+          <div className={styles["icon-container"]}  onClick={() => navigate("/recovery")}>
+            <LockRounded className={styles["header-button-variant"]}  />
           </div>
         </Box>
       </Toolbar>
