@@ -37,107 +37,213 @@ export default function Header() {
     }
   };
 
+  const [checked, setChecked] = useState<boolean | null>(null);
+  const [recoveryView, setRecoveryView] = useState(false);
+  //
+  const containerRef = useRef(null);
+  const ChangeToLogin = () => {
+    setChecked(false);
+    setRecoveryView(false);
+  };
+  const ChangeToRegister = () => {
+    setChecked(true);
+    setRecoveryView(false);
+  };
+
+  const ChangeRecoveryView = () => {
+    setRecoveryView(true);
+  };
+
   return (
-    <AppBar position="static">
-      <Box className={styles["upper-header"]}>
-        <Typography className={styles["upper-text"]}>
-          <Link to={PATH.ROOT}>Home</Link>
-        </Typography>
-        <Typography className={styles["upper-text"]}>
-          <Link to={PATH.REGISTER}>Register</Link>
-        </Typography>
-      </Box>
-      <Toolbar className={styles["auth-header"]}>
-        <Box className={styles["brand"]} sx={{ gap: 3 }}>
-          <img src={Logo} alt="logo" className={styles["brand-img"]} />
-          <Typography variant="h6" className={styles["header-text"]}>
-            Student Portal
+    <>
+      <AppBar position="static">
+        <Box className={styles["upper-header"]}>
+          <Typography className={styles["upper-text"]}>
+            <Button
+              onClick={ChangeToLogin}
+              sx={{ color: "white", fontSize: 12 }}
+              size="small"
+            >
+              Home
+            </Button>
+          </Typography>
+          <Typography className={styles["upper-text"]}>
+            <Button
+              onClick={ChangeToRegister}
+              sx={{ color: "white", fontSize: 12 }}
+              size="small"
+            >
+              Register
+            </Button>
           </Typography>
         </Box>
+        <Toolbar className={styles["auth-header"]}>
+          <Box className={styles["brand"]} sx={{ gap: 3 }}>
+            <img src={Logo} alt="logo" className={styles["brand-img"]} />
+            <Typography variant="h6" className={styles["header-text"]}>
+              Student Portal
+            </Typography>
+          </Box>
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              gap: 2,
+              pr: 5,
+            }}
+          >
+            <PersonIcon className={styles["header-icons"]} />
+            <TextField
+              id="username"
+              label="Username"
+              variant="outlined"
+              size="small"
+              sx={{
+                "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
+                  borderColor: primaryColor,
+                  borderRadius: 0,
+                  border: "2px solid " + primaryColor,
+                },
+                "&:hover .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline":
+                  {
+                    borderColor: primaryColor,
+                  },
+                "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline":
+                  {
+                    borderColor: primaryColor,
+                  },
+                "& .MuiInputLabel-outlined": {
+                  fontSize: "1rem",
+                  color: placeholderColor,
+                },
+                "& .MuiInputLabel-outlined.Mui-focused": {
+                  color: primaryColor,
+                },
+              }}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <LockRounded className={styles["header-icons"]} />
+            <TextField
+              id="password"
+              label="Password"
+              type="password"
+              variant="outlined"
+              size="small"
+              sx={{
+                "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
+                  borderColor: primaryColor,
+                  borderRadius: 0,
+                  border: "2px solid " + primaryColor,
+                },
+                "&:hover .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline":
+                  {
+                    borderColor: primaryColor,
+                  },
+                "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline":
+                  {
+                    borderColor: primaryColor,
+                  },
+                "& .MuiInputLabel-outlined": {
+                  fontSize: "1rem",
+                  color: placeholderColor,
+                },
+                "& .MuiInputLabel-outlined.Mui-focused": {
+                  color: primaryColor,
+                },
+              }}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <Button
+              variant="contained"
+              className={styles["header-button"]}
+              onClick={() => authenticateUser()}
+              size="small"
+            >
+              Log In
+            </Button>
+            <div
+              className={styles["icon-container"]}
+              onClick={() => ChangeRecoveryView()}
+            >
+              <LockRounded className={styles["header-button-variant"]} />
+            </div>
+          </Box>
+        </Toolbar>
+      </AppBar>
+
+      {recoveryView ? (
+        <Box
+          sx={{
+            height: "90%",
+            display: "flex",
+            flexDirection: "row",
+            overflow: "hidden",
+            minHeight: "85vh",
+          }}
+          ref={containerRef}
+        >
+          <Slide
+            direction="left"
+            in={recoveryView}
+            container={containerRef.current}
+            key="recovery"
+          >
+            <Box sx={{ minWidth: "100%" }}>
+              <Recovery />
+            </Box>
+          </Slide>
+        </Box>
+      ) : (
         <Box
           sx={{
             display: "flex",
-            alignItems: "center",
-            gap: 2,
-            pr: 5,
+            flexDirection: "row",
+            overflow: "hidden",
           }}
+          ref={containerRef}
         >
-          <PersonIcon className={styles["header-icons"]} />
-          <TextField
-            id="username"
-            label="Username"
-            variant="outlined"
-            size="small"
-            sx={{
-              "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
-                borderColor: primaryColor,
-                borderRadius: 0,
-                border: "2px solid " + primaryColor,
-              },
-              "&:hover .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline":
-                {
-                  borderColor: primaryColor,
-                },
-              "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline":
-                {
-                  borderColor: primaryColor,
-                },
-              "& .MuiInputLabel-outlined": {
-                fontSize: "1rem",
-                color: placeholderColor,
-              },
-              "& .MuiInputLabel-outlined.Mui-focused": {
-                color: primaryColor,
-              },
-            }}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <LockRounded className={styles["header-icons"]} />
-          <TextField
-            id="password"
-            label="Password"
-            type="password"
-            variant="outlined"
-            size="small"
-            sx={{
-              "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
-                borderColor: primaryColor,
-                borderRadius: 0,
-                border: "2px solid " + primaryColor,
-              },
-              "&:hover .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline":
-                {
-                  borderColor: primaryColor,
-                },
-              "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline":
-                {
-                  borderColor: primaryColor,
-                },
-              "& .MuiInputLabel-outlined": {
-                fontSize: "1rem",
-                color: placeholderColor,
-              },
-              "& .MuiInputLabel-outlined.Mui-focused": {
-                color: primaryColor,
-              },
-            }}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <Button
-            variant="contained"
-            className={styles["header-button"]}
-            onClick={() => authenticateUser()}
-          >
-            Log In
-          </Button>
-          <div
-            className={styles["icon-container"]}
-            onClick={() => navigate("/recovery")}
-          >
-            <LockRounded className={styles["header-button-variant"]} />
-          </div>
+          {/* View default */}
+          {checked === null && (
+            <Box
+              sx={{
+                minWidth: "100%",
+                display: "flex",
+              }}
+              key="default"
+            >
+              <Login />
+            </Box>
+          )}
+
+          {/* Views width animations */}
+
+          {!checked && checked !== null ? (
+            <Slide
+              direction="right"
+              in={!checked}
+              container={containerRef.current}
+              key="login"
+              timeout={300}
+            >
+              <Box sx={{ minWidth: "100%" }}>
+                <Login />
+              </Box>
+            </Slide>
+          ) : (
+            <Slide
+              direction="left"
+              in={checked}
+              container={containerRef.current}
+              key="register"
+              timeout={300}
+            >
+              <Box sx={{ minWidth: "100%" }}>
+                <Register />
+              </Box>
+            </Slide>
+          )}
         </Box>
-      </Toolbar>
-    </AppBar>
+      )}
+    </>
   );
 }
