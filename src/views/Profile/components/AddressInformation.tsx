@@ -5,6 +5,7 @@ import profileScss from "../../Profile/Profile.module.scss";
 import customTextField from "../sxTexField";
 import { FormikProps } from "formik";
 import { UserProfile } from "@/types/user";
+import { CustomTextField } from '../constants';
 
 interface IAddressInformation {
   isEditMode: boolean;
@@ -57,7 +58,7 @@ const AddressInformation = ({ isEditMode, formik }: IAddressInformation) => {
               onChange={formik.handleChange}
               error={formik.touched.address_line1 && !!formik.errors.address_line1}
               helperText={formik.touched.address_line1 && formik.errors.address_line1}
-              sx={{...customTextField, width: '50%' }}
+              sx={{...CustomTextField, width: '50%' }}
             />
           </Box>
           <Box sx={{ display: 'flex', paddingBottom: '1rem', width: '100%' }}>
@@ -69,7 +70,7 @@ const AddressInformation = ({ isEditMode, formik }: IAddressInformation) => {
               onChange={formik.handleChange}
               error={formik.touched.address_line2 && !!formik.errors.address_line2}
               helperText={formik.touched.address_line2 && formik.errors.address_line2}
-              sx={{...customTextField, width: '50%' }}
+              sx={{...CustomTextField, width: '50%' }}
             />
           </Box>
           <Box sx={{ display: 'flex', paddingBottom: '1rem', width: '100%' }}>
@@ -81,7 +82,7 @@ const AddressInformation = ({ isEditMode, formik }: IAddressInformation) => {
               onChange={formik.handleChange}
               error={formik.touched.address_city && !!formik.errors.address_city}
               helperText={formik.touched.address_city && formik.errors.address_city}
-              sx={{...customTextField, width: '50%' }}
+              sx={{...CustomTextField, width: '50%' }}
             />
           </Box>
           <Box sx={{ display: 'flex', paddingBottom: '1rem', width: '100%' }}>
@@ -93,7 +94,7 @@ const AddressInformation = ({ isEditMode, formik }: IAddressInformation) => {
               onChange={formik.handleChange}
               error={formik.touched.address_state && !!formik.errors.address_state}
               helperText={formik.touched.address_state && formik.errors.address_state}
-              sx={{...customTextField, width: '50%' }}
+              sx={{...CustomTextField, width: '50%' }}
             />
           </Box>
           <Box sx={{ display: 'flex', paddingBottom: '1rem', width: '100%' }}>
@@ -105,7 +106,7 @@ const AddressInformation = ({ isEditMode, formik }: IAddressInformation) => {
               onChange={formik.handleChange}
               error={formik.touched.address_zipcode && !!formik.errors.address_zipcode}
               helperText={formik.touched.address_zipcode && formik.errors.address_zipcode}
-              sx={{...customTextField, width: '50%' }}
+              sx={{...CustomTextField, width: '50%' }}
             />
           </Box>
         </>
