@@ -9,7 +9,7 @@ export const getUserServices = async (campusId: string, token: string) => {
 
         const res = await api.post<IUserServicesResponse>({
             body: {
-                campus_id: parseInt(campusId)
+              campus_id: parseInt(campusId)
             }
         });
         return res.data;
