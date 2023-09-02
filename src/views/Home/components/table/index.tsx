@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -47,7 +47,7 @@ export default function BasicTable({
     7: "Denied",
   };
 
-  const getUserServicesRows = async () => {
+  const getUserServicesRows = useCallback(async () => {
     try {
       const response = await getUserServices("1", token);
       setUserServices([response].flat());
@@ -56,11 +56,11 @@ export default function BasicTable({
         logout();
       }
     }
-  };
+  }, [token, logout]);
 
   useEffect(() => {
     getUserServicesRows();
-  }, []);
+  }, [getUserServicesRows]);
 
   if (isMobile) {
     return (
