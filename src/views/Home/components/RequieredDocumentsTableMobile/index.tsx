@@ -19,13 +19,16 @@ import { formatDate } from "@/utils";
 
 interface RequiredDocumentsTableProps {
   documentList: IUserDocumentsData[];
+  displayModal: (message: string) => void;
+  modalMessage: string;
 }
 
 const RequiredDocumentsTableMobile: React.FC<RequiredDocumentsTableProps> = ({
   documentList,
+  displayModal,
+  modalMessage,
 }) => {
   const [openModal, setOpenModal] = useState(false);
-  const [modalMessage, setModalMessage] = useState("");
 
   // Refs for storing heights of table cells
   const refArray = useRef<(HTMLDivElement | null)[]>([]);
@@ -46,7 +49,6 @@ const RequiredDocumentsTableMobile: React.FC<RequiredDocumentsTableProps> = ({
         newHeights.push(height);
       }
     });
-
     setHeights(newHeights);
 
     rowRefArray.current.forEach((rowRef) => {
@@ -58,12 +60,6 @@ const RequiredDocumentsTableMobile: React.FC<RequiredDocumentsTableProps> = ({
 
     setRowHeights(newRowHeights);
   }, [documentList]);
-
-  // Display modal with a message
-  const displayModal = (message: string) => {
-    setOpenModal(true);
-    setModalMessage(message);
-  };
 
   return (
     <TableContainer sx={{ display: "flex", flexDirection: "row" }}>
@@ -139,9 +135,9 @@ const RequiredDocumentsTableMobile: React.FC<RequiredDocumentsTableProps> = ({
               ))
             ) : (
               <TableRow>
-                <TableCell align="center" scope="row">
+                <TableCell>
                   <Typography textAlign="center">
-                    No hay contenido aquí
+                    There is no content here
                   </Typography>
                 </TableCell>
               </TableRow>
@@ -154,7 +150,15 @@ const RequiredDocumentsTableMobile: React.FC<RequiredDocumentsTableProps> = ({
           handleClose={() => setOpenModal(false)}
         />
       </TableContainer>
-      <TableContainer sx={{ width: "15vh" }}>
+      <TableContainer
+        sx={{
+          display: "none",
+          ...(documentList.length && {
+            display: "flex",
+            width: "15vh",
+          }),
+        }}
+      >
         <Table aria-label="simple table">
           <TableHead sx={{ height: "10vh" }}>
             <TableRow>
@@ -235,9 +239,7 @@ const RequiredDocumentsTableMobile: React.FC<RequiredDocumentsTableProps> = ({
                 </TableRow>
               ))
             ) : (
-              <TableRow>
-                <TableCell align="center" scope="row"></TableCell>
-              </TableRow>
+              <></>
             )}
           </TableBody>
         </Table>

@@ -95,9 +95,13 @@ const BasicTableMobile: React.FC<IBasicTableProps> = ({
               <TableCell>
                 <Typography
                   className={styles["typography"]}
-                  style={{ fontSize: "1rem", minWidth: "5rem" }}
+                  style={{
+                    fontSize: "1rem",
+                    minWidth: "7rem",
+                    paddingLeft: "2rem",
+                  }}
                 >
-                  Days Leftpkc-60
+                  Days Left
                 </Typography>
               </TableCell>
               <TableCell sx={{ paddingLeft: "4%" }}>

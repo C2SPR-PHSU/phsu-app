@@ -146,7 +146,7 @@ export default function BasicTable({
                 Status
               </Typography>
             </TableCell>
-            <TableCell align="center" sx={{}}>
+            <TableCell align="center">
               <Typography
                 className={styles["typography"]}
                 sx={{

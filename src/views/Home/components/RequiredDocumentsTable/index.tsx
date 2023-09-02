@@ -33,18 +33,22 @@ const RequiredDocumentsTable = ({
   const [openModal, setOpenModal] = useState(false);
   const [modalMessage, setModalMessage] = useState("");
 
-  if (isMobile) {
-    return (
-      <>
-        <RequiredDocumentsTableMobile documentList={documentList} />
-      </>
-    );
-  }
-
   const displayModal = (message: string) => {
     setOpenModal(true);
     setModalMessage(message);
   };
+
+  if (isMobile) {
+    return (
+      <>
+        <RequiredDocumentsTableMobile
+          documentList={documentList}
+          displayModal={displayModal}
+          modalMessage={modalMessage}
+        />
+      </>
+    );
+  }
 
   return (
     <TableContainer component={Paper}>
