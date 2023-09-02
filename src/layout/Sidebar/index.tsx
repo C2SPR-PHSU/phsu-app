@@ -83,21 +83,22 @@ const Sidebar = () => {
         redirect={PATH.PROFILE}
       />
 
-      <Box onClick={handleLogout}>
-        <Options
-          fontSze={isVeryScreenSmall ? textSmall : textNormal}
-          textColor={isMedium ? mediumColor : normalColor}
-          children={
-            <TransitEnterexitIcon
-              sx={{
-                color: isMedium ? mediumColor : normalColor,
-                fontSize: isMedium ? iconSizeMedium : iconSizeNormal,
-              }}
-            />
-          }
-          text="Sign Out"
-        />
-      </Box>
+      {!isMedium && (
+        <Box onClick={handleLogout}>
+          <Options
+            textColor={isMedium ? mediumColor : normalColor}
+            children={
+              <TransitEnterexitIcon
+                sx={{
+                  color: normalColor,
+                  fontSize: iconSizeNormal,
+                }}
+              />
+            }
+            text="Sign Out"
+          />
+        </Box>
+      )}
     </Grid>
   );
 };
