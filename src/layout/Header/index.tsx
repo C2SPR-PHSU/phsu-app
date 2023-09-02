@@ -38,18 +38,24 @@ export default function Header() {
   };
 
   const [checked, setChecked] = useState<boolean | null>(null);
-  const [recoveryView, setRecoveryView] = useState(false);
+  const [recoveryView, setRecoveryView] = useState<boolean>(false);
+  const [backRecovery, setBackRecovery] = useState<boolean>(false);
+
   //
   const containerRef = useRef(null);
+  //
   const ChangeToLogin = () => {
+    !recoveryView && setBackRecovery(false);
     setChecked(false);
     setRecoveryView(false);
   };
+  //
   const ChangeToRegister = () => {
+    recoveryView && setBackRecovery(true);
     setChecked(true);
     setRecoveryView(false);
   };
-
+  //
   const ChangeRecoveryView = () => {
     setRecoveryView(true);
   };
@@ -187,6 +193,7 @@ export default function Header() {
             in={recoveryView}
             container={containerRef.current}
             key="recovery"
+            timeout={420}
           >
             <Box sx={{ minWidth: "100%" }}>
               <Recovery />
@@ -230,17 +237,37 @@ export default function Header() {
               </Box>
             </Slide>
           ) : (
-            <Slide
-              direction="left"
-              in={checked}
-              container={containerRef.current}
-              key="register"
-              timeout={300}
-            >
-              <Box sx={{ minWidth: "100%" }}>
-                <Register />
-              </Box>
-            </Slide>
+            <>
+              {!backRecovery && checked ? (
+                <Slide
+                  in={checked}
+                  container={containerRef.current}
+                  key="register"
+                  timeout={300}
+                  direction="left"
+                >
+                  <Box sx={{ minWidth: "100%" }}>
+                    <Register />
+                  </Box>
+                </Slide>
+              ) : (
+                <>
+                  {checked && (
+                    <Slide
+                      in={checked}
+                      container={containerRef.current}
+                      key="register"
+                      timeout={300}
+                      direction="right"
+                    >
+                      <Box sx={{ minWidth: "100%" }}>
+                        <Register />
+                      </Box>
+                    </Slide>
+                  )}
+                </>
+              )}
+            </>
           )}
         </Box>
       )}
