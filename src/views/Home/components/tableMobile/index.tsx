@@ -17,14 +17,14 @@ import { formatDate } from "@/utils";
 interface IBasicTableProps {
   handleModal: (prop: string) => void;
   setDocumentId: (prop: string) => void;
-  getUserServicesRows: () => void;
+
   userServices: IUserServicesData[];
 }
 
 const BasicTableMobile: React.FC<IBasicTableProps> = ({
   handleModal,
   setDocumentId,
-  getUserServicesRows,
+
   userServices,
 }) => {
   const refArray = useRef<(HTMLDivElement | null)[]>([]);
@@ -58,10 +58,6 @@ const BasicTableMobile: React.FC<IBasicTableProps> = ({
 
     setRowHeights(newRowHeights);
   }, [userServices]);
-
-  useEffect(() => {
-    getUserServicesRows();
-  });
 
   return (
     <TableContainer

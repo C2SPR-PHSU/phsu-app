@@ -47,7 +47,7 @@ export default function BasicTable({
     7: "Denied",
   };
 
-  const getUserServicesRows = useCallback(async () => {
+  const getUserServicesRows = async () => {
     try {
       const response = await getUserServices("1", token);
       setUserServices([response].flat());
@@ -56,18 +56,17 @@ export default function BasicTable({
         logout();
       }
     }
-  }, [token, logout]);
+  };
 
   useEffect(() => {
     getUserServicesRows();
-  }, [getUserServicesRows]);
+  }, []);
 
   if (isMobile) {
     return (
       <BasicTableMobile
         handleModal={(prop) => handleModal(prop)}
         setDocumentId={(prop) => setDocumentId(prop)}
-        getUserServicesRows={getUserServicesRows}
         userServices={userServices}
       />
     );

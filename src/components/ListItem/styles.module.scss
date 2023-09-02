@@ -1,10 +1,12 @@
 @import "../../assets/styles";
 
-$size: 30px;
+$size: 40px;
+$number:30px;
+$title-size:27px;
 
 .container {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   flex-direction: row;
   padding-bottom: 1.5rem;
 }
@@ -19,12 +21,14 @@ $size: 30px;
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-top: 1rem !important;
 }
 
 .number {
   color: $white;
-  font-size: $size;
-  font-weight: bold;
+  font-size: $number !important;
+  font-weight: bold !important;
+  font-family: $gothamBlack !important;
 }
 
 .link {
@@ -36,11 +40,13 @@ $size: 30px;
 }
 
 .list-item {
-  font-size: $size;
+  font-size: $title-size !important;
   font-weight: bold;
   color: $mainBlue;
-  text-decoration: underline #009999;
-
+  text-decoration: underline 2px #009999;
+  font-weight: bold !important;
+  font-family: $gothamBlack !important;
+  
   &:hover {
     text-decoration: underline #009999;
     cursor: pointer;
@@ -49,5 +55,6 @@ $size: 30px;
 
 .list-item-description {
   color: $blackText;
-  font-weight: bold;
+  padding-top: 6px;
+  font-family: $gotham !important;
 }
