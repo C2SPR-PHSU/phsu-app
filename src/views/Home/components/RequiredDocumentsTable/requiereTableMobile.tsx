@@ -61,6 +61,23 @@ const RequiredDocumentsTableMobile: React.FC<RequiredDocumentsTableProps> = ({
     setRowHeights(newRowHeights);
   }, [documentList]);
 
+  // delete Words in '()'
+  const extractWordsBetweenParentheses = (Words: string): string => {
+    const regex2 = /\s*\([^)]+\)\s*/g;
+    return Words.replace(regex2, " ");
+  };
+
+  // get Words in '()'
+  const TitleRed = (Words: string): string[] => {
+    const regex = /\(([^)]+)\)/g;
+    const palabras: string[] = [];
+    let match;
+    while ((match = regex.exec(Words)) !== null) {
+      palabras.push("(" + match[1] + ")");
+    }
+    return palabras;
+  };
+
   return (
     <TableContainer sx={{ display: "flex", flexDirection: "row" }}>
       <TableContainer>
@@ -116,7 +133,16 @@ const RequiredDocumentsTableMobile: React.FC<RequiredDocumentsTableProps> = ({
                       }}
                     >
                       <Typography sx={{ width: "11rem", padding: "0.5rem" }}>
-                        {row.description}
+                        {extractWordsBetweenParentheses(row.description)}
+                      </Typography>
+                      <Typography
+                        sx={{
+                          width: "11rem",
+                          color: "red",
+                          paddingLeft: "0.4rem",
+                        }}
+                      >
+                        {TitleRed(row.description)}
                       </Typography>
                     </Box>
                   </TableCell>
