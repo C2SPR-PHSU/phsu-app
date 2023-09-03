@@ -8,10 +8,12 @@ import Options from "./components/Options";
 import { PATH } from "@/routes/constants";
 import useAuthStore from "@/hooks/useAuthStore";
 import { logOut } from "@/utils/";
+import { useLocation } from "react-router-dom"; 
 
 const Sidebar = () => {
   const logout = useAuthStore((state: any) => state.setLogout);
   const token = useAuthStore((state: any) => state.token);
+  const location = useLocation(); // Obtiene la ubicación actual
 
   const handleLogout = async () => {
     try {
@@ -33,6 +35,7 @@ const Sidebar = () => {
           <AppsIcon sx={{ color: "white", fontSize: "1.5rem !important" }} />
         }
         text="Of Sense"
+        redirect={PATH.ROOT}
       />
       <Options
         children={<FeedIcon sx={{ color: "white", fontSize: "1.5rem" }} />}
