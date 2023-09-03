@@ -9,7 +9,7 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
-import { tableHeaders } from "../RequiredDocumentsTable/constants";
+import { tableHeaders } from "./constants";
 import StatusButton from "@/components/StatusButton";
 import { IUserDocumentsData } from "../../types";
 import VisibilityIcon from "@mui/icons-material/Visibility";

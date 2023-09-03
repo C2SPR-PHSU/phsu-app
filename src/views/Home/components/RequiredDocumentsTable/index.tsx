@@ -19,7 +19,7 @@ import MessageModal from "../MessageModal";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
 import { formatDate } from "@/utils";
-import RequiredDocumentsTableMobile from "../RequieredDocumentsTableMobile";
+import RequiredDocumentsTableMobile from "./requiereTableMobile";
 
 interface RequiredDocumentsTableProps {
   documentList: IUserDocumentsData[];
@@ -55,9 +55,9 @@ const RequiredDocumentsTable = ({
       <Table aria-label="simple table">
         <TableHead>
           <TableRow>
-            {tableHeaders?.map((header) => {
+            {tableHeaders?.map((header, key) => {
               return (
-                <TableCell align="center" key={header.id}>
+                <TableCell align="center" key={key}>
                   {header.title}
                 </TableCell>
               );
@@ -66,67 +66,66 @@ const RequiredDocumentsTable = ({
         </TableHead>
         <TableBody>
           {documentList.length ? (
-            documentList?.map((row, index) => {
+            documentList?.map((row) => {
               return (
-                <>
-                  <TableRow
-                    key={index}
-                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                  >
-                    <TableCell component="th" scope="row">
-                      <Typography>{row.description}</Typography>
-                    </TableCell>
+                <TableRow
+                  key={row.id} // Agrega una clave única aquí, asumiendo que 'row.id' es único
+                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                >
+                  <TableCell component="th" scope="row">
+                    <Typography>{row.description}</Typography>
+                  </TableCell>
 
-                    <TableCell align="center">
-                      {formatDate(row.created)}
-                    </TableCell>
-                    <TableCell align="center">
-                      <StatusButton statusName={row.status_desc as string} />
-                    </TableCell>
-
-                    {/* actions */}
-                    <TableCell align="center">
-                      <>
-                        {row.url ? (
-                          <a
-                            href={row.url}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                          >
-                            <VisibilityIcon
-                              sx={{ color: "#009999", cursor: "pointer" }}
-                            />
-                          </a>
-                        ) : (
+                  <TableCell align="center">
+                    {formatDate(row.created)}
+                  </TableCell>
+                  <TableCell align="center">
+                    <StatusButton statusName={row.status_desc as string} />
+                  </TableCell>
+                  {/* Acciones */}
+                  <TableCell align="center">
+                    <>
+                      {row.url ? (
+                        <a
+                          href={row.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
                           <VisibilityIcon
-                            sx={{
-                              color: "#009999",
-                              cursor: "default",
-                              opacity: 0.5,
-                            }}
+                            sx={{ color: "#009999", cursor: "pointer" }}
                           />
-                        )}
-                        {row.ob_message && (
-                          <ChatIcon
-                            sx={{
-                              fontSize: "1.4rem",
-                              color: "#f7941d",
-                              cursor: "pointer",
-                              marginLeft: "0.5rem !important",
-                            }}
-                            onClick={() => displayModal(row.ob_message)}
-                          />
-                        )}
-                      </>
-                    </TableCell>
-                  </TableRow>
-                </>
+                        </a>
+                      ) : (
+                        <VisibilityIcon
+                          sx={{
+                            color: "#009999",
+                            cursor: "default",
+                            opacity: 0.5,
+                          }}
+                        />
+                      )}
+                      {row.ob_message && (
+                        <ChatIcon
+                          sx={{
+                            fontSize: "1.4rem",
+                            color: "#f7941d",
+                            cursor: "pointer",
+                            marginLeft: "0.5rem !important",
+                          }}
+                          onClick={() => displayModal(row.ob_message)}
+                        />
+                      )}
+                    </>
+                  </TableCell>
+                </TableRow>
               );
             })
           ) : (
             <TableRow>
               <TableCell align="center" scope="row">
-                <Typography textAlign="center">No content here</Typography>
+                <Typography textAlign="center">
+                  No hay contenido aquí
+                </Typography>
               </TableCell>
             </TableRow>
           )}

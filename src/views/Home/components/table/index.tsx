@@ -16,7 +16,7 @@ import { IUserServicesData } from "../../types";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
 import styles from "./styles.module.scss";
-import BasicTableMobile from "../tableMobile";
+import BasicTableMobile from "./tableMobile";
 import { formatDate } from "@/utils";
 
 interface IBasicTableProps {
@@ -34,7 +34,7 @@ export default function BasicTable({
   const [userServices, setUserServices] = useState<IUserServicesData[]>([]);
 
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
   const statusDictionary: { [key: number]: string } = {
     0: "To Upload",
@@ -126,6 +126,7 @@ export default function BasicTable({
                 className={styles["typography"]}
                 sx={{
                   fontSize: "1.2rem",
+                  minWidth: "6rem",
                 }}
               >
                 Days Left

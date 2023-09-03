@@ -11,7 +11,7 @@ import VisibilityIcon from "@mui/icons-material/Visibility";
 import DownloadIcon from "@mui/icons-material/Download";
 import StatusButton from "@/components/StatusButton";
 import { IUserServicesData } from "../../types";
-import styles from "./styles.module.scss";
+import styles from "./stylesTableMobile.module.scss";
 import { formatDate } from "@/utils";
 
 interface IBasicTableProps {
