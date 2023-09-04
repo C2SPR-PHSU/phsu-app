@@ -2,14 +2,16 @@ import { ReactNode } from "react";
 import { Box, Typography } from "@mui/material";
 import { useNavigate, useLocation} from "react-router-dom";
 
-const Options = ({
+const Sidebar = ({
   text,
   redirect,
   children,
+  textColor,
 }: {
   text: string;
   redirect?: string;
   children: ReactNode;
+  textColor: string;
 }) => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -28,7 +30,10 @@ const Options = ({
       onClick={() => navigate(`${redirect ?? "/"}`)}
     >
       {children}
-      <Typography variant="body1" sx={{ color: "white", textAlign: "center", width:'7rem'}}>
+      <Typography
+        variant="body1"
+        sx={{ color: textColor, textAlign: "center", width:'7rem' }}
+      >
         {text}
       </Typography>
 
@@ -44,4 +49,4 @@ const Options = ({
   );
 };
 
-export default Options;
+export default Sidebar;
