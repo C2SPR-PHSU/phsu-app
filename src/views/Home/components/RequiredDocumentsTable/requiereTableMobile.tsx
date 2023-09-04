@@ -16,6 +16,7 @@ import VisibilityIcon from "@mui/icons-material/Visibility";
 import MessageModal from "../MessageModal";
 import ChatIcon from "@mui/icons-material/Chat";
 import { formatDate } from "@/utils";
+import styles from "./requierestyle.module.scss";
 
 interface RequiredDocumentsTableProps {
   documentList: IUserDocumentsData[];
@@ -38,11 +39,29 @@ const RequiredDocumentsTableMobile: React.FC<RequiredDocumentsTableProps> = ({
   const [heights, setHeights] = useState<number[]>([]);
   const [rowHeights, setRowHeights] = useState<number[]>([]);
 
+  // delete Words in '()'
+  const extractWordsBetweenParentheses = (Words: string): string => {
+    const regex2 = /\s*\([^)]+\)\s*/g;
+    return Words.replace(regex2, " ");
+  };
+
+  // getWords in '()'
+  const TitleRed = (Words: string): string[] => {
+    const regex = /\(([^)]+)\)/g;
+    const palabras: string[] = [];
+    let match;
+    while ((match = regex.exec(Words)) !== null) {
+      palabras.push("(" + match[1] + ")");
+    }
+    return palabras;
+  };
+
   // Calculate and set heights on document list change
   useEffect(() => {
     const newHeights: number[] = [];
     const newRowHeights: number[] = [];
 
+    // getHeight
     refArray.current.forEach((ref) => {
       if (ref) {
         const { height } = ref.getBoundingClientRect();
@@ -61,33 +80,19 @@ const RequiredDocumentsTableMobile: React.FC<RequiredDocumentsTableProps> = ({
     setRowHeights(newRowHeights);
   }, [documentList]);
 
-  // delete Words in '()'
-  const extractWordsBetweenParentheses = (Words: string): string => {
-    const regex2 = /\s*\([^)]+\)\s*/g;
-    return Words.replace(regex2, " ");
-  };
-
-  // get Words in '()'
-  const TitleRed = (Words: string): string[] => {
-    const regex = /\(([^)]+)\)/g;
-    const palabras: string[] = [];
-    let match;
-    while ((match = regex.exec(Words)) !== null) {
-      palabras.push("(" + match[1] + ")");
-    }
-    return palabras;
-  };
-
   return (
     <TableContainer sx={{ display: "flex", flexDirection: "row" }}>
       <TableContainer>
         <Table aria-label="simple table">
-          <TableHead sx={{ height: "10vh" }}>
+          <TableHead sx={{ height: "5vh" }}>
             <TableRow>
               {tableHeaders?.map(
                 (header) =>
                   header.title !== "Action" && (
-                    <TableCell align="center" key={header.id}>
+                    <TableCell
+                      key={header.id}
+                      sx={{ fontSize: "1rem", border: "0px" }}
+                    >
                       {header.title}
                     </TableCell>
                   )
@@ -100,9 +105,10 @@ const RequiredDocumentsTableMobile: React.FC<RequiredDocumentsTableProps> = ({
                 <TableRow
                   key={row.id}
                   sx={{
-                    "&:last-child td, &:last-child th": { border: 0 },
+                    // "&:last-child td, &:last-child th": { border: 0 },
                     borderTopLeftRadius: "5px",
                     borderBottomLeftRadius: "5px",
+                    border: "0px",
                   }}
                   ref={(e) => (rowRefArray.current[index] = e)}
                 >
@@ -112,6 +118,7 @@ const RequiredDocumentsTableMobile: React.FC<RequiredDocumentsTableProps> = ({
                     sx={{
                       paddingTop: "0.5rem",
                       paddingBottom: "0.5rem",
+                      border: "0px",
                     }}
                   >
                     <Box
@@ -132,27 +139,37 @@ const RequiredDocumentsTableMobile: React.FC<RequiredDocumentsTableProps> = ({
                         width: "220%",
                       }}
                     >
-                      <Typography sx={{ width: "11rem", padding: "0.5rem" }}>
-                        {extractWordsBetweenParentheses(row.description)}
-                      </Typography>
-                      <Typography
+                      <Box
                         sx={{
                           width: "11rem",
-                          color: "red",
-                          paddingLeft: "0.4rem",
+                          padding: "0.5rem",
+                          fontSize: "1rem",
                         }}
+                        className={styles["font"]}
                       >
-                        {TitleRed(row.description)}
-                      </Typography>
+                        {extractWordsBetweenParentheses(row.description)}
+                        <p
+                          style={{
+                            color: "red",
+                          }}
+                        >
+                          {TitleRed(row.description)}
+                        </p>
+                      </Box>
                     </Box>
                   </TableCell>
-                  <TableCell>
+                  <TableCell
+                    sx={{
+                      border: "0px",
+                    }}
+                  >
                     <Typography>{formatDate(row.created)}</Typography>
                   </TableCell>
                   <TableCell
                     align="center"
                     sx={{
                       padding: "0rem",
+                      border: "0px",
                     }}
                   >
                     <StatusButton statusName={row.status_desc as string} />
@@ -181,14 +198,17 @@ const RequiredDocumentsTableMobile: React.FC<RequiredDocumentsTableProps> = ({
           display: "none",
           ...(documentList.length && {
             display: "flex",
-            width: "15vh",
+            width: "12vh",
+            borderLeft: "1px solid #eeeeee",
           }),
         }}
       >
         <Table aria-label="simple table">
-          <TableHead sx={{ height: "10vh" }}>
+          <TableHead sx={{ height: "5vh" }}>
             <TableRow>
-              <TableCell align="center">Action</TableCell>
+              <TableCell sx={{ fontSize: "1rem", border: "0px" }}>
+                Action
+              </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -197,7 +217,7 @@ const RequiredDocumentsTableMobile: React.FC<RequiredDocumentsTableProps> = ({
                 <TableRow
                   key={index}
                   sx={{
-                    "&:last-child td, &:last-child th": { border: 0 },
+                    // "&:last-child td, &:last-child th": { border: 0 },
                     minHeight: `${rowHeights[index]}px`,
                     maxHeight: `${rowHeights[index]}px`,
                     display: "flex",
@@ -209,9 +229,10 @@ const RequiredDocumentsTableMobile: React.FC<RequiredDocumentsTableProps> = ({
                       paddingLeft: 0,
                       paddingTop: "0.5rem",
                       paddingBottom: "0.5rem",
-                      width: "5rem",
+                      width: "5.3rem",
                       display: "flex",
                       alignItems: "center",
+                      border: "0px",
                     }}
                   >
                     <Box
@@ -235,9 +256,23 @@ const RequiredDocumentsTableMobile: React.FC<RequiredDocumentsTableProps> = ({
                           href={row.url}
                           target="_blank"
                           rel="noopener noreferrer"
+                          style={{
+                            backgroundColor: "#009999",
+                            borderRadius: "100%",
+                            width: "1.5rem",
+                            height: "1.5rem",
+                            justifyContent: "center",
+                            alignItems: "center",
+                            display: "flex",
+                          }}
                         >
                           <VisibilityIcon
-                            sx={{ color: "#009999", cursor: "pointer" }}
+                            sx={{
+                              color: "white",
+                              cursor: "pointer",
+                              width: "1.2rem",
+                              height: "1.2rem",
+                            }}
                           />
                         </a>
                       ) : (

@@ -123,7 +123,7 @@ const RequiredDocumentsTable = ({
             <TableRow>
               <TableCell align="center" scope="row">
                 <Typography textAlign="center">
-                  No hay contenido aquí
+                  There is no content here
                 </Typography>
               </TableCell>
             </TableRow>
