@@ -39,3 +39,20 @@ export const formatDate = (inputDate: string) => {
 
   return formattedDate;
 };
+
+// getWords in '()'
+export const TitleRed = (Words: string): string[] => {
+  const regex = /\(([^)]+)\)/g;
+  const palabras: string[] = [];
+  let match;
+  while ((match = regex.exec(Words)) !== null) {
+    palabras.push("(" + match[1] + ")");
+  }
+  return palabras;
+};
+
+// delete Words in '()'
+export const ExtractWordsBetweenParentheses = (Words: string): string => {
+  const regex2 = /\s*\([^)]+\)\s*/g;
+  return Words.replace(regex2, " ");
+};

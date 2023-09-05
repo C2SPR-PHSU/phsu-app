@@ -17,6 +17,8 @@ import MessageModal from "../MessageModal";
 import ChatIcon from "@mui/icons-material/Chat";
 import { formatDate } from "@/utils";
 import styles from "./requierestyle.module.scss";
+import { TitleRed } from "@/utils";
+import { ExtractWordsBetweenParentheses } from "@/utils";
 
 interface RequiredDocumentsTableProps {
   documentList: IUserDocumentsData[];
@@ -38,23 +40,6 @@ const RequiredDocumentsTableMobile: React.FC<RequiredDocumentsTableProps> = ({
   // State variables for heights
   const [heights, setHeights] = useState<number[]>([]);
   const [rowHeights, setRowHeights] = useState<number[]>([]);
-
-  // delete Words in '()'
-  const extractWordsBetweenParentheses = (Words: string): string => {
-    const regex2 = /\s*\([^)]+\)\s*/g;
-    return Words.replace(regex2, " ");
-  };
-
-  // getWords in '()'
-  const TitleRed = (Words: string): string[] => {
-    const regex = /\(([^)]+)\)/g;
-    const palabras: string[] = [];
-    let match;
-    while ((match = regex.exec(Words)) !== null) {
-      palabras.push("(" + match[1] + ")");
-    }
-    return palabras;
-  };
 
   // Calculate and set heights on document list change
   useEffect(() => {
@@ -147,7 +132,7 @@ const RequiredDocumentsTableMobile: React.FC<RequiredDocumentsTableProps> = ({
                         }}
                         className={styles["font"]}
                       >
-                        {extractWordsBetweenParentheses(row.description)}
+                        {ExtractWordsBetweenParentheses(row.description)}
                         <p
                           style={{
                             color: "red",
