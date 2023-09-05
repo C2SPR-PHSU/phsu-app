@@ -15,7 +15,7 @@
 .container-small {
   flex-direction: row !important;
   background-color: white !important;
-  height: 12% !important;
+  height: 8% !important;
   width: 100%;
   display: flex;
   padding: 0rem 1rem  0 2rem;
@@ -27,3 +27,24 @@
   z-index: 10;
   box-shadow: 0px -1px 17px -3px rgba(0, 0, 0, 0.329);
 }
+
+
+.container-medium {
+  flex-direction: row !important;
+  background-color: white !important;
+  height: 11% !important;
+  width: 100%;
+  display: flex;
+  padding: 0rem 1rem  0 2rem;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: row;
+  position: fixed;
+  bottom: 0;
+  z-index: 10;
+  box-shadow: 0px -1px 17px -3px rgba(0, 0, 0, 0.329);
+}
+
+
+
+

@@ -25,23 +25,37 @@ const Sidebar = () => {
       logout();
     }
   };
-  const { isScreenLg, isVeryScreenSmall, isMedium } = useMediaQueries();
+  const {  isVeryScreenSmall, isMedium } = useMediaQueries();
 
   const iconSizeNormal = "2.5rem";
-  const iconSizeMedium = "2.5rem";
+  const iconSizeMedium = "2rem";
 
   // Variables para colores
   const normalColor = "white";
   const mediumColor = "#009999";
 
-  const textSmall = "0.8rem";
-  const textNormal = "1rem";
+  const textSmall = "0.67rem";
+  const textNormal = "1.2rem";
 
   return (
     <Grid
-      className={isMedium ? styles["container-small"] : styles["container"]}
+      className={isMedium ? styles["container-medium"] : isVeryScreenSmall? styles["container-small"]: styles["container"]}
       sx={{ flexDirection: "column", height: "100%" }}
     >
+         <Options
+        fontSze={isVeryScreenSmall ? textSmall : textNormal}
+        textColor={isMedium ? mediumColor : normalColor}
+        children={
+          <FeedIcon
+            sx={{
+              color: isMedium ? "#009999" : "white",
+              fontSize: isMedium ? iconSizeMedium : iconSizeNormal,
+            }}
+          />
+        }
+        text="Services Request"
+        redirect={PATH.REQUEST_SERVICES}
+      />
       <Options
         fontSze={isVeryScreenSmall ? textSmall : textNormal}
         textColor={isMedium ? mediumColor : normalColor}
@@ -57,20 +71,7 @@ const Sidebar = () => {
         redirect={PATH.ROOT}
       />
 
-      <Options
-        fontSze={isVeryScreenSmall ? textSmall : textNormal}
-        textColor={isMedium ? mediumColor : normalColor}
-        children={
-          <FeedIcon
-            sx={{
-              color: isMedium ? "#009999" : "white",
-              fontSize: isMedium ? iconSizeMedium : iconSizeNormal,
-            }}
-          />
-        }
-        text="Services Request"
-        redirect={PATH.REQUEST_SERVICES}
-      />
+   
       <Options
         fontSze={isVeryScreenSmall ? textSmall : textNormal}
         textColor={isMedium ? mediumColor : normalColor}
