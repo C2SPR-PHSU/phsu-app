@@ -6,7 +6,7 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import { IconButton, Typography, Box } from "@mui/material";
+import { IconButton, Typography } from "@mui/material";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import DownloadIcon from "@mui/icons-material/Download";
 import useAuthStore from "@/hooks/useAuthStore";
@@ -16,7 +16,8 @@ import { IUserServicesData } from "../../types";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
 import styles from "./styles.module.scss";
-import BasicTableMobile from "../tableMobile";
+import BasicTableMobile from "./tableMobile";
+import { formatDate } from "@/utils";
 
 interface IBasicTableProps {
   handleModal: (prop: string) => void;
@@ -33,7 +34,7 @@ export default function BasicTable({
   const [userServices, setUserServices] = useState<IUserServicesData[]>([]);
 
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
   const statusDictionary: { [key: number]: string } = {
     0: "To Upload",
@@ -51,25 +52,11 @@ export default function BasicTable({
       const response = await getUserServices("1", token);
       setUserServices([response].flat());
     } catch (error) {
-      if(error?.status === 404) {
+      if (error?.status === 404) {
         logout();
       }
     }
   };
-
-  function formatDate(inputDate: string) {
-    const date = new Date(inputDate);
-
-    //
-    const day = date.getDate().toString().padStart(2, "0");
-    const month = (date.getMonth() + 1).toString().padStart(2, "0"); // Sumamos 1 al mes, ya que en JavaScript los meses empiezan desde 0 (enero) hasta 11 (diciembre).
-    const year = date.getFullYear().toString();
-
-    //
-    const formattedDate = `${month}/${day}/${year}`;
-
-    return formattedDate;
-  }
 
   useEffect(() => {
     getUserServicesRows();
@@ -80,6 +67,7 @@ export default function BasicTable({
       <BasicTableMobile
         handleModal={(prop) => handleModal(prop)}
         setDocumentId={(prop) => setDocumentId(prop)}
+        userServices={userServices}
       />
     );
   }
@@ -138,6 +126,7 @@ export default function BasicTable({
                 className={styles["typography"]}
                 sx={{
                   fontSize: "1.2rem",
+                  minWidth: "6rem",
                 }}
               >
                 Days Left
@@ -157,7 +146,7 @@ export default function BasicTable({
                 Status
               </Typography>
             </TableCell>
-            <TableCell align="center" sx={{}}>
+            <TableCell align="center">
               <Typography
                 className={styles["typography"]}
                 sx={{
@@ -202,9 +191,7 @@ export default function BasicTable({
                     {formatDate(row.created)}
                   </Typography>
                 </TableCell>
-                <TableCell
-                  align="center"
-                >
+                <TableCell align="center">
                   <Typography className={styles["typography"]}>
                     {row.days_to_expire}
                   </Typography>

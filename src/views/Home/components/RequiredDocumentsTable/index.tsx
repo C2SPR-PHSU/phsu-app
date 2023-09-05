@@ -7,8 +7,8 @@ import {
   TableHead,
   TableRow,
   Paper,
-  Box,
   Typography,
+  Box
 } from "@mui/material";
 import { tableHeaders } from "./constants";
 import StatusButton from "@/components/StatusButton";
@@ -18,9 +18,10 @@ import ChatIcon from "@mui/icons-material/Chat";
 import MessageModal from "../MessageModal";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
-
-import RequiredDocumentsTableMobile from "../RequieredDocumentsTableMobile";
-
+import { formatDate } from "@/utils";
+import RequiredDocumentsTableMobile from "./requiereTableMobile";
+import { ExtractWordsBetweenParentheses } from "@/utils";
+import { TitleRed } from "@/utils";
 interface RequiredDocumentsTableProps {
   documentList: IUserDocumentsData[];
 }
@@ -33,112 +34,129 @@ const RequiredDocumentsTable = ({
   const [openModal, setOpenModal] = useState(false);
   const [modalMessage, setModalMessage] = useState("");
 
-  // const [componentHeights, setComponentHeights] = useState<number[]>([]);
-
-  function formatDate(inputDate: string) {
-    const date = new Date(inputDate);
-
-    //
-    const day = date.getDate().toString().padStart(2, "0");
-    const month = (date.getMonth() + 1).toString().padStart(2, "0"); // Sumamos 1 al mes, ya que en JavaScript los meses empiezan desde 0 (enero) hasta 11 (diciembre).
-    const year = date.getFullYear().toString();
-
-    //
-    const formattedDate = `${month}/${day}/${year}`;
-
-    return formattedDate;
-  }
-
-  if (isMobile) {
-    return (
-      <>
-        <RequiredDocumentsTableMobile documentList={documentList} />
-      </>
-    );
-  }
-
   const displayModal = (message: string) => {
     setOpenModal(true);
     setModalMessage(message);
   };
 
+  if (isMobile) {
+    return (
+      <>
+        <RequiredDocumentsTableMobile
+          documentList={documentList}
+          displayModal={displayModal}
+          modalMessage={modalMessage}
+        />
+      </>
+    );
+  }
+
   return (
-    <TableContainer component={Paper}>
-      <Table aria-label="simple table">
-        <TableHead>
+    <TableContainer >
+      <Table aria-label="simple table" >
+        <TableHead >
           <TableRow>
-            {tableHeaders?.map((header) => {
+            {tableHeaders?.map((header, key) => {
               return (
-                <TableCell align="center" key={header.id}>
+                <TableCell align="center" key={key} style={{borderWidth:'2.5px', borderColor:'#a5a4a493'}} >
                   {header.title}
                 </TableCell>
               );
             })}
           </TableRow>
         </TableHead>
-        <TableBody>
+        <TableBody >
           {documentList.length ? (
-            documentList?.map((row, index) => {
+            documentList?.map((row) => {
               return (
-                <>
-                  <TableRow
-                    key={index}
-                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                  >
-                    <TableCell component="th" scope="row">
-                      <Typography>{row.description}</Typography>
-                    </TableCell>
+                <TableRow
+                  key={row.id} // Agrega una clave única aquí, asumiendo que 'row.id' es único
+                  
+                >
+                  <TableCell component="th" scope="row" style={{ border: 'none' }}>
+                    <Box
+                    sx={{
+                      display: "flex",
+                      flexDirection: "column",
+                      justifyContent: "center",
+                      backgroundColor: "#eeeeee",
+                      borderBottomLeftRadius: "10px",
+                      borderTopLeftRadius: "10px",
+                      width: "250%",
+                      height:'4rem',
+                      borderTopRightRadius:'10px',
+                      borderBottomRightRadius:'10px',
+                    }}>
+                       <Box
+                        sx={{       
+                          padding: "0.5rem",
+                          fontSize: "1rem",
+                        }}
+                      
+                      >
+                        {ExtractWordsBetweenParentheses(row.description)}
+                        <p
+                          style={{
+                            color: "red",
+                          }}
+                        >
+                          {TitleRed(row.description)}
+                        </p>
+                      </Box>
 
-                    <TableCell align="center">
-                      {formatDate(row.created)}
-                    </TableCell>
-                    <TableCell align="center">
-                      <StatusButton statusName={row.status_desc as string} />
-                    </TableCell>
+                    </Box>
+                  </TableCell>
 
-                    {/* actions */}
-                    <TableCell align="center">
-                      <>
-                        {row.url ? (
-                          <a
-                            href={row.url}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                          >
-                            <VisibilityIcon
-                              sx={{ color: "#009999", cursor: "pointer" }}
-                            />
-                          </a>
-                        ) : (
+                  <TableCell align="center" style={{ border: 'none' }}>
+                    {formatDate(row.created)}
+                  </TableCell>
+                  <TableCell align="center" style={{ border: 'none' }}>
+                    <StatusButton statusName={row.status_desc as string} />
+                  </TableCell>
+                  {/* Acciones */}
+                  <TableCell align="center" style={{ border: 'none' }}>
+                    <>
+                      {row.url ? (
+                        <a
+                          href={row.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
                           <VisibilityIcon
-                            sx={{
-                              color: "#009999",
-                              cursor: "default",
-                              opacity: 0.5,
-                            }}
+                            sx={{ color: "#009999", cursor: "pointer" }}
                           />
-                        )}
-                        {row.ob_message && (
-                          <ChatIcon
-                            sx={{
-                              fontSize: "1.4rem",
-                              color: "#f7941d",
-                              cursor: "pointer",
-                              marginLeft: "0.5rem !important",
-                            }}
-                            onClick={() => displayModal(row.ob_message)}
-                          />
-                        )}
-                      </>
-                    </TableCell>
-                  </TableRow>
-                </>
+                        </a>
+                      ) : (
+                        <VisibilityIcon
+                          sx={{
+                            color: "#009999",
+                            cursor: "default",
+                            opacity: 0.5,
+                          }}
+                        />
+                      )}
+                      {row.ob_message && (
+                        <ChatIcon
+                          sx={{
+                            fontSize: "1.4rem",
+                            color: "#f7941d",
+                            cursor: "pointer",
+                            marginLeft: "0.5rem !important",
+                          }}
+                          onClick={() => displayModal(row.ob_message)}
+                        />
+                      )}
+                    </>
+                  </TableCell>
+                </TableRow>
               );
             })
           ) : (
             <TableRow>
               <TableCell align="center" scope="row">
-                <Typography textAlign="center">No content here</Typography>
+                <Typography textAlign="center">
+                  There is no content here
+                </Typography>
               </TableCell>
             </TableRow>
           )}
