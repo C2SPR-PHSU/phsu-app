@@ -100,7 +100,14 @@ const BasicTableMobile: React.FC<IBasicTableProps> = ({
                   Days Left
                 </Typography>
               </TableCell>
-              <TableCell sx={{ paddingLeft: "4%" }}>
+              <TableCell
+                sx={{ paddingLeft: "4%", minWidth: "7rem" }}
+                style={{
+                  position: "absolute",
+                  right: 0,
+                  backgroundColor: "white",
+                }}
+              >
                 <span
                   className={styles["typography"]}
                   style={{ fontSize: "1rem" }}
@@ -159,38 +166,14 @@ const BasicTableMobile: React.FC<IBasicTableProps> = ({
                 <TableCell align="center" sx={{ paddingTop: "1.5rem" }}>
                   <StatusButton statusName={row.status_desc as string} />
                 </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
-      {/* table 2 */}
-      <TableContainer>
-        <Table aria-label="simple table">
-          {/* TableHead should contain a single TableRow */}
-          <TableHead>
-            <TableRow>
-              <TableCell align="center">
-                <span
-                  className={styles["typography"]}
-                  style={{ fontSize: "1rem" }}
+
+                <TableCell
+                  style={{
+                    position: "absolute",
+                    right: 0,
+                    backgroundColor: "white",
+                  }}
                 >
-                  Action
-                </span>
-              </TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {userServices.map((row, index) => (
-              <TableRow
-                key={index}
-                sx={{
-                  "&:last-child td, &:last-child th": { border: 0 },
-                  minHeight: `${rowheights[index]}px`,
-                  maxHeight: `${rowheights[index]}px`,
-                }}
-              >
-                <TableCell>
                   <Box
                     sx={{
                       display: "flex",
