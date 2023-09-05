@@ -39,13 +39,10 @@ const RequiredDocumentsTableMobile: React.FC<RequiredDocumentsTableProps> = ({
 
   // State variables for heights
   const [heights, setHeights] = useState<number[]>([]);
-  const [rowHeights, setRowHeights] = useState<number[]>([]);
 
   // Calculate and set heights on document list change
   useEffect(() => {
     const newHeights: number[] = [];
-    const newRowHeights: number[] = [];
-
     // getHeight
     refArray.current.forEach((ref) => {
       if (ref) {
@@ -54,19 +51,15 @@ const RequiredDocumentsTableMobile: React.FC<RequiredDocumentsTableProps> = ({
       }
     });
     setHeights(newHeights);
-
-    rowRefArray.current.forEach((rowRef) => {
-      if (rowRef) {
-        const { height } = rowRef.getBoundingClientRect();
-        newRowHeights.push(height);
-      }
-    });
-
-    setRowHeights(newRowHeights);
   }, [documentList]);
 
   return (
-    <TableContainer sx={{ display: "flex", maxWidth: "79%" }}>
+    <TableContainer
+      sx={{
+        display: "flex",
+        maxWidth: "79%",
+      }}
+    >
       <Table aria-label="simple table">
         <TableHead sx={{ height: "5vh" }}>
           <TableRow>
@@ -86,7 +79,10 @@ const RequiredDocumentsTableMobile: React.FC<RequiredDocumentsTableProps> = ({
                     position: "absolute",
                     right: 0,
                     backgroundColor: "white",
-                    minWidth: "5.2rem",
+                    minWidth: "5.3rem",
+                    ...(documentList.length && {
+                      boxShadow: "-1px 0 0 rgba(221, 221, 221, 0.6)",
+                    }),
                   }}
                 >
                   {header.title}
@@ -101,7 +97,6 @@ const RequiredDocumentsTableMobile: React.FC<RequiredDocumentsTableProps> = ({
               <TableRow
                 key={row.id}
                 sx={{
-                  // "&:last-child td, &:last-child th": { border: 0 },
                   borderTopLeftRadius: "5px",
                   borderBottomLeftRadius: "5px",
                   border: "0px",
@@ -130,7 +125,7 @@ const RequiredDocumentsTableMobile: React.FC<RequiredDocumentsTableProps> = ({
                       borderBottomLeftRadius: "10px",
                       borderTopLeftRadius: "10px",
                       paddingRight: "0rem",
-                      width: "220%",
+                      width: "223%",
                     }}
                   >
                     <Box
@@ -179,6 +174,7 @@ const RequiredDocumentsTableMobile: React.FC<RequiredDocumentsTableProps> = ({
                     display: "flex",
                     alignItems: "center",
                     border: "0px",
+                    boxShadow: "-1px 0 0px rgba(221, 221, 221, 0.6)",
                   }}
                   style={{
                     position: "absolute",
