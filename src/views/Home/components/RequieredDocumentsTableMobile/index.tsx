@@ -105,7 +105,7 @@ const RequiredDocumentsTableMobile: React.FC<RequiredDocumentsTableProps> = ({
                           width: "193%",
                         }}
                       >
-                        <Typography sx={{ width: "13rem" }}>
+                        <Typography sx={{ width: "13rem",  }}>
                           {row.description}
                         </Typography>
                       </Box>
