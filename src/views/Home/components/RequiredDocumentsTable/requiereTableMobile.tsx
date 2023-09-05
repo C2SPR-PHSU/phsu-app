@@ -125,12 +125,12 @@ const RequiredDocumentsTableMobile: React.FC<RequiredDocumentsTableProps> = ({
                       borderBottomLeftRadius: "10px",
                       borderTopLeftRadius: "10px",
                       paddingRight: "0rem",
-                      width: "223%",
+                      width: "230%",
                     }}
                   >
                     <Box
                       sx={{
-                        width: "11rem",
+                        width: "10rem",
                         padding: "0.5rem",
                         fontSize: "1rem",
                       }}
@@ -159,6 +159,7 @@ const RequiredDocumentsTableMobile: React.FC<RequiredDocumentsTableProps> = ({
                   sx={{
                     padding: "0rem",
                     border: "0px",
+                    paddingRight: "1rem",
                   }}
                 >
                   <StatusButton statusName={row.status_desc as string} />
@@ -217,8 +218,8 @@ const RequiredDocumentsTableMobile: React.FC<RequiredDocumentsTableProps> = ({
                           sx={{
                             color: "white",
                             cursor: "pointer",
-                            width: "1.2rem",
-                            height: "1.2rem",
+                            width: "1.1rem",
+                            height: "1.1rem",
                           }}
                         />
                       </a>
