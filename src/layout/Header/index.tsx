@@ -32,7 +32,7 @@ export default function Header() {
       await setLogin(email, password);
       navigate("/");
     } catch (error) {
-      if (error instanceof Error) setAlert(error.message, "error");
+     setAlert(error.message, "error");
     }
   };
 
