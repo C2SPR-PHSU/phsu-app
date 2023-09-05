@@ -66,17 +66,10 @@ const RequiredDocumentsTableMobile: React.FC<RequiredDocumentsTableProps> = ({
   }, [documentList]);
 
   return (
-    <TableContainer sx={{ display: "flex", maxWidth: "86%" }}>
+    <TableContainer sx={{ display: "flex", maxWidth: "79%" }}>
       <Table aria-label="simple table">
         <TableHead sx={{ height: "5vh" }}>
-          <TableRow
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              minWidth: "10%",
-              justifyContent: "space-between",
-            }}
-          >
+          <TableRow>
             {tableHeaders?.map((header) =>
               header.title !== "Action" ? (
                 <TableCell
@@ -112,8 +105,6 @@ const RequiredDocumentsTableMobile: React.FC<RequiredDocumentsTableProps> = ({
                   borderTopLeftRadius: "5px",
                   borderBottomLeftRadius: "5px",
                   border: "0px",
-                  minWidth: "110%",
-                  display: "flex",
                 }}
                 ref={(e) => (rowRefArray.current[index] = e)}
               >
@@ -139,7 +130,7 @@ const RequiredDocumentsTableMobile: React.FC<RequiredDocumentsTableProps> = ({
                       borderBottomLeftRadius: "10px",
                       borderTopLeftRadius: "10px",
                       paddingRight: "0rem",
-                      width: "223%",
+                      width: "220%",
                     }}
                   >
                     <Box
