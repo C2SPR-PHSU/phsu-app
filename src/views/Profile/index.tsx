@@ -3,21 +3,26 @@ import profileScss from "./Profile.module.scss";
 import { useFormik } from "formik";
 import { useState, useEffect } from "react";
 import { validationSchema } from "./validateconstants";
-import { getUserDetails, uploadProfilePhoto, getUploadProfilePhoto } from "./users";
+import {
+  getUserDetails,
+  uploadProfilePhoto,
+  getUploadProfilePhoto,
+} from "./users";
 import { UserProfile } from "@/types/user";
 import { editProfile } from "@/utils/functions";
 import useAuthStore from "@/hooks/useAuthStore";
 import useAlert from "@/hooks/useAlert";
-import { 
-  ProfilePhoto, 
-  ProfileButtons, 
-  ProfileTitle, 
-  PersonalInformation, 
-  AcademicInformation, 
-  AddressInformation, 
-  PersonalInformation2 } from "./components";
-import { initialValues } from './constants';
-import { setUserDataInFormik } from './utils';
+import {
+  ProfilePhoto,
+  ProfileButtons,
+  ProfileTitle,
+  PersonalInformation,
+  AcademicInformation,
+  AddressInformation,
+  PersonalInformation2,
+} from "./components";
+import { initialValues } from "./constants";
+import { setUserDataInFormik } from "./utils";
 
 const Profile = () => {
   const [isEditMode, setIsEditMode] = useState(false);
@@ -29,12 +34,12 @@ const Profile = () => {
   useEffect(() => {
     fetchUserProfile();
   }, [token]);
-  
+
   const formik = useFormik({
     initialValues,
     validationSchema,
-    onSubmit: values => updateUserProfile(values)
-  })
+    onSubmit: (values) => updateUserProfile(values),
+  });
 
   const fetchUserProfile = async () => {
     try {
@@ -46,49 +51,53 @@ const Profile = () => {
     }
   };
 
-  const updateUserProfile = async(values: UserProfile) => {
+  const updateUserProfile = async (values: UserProfile) => {
     try {
       await editProfile(token, values);
-      setAlert("Information updated successfully!", "success")
+      setAlert("Information updated successfully!", "success");
       setIsEditMode(false);
     } catch (error) {
       setIsEditMode(false);
-      setAlert("Something wrong happened. Please, try again later", "error")
+      setAlert("Something wrong happened. Please, try again later", "error");
     }
-  }
+  };
 
   const uploadPhoto = async (e: any) => {
     try {
-      await uploadProfilePhoto(token, e.target.files[0])
-      setAlert("Information updated successfully!", "success")
-      location.reload()
+      await uploadProfilePhoto(token, e.target.files[0]);
+      setAlert("Information updated successfully!", "success");
+      location.reload();
     } catch (error) {
-      setAlert("Something wrong happened. Please, try again later", "error")
+      setAlert("Something wrong happened. Please, try again later", "error");
     }
-  }
+  };
 
   return (
     <>
-      <Grid container sx={{ padding: '3rem' }}>
-        <Grid item xs={12} sx={{ paddingLeft: '5rem', marginBottom: '2rem'}}>
+      <Grid container sx={{ padding: "3rem" }}>
+        <Grid item xs={12} sx={{ paddingLeft: "5rem", marginBottom: "2rem" }}>
           <ProfileTitle />
         </Grid>
-        <Grid item xs={3} sx={{ display: 'flex', flexDirection: 'column', paddingTop: '2rem' }}>
+        <Grid
+          item
+          xs={3}
+          sx={{ display: "flex", flexDirection: "column", paddingTop: "2rem" }}
+        >
           <ProfilePhoto />
-          <ProfileButtons 
-            isEditMode={isEditMode} 
+          <ProfileButtons
+            isEditMode={isEditMode}
             activateEditForm={() => setIsEditMode(true)}
             submitForm={formik.handleSubmit}
             uploadPhoto={uploadPhoto}
           />
         </Grid>
-        <Grid item xs={9} sx={{ paddingTop: '2rem' }}>
+        <Grid item xs={9} sx={{ paddingTop: "2rem" }}>
           <Grid container>
             <Grid item xs={12}>
               <Typography
                 variant="h5"
                 className={profileScss["title-address-information"]}
-                sx={{ paddingBottom: '1rem' }}
+                sx={{ paddingBottom: "1rem" }}
               >
                 Personal Information
               </Typography>
@@ -107,11 +116,11 @@ const Profile = () => {
                 paddingTop: "1rem",
               }}
             />
-            <Grid item xs={12} sm={6} sx={{ paddingTop: '2rem' }}>
+            <Grid item xs={12} sm={6} sx={{ paddingTop: "2rem" }}>
               <AddressInformation isEditMode={isEditMode} formik={formik} />
             </Grid>
-            <Grid item xs={12} sm={6} sx={{ paddingTop: '2rem' }}>
-              {/* <AcademicInformation isEditMode={isEditMode} formik={formik} /> */}
+            <Grid item xs={12} sm={6} sx={{ paddingTop: "2rem" }}>
+              <AcademicInformation isEditMode={isEditMode} formik={formik} />
             </Grid>
           </Grid>
         </Grid>
