@@ -9,7 +9,8 @@ import useAuthStore from "@/hooks/useAuthStore";
 import styles from "./styles.module.scss";
 import useAlert from "@/hooks/useAlert";
 import { IUserDocumentsData, ICampusDocumentsData } from "../../types";
-
+import { TitleRed } from "@/utils";
+import { ExtractWordsBetweenParentheses } from "@/utils";
 interface IDocumentsProps {
   title: string;
   campusId: number;
@@ -30,7 +31,6 @@ const Documents = ({
   mandatory,
   getUserCampusInfo,
   userDocuments,
-  campusDocuments,
   requestUserDocuments
 }: IDocumentsProps) => {
 
@@ -94,15 +94,18 @@ const Documents = ({
           <Grid item xs={10}>
             <div className={styles["document-row-wrapper"]}>
               <Grid item xs={10}>
-                <Typography
+                <Box
                   sx={{
-                    fontFamily: "GothamMedium !important",
-                    fontSize: "1.2rem",
-                    fontWeight: "bolder",
-                    display: "inline-block",
+                    fontSize: "1rem",
+                    display: "flex",
+                    
                   }}
                 >
-                  {title}
+                  {ExtractWordsBetweenParentheses(title)}
+                  <Typography sx={{color:'red', paddingLeft:'0.5rem'}}>
+                    {TitleRed(title)}
+                  
+                  </Typography>
                   {parseInt(mandatory) !== 0 && (
                     <Typography
                       sx={{
@@ -117,7 +120,8 @@ const Documents = ({
                       *
                     </Typography>
                   )}
-                </Typography>
+                 
+                </Box> 
               </Grid>
               <Grid item xs={2} gap={3}>
                 <div className={styles["document-actions-button"]}>
@@ -167,7 +171,7 @@ const Documents = ({
                         <VisibilityIcon
                           sx={{
                             fontSize: "24px !important",
-                            color: "#e0e0e0"
+                            color: "white"
                           }}
                         />
                       </div>
@@ -185,7 +189,7 @@ const Documents = ({
                           startIcon={
                             <DeleteIcon
                               sx={{
-                                color: "#e0e0e0",
+                                color: "white",
                                 cursor: "pointer",
                                 fontSize: "24px !important",
                               }}
@@ -202,11 +206,12 @@ const Documents = ({
                           sx={{
                             minWidth: "16px !important",
                             padding: "0px !important",
+                            
                           }}
                           startIcon={
                             <DeleteIcon
                               sx={{
-                                color: "#e0e0e0",
+                                color: "white",
                                 cursor: "pointer",
                                 fontSize: "24px !important",
                               }}
