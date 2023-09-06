@@ -3,7 +3,7 @@ import TextField from "@mui/material/TextField";
 import { CustomLabel } from "@/components";
 import { InputAdornment, IconButton } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
-
+import styles from './form.module.scss'
 const PasswordField = ({
   formik,
   showPassword,
@@ -38,6 +38,7 @@ const PasswordField = ({
     "& .MuiOutlinedInput-input": {
       padding: "0.7rem",
     },
+   
   };
 
   return (
@@ -46,21 +47,23 @@ const PasswordField = ({
       <TextField
         sx={customTextField}
         placeholder="Password"
-        type={showPassword ? "text" : "password"}
         name="password"
+        type={showPassword ? "text" : "password"}
         value={formik.values.password}
         onChange={formik.handleChange}
         size="small"
         InputProps={{
           endAdornment: (
-            <InputAdornment position="end">
-              <IconButton onClick={handleTogglePasswordVisibility} edge="end">
+            <InputAdornment position="end" >
+              <IconButton onClick={handleTogglePasswordVisibility}
+               edge="end"  >
                 {showPassword ? <VisibilityOff /> : <Visibility />}
               </IconButton>
             </InputAdornment>
           ),
         }}
-      />
+/>
+
 
       {formik.touched.password && formik.errors.password && (
         <p style={{ color: "red", fontWeight: "lighter", fontSize:12 }}>
