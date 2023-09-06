@@ -27,7 +27,7 @@ const Sidebar = () => {
   };
   const {  isVeryScreenSmall, isMedium } = useMediaQueries();
 
-  const iconSizeNormal = "2.5rem";
+  const iconSizeNormal = "2rem";
   const iconSizeMedium = "2rem";
 
   // Variables para colores
@@ -35,7 +35,7 @@ const Sidebar = () => {
   const mediumColor = "#009999";
 
   const textSmall = "0.67rem";
-  const textNormal = "1.2rem";
+  const textNormal = "1.1rem";
 
   return (
     <Grid
