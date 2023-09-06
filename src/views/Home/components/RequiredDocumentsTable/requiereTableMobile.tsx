@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useLayoutEffect } from "react";
 import {
   Box,
   Table,
@@ -35,13 +35,23 @@ const RequiredDocumentsTableMobile: React.FC<RequiredDocumentsTableProps> = ({
 
   // Refs for storing heights of table cells
   const refArray = useRef<(HTMLDivElement | null)[]>([]);
-  const rowRefArray = useRef<(HTMLTableRowElement | null)[]>([]);
 
   // State variables for heights
   const [heights, setHeights] = useState<number[]>([]);
 
+  //
+  const chageTitle = (title: string): string => {
+    if (title === "Time") {
+      return "Status";
+    }
+    if (title === "Status") {
+      return "Time";
+    }
+    return title;
+  };
+
   // Calculate and set heights on document list change
-  useEffect(() => {
+  useLayoutEffect(() => {
     const newHeights: number[] = [];
     // getHeight
     refArray.current.forEach((ref) => {
@@ -57,39 +67,43 @@ const RequiredDocumentsTableMobile: React.FC<RequiredDocumentsTableProps> = ({
     <TableContainer
       sx={{
         display: "flex",
-        maxWidth: "79%",
+        width: "92%",
       }}
     >
       <Table aria-label="simple table">
         <TableHead sx={{ height: "5vh" }}>
-          <TableRow>
-            {tableHeaders?.map((header) =>
-              header.title !== "Action" ? (
-                <TableCell
-                  key={header.id}
-                  sx={{ fontSize: "1rem", border: "0px" }}
-                >
-                  {header.title}
-                </TableCell>
-              ) : (
-                <TableCell
-                  key={header.id}
-                  sx={{ fontSize: "1rem", border: "0px" }}
-                  style={{
-                    position: "absolute",
-                    right: 0,
-                    backgroundColor: "white",
-                    minWidth: "5.3rem",
-                    ...(documentList.length && {
-                      boxShadow: "-1px 0 0 rgba(221, 221, 221, 0.6)",
-                    }),
-                  }}
-                >
-                  {header.title}
-                </TableCell>
-              )
-            )}
-          </TableRow>
+          {documentList.length ? (
+            <TableRow>
+              {tableHeaders?.map((header) =>
+                header.title !== "Action" ? (
+                  <TableCell
+                    key={header.id}
+                    sx={{ fontSize: "1rem", border: "0px" }}
+                  >
+                    {chageTitle(header.title)}
+                  </TableCell>
+                ) : (
+                  <TableCell
+                    key={header.id}
+                    sx={{ fontSize: "1rem", border: "0px" }}
+                    style={{
+                      position: "absolute",
+                      right: 0,
+                      backgroundColor: "white",
+                      minWidth: "5.3rem",
+                      ...(documentList.length && {
+                        boxShadow: "-1px 0 0 rgba(221, 221, 221, 0.6)",
+                      }),
+                    }}
+                  >
+                    {header.title}
+                  </TableCell>
+                )
+              )}
+            </TableRow>
+          ) : (
+            <></>
+          )}
         </TableHead>
         <TableBody>
           {documentList.length ? (
@@ -101,7 +115,6 @@ const RequiredDocumentsTableMobile: React.FC<RequiredDocumentsTableProps> = ({
                   borderBottomLeftRadius: "5px",
                   border: "0px",
                 }}
-                ref={(e) => (rowRefArray.current[index] = e)}
               >
                 <TableCell
                   component="th"
@@ -125,12 +138,12 @@ const RequiredDocumentsTableMobile: React.FC<RequiredDocumentsTableProps> = ({
                       borderBottomLeftRadius: "10px",
                       borderTopLeftRadius: "10px",
                       paddingRight: "0rem",
-                      width: "230%",
+                      width: "270%",
                     }}
                   >
                     <Box
                       sx={{
-                        width: "10rem",
+                        width: "9rem",
                         padding: "0.5rem",
                         fontSize: "1rem",
                       }}
@@ -148,13 +161,6 @@ const RequiredDocumentsTableMobile: React.FC<RequiredDocumentsTableProps> = ({
                   </Box>
                 </TableCell>
                 <TableCell
-                  sx={{
-                    border: "0px",
-                  }}
-                >
-                  <Typography>{formatDate(row.created)}</Typography>
-                </TableCell>
-                <TableCell
                   align="center"
                   sx={{
                     padding: "0rem",
@@ -163,6 +169,13 @@ const RequiredDocumentsTableMobile: React.FC<RequiredDocumentsTableProps> = ({
                   }}
                 >
                   <StatusButton statusName={row.status_desc as string} />
+                </TableCell>
+                <TableCell
+                  sx={{
+                    border: "0px",
+                  }}
+                >
+                  <Typography>{formatDate(row.created)}</Typography>
                 </TableCell>
 
                 {/* mantine sobre la tabla */}
@@ -188,17 +201,31 @@ const RequiredDocumentsTableMobile: React.FC<RequiredDocumentsTableProps> = ({
                       display: "flex",
                       flexDirection: "row",
                       alignItems: "center",
-                      justifyContent: "center",
-                      overflowY: "auto",
+                      justifyContent: "space-around",
                       backgroundColor: "#eeeeee",
                       width: "100%",
                       borderTopRightRadius: "10px",
                       borderBottomRightRadius: "10px",
-                      minHeight: `${heights[index]}px`,
+                      minHeight: `${heights[index] + 0.2}px`,
                       maxHeight: `${heights[index]}px`,
-                      minWidth: "2rem",
+                      minWidth: "4rem",
+                      paddingLeft: "0.3rem",
                     }}
                   >
+                    <ChatIcon
+                      sx={{
+                        fontSize: "1.4rem",
+                        color: "#f7941d",
+                        cursor: "none",
+                        opacity: 0.5,
+                        ...(row.ob_message && {
+                          opacity: 1,
+                          cursor: "pointer",
+                        }),
+                      }}
+                      onClick={() => displayModal(row.ob_message)}
+                    />
+
                     {row.url ? (
                       <a
                         href={row.url}
@@ -207,8 +234,8 @@ const RequiredDocumentsTableMobile: React.FC<RequiredDocumentsTableProps> = ({
                         style={{
                           backgroundColor: "#009999",
                           borderRadius: "100%",
-                          width: "1.5rem",
-                          height: "1.5rem",
+                          width: "1.4rem",
+                          height: "1.4rem",
                           justifyContent: "center",
                           alignItems: "center",
                           display: "flex",
@@ -230,17 +257,6 @@ const RequiredDocumentsTableMobile: React.FC<RequiredDocumentsTableProps> = ({
                           cursor: "default",
                           opacity: 0.5,
                         }}
-                      />
-                    )}
-                    {row.ob_message && (
-                      <ChatIcon
-                        sx={{
-                          fontSize: "1.4rem",
-                          color: "#f7941d",
-                          cursor: "pointer",
-                          marginLeft: "0.5rem !important",
-                        }}
-                        onClick={() => displayModal(row.ob_message)}
                       />
                     )}
                   </Box>
