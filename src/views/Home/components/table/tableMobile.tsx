@@ -23,7 +23,6 @@ interface IBasicTableProps {
 const BasicTableMobile: React.FC<IBasicTableProps> = ({
   handleModal,
   setDocumentId,
-
   userServices,
 }) => {
   const refArray = useRef<(HTMLDivElement | null)[]>([]);
@@ -53,141 +52,135 @@ const BasicTableMobile: React.FC<IBasicTableProps> = ({
 
   return (
     <TableContainer sx={{ display: "flex" }}>
-      <Table
-        sx={{ width: "100%", justifyContent: "space-around" }}
-        aria-label="simple table"
-      >
-        {/* TableHead should contain a single TableRow */}
-        <TableHead>
-          <TableRow>
-            {TitleTableHeadName.map(
-              (header, index) =>
-                header !== "Action" && (
-                  <TableCell
-                    key={index}
-                    sx={{
-                      border: "0px",
-                    }}
-                    align="center"
-                  >
-                    <Typography
+      {userServices.length ? (
+        <Table
+          sx={{ width: "100%", justifyContent: "space-around" }}
+          aria-label="simple table"
+        >
+          {/* TableHead should contain a single TableRow */}
+          <TableHead>
+            <TableRow>
+              {TitleTableHeadName.map(
+                (header, index) =>
+                  header !== "Action" && (
+                    <TableCell
+                      key={index}
                       sx={{
-                        fontSize: "1rem",
-                        minWidth: "5rem",
+                        border: "0px",
                       }}
                     >
-                      {header}
-                    </Typography>
-                  </TableCell>
-                )
-            )}
-
-            <TableCell
-              sx={{
-                paddingLeft: "4%",
-                minWidth: "7rem",
-                minHeight: "10%",
-              }}
-              style={{
-                position: "absolute",
-                right: 0,
-                backgroundColor: "white",
-                border: "0px",
-                boxShadow: "-1px 0 0 rgba(221, 221, 221, 0.8)",
-              }}
-            >
-              <span style={{ fontSize: "1rem" }}>Action</span>
-            </TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {userServices.map((row, index) => (
-            <TableRow
-              key={index}
-              sx={{
-                "&:last-child td, &:last-child th": { border: 0 },
-              }}
-            >
-              <TableCell component="th" scope="row">
-                <span className={styles["typography"]}>
-                  <Box
-                    ref={(el: HTMLDivElement) => (refArray.current[index] = el)}
-                    sx={{
-                      display: "flex",
-                      flexDirection: "column",
-                      justifyContent: "center",
-                      overflowY: "auto",
-                      minHeight: "4.5rem",
-                      maxHeight: "4.5rem",
-                      minWidth: "16rem",
-                      scrollbarWidth: "none",
-                      "&::-webkit-scrollbar": {
-                        width: "0.4em",
-                      },
-                      "&::-webkit-scrollbar-thumb": {
-                        backgroundColor: "transparent",
-                      },
-                    }}
-                  >
-                    {row.service} {row.campus_name}
-                  </Box>
-                </span>
-              </TableCell>
-              <TableCell align="center">
-                <span className={styles["typography"]}>
-                  {formatDate(row.created)}
-                </span>
-              </TableCell>
-              <TableCell align="center">
-                <Typography className={styles["typography"]}>
-                  {row.days_to_expire}
-                </Typography>
-              </TableCell>
-              <TableCell align="center" sx={{ paddingTop: "1.5rem" }}>
-                <StatusButton statusName={row.status_desc as string} />
-              </TableCell>
+                      <Typography
+                        sx={{
+                          fontSize: "1.1rem",
+                          minWidth: "6rem",
+                        }}
+                      >
+                        {header}
+                      </Typography>
+                    </TableCell>
+                  )
+              )}
 
               <TableCell
+                sx={{
+                  paddingLeft: "4%",
+                  minWidth: "7rem",
+                  minHeight: "10%",
+                }}
+                align="center"
                 style={{
-                  position: "sticky",
+                  position: "absolute",
                   right: 0,
-                  boxShadow: "-1px 0px 0px rgba(221, 221, 221, 0.8)",
-                  width: "7rem",
                   backgroundColor: "white",
-                  display: "flex",
-                  borderBlockColor: "rgba(221, 221, 221, 0.8)",
+                  border: "0px",
+                  boxShadow: "-1px 0 0 rgba(221, 221, 221, 0.8)",
                 }}
               >
-                <Box
-                  sx={{
-                    display: "flex",
-                    minHeight: `${heights[index]}px`,
-                    maxHeight: `${heights[index]}px`,
-                  }}
-                >
-                  <IconButton
-                    onClick={() => {
-                      handleModal(`${row.service} - ${row.campus_name}`);
-                      setDocumentId(row.campus_id);
-                    }}
-                  >
-                    <VisibilityIcon
-                      sx={{
-                        color: "#009999",
-                        cursor: "pointer",
-                      }}
-                    />
-                  </IconButton>
-
-                  <IconButton>
-                    <DownloadIcon sx={{ color: "rgba(0, 168, 168, 0.42)" }} />
-                  </IconButton>
-                </Box>
+                <span style={{ fontSize: "1.1rem" }}>Action</span>
               </TableCell>
             </TableRow>
-          ))}
-        </TableBody>
-      </Table>
+          </TableHead>
+          <TableBody>
+            {userServices.map((row, index) => (
+              <TableRow key={index}>
+                <TableCell component="th" scope="row">
+                  <span className={styles["typography"]}>
+                    <Box
+                      ref={(el: HTMLDivElement) =>
+                        (refArray.current[index] = el)
+                      }
+                      sx={{
+                        display: "flex",
+                        flexDirection: "column",
+                        justifyContent: "center",
+                        minWidth: "11rem",
+                      }}
+                    >
+                      {row.service} {row.campus_name}
+                    </Box>
+                  </span>
+                </TableCell>
+                <TableCell align="center">
+                  <span className={styles["typography"]}>
+                    {formatDate(row.created)}
+                  </span>
+                </TableCell>
+                <TableCell align="center">
+                  <Typography className={styles["typography"]}>
+                    {row.days_to_expire}
+                  </Typography>
+                </TableCell>
+                <TableCell align="center" sx={{ paddingTop: "1.5rem" }}>
+                  <StatusButton statusName={row.status_desc as string} />
+                </TableCell>
+
+                <TableCell
+                  style={{
+                    position: "sticky",
+                    right: 0,
+                    backgroundColor: "white",
+                    border: "0px",
+                    display: "flex",
+                    borderBottom: "1px solid rgba(221, 221, 221, 0.6)",
+                    borderLeft: "1px solid #ddd",
+                    paddingTop: "1.14rem",
+                  }}
+                >
+                  <Box
+                    sx={{
+                      display: "flex",
+                      minHeight: `${heights[index] + 1}px`,
+                      maxHeight: `${heights[index] + 1}px`,
+                    }}
+                  >
+                    <IconButton
+                      onClick={() => {
+                        handleModal(`${row.service} - ${row.campus_name}`);
+                        setDocumentId(row.campus_id);
+                      }}
+                    >
+                      <VisibilityIcon
+                        sx={{
+                          color: "#009999",
+                          cursor: "pointer",
+                        }}
+                      />
+                    </IconButton>
+
+                    <IconButton>
+                      <DownloadIcon sx={{ color: "rgba(0, 168, 168, 0.42)" }} />
+                    </IconButton>
+                  </Box>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      ) : (
+        <Box sx={{ width: "100%", display: "flex", justifyContent: "center" }}>
+          <Typography textAlign="center">There is no content here</Typography>
+        </Box>
+      )}
     </TableContainer>
   );
 };

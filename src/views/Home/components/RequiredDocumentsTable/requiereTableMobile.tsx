@@ -188,7 +188,6 @@ const RequiredDocumentsTableMobile: React.FC<RequiredDocumentsTableProps> = ({
                     display: "flex",
                     alignItems: "center",
                     border: "0px",
-                    boxShadow: "-1px 0 0px rgba(221, 221, 221, 0.6)",
                   }}
                   style={{
                     position: "absolute",
