@@ -1,11 +1,10 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useLayoutEffect, useRef } from "react";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
 import { Box, IconButton, Typography } from "@mui/material";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import DownloadIcon from "@mui/icons-material/Download";
@@ -24,21 +23,15 @@ interface IBasicTableProps {
 const BasicTableMobile: React.FC<IBasicTableProps> = ({
   handleModal,
   setDocumentId,
-
   userServices,
 }) => {
   const refArray = useRef<(HTMLDivElement | null)[]>([]);
 
-  // TableRow
-  const rowRefArray = useRef<(HTMLTableRowElement | null)[]>([]);
-
   const [heights, setHeights] = useState<number[]>([]);
-  const [rowheights, setRowHeights] = useState<number[]>([]);
 
   // Calculate and set heights on document list change
-  useEffect(() => {
+  useLayoutEffect(() => {
     const newHeights: number[] = [];
-    const newRowHeights: number[] = [];
 
     refArray.current.forEach((ref) => {
       if (ref) {
@@ -48,23 +41,18 @@ const BasicTableMobile: React.FC<IBasicTableProps> = ({
     });
 
     setHeights(newHeights);
-
-    rowRefArray.current.forEach((rowRef) => {
-      if (rowRef) {
-        const { height } = rowRef.getBoundingClientRect();
-        newRowHeights.push(height);
-      }
-    });
-
-    setRowHeights(newRowHeights);
   }, [userServices]);
 
+  const TitleTableHeadName: string[] = [
+    "Service",
+    "Time",
+    "Days Left",
+    "Status",
+  ];
+
   return (
-    <TableContainer
-      component={Paper}
-      sx={{ padding: "1rem", display: "flex", flexDirection: "row" }}
-    >
-      <TableContainer sx={{ width: "100vh" }}>
+    <TableContainer sx={{ display: "flex" }}>
+      {userServices.length ? (
         <Table
           sx={{ width: "100%", justifyContent: "space-around" }}
           aria-label="simple table"
@@ -72,53 +60,49 @@ const BasicTableMobile: React.FC<IBasicTableProps> = ({
           {/* TableHead should contain a single TableRow */}
           <TableHead>
             <TableRow>
-              <TableCell sx={{ display: "flex", justifyContent: "center" }}>
-                <span
-                  className={styles["typography"]}
-                  style={{ fontSize: "1.1rem", paddingBottom: "0.05rem" }}
-                >
-                  Service
-                </span>
-              </TableCell>
-              <TableCell sx={{ paddingLeft: "8%" }}>
-                <span
-                  className={styles["typography"]}
-                  style={{ fontSize: "1rem" }}
-                >
-                  Time
-                </span>
-              </TableCell>
-              <TableCell>
-                <Typography
-                  className={styles["typography"]}
-                  style={{
-                    fontSize: "1rem",
-                    minWidth: "7rem",
-                    paddingLeft: "2rem",
-                  }}
-                >
-                  Days Left
-                </Typography>
-              </TableCell>
-              <TableCell sx={{ paddingLeft: "4%" }}>
-                <span
-                  className={styles["typography"]}
-                  style={{ fontSize: "1rem" }}
-                >
-                  Status
-                </span>
+              {TitleTableHeadName.map(
+                (header, index) =>
+                  header !== "Action" && (
+                    <TableCell
+                      key={index}
+                      sx={{
+                        border: "0px",
+                      }}
+                    >
+                      <Typography
+                        sx={{
+                          fontSize: "1.1rem",
+                          minWidth: "6rem",
+                        }}
+                      >
+                        {header}
+                      </Typography>
+                    </TableCell>
+                  )
+              )}
+
+              <TableCell
+                sx={{
+                  paddingLeft: "4%",
+                  minWidth: "7rem",
+                  minHeight: "10%",
+                }}
+                align="center"
+                style={{
+                  position: "absolute",
+                  right: 0,
+                  backgroundColor: "white",
+                  border: "0px",
+                  boxShadow: "-1px 0 0 rgba(221, 221, 221, 0.8)",
+                }}
+              >
+                <span style={{ fontSize: "1.1rem" }}>Action</span>
               </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {userServices.map((row, index) => (
-              <TableRow
-                key={index}
-                sx={{
-                  "&:last-child td, &:last-child th": { border: 0 },
-                }}
-                ref={(e) => (rowRefArray.current[index] = e)}
-              >
+              <TableRow key={index}>
                 <TableCell component="th" scope="row">
                   <span className={styles["typography"]}>
                     <Box
@@ -129,20 +113,10 @@ const BasicTableMobile: React.FC<IBasicTableProps> = ({
                         display: "flex",
                         flexDirection: "column",
                         justifyContent: "center",
-                        overflowY: "auto",
-                        minHeight: "4.5rem",
-                        maxHeight: "4.5rem",
-                        minWidth: "16rem",
-                        scrollbarWidth: "none",
-                        "&::-webkit-scrollbar": {
-                          width: "0.4em",
-                        },
-                        "&::-webkit-scrollbar-thumb": {
-                          backgroundColor: "transparent",
-                        },
+                        minWidth: "11rem",
                       }}
                     >
-                      {row.service} - {row.campus_name}
+                      {row.service} {row.campus_name}
                     </Box>
                   </span>
                 </TableCell>
@@ -159,46 +133,24 @@ const BasicTableMobile: React.FC<IBasicTableProps> = ({
                 <TableCell align="center" sx={{ paddingTop: "1.5rem" }}>
                   <StatusButton statusName={row.status_desc as string} />
                 </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
-      {/* table 2 */}
-      <TableContainer>
-        <Table aria-label="simple table">
-          {/* TableHead should contain a single TableRow */}
-          <TableHead>
-            <TableRow>
-              <TableCell align="center">
-                <span
-                  className={styles["typography"]}
-                  style={{ fontSize: "1rem" }}
+
+                <TableCell
+                  style={{
+                    position: "sticky",
+                    right: 0,
+                    backgroundColor: "white",
+                    border: "0px",
+                    display: "flex",
+                    borderBottom: "1px solid rgba(221, 221, 221, 0.6)",
+                    borderLeft: "1px solid #ddd",
+                    paddingTop: "1.14rem",
+                  }}
                 >
-                  Action
-                </span>
-              </TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {userServices.map((row, index) => (
-              <TableRow
-                key={index}
-                sx={{
-                  "&:last-child td, &:last-child th": { border: 0 },
-                  minHeight: `${rowheights[index]}px`,
-                  maxHeight: `${rowheights[index]}px`,
-                }}
-              >
-                <TableCell>
                   <Box
                     sx={{
                       display: "flex",
-                      flexDirection: "row",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      minHeight: `${heights[index]}px`,
-                      maxHeight: `${heights[index]}px`,
+                      minHeight: `${heights[index] + 1}px`,
+                      maxHeight: `${heights[index] + 1}px`,
                     }}
                   >
                     <IconButton
@@ -208,7 +160,10 @@ const BasicTableMobile: React.FC<IBasicTableProps> = ({
                       }}
                     >
                       <VisibilityIcon
-                        sx={{ color: "#009999", cursor: "pointer" }}
+                        sx={{
+                          color: "#009999",
+                          cursor: "pointer",
+                        }}
                       />
                     </IconButton>
 
@@ -221,7 +176,11 @@ const BasicTableMobile: React.FC<IBasicTableProps> = ({
             ))}
           </TableBody>
         </Table>
-      </TableContainer>
+      ) : (
+        <Box sx={{ width: "100%", display: "flex", justifyContent: "center" }}>
+          <Typography textAlign="center">There is no content here</Typography>
+        </Box>
+      )}
     </TableContainer>
   );
 };

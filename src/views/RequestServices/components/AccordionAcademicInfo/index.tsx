@@ -15,7 +15,6 @@ import CustomLabel from '@/components/CustomLabel';
 import { selectStyles } from '@/views/RequestServices/constants';
 import { IEntranceTermsData, ICampusData } from '@/views/RequestServices/types';
 import { getAcademicYears, getEntranceTerms } from '@/views/RequestServices/functions';
-import { set } from "lodash";
 
 interface IAccordionAcademicInfoProps {
   campusData: any,
@@ -101,7 +100,7 @@ const AccordionAcademicInfo = ({ campusData, campusId, academicForm, setAcademic
         </AccordionSummary>
         <AccordionDetails>
           <Grid container spacing={2} sx={{ py: 1 }}>
-            <Grid item xs={12} sm={6} md={3}>
+            <Grid item xs={10} sm={8} md={8} lg={6}>
               <FormControl fullWidth={true} variant="outlined" sx={selectStyles} disabled={campusId === ''}>
                 <CustomLabel name="Entrance Academic Year" required={true} />
                 <Select
@@ -121,7 +120,7 @@ const AccordionAcademicInfo = ({ campusData, campusId, academicForm, setAcademic
                 </Select>
               </FormControl>
             </Grid>
-            <Grid item xs={12} sm={6} md={3}>
+            <Grid item xs={10} sm={8} md={8} lg={6}>
               <FormControl fullWidth={true} variant="outlined" sx={selectStyles} disabled={campusId === ''}>
                 <CustomLabel name="Entrance Term" required={true} />
                 <Select
@@ -131,6 +130,7 @@ const AccordionAcademicInfo = ({ campusData, campusId, academicForm, setAcademic
                     setSelectedETerm(newValue);
                     handleAcademicFormChange('term_id', newValue);
                   }}
+                
                 >
                   <MenuItem value={"placeholder"} disabled>
                     Select Entrance Term
