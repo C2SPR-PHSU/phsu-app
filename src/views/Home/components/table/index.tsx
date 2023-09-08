@@ -174,15 +174,6 @@ export default function BasicTable({
                       display: "flex",
                     }}
                   >
-                    {row.service}
-                  </Typography>
-
-                  <Typography
-                    className={styles["typography"]}
-                    sx={{
-                      display: "none",
-                    }}
-                  >
                     {row.service} - {row.campus_name}
                   </Typography>
                 </TableCell>

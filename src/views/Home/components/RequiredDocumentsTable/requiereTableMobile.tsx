@@ -120,8 +120,8 @@ const RequiredDocumentsTableMobile: React.FC<RequiredDocumentsTableProps> = ({
                   component="th"
                   scope="row"
                   sx={{
-                    paddingTop: "0.5rem",
-                    paddingBottom: "0.5rem",
+                    paddingTop: "0.49rem",
+                    paddingBottom: "0.52rem",
                     border: "0px",
                   }}
                 >
@@ -206,7 +206,7 @@ const RequiredDocumentsTableMobile: React.FC<RequiredDocumentsTableProps> = ({
                       width: "100%",
                       borderTopRightRadius: "10px",
                       borderBottomRightRadius: "10px",
-                      minHeight: `${heights[index] + 0.2}px`,
+                      minHeight: `${heights[index]}px`,
                       maxHeight: `${heights[index]}px`,
                       minWidth: "4rem",
                       paddingLeft: "0.3rem",
