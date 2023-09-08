@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useLayoutEffect } from "react";
 import {
   Box,
   Table,
@@ -35,17 +35,24 @@ const RequiredDocumentsTableMobile: React.FC<RequiredDocumentsTableProps> = ({
 
   // Refs for storing heights of table cells
   const refArray = useRef<(HTMLDivElement | null)[]>([]);
-  const rowRefArray = useRef<(HTMLTableRowElement | null)[]>([]);
 
   // State variables for heights
   const [heights, setHeights] = useState<number[]>([]);
-  const [rowHeights, setRowHeights] = useState<number[]>([]);
+
+  //
+  const chageTitle = (title: string): string => {
+    if (title === "Time") {
+      return "Status";
+    }
+    if (title === "Status") {
+      return "Time";
+    }
+    return title;
+  };
 
   // Calculate and set heights on document list change
-  useEffect(() => {
+  useLayoutEffect(() => {
     const newHeights: number[] = [];
-    const newRowHeights: number[] = [];
-
     // getHeight
     refArray.current.forEach((ref) => {
       if (ref) {
@@ -54,247 +61,223 @@ const RequiredDocumentsTableMobile: React.FC<RequiredDocumentsTableProps> = ({
       }
     });
     setHeights(newHeights);
-
-    rowRefArray.current.forEach((rowRef) => {
-      if (rowRef) {
-        const { height } = rowRef.getBoundingClientRect();
-        newRowHeights.push(height);
-      }
-    });
-
-    setRowHeights(newRowHeights);
   }, [documentList]);
 
   return (
-    <TableContainer sx={{ display: "flex", flexDirection: "row" }}>
-      <TableContainer>
-        <Table aria-label="simple table">
-          <TableHead sx={{ height: "5vh" }}>
+    <TableContainer
+      sx={{
+        display: "flex",
+        width: "92%",
+      }}
+    >
+      <Table aria-label="simple table">
+        <TableHead sx={{ height: "5vh" }}>
+          {documentList.length ? (
             <TableRow>
-              {tableHeaders?.map(
-                (header) =>
-                  header.title !== "Action" && (
-                    <TableCell
-                      key={header.id}
-                      sx={{ fontSize: "1rem", border: "0px" }}
-                    >
-                      {header.title}
-                    </TableCell>
-                  )
+              {tableHeaders?.map((header) =>
+                header.title !== "Action" ? (
+                  <TableCell
+                    key={header.id}
+                    sx={{ fontSize: "1rem", border: "0px" }}
+                  >
+                    {chageTitle(header.title)}
+                  </TableCell>
+                ) : (
+                  <TableCell
+                    key={header.id}
+                    sx={{ fontSize: "1rem", border: "0px" }}
+                    style={{
+                      position: "absolute",
+                      right: 0,
+                      backgroundColor: "white",
+                      minWidth: "5.3rem",
+                      ...(documentList.length && {
+                        boxShadow: "-1px 0 0 rgba(221, 221, 221, 0.6)",
+                      }),
+                    }}
+                  >
+                    {header.title}
+                  </TableCell>
+                )
               )}
             </TableRow>
-          </TableHead>
-          <TableBody>
-            {documentList.length ? (
-              documentList?.map((row, index) => (
-                <TableRow
-                  key={row.id}
+          ) : (
+            <></>
+          )}
+        </TableHead>
+        <TableBody>
+          {documentList.length ? (
+            documentList?.map((row, index) => (
+              <TableRow
+                key={row.id}
+                sx={{
+                  borderTopLeftRadius: "5px",
+                  borderBottomLeftRadius: "5px",
+                  border: "0px",
+                }}
+              >
+                <TableCell
+                  component="th"
+                  scope="row"
                   sx={{
-                    // "&:last-child td, &:last-child th": { border: 0 },
-                    borderTopLeftRadius: "5px",
-                    borderBottomLeftRadius: "5px",
+                    paddingTop: "0.49rem",
+                    paddingBottom: "0.52rem",
                     border: "0px",
                   }}
-                  ref={(e) => (rowRefArray.current[index] = e)}
                 >
-                  <TableCell
-                    component="th"
-                    scope="row"
+                  <Box
+                    ref={(el: HTMLDivElement) => (refArray.current[index] = el)}
                     sx={{
-                      paddingTop: "0.5rem",
-                      paddingBottom: "0.5rem",
-                      border: "0px",
+                      display: "flex",
+                      flexDirection: "column",
+                      justifyContent: "center",
+                      overflowY: "auto",
+                      minWidth: "4rem",
+                      backgroundColor: "#eeeeee",
+                      paddingLeft: "1rem",
+                      borderBottomLeftRadius: "10px",
+                      borderTopLeftRadius: "10px",
+                      paddingRight: "0rem",
+                      width: "270%",
                     }}
                   >
                     <Box
-                      ref={(el: HTMLDivElement) =>
-                        (refArray.current[index] = el)
-                      }
                       sx={{
-                        display: "flex",
-                        flexDirection: "column",
-                        justifyContent: "center",
-                        overflowY: "auto",
-                        minWidth: "4rem",
-                        backgroundColor: "#eeeeee",
-                        paddingLeft: "1rem",
-                        borderBottomLeftRadius: "10px",
-                        borderTopLeftRadius: "10px",
-                        paddingRight: "0rem",
-                        width: "220%",
+                        width: "9rem",
+                        padding: "0.5rem",
+                        fontSize: "1rem",
                       }}
+                      className={styles["font"]}
                     >
-                      <Box
-                        sx={{
-                          width: "11rem",
-                          padding: "0.5rem",
-                          fontSize: "1rem",
+                      {ExtractWordsBetweenParentheses(row.description)}
+                      <p
+                        style={{
+                          color: "red",
                         }}
-                        className={styles["font"]}
                       >
-                        {ExtractWordsBetweenParentheses(row.description)}
-                        <p
-                          style={{
-                            color: "red",
-                          }}
-                        >
-                          {TitleRed(row.description)}
-                        </p>
-                      </Box>
+                        {TitleRed(row.description)}
+                      </p>
                     </Box>
-                  </TableCell>
-                  <TableCell
-                    sx={{
-                      border: "0px",
-                    }}
-                  >
-                    <Typography>{formatDate(row.created)}</Typography>
-                  </TableCell>
-                  <TableCell
-                    align="center"
-                    sx={{
-                      padding: "0rem",
-                      border: "0px",
-                    }}
-                  >
-                    <StatusButton statusName={row.status_desc as string} />
-                  </TableCell>
-                </TableRow>
-              ))
-            ) : (
-              <TableRow>
-                <TableCell>
-                  <Typography textAlign="center">
-                    There is no content here
-                  </Typography>
+                  </Box>
                 </TableCell>
-              </TableRow>
-            )}
-          </TableBody>
-        </Table>
-        <MessageModal
-          open={openModal}
-          message={modalMessage}
-          handleClose={() => setOpenModal(false)}
-        />
-      </TableContainer>
-      <TableContainer
-        sx={{
-          display: "none",
-          ...(documentList.length && {
-            display: "flex",
-            width: "12vh",
-            borderLeft: "1px solid #eeeeee",
-          }),
-        }}
-      >
-        <Table aria-label="simple table">
-          <TableHead sx={{ height: "5vh" }}>
-            <TableRow>
-              <TableCell sx={{ fontSize: "1rem", border: "0px" }}>
-                Action
-              </TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {documentList.length ? (
-              documentList?.map((row, index) => (
-                <TableRow
-                  key={index}
+                <TableCell
+                  align="center"
                   sx={{
-                    // "&:last-child td, &:last-child th": { border: 0 },
-                    minHeight: `${rowHeights[index]}px`,
-                    maxHeight: `${rowHeights[index]}px`,
-                    display: "flex",
-                    flexDirection: "row",
+                    padding: "0rem",
+                    border: "0px",
+                    paddingRight: "1rem",
                   }}
                 >
-                  <TableCell
+                  <StatusButton statusName={row.status_desc as string} />
+                </TableCell>
+                <TableCell
+                  sx={{
+                    border: "0px",
+                  }}
+                >
+                  <Typography>{formatDate(row.created)}</Typography>
+                </TableCell>
+
+                {/* mantine sobre la tabla */}
+                <TableCell
+                  sx={{
+                    paddingLeft: 0,
+                    paddingTop: "0.5rem",
+                    paddingBottom: "0.5rem",
+                    width: "5.3rem",
+                    display: "flex",
+                    alignItems: "center",
+                    border: "0px",
+                  }}
+                  style={{
+                    position: "absolute",
+                    right: 0,
+                    backgroundColor: "white",
+                  }}
+                >
+                  <Box
                     sx={{
-                      paddingLeft: 0,
-                      paddingTop: "0.5rem",
-                      paddingBottom: "0.5rem",
-                      width: "5.3rem",
                       display: "flex",
+                      flexDirection: "row",
                       alignItems: "center",
-                      border: "0px",
+                      justifyContent: "space-around",
+                      backgroundColor: "#eeeeee",
+                      width: "100%",
+                      borderTopRightRadius: "10px",
+                      borderBottomRightRadius: "10px",
+                      minHeight: `${heights[index]}px`,
+                      maxHeight: `${heights[index]}px`,
+                      minWidth: "4rem",
+                      paddingLeft: "0.3rem",
                     }}
                   >
-                    <Box
+                    <ChatIcon
                       sx={{
-                        display: "flex",
-                        flexDirection: "row",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        overflowY: "auto",
-                        backgroundColor: "#eeeeee",
-                        width: "100%",
-                        borderTopRightRadius: "10px",
-                        borderBottomRightRadius: "10px",
-                        minHeight: `${heights[index]}px`,
-                        maxHeight: `${heights[index]}px`,
-                        minWidth: "2rem",
+                        fontSize: "1.4rem",
+                        color: "#f7941d",
+                        cursor: "none",
+                        opacity: 0.5,
+                        ...(row.ob_message && {
+                          opacity: 1,
+                          cursor: "pointer",
+                        }),
                       }}
-                    >
-                      {row.url ? (
-                        <a
-                          href={row.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          style={{
-                            backgroundColor: "#009999",
-                            borderRadius: "100%",
-                            width: "1.5rem",
-                            height: "1.5rem",
-                            justifyContent: "center",
-                            alignItems: "center",
-                            display: "flex",
-                          }}
-                        >
-                          <VisibilityIcon
-                            sx={{
-                              color: "white",
-                              cursor: "pointer",
-                              width: "1.2rem",
-                              height: "1.2rem",
-                            }}
-                          />
-                        </a>
-                      ) : (
+                      onClick={() => displayModal(row.ob_message)}
+                    />
+
+                    {row.url ? (
+                      <a
+                        href={row.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        style={{
+                          backgroundColor: "#009999",
+                          borderRadius: "100%",
+                          width: "1.4rem",
+                          height: "1.4rem",
+                          justifyContent: "center",
+                          alignItems: "center",
+                          display: "flex",
+                        }}
+                      >
                         <VisibilityIcon
                           sx={{
-                            color: "#009999",
-                            cursor: "default",
-                            opacity: 0.5,
-                          }}
-                        />
-                      )}
-                      {row.ob_message && (
-                        <ChatIcon
-                          sx={{
-                            fontSize: "1.4rem",
-                            color: "#f7941d",
+                            color: "white",
                             cursor: "pointer",
-                            marginLeft: "0.5rem !important",
+                            width: "1.1rem",
+                            height: "1.1rem",
                           }}
-                          onClick={() => displayModal(row.ob_message)}
                         />
-                      )}
-                    </Box>
-                  </TableCell>
-                </TableRow>
-              ))
-            ) : (
-              <></>
-            )}
-          </TableBody>
-        </Table>
-        <MessageModal
-          open={openModal}
-          message={modalMessage}
-          handleClose={() => setOpenModal(false)}
-        />
-      </TableContainer>
+                      </a>
+                    ) : (
+                      <VisibilityIcon
+                        sx={{
+                          color: "#009999",
+                          cursor: "default",
+                          opacity: 0.5,
+                        }}
+                      />
+                    )}
+                  </Box>
+                </TableCell>
+              </TableRow>
+            ))
+          ) : (
+            <TableRow>
+              <TableCell>
+                <Typography textAlign="center">
+                  There is no content here
+                </Typography>
+              </TableCell>
+            </TableRow>
+          )}
+        </TableBody>
+      </Table>
+      <MessageModal
+        open={openModal}
+        message={modalMessage}
+        handleClose={() => setOpenModal(false)}
+      />
     </TableContainer>
   );
 };
