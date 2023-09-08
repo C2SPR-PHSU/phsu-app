@@ -68,6 +68,7 @@ export const registrationValidationSchema = Yup.object({
     .max(20, "Password must be at most 20 characters"),
 
     birthdate: Yup.date()
-    .max(new Date(new Date().getFullYear() - 84, 0, 1), 'Age must be up to 84 years.')
+    .max(new Date(new Date().getFullYear() - 16, 0, 1), 'Age must be at least 16 years.')
+    .min(new Date(new Date().getFullYear() - 80, 0, 1), 'Age must be up to 80 years.')
     .required('Date of Birth is required'),
 });
