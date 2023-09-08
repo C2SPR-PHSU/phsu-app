@@ -102,20 +102,20 @@ const Documents = ({
                   }}
                 >
                   {ExtractWordsBetweenParentheses(title)}
-                  <Typography sx={{color:'red', paddingLeft:'0.5rem'}}>
+                  <Typography sx={{color:'red', paddingLeft:'0.5rem',}} className={styles["family"]}>
                     {TitleRed(title)}
                   
                   </Typography>
                   {parseInt(mandatory) !== 0 && (
                     <Typography
                       sx={{
-                        fontFamily: "GothamMedium !important",
                         fontSize: "1.2rem",
                         fontWeight: "bolder",
                         color: "red",
                         display: "inline-block",
                         paddingLeft: "8px !important",
                       }}
+                      className={styles["family"]}
                     >
                       *
                     </Typography>
