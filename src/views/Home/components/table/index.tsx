@@ -34,7 +34,7 @@ export default function BasicTable({
   const [userServices, setUserServices] = useState<IUserServicesData[]>([]);
 
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
   const statusDictionary: { [key: number]: string } = {
     0: "To Upload",
