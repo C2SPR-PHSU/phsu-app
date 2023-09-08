@@ -153,7 +153,7 @@ const Documents = ({
                         <VisibilityIcon
                           sx={{
                             fontSize: "24px !important",
-                            color: "#e0e0e0"
+                            color: "white"
                           }}
                           onClick={() => {
                             if (currentDocument.url !== '') {
