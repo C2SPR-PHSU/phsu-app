@@ -43,12 +43,19 @@
     height: 40px;
     overflow: hidden;
     cursor: pointer;
+    min-width: 40px;
+    min-height: 40px;
 }
 
 .rounded-div {
     background-color: $primary;
+
 }
 
 .rounded-div-disabled {
-    background-color: $secondary;
+    background-color: #0099996c;
+
+}
+.family {
+    font-family: $gotham;
 }
