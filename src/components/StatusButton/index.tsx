@@ -17,7 +17,7 @@ const StatusButton = ({ statusName }: StatusButtonProps) => {
             sx={{
                 width: '100% !important',
                 padding: '0.5rem',
-                fontSize: '0.6rem !important',
+                fontSize: '0.8rem !important',
                 color: buttonColor,
                 borderColor: buttonColor,
                 "&:hover": {

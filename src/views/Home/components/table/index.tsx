@@ -34,7 +34,7 @@ export default function BasicTable({
   const [userServices, setUserServices] = useState<IUserServicesData[]>([]);
 
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
   const statusDictionary: { [key: number]: string } = {
     0: "To Upload",
@@ -77,6 +77,7 @@ export default function BasicTable({
       component={Paper}
       sx={{
         padding: "1rem",
+        
       }}
     >
       <Table
@@ -92,6 +93,7 @@ export default function BasicTable({
               sx={{
                 display: "flex",
                 justifyContent: "center",
+                
               }}
             >
               <Typography
@@ -170,6 +172,8 @@ export default function BasicTable({
                     className={styles["typography"]}
                     sx={{
                       display: "flex",
+                      maxHeight: "3rem",
+                      minWidth: "15rem",
                     }}
                   >
                     {row.service} - {row.campus_name}

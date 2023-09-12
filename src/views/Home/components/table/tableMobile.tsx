@@ -54,7 +54,10 @@ const BasicTableMobile: React.FC<IBasicTableProps> = ({
     <TableContainer sx={{ display: "flex" }}>
       {userServices.length ? (
         <Table
-          sx={{ width: "100%", justifyContent: "space-around" }}
+          sx={{
+            width: "100%",
+            justifyContent: "space-around",
+          }}
           aria-label="simple table"
         >
           {/* TableHead should contain a single TableRow */}
@@ -143,14 +146,13 @@ const BasicTableMobile: React.FC<IBasicTableProps> = ({
                     display: "flex",
                     borderBottom: "1px solid rgba(221, 221, 221, 0.6)",
                     borderLeft: "1px solid #ddd",
-                    paddingTop: "1.14rem",
                   }}
                 >
                   <Box
                     sx={{
                       display: "flex",
-                      minHeight: `${heights[index] + 1}px`,
-                      maxHeight: `${heights[index] + 1}px`,
+                      minHeight: `${heights[index]}px`,
+                      maxHeight: `${heights[index]}px`,
                     }}
                   >
                     <IconButton

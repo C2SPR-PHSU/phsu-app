@@ -147,8 +147,11 @@ const RequiredDocuments = ({
                       label="Sent"
                       value="1"
                       sx={{
+                        fontSize: "1.2rem",
+                        fontWeight: "bold",
                         sdisplay: "flex",
                         textTransform: "none",
+                        
                         ...(isMobile && {
                           fontSize: "1.1rem",
                         }),
@@ -158,6 +161,8 @@ const RequiredDocuments = ({
                       label="Received"
                       value="2"
                       sx={{
+                        fontSize: "1.2rem",
+                        fontWeight: "bold",
                         sdisplay: "flex",
                         textTransform: "none",
                         ...(isMobile && {
@@ -173,7 +178,7 @@ const RequiredDocuments = ({
               <TabPanel
                 value="1"
                 sx={{
-                  ...(isMobile && {
+                              ...(isMobile && {
                     padding: "0.4rem",
                   }),
                 }}

@@ -22,7 +22,7 @@ import { formatDate } from "@/utils";
 import RequiredDocumentsTableMobile from "./requiereTableMobile";
 import { ExtractWordsBetweenParentheses } from "@/utils";
 import { TitleRed } from "@/utils";
-import styles from "./../table/styles.module.scss";
+import styles from "./requierestyle.module.scss";
 
 
 
@@ -62,7 +62,8 @@ const RequiredDocumentsTable = ({
           <TableRow>
             {tableHeaders?.map((header, key) => {
               return (
-                <TableCell align="center" key={key} style={{borderWidth:'2.5px', borderColor:'#a5a4a493'}} >
+                <TableCell align="center" key={key} style={{borderWidth:'2.5px',
+                 borderColor:'#a5a4a493', fontSize:'1.1rem', color: "#131212b2",fontWeight:'bolder', }} >
                   {header.title}
                 </TableCell>
               );
@@ -75,51 +76,86 @@ const RequiredDocumentsTable = ({
               return (
                 <TableRow
                   key={row.id} // Agrega una clave única aquí, asumiendo que 'row.id' es único
-                  
                 >
-                  <TableCell component="th" scope="row" style={{ border: 'none' }}>
+                  <TableCell
+                    align="center"
+                    component="th"
+                    scope="row"
+                    style={{ border: "none" }}
+                  >
                     <Box
-                    sx={{
-                      display: "flex",
-                      flexDirection: "column",
-                      justifyContent: "center",
-                      backgroundColor: "#eeeeee",
-                      borderBottomLeftRadius: "10px",
-                      borderTopLeftRadius: "10px",
-                      width: "280%",
-                      height:'4rem',
-                      borderTopRightRadius:'10px',
-                      borderBottomRightRadius:'10px',
-                    }}>
-                       <Box
-                        sx={{       
+                      sx={{
+                        display: "flex",
+                        flexDirection: "column",
+                        justifyContent: "center",
+                        backgroundColor: "#eeeeee",
+                        borderBottomLeftRadius: "10px",
+                        borderTopLeftRadius: "10px",
+                        width: "290%",
+                        height: "3.5rem",
+                        borderTopRightRadius: "10px",
+                        borderBottomRightRadius: "10px",
+                      }}
+                    >
+                      <Box
+                        sx={{
                           padding: "0.5rem",
-                          fontSize: "1rem",
+                          fontWeight: "500",
+                          fontSize: "1.2rem",
+                          color: "#131212b2",
+                          display: "flex",
+                          flexDirection: "row",
                         }}
-                      
                       >
                         {ExtractWordsBetweenParentheses(row.description)}
                         <p
                           style={{
                             color: "red",
+                            paddingLeft: "0.5rem",
                           }}
                         >
                           {TitleRed(row.description)}
                         </p>
                       </Box>
-
                     </Box>
-                  </TableCell>
+                  </TableCell >
 
-                  <TableCell align="center" style={{ border: 'none' }}>
+                  <TableCell
+                  align="center"
+                    style={{
+                      border: "none",
+                      fontWeight: "bold",
+                      fontSize: "1.2rem",
+                      color: "#131212b2",
+                    }}
+                  >
                     {formatDate(row.created)}
                   </TableCell>
-                  <TableCell align="center" style={{ border: 'none' }}>
+                  <TableCell align="center" style={{ border: "none" }}>
                     <StatusButton statusName={row.status_desc as string} />
                   </TableCell>
                   {/* Acciones */}
-                  <TableCell align="center" style={{ border: 'none' }}>
-                    <>
+                  <TableCell align="center" style={{ border: "none", 
+                   }}>
+                    <div style={{
+                      border: "none",
+                      display: "flex",
+                      flexDirection: "row",
+                      alignItems: "center",
+                      justifyContent:'space-around',
+                      width:'100%'
+                    }} >
+                    <ChatIcon
+                        sx={{
+                          fontSize: "1.4rem",
+                          color: row.ob_message ? "#f7941d" : "#f7951d81",
+                          cursor: "pointer",
+                          height: "30px",
+                          width: "30px",
+                          
+                        }}
+                        onClick={() => displayModal(row.ob_message)}
+                      />
                       {row.url ? (
                         <a
                           href={row.url}
@@ -127,13 +163,13 @@ const RequiredDocumentsTable = ({
                           rel="noopener noreferrer"
                         >
                           <div className={styles["rounded-div"]}>
-                  <VisibilityIcon
-                    sx={{
-                      fontSize: "24px !important",
-                      color: "#e0e0e0"
-                    }}
-                  />
-                </div>
+                            <VisibilityIcon
+                              sx={{
+                                fontSize: "24px !important",
+                                color: "#e0e0e0",
+                              }}
+                            />
+                          </div>
                         </a>
                       ) : (
                         <VisibilityIcon
@@ -144,18 +180,10 @@ const RequiredDocumentsTable = ({
                           }}
                         />
                       )}
-                      {row.ob_message && (
-                        <ChatIcon
-                          sx={{
-                            fontSize: "1.4rem",
-                            color: "#f7941d",
-                            cursor: "pointer",
-                            marginLeft: "0.5rem !important",
-                          }}
-                          onClick={() => displayModal(row.ob_message)}
-                        />
-                      )}
-                    </>
+                     
+
+
+                    </div>
                   </TableCell>
                 </TableRow>
               );
