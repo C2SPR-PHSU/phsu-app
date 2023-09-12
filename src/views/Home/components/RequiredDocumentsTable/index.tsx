@@ -22,6 +22,10 @@ import { formatDate } from "@/utils";
 import RequiredDocumentsTableMobile from "./requiereTableMobile";
 import { ExtractWordsBetweenParentheses } from "@/utils";
 import { TitleRed } from "@/utils";
+import styles from "./../table/styles.module.scss";
+
+
+
 interface RequiredDocumentsTableProps {
   documentList: IUserDocumentsData[];
 }
@@ -82,7 +86,7 @@ const RequiredDocumentsTable = ({
                       backgroundColor: "#eeeeee",
                       borderBottomLeftRadius: "10px",
                       borderTopLeftRadius: "10px",
-                      width: "250%",
+                      width: "280%",
                       height:'4rem',
                       borderTopRightRadius:'10px',
                       borderBottomRightRadius:'10px',
@@ -122,9 +126,14 @@ const RequiredDocumentsTable = ({
                           target="_blank"
                           rel="noopener noreferrer"
                         >
-                          <VisibilityIcon
-                            sx={{ color: "#009999", cursor: "pointer" }}
-                          />
+                          <div className={styles["rounded-div"]}>
+                  <VisibilityIcon
+                    sx={{
+                      fontSize: "24px !important",
+                      color: "#e0e0e0"
+                    }}
+                  />
+                </div>
                         </a>
                       ) : (
                         <VisibilityIcon

@@ -96,6 +96,7 @@ const RequiredDocuments = ({
             <Grid container>
               <Grid item xs={12} xl={8}>
                 {/* version standar */}
+
                 <Typography
                   variant="h6"
                   className={styles["subtitle"]}
@@ -123,6 +124,7 @@ const RequiredDocuments = ({
                   }}
                 >
                   {truncateText(title)}
+                  
                 </Typography>
               </Grid>
               <Grid item xs={4}>
@@ -133,6 +135,7 @@ const RequiredDocuments = ({
                     }),
                   }}
                 >
+                  
                   <TabList
                     onChange={handleChange}
                     aria-label="lab API tabs example"
@@ -177,16 +180,7 @@ const RequiredDocuments = ({
               >
                 <RequiredDocumentsTable documentList={documentList} />
               </TabPanel>
-              <TabPanel
-                value="2"
-                sx={{
-                  ...(isMobile && {
-                    padding: "0.4rem",
-                  }),
-                }}
-              >
-                <RequiredDocumentsTable documentList={documentList} />
-              </TabPanel>
+           
             </Grid>
           </TabContext>
         </Grid>
