@@ -91,7 +91,7 @@ const RequiredDocumentsTable = ({
                         backgroundColor: "#eeeeee",
                         borderBottomLeftRadius: "10px",
                         borderTopLeftRadius: "10px",
-                        width: "290%",
+                        width: documentList.length > 1 ? "200%": "290%",
                         height: "3.5rem",
                         borderTopRightRadius: "10px",
                         borderBottomRightRadius: "10px",
