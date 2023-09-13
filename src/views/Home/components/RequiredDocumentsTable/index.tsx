@@ -23,7 +23,7 @@ import RequiredDocumentsTableMobile from "./requiereTableMobile";
 import { ExtractWordsBetweenParentheses } from "@/utils";
 import { TitleRed } from "@/utils";
 import styles from "./requierestyle.module.scss";
-
+import { useMediaQueries } from "@/views/Profile/components/BMediaQuerys";
 
 
 interface RequiredDocumentsTableProps {
@@ -42,7 +42,7 @@ const RequiredDocumentsTable = ({
     setOpenModal(true);
     setModalMessage(message);
   };
-
+  const { xl, isMedium, isScreenLg, isVeryScreenSmall} = useMediaQueries();
   if (isMobile) {
     return (
       <>
@@ -91,7 +91,7 @@ const RequiredDocumentsTable = ({
                         backgroundColor: "#eeeeee",
                         borderBottomLeftRadius: "10px",
                         borderTopLeftRadius: "10px",
-                        width: documentList.length > 1 ? "200%": "290%",
+                        width: documentList.length > 1 ? (xl ? "260%" : "200%") : (isScreenLg ? "405%" : "288%"),
                         height: "3.5rem",
                         borderTopRightRadius: "10px",
                         borderBottomRightRadius: "10px",
@@ -131,11 +131,16 @@ const RequiredDocumentsTable = ({
                   >
                     {formatDate(row.created)}
                   </TableCell>
-                  <TableCell align="center" style={{ border: "none" }}>
+                  <TableCell align="center" style={{ border: "none",  }}>
+                    <div style={{
+                  }}>
                     <StatusButton statusName={row.status_desc as string} />
+
+                    </div>
                   </TableCell>
                   {/* Acciones */}
                   <TableCell align="center" style={{ border: "none", 
+                
                    }}>
                     <div style={{
                       border: "none",
@@ -143,7 +148,6 @@ const RequiredDocumentsTable = ({
                       flexDirection: "row",
                       alignItems: "center",
                       justifyContent:'space-around',
-                      width:'100%'
                     }} >
                     <ChatIcon
                         sx={{

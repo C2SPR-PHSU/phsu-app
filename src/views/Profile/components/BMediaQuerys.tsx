@@ -7,7 +7,7 @@ export const useMediaQueries = () => {
   const isScreenLg = useMediaQuery(theme.breakpoints.down("lg"));
   const isVeryScreenSmall = useMediaQuery(theme.breakpoints.down("md"));
   const isMedium = useMediaQuery(theme.breakpoints.down("lg"));
-  // Puedes agregar más consultas de media según sea necesario
+  const xl = useMediaQuery(theme.breakpoints.down("xl"));
 
-  return { isScreenLg, isVeryScreenSmall, isMedium };
+  return { isScreenLg, isVeryScreenSmall, isMedium,xl };
 };
