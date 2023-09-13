@@ -77,6 +77,7 @@ export default function BasicTable({
       component={Paper}
       sx={{
         padding: "1rem",
+        
       }}
     >
       <Table
@@ -92,6 +93,7 @@ export default function BasicTable({
               sx={{
                 display: "flex",
                 justifyContent: "center",
+                
               }}
             >
               <Typography
@@ -163,9 +165,7 @@ export default function BasicTable({
             userServices?.map((row, index) => (
               <TableRow
                 key={index}
-                sx={{
-                  "&:last-child td, &:last-child th": { border: 0 },
-                }}
+               
               >
                 <TableCell component="th" scope="row">
                   <Typography
@@ -211,21 +211,25 @@ export default function BasicTable({
                       handleModal(`${row.service} - ${row.campus_name}`);
                       setDocumentId(row.campus_id);
                     }}
-                  >
-                    <VisibilityIcon
-                      sx={{
-                        color: "#009999",
-                        cursor: "pointer",
-                      }}
-                    />
+                  > <div className={styles["rounded-div"]}>
+                  <VisibilityIcon
+                    sx={{
+                      fontSize: "24px !important",
+                      color: "#e0e0e0"
+                    }}
+                  />
+                </div>
                   </IconButton>
 
-                  <IconButton>
+                  <IconButton >
+                    <div className={styles["rounded-div-disabled"]}>
                     <DownloadIcon
                       sx={{
-                        color: "rgba(0, 168, 168, 0.42)",
+                        color:'white'
                       }}
                     />
+                    </div>
+                   
                   </IconButton>
                 </TableCell>
               </TableRow>

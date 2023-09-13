@@ -5,3 +5,22 @@
 .typography {
     font-family: $gotham !important;
 }
+.rounded-div,
+.rounded-div-disabled {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.rounded-div {
+    background-color: $primary;
+}
+
+.rounded-div-disabled {
+    background-color:  rgba(0, 168, 168, 0.42);
+}

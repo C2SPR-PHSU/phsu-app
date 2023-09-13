@@ -161,16 +161,25 @@ const BasicTableMobile: React.FC<IBasicTableProps> = ({
                         setDocumentId(row.campus_id);
                       }}
                     >
-                      <VisibilityIcon
-                        sx={{
-                          color: "#009999",
-                          cursor: "pointer",
-                        }}
-                      />
+                       <div className={styles["rounded-div"]}>
+                  <VisibilityIcon
+                    sx={{
+                      fontSize: "24px !important",
+                      color: "#e0e0e0"
+                    }}
+                  />
+                </div>
                     </IconButton>
 
                     <IconButton>
-                      <DownloadIcon sx={{ color: "rgba(0, 168, 168, 0.42)" }} />
+                    <div className={styles["rounded-div-disabled"]}>
+                    <DownloadIcon
+                      sx={{
+                        color:'white'
+                      }}
+                    />
+                    </div>
+                   
                     </IconButton>
                   </Box>
                 </TableCell>
