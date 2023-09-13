@@ -142,9 +142,10 @@ const RequestServices = () => {
             xs={12}
             md={12}
             lg={12}
-            sx={{ gap: "1rem", display: "flex", flexDirection: "column" }}
+            sx={{ gap: "1rem", display: "flex", flexDirection: "column",
+           }}
           >
-            <Typography className={styles["title-services"]}>
+            <Typography className={styles["title-services"]} >
               {servicesTextTitle}
             </Typography>
             <Typography className={styles["description-view-services"]}>
@@ -153,15 +154,14 @@ const RequestServices = () => {
           </Grid>
 
           <div className={styles["first-row-title"]}>
-            <Grid item xs={12} md={12}>
+            <Grid item xs={12} md={12} >
               <Typography className={styles["campus-selection-title"]}>
                 Campus Selection
               </Typography>
             </Grid>
           </div>
-
           <div className={styles["form-first-row"]}>
-            <Grid item xs={12} md={7} paddingRight={"1rem"}>
+            <Grid item xs={12} md={7} paddingRight={"1rem"} >
               <FormControl
                 fullWidth={true}
                 variant="outlined"
@@ -184,7 +184,7 @@ const RequestServices = () => {
               </FormControl>
             </Grid>
 
-            <Grid item xs={12} md={7} paddingRight={"1rem"}>
+            <Grid item xs={12} md={7} paddingRight={"1rem"} >
               <FormControl
                 fullWidth={true}
                 variant="outlined"
