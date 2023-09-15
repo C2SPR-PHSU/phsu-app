@@ -23,7 +23,6 @@ import RequiredDocumentsTableMobile from "./requiereTableMobile";
 import { ExtractWordsBetweenParentheses } from "@/utils";
 import { TitleRed } from "@/utils";
 import styles from "./requierestyle.module.scss";
-import { useMediaQueries } from "@/views/Profile/components/BMediaQuerys";
 
 
 interface RequiredDocumentsTableProps {
@@ -34,7 +33,9 @@ const RequiredDocumentsTable = ({
   documentList,
 }: RequiredDocumentsTableProps) => {
   const theme = useTheme();
+
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+  const isLarge = useMediaQuery(theme.breakpoints.down("lg"));
   const [openModal, setOpenModal] = useState(false);
   const [modalMessage, setModalMessage] = useState("");
 
@@ -42,7 +43,7 @@ const RequiredDocumentsTable = ({
     setOpenModal(true);
     setModalMessage(message);
   };
-  const { xl, isMedium, isScreenLg, isVeryScreenSmall} = useMediaQueries();
+
   if (isMobile) {
     return (
       <>
@@ -81,21 +82,18 @@ const RequiredDocumentsTable = ({
                     align="center"
                     component="th"
                     scope="row"
-                    style={{ border: "none" }}
+                    style={{ border: "none"}}
                   >
                     <Box
                       sx={{
-                        display: "flex",
-                        flexDirection: "column",
-                        justifyContent: "center",
-                        backgroundColor: "#eeeeee",
+                        display: "flex",              
+                        backgroundColor:"#eeeeee",
                         borderBottomLeftRadius: "10px",
                         borderTopLeftRadius: "10px",
-                        width: documentList.length > 1 ? (isMedium ? "160%" : "160%") : (isMedium ? "310%" : "296%"),
-                        minWidth: xl && '455%',
                         height: "3.5rem",
-                        borderTopRightRadius: "10px",
-                        borderBottomRightRadius: "10px",
+                        flexDirection:'row',
+                        width:'130%',
+                        alignItems:'center'
                       }}
                     >
                       <Box
@@ -130,12 +128,40 @@ const RequiredDocumentsTable = ({
                       color: "#131212b2",
                     }}
                   >
+                    <Box sx={{
+                        display: "flex",
+                        flexDirection: "row",
+                        backgroundColor: "#eeeeee",
+                        height: "3.5rem",
+                        width:'140%',
+                        alignItems:'center'
+                      }}>
                     {formatDate(row.created)}
+
+
+                    </Box>
                   </TableCell>
+
+
                   <TableCell align="center" style={{ border: "none",  }}>
                     <div style={{
                   }}>
+
+                    <Box
+                    sx={{
+                      display: "flex",
+                      flexDirection: "row",
+                      justifyContent: "center",
+                      backgroundColor:"#eeeeee",
+                      height: "3.5rem",
+                      borderTopRightRadius: "10px",
+                      borderBottomRightRadius: "10px",
+                      width:'145%',
+                      alignItems:'center'
+                    }}>
                     <StatusButton statusName={row.status_desc as string} />
+
+                    </Box>
 
                     </div>
                   </TableCell>
@@ -143,12 +169,24 @@ const RequiredDocumentsTable = ({
                   <TableCell align="center" style={{ border: "none", 
                 
                    }}>
+                    <Box
+                    sx={{
+                      display: "flex",
+                      flexDirection: "row",
+                      justifyContent: "center",
+                      backgroundColor: "#eeeeee",                 
+                      height: "3.5rem",
+                      borderTopRightRadius: "10px",
+                      borderBottomRightRadius: "10px",
+                      width:'120%'
+                    }}>
                     <div style={{
                       border: "none",
                       display: "flex",
                       flexDirection: "row",
                       alignItems: "center",
-                      justifyContent:'space-around',
+                      justifyContent:'space-between',
+                      width:'5rem'
                     }} >
                     <ChatIcon
                         sx={{
@@ -189,6 +227,8 @@ const RequiredDocumentsTable = ({
 
 
                     </div>
+                    </Box>
+                   
                   </TableCell>
                 </TableRow>
               );
