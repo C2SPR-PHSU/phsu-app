@@ -79,6 +79,7 @@ export default function BasicTable({
         padding: "1rem",
         
       }}
+      
     >
       <Table
         sx={{

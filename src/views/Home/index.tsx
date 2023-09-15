@@ -130,6 +130,7 @@ const Home = () => {
           <BasicTable
             handleModal={(prop) => handleModal(prop)}
             setDocumentId={(prop) => setCampusId(prop)}
+            
           />
           {openModal && (
             <RequiredDocuments
