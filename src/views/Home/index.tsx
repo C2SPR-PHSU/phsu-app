@@ -118,6 +118,8 @@ const Home = () => {
             Review your service request status and any pending actions.
           </Typography>
         </Grid>
+
+        
         <Grid
           item
           xs={12}
@@ -128,6 +130,7 @@ const Home = () => {
           <BasicTable
             handleModal={(prop) => handleModal(prop)}
             setDocumentId={(prop) => setCampusId(prop)}
+            
           />
           {openModal && (
             <RequiredDocuments

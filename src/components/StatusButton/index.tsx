@@ -16,8 +16,9 @@ const StatusButton = ({ statusName }: StatusButtonProps) => {
             variant="outlined"
             sx={{
                 width: '100% !important',
-                padding: '0.5rem',
-                fontSize: '0.6rem !important',
+                fontSize: '0.8rem !important',
+                maxHeight:'2.5rem',
+                maxWidth:'8rem',
                 color: buttonColor,
                 borderColor: buttonColor,
                 "&:hover": {

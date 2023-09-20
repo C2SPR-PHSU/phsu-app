@@ -42,35 +42,69 @@ const Sidebar = () => {
       className={isMedium ? styles["container-medium"] : isVeryScreenSmall? styles["container-small"]: styles["container"]}
       sx={{ flexDirection: "column", height: "100%" }}
     >
-         <Options
-        fontSze={isVeryScreenSmall ? textSmall : textNormal}
-        textColor={isMedium ? mediumColor : normalColor}
-        children={
-          <FeedIcon
-            sx={{
-              color: isMedium ? "#009999" : "white",
-              fontSize: isMedium ? iconSizeMedium : iconSizeNormal,
-            }}
+       {isMedium ? (
+        <>
+          <Options
+            fontSze={isVeryScreenSmall ? textSmall : textNormal}
+            textColor={isMedium ? mediumColor : normalColor}
+            children={
+              <FeedIcon
+                sx={{
+                  color: isMedium ? "#009999" : "white",
+                  fontSize: isMedium ? iconSizeMedium : iconSizeNormal,
+                }}
+              />
+            }
+            text="Services Request"
+            redirect={PATH.REQUEST_SERVICES}
           />
-        }
-        text="Services Request"
-        redirect={PATH.REQUEST_SERVICES}
-      />
-      <Options
-        fontSze={isVeryScreenSmall ? textSmall : textNormal}
-        textColor={isMedium ? mediumColor : normalColor}
-        children={
-          <AppsIcon
-            sx={{
-              color: isMedium ? mediumColor : normalColor,
-              fontSize: isMedium ? iconSizeMedium : iconSizeNormal,
-            }}
+          <Options
+            fontSze={isVeryScreenSmall ? textSmall : textNormal}
+            textColor={isMedium ? mediumColor : normalColor}
+            children={
+              <AppsIcon
+                sx={{
+                  color: isMedium ? mediumColor : normalColor,
+                  fontSize: isMedium ? iconSizeMedium : iconSizeNormal,
+                }}
+              />
+            }
+            text="Of Sense"
+            redirect={PATH.ROOT}
           />
-        }
-        text="Of Sense"
-        redirect={PATH.ROOT}
-      />
-
+        </>
+      ) : (
+        <>
+          <Options
+            fontSze={isVeryScreenSmall ? textSmall : textNormal}
+            textColor={isMedium ? mediumColor : normalColor}
+            children={
+              <AppsIcon
+                sx={{
+                  color: isMedium ? mediumColor : normalColor,
+                  fontSize: isMedium ? iconSizeMedium : iconSizeNormal,
+                }}
+              />
+            }
+            text="Of Sense"
+            redirect={PATH.ROOT}
+          />
+          <Options
+            fontSze={isVeryScreenSmall ? textSmall : textNormal}
+            textColor={isMedium ? mediumColor : normalColor}
+            children={
+              <FeedIcon
+                sx={{
+                  color: isMedium ? "#009999" : "white",
+                  fontSize: isMedium ? iconSizeMedium : iconSizeNormal,
+                }}
+              />
+            }
+            text="Services Request"
+            redirect={PATH.REQUEST_SERVICES}
+          />
+        </>
+      )}
    
       <Options
         fontSze={isVeryScreenSmall ? textSmall : textNormal}

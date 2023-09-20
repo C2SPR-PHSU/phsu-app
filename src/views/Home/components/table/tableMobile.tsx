@@ -51,7 +51,7 @@ const BasicTableMobile: React.FC<IBasicTableProps> = ({
   ];
 
   return (
-    <TableContainer sx={{ display: "flex" }}>
+    <TableContainer sx={{ display: "flex", width: "65%" }}>
       {userServices.length ? (
         <Table
           sx={{
@@ -87,7 +87,7 @@ const BasicTableMobile: React.FC<IBasicTableProps> = ({
               <TableCell
                 sx={{
                   paddingLeft: "4%",
-                  minWidth: "7rem",
+                  // minWidth: "9rem",
                   minHeight: "10%",
                 }}
                 align="center"
@@ -97,9 +97,12 @@ const BasicTableMobile: React.FC<IBasicTableProps> = ({
                   backgroundColor: "white",
                   border: "0px",
                   boxShadow: "-1px 0 0 rgba(221, 221, 221, 0.8)",
+                  width: "33.8%",
+                  display: "flex",
+                  justifyContent: "center",
                 }}
               >
-                <span style={{ fontSize: "1.1rem" }}>Action</span>
+                <span style={{ fontSize: "1rem" }}>Action</span>
               </TableCell>
             </TableRow>
           </TableHead>
@@ -139,13 +142,14 @@ const BasicTableMobile: React.FC<IBasicTableProps> = ({
 
                 <TableCell
                   style={{
-                    position: "sticky",
+                    position: "absolute",
                     right: 0,
-                    backgroundColor: "white",
                     border: "0px",
                     display: "flex",
                     borderBottom: "1px solid rgba(221, 221, 221, 0.6)",
                     borderLeft: "1px solid #ddd",
+                    width: "34%",
+                    justifyContent: "center",
                   }}
                 >
                   <Box
@@ -153,6 +157,8 @@ const BasicTableMobile: React.FC<IBasicTableProps> = ({
                       display: "flex",
                       minHeight: `${heights[index]}px`,
                       maxHeight: `${heights[index]}px`,
+                      paddingBottom: "3rem",
+                      alignItems: "start",
                     }}
                   >
                     <IconButton
@@ -161,16 +167,24 @@ const BasicTableMobile: React.FC<IBasicTableProps> = ({
                         setDocumentId(row.campus_id);
                       }}
                     >
-                      <VisibilityIcon
-                        sx={{
-                          color: "#009999",
-                          cursor: "pointer",
-                        }}
-                      />
+                      <div className={styles["rounded-div"]}>
+                        <VisibilityIcon
+                          sx={{
+                            fontSize: "24px !important",
+                            color: "#e0e0e0",
+                          }}
+                        />
+                      </div>
                     </IconButton>
 
                     <IconButton>
-                      <DownloadIcon sx={{ color: "rgba(0, 168, 168, 0.42)" }} />
+                      <div className={styles["rounded-div-disabled"]}>
+                        <DownloadIcon
+                          sx={{
+                            color: "white",
+                          }}
+                        />
+                      </div>
                     </IconButton>
                   </Box>
                 </TableCell>

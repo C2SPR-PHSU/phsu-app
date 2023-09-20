@@ -30,6 +30,7 @@ const MessageModal = ({ open, handleClose, message }: IMessageModal) => {
             p: 4,
             bgcolor: "#fff",
             opacity: "1",
+            
           }}
         >
           <Grid container>
