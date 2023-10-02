@@ -7,6 +7,7 @@ import { IUserDocumentsResponse } from "../types";
 export const getUserDocuments = async (
   campusId: string,
   token: string,
+  documentId: string,
   show: number = 1
 ) => {
   try {
@@ -16,6 +17,7 @@ export const getUserDocuments = async (
     const res = await api.post<IUserDocumentsResponse>({
       body: {
         campus_id: campusId,
+        id: documentId,
         show,
       },
     });

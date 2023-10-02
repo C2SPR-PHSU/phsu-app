@@ -18,11 +18,13 @@ import styles from "./styles.module.scss";
 interface IBasicTableProps {
   handleModal: (prop: string) => void;
   setDocumentId: (prop: string) => void;
+  setCampusId: (prop: string) => void;
 }
 
 const BasicTableMobile: React.FC<IBasicTableProps> = ({
   handleModal,
   setDocumentId,
+  setCampusId,
 }) => {
   const token = useAuthStore((state: any) => state.token);
   const logout = useAuthStore((state: any) => state.setLogout);
@@ -34,7 +36,7 @@ const BasicTableMobile: React.FC<IBasicTableProps> = ({
       const response = await getUserServices("1", token);
       setUserServices([response].flat());
     } catch (error) {
-      if(error?.status === 404) logout()
+      if (error?.status === 404) logout()
     }
   };
 
@@ -80,7 +82,7 @@ const BasicTableMobile: React.FC<IBasicTableProps> = ({
                   Time
                 </span>
               </TableCell>
-              <TableCell sx={{padding: 0}}>
+              <TableCell sx={{ padding: 0 }}>
                 <Typography
                   className={styles["typography"]}
                   style={{ fontSize: "1rem" }}
@@ -188,7 +190,8 @@ const BasicTableMobile: React.FC<IBasicTableProps> = ({
                     <IconButton
                       onClick={() => {
                         handleModal(`${row.service} - ${row.campus_name}`);
-                        setDocumentId(row.campus_id);
+                        setCampusId(row.campus_id);
+                        setDocumentId(row.id);
                       }}
                     >
                       <VisibilityIcon

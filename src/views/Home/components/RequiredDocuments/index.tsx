@@ -14,6 +14,7 @@ const RequiredDocuments = ({
   title,
   open,
   campusId,
+  documentId,
   handleClose,
 }: IRequiredDocumentsProps) => {
   const [value, setValue] = useState("1");
@@ -51,6 +52,7 @@ const RequiredDocuments = ({
       const response = await getUserDocuments(
         campusId,
         token,
+        documentId,
         parseInt(value, 10)
       );
       setDocumentList(response);

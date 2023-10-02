@@ -21,11 +21,13 @@ import BasicTableMobile from "../tableMobile";
 interface IBasicTableProps {
   handleModal: (prop: string) => void;
   setDocumentId: (prop: string) => void;
+  setCampusId: (prop: string) => void;
 }
 
 export default function BasicTable({
   handleModal,
   setDocumentId,
+  setCampusId
 }: IBasicTableProps) {
   const token = useAuthStore((state: any) => state.token);
   const logout = useAuthStore((state: any) => state.setLogout);
@@ -50,6 +52,7 @@ export default function BasicTable({
     try {
       const response = await getUserServices("1", token);
       setUserServices([response].flat());
+      console.log(userServices);
     } catch (error) {
       if (error?.status === 404) {
         logout();
@@ -80,6 +83,7 @@ export default function BasicTable({
       <BasicTableMobile
         handleModal={(prop) => handleModal(prop)}
         setDocumentId={(prop) => setDocumentId(prop)}
+        setCampusId={(prop) => setCampusId(prop)}
       />
     );
   }
@@ -173,7 +177,7 @@ export default function BasicTable({
           {userServices &&
             userServices?.map((row, index) => (
               <TableRow
-                key={index}
+                key={row.id}
                 sx={{
                   "&:last-child td, &:last-child th": { border: 0 },
                 }}
@@ -229,7 +233,8 @@ export default function BasicTable({
                   <IconButton
                     onClick={() => {
                       handleModal(`${row.service} - ${row.campus_name}`);
-                      setDocumentId(row.campus_id);
+                      setCampusId(row.campus_id);
+                      setDocumentId(row.id);
                     }}
                   >
                     <VisibilityIcon

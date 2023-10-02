@@ -5,6 +5,7 @@ export interface IUserServicesResponse {
 }
 
 export interface IUserServicesData {
+  id: string;
   service: string;
   campus_id: string;
   campus_name: string;
@@ -38,6 +39,7 @@ export interface IRequiredDocumentsProps {
   title: string;
   open: boolean;
   campusId: string;
+  documentId: string;
   handleClose: () => void;
 }
 

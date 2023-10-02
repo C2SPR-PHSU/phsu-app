@@ -19,6 +19,7 @@ const Home = () => {
   const [openModal, setOpenModal] = useState(false);
   const [docTitle, setDocTitle] = useState("");
   const [campusId, setCampusId] = useState("");
+  const [documentId, setDocumentId] = useState("");
 
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
@@ -127,13 +128,15 @@ const Home = () => {
         >
           <BasicTable
             handleModal={(prop) => handleModal(prop)}
-            setDocumentId={(prop) => setCampusId(prop)}
+            setDocumentId={(prop) => setDocumentId(prop)}
+            setCampusId={(prop) => setCampusId(prop)}
           />
           {openModal && (
             <RequiredDocuments
               title={docTitle}
               open={openModal}
               campusId={campusId}
+              documentId={documentId}
               handleClose={() => setOpenModal(false)}
             />
           )}
