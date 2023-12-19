@@ -1,4 +1,6 @@
-export const DEV_URI = "https://apiphsu.lobsys.net/";
+// export const DEV_URI = "https://apiphsu.lobsys.net/";
+export const DEV_URI = import.meta.env.VITE_API_URL;
+
 
 export const login = "/login";
 export const register = "/register";

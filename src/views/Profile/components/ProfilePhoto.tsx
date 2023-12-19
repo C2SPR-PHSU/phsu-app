@@ -10,9 +10,9 @@ const ProfilePhoto = () => {
 
   useEffect(() => {
     if (token) {
-      setImageUrl(`http://phsu.lobsys.net/avatar.php?t=${token}`)
+      setImageUrl(`${import.meta.env.BASE_URL}/avatar.php?t=${token}`)
     } else {
-      setImageUrl('http://phsu.lobsys.net/avatar.php?t=4893439482342390482390432902390394085757895')
+      setImageUrl(`${import.meta.env.BASE_URL}/avatar.php?t=4893439482342390482390432902390394085757895`)
     }
   }, [token])
 
