@@ -12,6 +12,7 @@ import useAuthStore from "@/hooks/useAuthStore";
 import { editProfile } from "@/utils/functions";
 
 interface IActionButtonsProps {
+  isMobile: boolean,
   campusStatus: number;
   selectedCampus: string;
   // Yeah, yeah... I should use Context
@@ -23,6 +24,7 @@ interface IActionButtonsProps {
 }
 
 const ActionButtons = ({
+  isMobile,
   campusStatus,
   selectedCampus,
   enabledSubmit,
@@ -104,7 +106,7 @@ const ActionButtons = ({
       lg={12}
       sx={{ paddingBottom: "1.2rem", paddingTop: "1rem" }}
     >
-      <Box sx={{ display: "flex", flexDirection: "row", gap: "1rem" }}>
+      <Box sx={{ display: "flex", flexDirection: isMobile ? "column" : 'row' }}>
         {campusStatus < 2 && (
           <Button
             onClick={() => sendToOnBase()}
@@ -115,6 +117,8 @@ const ActionButtons = ({
                 opacity: "0.6",
                 color: "white",
               },
+              marginRight: isMobile ? '0' : '1rem !important',
+              marginBottom: isMobile ? '1rem !important' : '0rem !important'
             }}
             disabled={campusStatus == 0 || !selectedCampus || !checkFormsValid()}
           >
