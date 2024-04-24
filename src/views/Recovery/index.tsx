@@ -99,7 +99,7 @@ const Recovery = () => {
 
   return (
     <>
-      <Grid container>
+      <Grid container sx={{ padding: '0 !important', height: '100%' }}>
         <Grid item xs={12} md={6}>
           <Box className={styles["recovery-container"]}>
             <Box className={styles["background-image"]}></Box>

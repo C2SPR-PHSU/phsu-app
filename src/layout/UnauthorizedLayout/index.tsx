@@ -24,22 +24,23 @@ const UnautoziredLayout = () => {
     // </Grid>
 
     <>
-      <Box sx={{ width: '100% !important' }}>
+      <Box sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column', minHeight: '100vh', height: '100%' }}>
         <AlertPopup />
 
         {/* Header */}
-        <Box sx={{ bgcolor: '#727caa' }}>
+        <Box sx={{ bgcolor: '#727caa', flexGrow: 0 }}>
           <Header />
         </Box>
         {/* <div className="header-container">
           <Header />
-        </div> */}
 
-        <Box className="outlet-container">
+        </div> */}
+        <Box component="main" sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column' }}>
           <Outlet />
         </Box>
 
-        <Box className="footer-container">
+
+        <Box className="footer-container" sx={{ flexGrow: 0 }}>
           <Footer />
         </Box>
       </Box >
