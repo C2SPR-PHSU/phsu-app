@@ -1,4 +1,4 @@
-import { Grid, Box, Typography } from "@mui/material";
+import { Grid, Box, Typography, useTheme, useMediaQuery } from "@mui/material";
 import { ListItem } from "@/components";
 import styles from "./login.module.scss";
 import {
@@ -9,33 +9,36 @@ import {
 } from "./constants";
 
 const Login = () => {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('lg'));
+
   return (
-    <div className={styles["main-grid-container"]}>
-      <div className={styles["column-wrapper"]}>
-        <div className={styles["left-div"]}>
-          <Box className={styles["welcome-container"]}>
-            <Box className={styles["background-image"]}>
-              <Typography className={styles["text"]}>{welcomeTitle}</Typography>
-              <Typography className={styles["description"]}>{description}</Typography>
-            </Box>
+    <Grid container style={{ width: "100%", margin: 0 }}>
+      <Grid xs={12} lg={6}>
+        <Box className={styles["welcome-container"]}>
+          <Box className={styles["background-image"]} sx={{ paddingBottom: '1rem' }}>
+            <Typography className={styles["text"]}>{welcomeTitle}</Typography>
+            <Typography className={styles["description"]}>{description}</Typography>
           </Box>
-        </div>
-        <div className={styles["right-div"]}>
-          <div className={styles["services-container"]}>
-            <Typography className={styles["upper-text-title"]}>{serviceTitle}</Typography>
-            {servicesList?.map((service) => (
-              <ListItem
-                key={service.number}
-                number={service.number}
-                listItem={service.listItem}
-                description={service.description}
-                url={service.url}
-              />
-            ))}
-          </div>
-        </div>
-      </div>
-    </div>
+        </Box>
+      </Grid>
+
+      <Grid xs={12} lg={6}>
+        <Box className={styles["services-container"]} sx={{ padding: isMobile ? '1rem' : '2rem 4rem 0 6rem' }}>
+          <Typography className={styles["upper-text-title"]} sx={{ textAlign: isMobile ? 'center' : 'start' }}>{serviceTitle}</Typography>
+          {servicesList?.map((service) => (
+            <ListItem
+              key={service.number}
+              number={service.number}
+              listItem={service.listItem}
+              description={service.description}
+              url={service.url}
+            />
+          ))}
+        </Box>
+      </Grid>
+    </Grid>
+
   );
 };
 

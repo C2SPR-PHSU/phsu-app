@@ -7,16 +7,6 @@
   background-color: $tertiary-neutral;
 }
 
-.brand {
-  display: flex;
-  align-items: center;
-  padding-left: 5rem;
-}
-
-.brand-img {
-  max-width: 150px;
-}
-
 .header-text {
   font-family: $gothamBlack !important;
   font-size: 1.5rem !important;
@@ -24,10 +14,6 @@
   font-weight: bolder;
 }
 
-.header-icons {
-  font-size: 1.2rem !important;
-  color: $warning;
-}
 
 .header-button {
   background-color: $primary !important;

@@ -85,6 +85,16 @@ $bigDescription: 20px;
 $mainTitle: 40px;
 $bigTitle: 60px;
 
+// Tamaños ajustados para md y sm
+$bigTitle-md: 45px;
+$bigTitle-sm: 35px;
+
+$bigDescription-md: 18px;
+$bigDescription-sm: 16px;
+
+$mainTitle-md: 30px; // Un tamaño más pequeño para pantallas medianas
+$mainTitle-sm: 25px; // Un tamaño más pequeño para pantallas pequeñas
+
 // WEIGHT
 $light: 300;
 $heavy: 700;

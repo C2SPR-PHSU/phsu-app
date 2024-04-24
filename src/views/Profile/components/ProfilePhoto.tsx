@@ -5,14 +5,16 @@ import useAuthStore from "@/hooks/useAuthStore";
 import { useEffect, useState } from "react";
 
 const ProfilePhoto = () => {
+  const BASE_URL = import.meta.env.VITE_BASE_URL
   const token = useAuthStore((state: any) => state.token);
   const [imageUrl, setImageUrl] = useState('');
 
   useEffect(() => {
+    console.log(BASE_URL)
     if (token) {
-      setImageUrl(`${import.meta.env.BASE_URL}/avatar.php?t=${token}`)
+      setImageUrl(`${BASE_URL}/avatar.php?t=${token}`)
     } else {
-      setImageUrl(`${import.meta.env.BASE_URL}/avatar.php?t=4893439482342390482390432902390394085757895`)
+      setImageUrl(`${BASE_URL}/avatar.php?t=4893439482342390482390432902390394085757895`)
     }
   }, [token])
 

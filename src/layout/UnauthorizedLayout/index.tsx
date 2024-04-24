@@ -1,4 +1,4 @@
-import { Grid } from "@mui/material";
+import { Box, Grid } from "@mui/material";
 import { Header, Footer } from "@/layout";
 import { Outlet } from "react-router-dom";
 import AlertPopup from "@/components/AlertPopup";
@@ -24,21 +24,25 @@ const UnautoziredLayout = () => {
     // </Grid>
 
     <>
-      <div className="main-container">
+      <Box sx={{ width: '100% !important' }}>
         <AlertPopup />
 
-        <div className="header-container">
+        {/* Header */}
+        <Box sx={{ bgcolor: '#727caa' }}>
           <Header />
-        </div>
+        </Box>
+        {/* <div className="header-container">
+          <Header />
+        </div> */}
 
-        <div className="outlet-container">
+        <Box className="outlet-container">
           <Outlet />
-        </div>
+        </Box>
 
-        <div className="footer-container">
+        <Box className="footer-container">
           <Footer />
-        </div>
-      </div>
+        </Box>
+      </Box >
 
     </>
 

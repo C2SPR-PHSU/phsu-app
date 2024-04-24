@@ -43,6 +43,7 @@
     background-repeat: no-repeat;
     background-size: cover;
     background-position-x: right;
+    min-height: 400px;
     height: 100%;
     width: 100%;
     display: flex;
@@ -55,19 +56,19 @@
   .text {
     @include commonTextStyles;
     font-size: $bigTitle;
-    margin-bottom: 2rem;
+    margin-bottom: 1.6rem;
   }
 
   .description {
     @include commonTextStyles;
     font-size: $bigDescription;
     width: 60%;
+    word-break: break-word;
   }
 }
 
 .services-container {
   height: 100% !important;
-  padding: 2rem 4rem 0 6rem;
   flex-grow: 1; // Para que el contenedor de servicios ocupe todo el espacio disponible.
 }
 
@@ -77,4 +78,34 @@
   font-weight: bolder !important;
   font-family: "GothamMedium";
   margin-bottom: 2rem !important;
+}
+
+/* Media query para tamaños 'md' y menores */
+@media (max-width: 899px) {
+  .upper-text-title {
+    font-size: $mainTitle-md !important;
+  }
+
+  .text {
+    font-size: $bigTitle-md !important;
+  }
+
+  .description {
+    font-size: $bigDescription-md !important;
+  }
+}
+
+/* Media query para tamaños 'sm' y menores */
+@media (max-width: 599px) {
+  .upper-text-title {
+    font-size: $mainTitle-sm !important;
+  }
+
+  .text {
+    font-size: $bigTitle-sm !important;
+  }
+
+  .description {
+    font-size: $bigDescription-sm !important;
+  }
 }
