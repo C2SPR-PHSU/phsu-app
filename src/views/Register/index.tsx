@@ -7,6 +7,8 @@ import {
   Button,
   InputAdornment,
   IconButton,
+  useTheme,
+  useMediaQuery,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
@@ -20,6 +22,9 @@ import useAuthStore from "@/hooks/useAuthStore";
 import { CustomTextField } from '../Profile/constants';
 
 export default function Registration() {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('lg'));
+
   const { setAlert } = useAlert();
   const setLogin = useAuthStore((state: any) => state.setLogin);
 
@@ -210,8 +215,8 @@ export default function Registration() {
   }
 
   return (
-    <Box className={styles.wrapper}>
-      <Typography variant="h4" gutterBottom className={styles.title}>
+    <Box className={styles.wrapper} sx={{ padding: isMobile ? '0.5rem' : '3rem 5rem' }}>
+      <Typography variant="h4" gutterBottom className={styles.title} sx={{ py: 1, textAlign: isMobile ? 'center' : 'start' }}>
         Registration
       </Typography>
 
