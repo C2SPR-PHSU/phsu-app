@@ -1,4 +1,4 @@
-import { Grid, Typography, Divider } from "@mui/material";
+import { Grid, Typography, Divider, useTheme, useMediaQuery } from "@mui/material";
 import profileScss from "./Profile.module.scss";
 import { useFormik } from "formik";
 import { useState, useEffect } from "react";
@@ -8,18 +8,23 @@ import { UserProfile } from "@/types/user";
 import { editProfile } from "@/utils/functions";
 import useAuthStore from "@/hooks/useAuthStore";
 import useAlert from "@/hooks/useAlert";
-import { 
-  ProfilePhoto, 
-  ProfileButtons, 
-  ProfileTitle, 
-  PersonalInformation, 
-  AcademicInformation, 
-  AddressInformation, 
-  PersonalInformation2 } from "./components";
+import {
+  ProfilePhoto,
+  ProfileButtons,
+  ProfileTitle,
+  PersonalInformation,
+  AcademicInformation,
+  AddressInformation,
+  PersonalInformation2
+} from "./components";
 import { initialValues } from './constants';
 import { setUserDataInFormik } from './utils';
 
 const Profile = () => {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('lg'));
+
+
   const [isEditMode, setIsEditMode] = useState(false);
 
   const token = useAuthStore((state: any) => state.token);
@@ -29,7 +34,7 @@ const Profile = () => {
   useEffect(() => {
     fetchUserProfile();
   }, [token]);
-  
+
   const formik = useFormik({
     initialValues,
     validationSchema,
@@ -42,11 +47,11 @@ const Profile = () => {
       formik.setValues(setUserDataInFormik(profile));
     } catch (error) {
       setAlert("Something went wrong getting the user data", "error")
-      if(error?.status === 404) logout()
+      if (error?.status === 404) logout()
     }
   };
 
-  const updateUserProfile = async(values: UserProfile) => {
+  const updateUserProfile = async (values: UserProfile) => {
     try {
       await editProfile(token, values);
       setAlert("Information updated successfully!", "success")
@@ -69,20 +74,23 @@ const Profile = () => {
 
   return (
     <>
-      <Grid container sx={{ padding: '3rem' }}>
-        <Grid item xs={12} sx={{ paddingLeft: '5rem', marginBottom: '2rem'}}>
+      <Grid container sx={{ padding: isMobile ? '0.5rem' : '3rem' }}>
+        <Grid item xs={12} sx={{ paddingLeft: '5rem', marginBottom: '2rem' }}>
           <ProfileTitle />
         </Grid>
-        <Grid item xs={3} sx={{ display: 'flex', flexDirection: 'column', paddingTop: '2rem' }}>
+
+        <Grid item xs={12} lg={3} sx={{ display: 'flex', flexDirection: 'column', paddingTop: '2rem' }}>
           <ProfilePhoto />
-          <ProfileButtons 
-            isEditMode={isEditMode} 
+          <ProfileButtons
+            isEditMode={isEditMode}
             activateEditForm={() => setIsEditMode(true)}
             submitForm={formik.handleSubmit}
             uploadPhoto={uploadPhoto}
           />
         </Grid>
-        <Grid item xs={9} sx={{ paddingTop: '2rem' }}>
+
+
+        <Grid item xs={12} lg={9} sx={{ paddingTop: '2rem' }}>
           <Grid container>
             <Grid item xs={12}>
               <Typography
@@ -93,6 +101,7 @@ const Profile = () => {
                 Personal Information
               </Typography>
             </Grid>
+            
             <Grid item xs={12} sm={6}>
               <PersonalInformation isEditMode={isEditMode} formik={formik} />
             </Grid>
@@ -115,7 +124,7 @@ const Profile = () => {
             </Grid>
           </Grid>
         </Grid>
-      </Grid>
+      </Grid >
     </>
   );
 };
