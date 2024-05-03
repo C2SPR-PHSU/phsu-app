@@ -69,6 +69,7 @@ const MyTextField: React.FC<MyTextFieldProps> = ({
       value={value}
       onChange={handleChange}
       name={name}
+      inputProps={{ maxLength: name === 'student_id' ? '7' : '' }}
     />
   );
 };
@@ -117,6 +118,17 @@ export default function BasicAccordion({ setPersonalForm, personalForm }: any) {
   }
 
   const handlePersonalFormChange = (key: string, newValue: string) => {
+
+    if (key === 'student_id') {
+      const filteredValue = newValue.replace(/\D/g, '');
+      setPersonalForm((prevState: any) => ({
+        ...prevState,
+        [key]: filteredValue,
+      }));
+
+      return
+    }
+
     setPersonalForm((prevState: any) => ({
       ...prevState,
       [key]: newValue,
@@ -158,11 +170,17 @@ export default function BasicAccordion({ setPersonalForm, personalForm }: any) {
           aria-controls="panel2a-content"
           id="panel2a-header"
         >
+
           <Typography className={styles["box-academic-i"]}>
             Personal Information
           </Typography>
+
         </AccordionSummary>
         <AccordionDetails sx={{ width: 'calc(100% - 1.5rem)' }}>
+          <Typography sx={{ marginBottom: '1.5rem !important' }}>
+            Provide your current contact information and make sure all the information included is correct before submission.
+          </Typography>
+
           <Grid container spacing={2} sx={{ py: 1 }}>
             <Grid item xs={12} sm={6} md={4}>
               <div>

@@ -30,6 +30,14 @@ export default function Registration() {
 
   const [validate, setValidate] = useState(false);
 
+  const handleNumberInput = (event) => {
+    const { value, name } = event.target;
+    // Replace non-digit characters, effectively allowing only digits
+    const filteredValue = value.replace(/\D/g, '');
+    formik.setFieldValue(name, filteredValue);
+  };
+
+
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -74,9 +82,9 @@ export default function Registration() {
         .matches(/^[0-9]+$/, "Cell Phone should only contain numbers")
         .max(20, "Cell Phone must be at most 20 characters"),
 
-      studentId: Yup.number()
-        .required("Student ID is required")
-        .typeError("Student ID must be a number"),
+      studentId: Yup.string()
+        .required('Studen ID is Required')
+        .matches(/^\d*$/, 'Only numbers are allowed'),
 
       middleName: Yup.string().max(
         20,
@@ -87,7 +95,7 @@ export default function Registration() {
         .required("Address Line 1 is required")
         .max(40, "Address Line 1 must be at most 40 characters"),
       addressLine2: Yup.string()
-        .required("Address Line 2 is required")
+        // .required("Address Line 2 is required")
         .max(40, "Address Line 2 must be at most 40 characters"),
       addressState: Yup.string()
         .required("Address State is required")
@@ -355,12 +363,13 @@ export default function Registration() {
               name="studentId"
               placeholder="Student ID"
               type="text"
-              onChange={formik.handleChange} onBlur={formik.handleBlur}
+              onChange={handleNumberInput} onBlur={formik.handleBlur}
               value={formik.values.studentId}
               error={
                 formik.touched.studentId && Boolean(formik.errors.studentId)
               }
               helperText={formik.touched.studentId && formik.errors.studentId}
+              inputProps={{ maxLength: '7' }}
             />
           </Grid>
         </Grid>
@@ -393,7 +402,7 @@ export default function Registration() {
           </Grid>
           {/* ----------------------------"Adress Line 2----------------------------------------------- */}
           <Grid item xs={12} sm={6} md={4}>
-            <CustomLabel name="Adress Line 2" required={true} />
+            <CustomLabel name="Adress Line 2" required={false} />
             <TextField
               type="text"
               onChange={formik.handleChange} onBlur={formik.handleBlur}

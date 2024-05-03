@@ -63,10 +63,6 @@ export const selectStyles = {
   // minWidth: "120% !important",
 };
 
-export const servicesTextTitle = "Services Request";
+export const servicesTextTitle = "Request Services";
 export const servicesTextDescription = `
-Upload all the credentialing documents as requested in the
-credentialing notification sent to your institutional email.
-Documents will be reviewed by the Health Services Coordinator
-and status of processing will be available in your dashboard.
-Remember all documents must be submited in PDF format.`;
+In this service form, you'll find options to select the service you need. Begin by choosing your campus or the one you're applying to. Then, pick the service and provide details for the current academic year and term. Ensure to complete all personal information fields so our representatives can assist you effectively.`;

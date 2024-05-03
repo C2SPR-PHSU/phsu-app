@@ -32,11 +32,11 @@ const Sidebar = () => {
         children={
           <AppsIcon sx={{ color: "white", fontSize: "1.5rem !important" }} />
         }
-        text="Of Sense"
+        text="Home"
       />
       <Options
         children={<FeedIcon sx={{ color: "white", fontSize: "1.5rem" }} />}
-        text="Services Request"
+        text="Request Services"
         redirect={PATH.REQUEST_SERVICES}
       />
       <Options

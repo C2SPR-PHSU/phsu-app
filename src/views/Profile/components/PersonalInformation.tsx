@@ -14,8 +14,16 @@ interface IPersonalInformation {
 }
 
 const PersonalInformation = ({ isEditMode, formik }: IPersonalInformation) => {
+
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('lg'));
+
+
+  const handleNumberInput = (event) => {
+    const { value, name } = event.target
+    const filteredValue = value.replace(/\D/g, '')
+    formik.setFieldValue(name, filteredValue)
+  }
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'center' }}>
@@ -136,10 +144,11 @@ const PersonalInformation = ({ isEditMode, formik }: IPersonalInformation) => {
                   id="student_id"
                   name="student_id"
                   value={formik.values.student_id}
-                  onChange={formik.handleChange}
+                  onChange={handleNumberInput} onBlur={formik.handleBlur}
                   error={formik.touched.student_id && !!formik.errors.student_id}
                   helperText={formik.touched.student_id && formik.errors.student_id}
                   sx={{ ...CustomTextField, width: '80%' }}
+                  inputProps={{ maxLength: '7' }}
                 />
               </Grid>
             </Grid>

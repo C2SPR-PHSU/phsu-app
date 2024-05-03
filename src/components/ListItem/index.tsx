@@ -26,7 +26,7 @@ const ListItem: React.FC<ResponsiveComponentProps> = ({
           </Typography>
         </Link> */}
         <Typography variant="h5" className={styles["list-item"]}>
-          {listItem}
+          <Link color={'#009999 !important'} href={url} rel="noopener" target="_blank" >{listItem}</Link>
         </Typography>
         <Typography className={styles["list-item-description"]}>
           {description}
