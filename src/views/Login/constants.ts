@@ -8,7 +8,7 @@ export const servicesList = [
     number: "1",
     listItem: "Admissions Documents Upload (coming soon)",
     description:
-      " Upload the admissions requirements for processing your candidate file and evaluation for admission to the University. Track the progress and get notifications of status or required actions.  ",
+      "Please submit your admission documents for the creation of your candidate file for University admissions processing.",
     url: "#",
   },
   {

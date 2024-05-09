@@ -196,7 +196,7 @@ const RequestServices = () => {
                 Select your Service
               </MenuItem>
               {optionsService?.map((option) => (
-                <MenuItem key={option} value={option}>
+                <MenuItem key={option} value={option} disabled={option === 'Credentialing Process' ? false : true}>
                   {option}
                 </MenuItem>
               ))}
