@@ -108,20 +108,18 @@ export default function Header() {
                       variant="outlined"
                       size="small"
                       sx={{
-                        backgroundColor: 'white !important',
                         "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
                           borderColor: primaryColor,
                           borderRadius: 0,
-                          border: "2px solid"
+                          border: "2px solid " + primaryColor,
                         },
-                        "&:hover .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
+                        "&:hover .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline":
+                        {
                           borderColor: primaryColor,
                         },
-                        "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline": {
+                        "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline":
+                        {
                           borderColor: primaryColor,
-                        },
-                        "& .MuiOutlinedInput-root.Mui-focused": {
-                          backgroundColor: 'white'
                         },
                         "& .MuiInputLabel-outlined": {
                           fontSize: "1rem",
@@ -129,9 +127,6 @@ export default function Header() {
                         },
                         "& .MuiInputLabel-outlined.Mui-focused": {
                           color: primaryColor,
-                        },
-                        "& .MuiOutlinedInput-input": {
-                          padding: "0.7rem",
                         },
                       }}
                       onChange={(e) => setEmail(e.target.value)}
