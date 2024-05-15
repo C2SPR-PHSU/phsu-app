@@ -35,7 +35,7 @@ export default function BasicTable({
   const [userServices, setUserServices] = useState<IUserServicesData[]>([]);
 
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+  const isMobile = useMediaQuery(theme.breakpoints.down("lg"));
 
   const statusDictionary: { [key: number]: string } = {
     0: "To Upload",
@@ -126,7 +126,7 @@ export default function BasicTable({
                   fontSize: isMobile ? '0.8rem' : "1.2rem",
                 }}
               >
-                Time
+                Date
               </Typography>
             </TableCell>
             <TableCell

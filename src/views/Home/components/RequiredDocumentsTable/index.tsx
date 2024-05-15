@@ -33,7 +33,7 @@ const RequiredDocumentsTable = ({
   documentList,
 }: RequiredDocumentsTableProps) => {
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+  const isMobile = useMediaQuery(theme.breakpoints.down("lg"));
   const [openModal, setOpenModal] = useState(false);
   const [modalMessage, setModalMessage] = useState("");
   const { setAlert } = useAlert();
@@ -163,6 +163,7 @@ const RequiredDocumentsTable = ({
                             sx={{ color: "#009999", cursor: "pointer" }}
                             onClick={() => {
                               if (row.url !== '') {
+                                console.log(row)
                                 window.open(row.url, "_blank")
                               }
                             }}

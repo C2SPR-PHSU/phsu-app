@@ -8,7 +8,7 @@ import { useTheme } from "@mui/material/styles";
 
 const MessageModal = ({ open, handleClose, message }: IMessageModal) => {
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+  const isMobile = useMediaQuery(theme.breakpoints.down("lg"));
 
   if (isMobile) {
     return (

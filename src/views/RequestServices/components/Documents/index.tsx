@@ -201,6 +201,7 @@ const Documents = ({
                             color: "#e0e0e0"
                           }}
                           onClick={() => {
+                            console.log(currentDocument)
                             if (currentDocument.url !== '') {
                               window.open(currentDocument.url, "_blank")
                             }

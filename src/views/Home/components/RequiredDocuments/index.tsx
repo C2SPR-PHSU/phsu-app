@@ -21,7 +21,7 @@ const RequiredDocuments = ({
   const [documentList, setDocumentList] = useState<IUserDocumentsData[]>([]);
   const token = useAuthStore((state: any) => state.token);
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+  const isMobile = useMediaQuery(theme.breakpoints.down("lg"));
   const isMobileSmall = useMediaQuery(theme.breakpoints.down("sm"));
 
   useEffect(() => {

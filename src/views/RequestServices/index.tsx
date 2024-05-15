@@ -10,7 +10,7 @@ import {
   useMediaQuery,
 } from "@mui/material";
 import useAuthStore from "@/hooks/useAuthStore";
-import { CustomLabel } from "@/components";
+import { CustomLabel, LoadingComponent } from "@/components";
 import {
   selectStyles,
   optionsService,
@@ -40,6 +40,7 @@ const RequestServices = () => {
   const [userDocuments, setUserDocuments] = useState<IUserDocumentsData[]>([]);
   const [submitStatusCode, setSubmitStatusCode] = useState<number>();
   const [campusData, setCampusData] = useState<ICampusData | null>(null);
+  const [loading, setLoading] = useState(false);
 
 
   const [academicForm, setAcademicForm] = useState({
@@ -237,7 +238,13 @@ const RequestServices = () => {
                 </Grid>
               </div>
 
-              {documentList?.map((document) => {
+              {loading &&
+                <Grid item xs={12}>
+                  <LoadingComponent />
+                </Grid>
+              }
+
+              {!loading && documentList?.map((document) => {
                 return (
                   <Grid item xs={12} key={document.id}>
                     <Documents
@@ -254,6 +261,7 @@ const RequestServices = () => {
                   </Grid>
                 );
               })}
+
             </Grid>
           )}
         </Grid>
@@ -286,6 +294,7 @@ const RequestServices = () => {
           getUserCampusInfo={(id: any) => getUserCampusInfo(id)}
           personalForm={personalForm}
           academicForm={academicForm}
+          setLoading={setLoading}
         />
       </Grid>
     </Box>

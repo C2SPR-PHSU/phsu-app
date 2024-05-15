@@ -50,6 +50,7 @@ interface IActionButtonsProps {
   enabledSubmit: boolean;
   campusData: any;
   getUserCampusInfo: (id: string) => void;
+  setLoading: (value: boolean) => void;
 }
 
 const ActionButtons = ({
@@ -62,7 +63,8 @@ const ActionButtons = ({
   getUserCampusInfo,
   academicForm,
   personalForm,
-  campusData
+  campusData,
+  setLoading
 }: any) => {
 
   useEffect(() => {
@@ -115,11 +117,14 @@ const ActionButtons = ({
   const { setAlert } = useAlert();
 
   const sendToOnBase = async () => {
+    setLoading(true)
     try {
       await submitDocument(parseInt(selectedCampus), token);
       getUserCampusInfo(selectedCampus);
       setAlert("Documents Sent to OnBase!", "success");
+      setLoading(false)
     } catch (error) {
+      setLoading(false)
       setAlert("Something happened. Try again later", "error");
     }
   };

@@ -22,7 +22,7 @@ const Home = () => {
   const [documentId, setDocumentId] = useState("");
 
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+  const isMobile = useMediaQuery(theme.breakpoints.down("lg"));
 
   const handleModal = (prop: string) => {
     setDocTitle(prop);
