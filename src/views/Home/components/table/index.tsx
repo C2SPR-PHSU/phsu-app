@@ -81,6 +81,7 @@ export default function BasicTable({
   if (isMobile) {
     return (
       <BasicTableMobile
+        isMobile={isMobile}
         handleModal={(prop) => handleModal(prop)}
         setDocumentId={(prop) => setDocumentId(prop)}
         setCampusId={(prop) => setCampusId(prop)}
@@ -113,7 +114,7 @@ export default function BasicTable({
               <Typography
                 className={styles["typography"]}
                 sx={{
-                  fontSize: "1.2rem",
+                  fontSize: isMobile ? '0.8rem' : "1.2rem",
                 }}
               >
                 Service
@@ -127,7 +128,7 @@ export default function BasicTable({
               <Typography
                 className={styles["typography"]}
                 sx={{
-                  fontSize: "1.2rem",
+                  fontSize: isMobile ? '0.8rem' : "1.2rem",
                 }}
               >
                 Time
@@ -141,7 +142,7 @@ export default function BasicTable({
               <Typography
                 className={styles["typography"]}
                 sx={{
-                  fontSize: "1.2rem",
+                  fontSize: isMobile ? '0.8rem' : "1.2rem",
                 }}
               >
                 Days Left
@@ -155,7 +156,7 @@ export default function BasicTable({
               <Typography
                 className={styles["typography"]}
                 sx={{
-                  fontSize: "1.2rem",
+                  fontSize: isMobile ? '0.8rem' : "1.2rem",
                 }}
               >
                 Status
@@ -165,7 +166,7 @@ export default function BasicTable({
               <Typography
                 className={styles["typography"]}
                 sx={{
-                  fontSize: "1.2rem",
+                  fontSize: isMobile ? '0.8rem' : "1.2rem",
                 }}
               >
                 Action

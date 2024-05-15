@@ -45,7 +45,7 @@ const Documents = ({
   useEffect(() => {
     const doc = userDocuments?.find(doc => doc.id === documentId);
     setCurrentDocument(doc || null);
-    console.log(currentDocument?.description, ' ', currentDocument?.status)
+    // console.log(currentDocument?.description, ' ', currentDocument?.status)
   }, [documentId, userDocuments, checked, currentDocument]);
 
 
@@ -57,7 +57,7 @@ const Documents = ({
       requestUserDocuments();
       setAlert('Documents uploaded Successfully!', 'success')
       setChecked(true)
-      getUserCampusInfo(campusId.toString());
+      // getUserCampusInfo(campusId.toString());
     } catch (error) {
       setChecked(false)
       setAlert('Something happened. Try again later', 'error')
@@ -81,7 +81,7 @@ const Documents = ({
       requestUserDocuments();
       setAlert('Documents Deleted Successfully!', 'success')
       setChecked(false)
-      getUserCampusInfo(campusId.toString());
+      // getUserCampusInfo(campusId.toString());
     } catch (error) {
       setAlert('Something happened. Try again later', 'error')
     }

@@ -75,7 +75,7 @@ export interface IAcademicYearsResponse {
 }
 
 export interface IEntranceTermsData {
-  id: string;
+  id: string | number;
   title: string;
   ob_name: string;
 }

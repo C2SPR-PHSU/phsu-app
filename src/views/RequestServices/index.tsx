@@ -26,7 +26,6 @@ import { getAllUserDocuments } from "./functions";
 const RequestServices = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('lg'));
-
   const token = useAuthStore((state: any) => state.token);
 
   const [campusStatus, setCampusStatus] = useState(0);
@@ -65,19 +64,14 @@ const RequestServices = () => {
   }, []);
 
   useEffect(() => {
-    if (selectedCampus !== "" && selectedService !== "")
-      return setDisplayList(true);
-    return setDisplayList(false);
+    if (selectedCampus !== "" && selectedService !== "") return setDisplayList(true);
+    setDisplayList(false);
   }, [selectedService]);
 
   useEffect(() => {
     if (selectedCampus === "0") return;
     requestUserDocuments();
   }, [selectedCampus]);
-
-  useEffect(() => {
-    console.log(campusStatus);
-  }, [campusStatus]);
 
   const getAllCampuses = async () => {
     try {
@@ -88,7 +82,7 @@ const RequestServices = () => {
     }
   };
 
-  const getUserCampusInfo = async (campusId: string) => {
+  const getUserCampusInfo = async (campusId: any) => {
     try {
       const response = await getUserCampus(campusId, token);
       setCampusStatus(parseInt(response.status));
@@ -111,18 +105,17 @@ const RequestServices = () => {
     try {
       const response = await getAllUserDocuments(selectedCampus, token);
       setUserDocuments(response);
-
     } catch (error) {
       console.log(error);
     }
   };
 
-  const handleCampusChange = (idValue: string) => {
-    console.log(idValue);
+  const handleCampusChange = (idValue: any) => {
+    console.log('idValue ', idValue);
     setSelectedCampus(idValue);
     getUserCampusInfo(idValue);
     getDocumentsByCampus(parseInt(idValue));
-    // requestUserDocuments();
+    requestUserDocuments();
   };
 
   return (
@@ -283,6 +276,8 @@ const RequestServices = () => {
         </Grid>
 
         <ActionButtons
+          userDocuments={userDocuments}
+          campusDocuments={documentList}
           isMobile={isMobile}
           campusData={campusData}
           campusStatus={campusStatus}

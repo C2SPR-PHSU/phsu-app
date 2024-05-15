@@ -11,7 +11,36 @@ import useAlert from "@/hooks/useAlert";
 import useAuthStore from "@/hooks/useAuthStore";
 import { editProfile } from "@/utils/functions";
 
+interface CampusDocumentData {
+  id: string;
+  name: string;
+  description: string;
+  type: string;
+  mandatory: string;
+}
+
+interface UserDocumentData {
+  id: string;
+  name: string;
+  description: string;
+  type: string;
+  campus_document_user_id: string;
+  campus_user_id: string;
+  mandatory: string;
+  ob_handler_id: string;
+  ob_message: string;
+  ob_build: string;
+  status: string;
+  extension: string;
+  status_desc: string;
+  created: string;
+  url: string;
+}
+
+
 interface IActionButtonsProps {
+  userDocuments: any,
+  campusDocuments: any,
   isMobile: boolean,
   campusStatus: number;
   selectedCampus: string;
@@ -24,6 +53,8 @@ interface IActionButtonsProps {
 }
 
 const ActionButtons = ({
+  userDocuments,
+  campusDocuments,
   isMobile,
   campusStatus,
   selectedCampus,
@@ -33,9 +64,52 @@ const ActionButtons = ({
   personalForm,
   campusData
 }: any) => {
+
   useEffect(() => {
-    console.log(campusStatus, " ", enabledSubmit);
+    console.log('campusData info:')
+    console.log(campusData)
   }, []);
+
+  useEffect(() => {
+    console.log(userDocuments)
+    console.log(compareDocuments(campusDocuments, userDocuments))
+    // console.log(campusDocuments)
+  }, [campusDocuments, userDocuments]);
+
+
+  function compareDocuments(campusDocuments: CampusDocumentData[], userDocuments: UserDocumentData[]): boolean {
+    // Filtra los documentos obligatorios en campusDocuments
+    const mandatoryCampusDocs = campusDocuments.filter(doc => doc.mandatory === "1");
+
+    // Array para almacenar los documentos faltantes o con estado incorrecto
+    const missingOrInvalidDocs: CampusDocumentData[] = [];
+
+    // Verifica que cada documento obligatorio en campusDocuments exista en userDocuments y tenga el estado correcto
+    const allDocsExist = mandatoryCampusDocs.every(mandatoryDoc => {
+      const userDoc = userDocuments.find(userDoc =>
+        userDoc.description === mandatoryDoc.description && userDoc.mandatory === "1"
+      );
+
+      // Verifica que el documento exista y que su estado sea distinto de "0"
+      const existsAndValid = userDoc && userDoc.status !== "0";
+
+      if (!existsAndValid) {
+        missingOrInvalidDocs.push(mandatoryDoc);
+      }
+
+      return existsAndValid;
+    });
+
+    if (!allDocsExist) {
+      console.error("Los siguientes documentos obligatorios faltan o tienen un estado incorrecto en los documentos del usuario:");
+      missingOrInvalidDocs.forEach(doc => {
+        console.error(`- ${doc.name} (${doc.description})`);
+      });
+    }
+
+    return allDocsExist;
+  }
+
 
   const token = useAuthStore((state: any) => state.token);
   const { setAlert } = useAlert();
@@ -67,11 +141,11 @@ const ActionButtons = ({
   };
 
 
-  useEffect(() => {
-    console.log(academicForm)
-    checkFormsValid();
-    console.log(campusStatus, ' ', selectedCampus, checkFormsValid())
-  }, [campusStatus, selectedCampus, academicForm, personalForm]);
+  // useEffect(() => {
+  //   console.log(academicForm)
+  //   checkFormsValid();
+  //   console.log(campusStatus, ' ', selectedCampus, checkFormsValid())
+  // }, [campusStatus, selectedCampus, academicForm, personalForm]);
 
 
   const checkFormsValid = () => {
@@ -88,7 +162,7 @@ const ActionButtons = ({
     formValues.forEach(form => {
       Object.entries(form).forEach(([key, value]) => {
         if (!isValidField(key, value)) {
-          console.log(`Invalid field: ${key}, Value: ${value}`);
+          // console.log(`Invalid field: ${key}, Value: ${value}`);
         }
       });
     });
@@ -120,7 +194,7 @@ const ActionButtons = ({
               marginRight: isMobile ? '0' : '1rem !important',
               marginBottom: isMobile ? '1rem !important' : '0rem !important'
             }}
-            disabled={campusStatus == 0 || !selectedCampus || !checkFormsValid()}
+            disabled={campusStatus == 0 || !selectedCampus || !checkFormsValid() || !compareDocuments(campusDocuments, userDocuments)}
           >
             SUBMIT
           </Button>

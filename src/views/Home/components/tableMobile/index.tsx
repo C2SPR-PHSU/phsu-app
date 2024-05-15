@@ -16,12 +16,14 @@ import { IUserServicesData } from "../../types";
 import styles from "./styles.module.scss";
 
 interface IBasicTableProps {
+  isMobile: boolean;
   handleModal: (prop: string) => void;
   setDocumentId: (prop: string) => void;
   setCampusId: (prop: string) => void;
 }
 
 const BasicTableMobile: React.FC<IBasicTableProps> = ({
+  isMobile,
   handleModal,
   setDocumentId,
   setCampusId,
@@ -69,7 +71,7 @@ const BasicTableMobile: React.FC<IBasicTableProps> = ({
               <TableCell sx={{ display: "flex", justifyContent: "center" }}>
                 <span
                   className={styles["typography"]}
-                  style={{ fontSize: "1.1rem", paddingBottom: "0.05rem" }}
+                  style={{ fontSize: isMobile ? '0.5rem' : "1rem" }}
                 >
                   Service
                 </span>
@@ -77,7 +79,7 @@ const BasicTableMobile: React.FC<IBasicTableProps> = ({
               <TableCell sx={{ paddingLeft: "8%" }}>
                 <span
                   className={styles["typography"]}
-                  style={{ fontSize: "1rem" }}
+                  style={{ fontSize: isMobile ? '0.5rem' : "1rem" }}
                 >
                   Time
                 </span>
@@ -85,7 +87,7 @@ const BasicTableMobile: React.FC<IBasicTableProps> = ({
               <TableCell sx={{ padding: 0 }}>
                 <Typography
                   className={styles["typography"]}
-                  style={{ fontSize: "1rem" }}
+                  style={{ fontSize: isMobile ? '0.5rem' : "1rem" }}
                 >
                   Days Left
                 </Typography>
@@ -93,7 +95,7 @@ const BasicTableMobile: React.FC<IBasicTableProps> = ({
               <TableCell sx={{ paddingLeft: "4%" }}>
                 <span
                   className={styles["typography"]}
-                  style={{ fontSize: "1rem" }}
+                  style={{ fontSize: isMobile ? '0.5rem' : "1rem" }}
                 >
                   Status
                 </span>
@@ -161,7 +163,7 @@ const BasicTableMobile: React.FC<IBasicTableProps> = ({
               <TableCell align="center">
                 <span
                   className={styles["typography"]}
-                  style={{ fontSize: "1rem" }}
+                  style={{ fontSize: isMobile ? '0.5rem' : "1rem" }}
                 >
                   Action
                 </span>

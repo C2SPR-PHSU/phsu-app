@@ -39,21 +39,25 @@ const AccordionAcademicInfo = ({ campusData, campusId, academicForm, setAcademic
 
 
   useEffect(() => {
-    console.log(campusData?.term_id);
     if (!campusData) return;
+    console.log(academicForm)
+    // campusData.term_id
+    // console.log(campusData?.term_id);
+
     setSelectedAYear(campusData.academic_year);
     setSelectedETerm(campusData.term_id);
+
+    console.log(campusData.term_id, '-----', academicForm.term_id)
     setAcademicForm({
       campus_id: campusId,
-      term_id: campusData.term_id || academicForm.term_id,
-      academic_year: campusData.academic_year || academicForm.academic_year
+      term_id: campusData.term_id,
+      academic_year: campusData.academic_year
     });
   }, [campusData]);
 
 
   useEffect(() => {
     if (campusId) getAllEntranceTerms();
-
   }, [campusId])
 
   const getAllAcademicYears = async () => {
@@ -67,7 +71,8 @@ const AccordionAcademicInfo = ({ campusData, campusId, academicForm, setAcademic
     handleAcademicFormChange('campus_id', campusId);
     try {
       const response = await getEntranceTerms(campusId);
-      setEntranceTerms(response)
+      // setEntranceTerms([{ id: 0, title: "Select Entrance Term", ob_name: 'none' }, ...response]);
+      setEntranceTerms(response);
     } catch (error) { console.log(error) }
   }
 
@@ -127,14 +132,14 @@ const AccordionAcademicInfo = ({ campusData, campusId, academicForm, setAcademic
                 <CustomLabel name="Entrance Term" required={true} />
                 <Select
                   style={{ backgroundColor: 'white' }}
-                  value={academicForm.term_id || "placeholder"}
+                  value={academicForm.term_id || 0}
                   onChange={e => {
                     const newValue = e.target.value;
                     setSelectedETerm(newValue);
                     handleAcademicFormChange('term_id', newValue);
                   }}
                 >
-                  <MenuItem value={"placeholder"} disabled>
+                  <MenuItem value={0} disabled>
                     Select Entrance Term
                   </MenuItem>
                   {entranceTerms?.map((option) => (
