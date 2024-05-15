@@ -16,6 +16,8 @@ export interface IUserServicesData {
 }
 
 export interface IUserDocumentsData {
+  campus_document_user_id: number,
+  campus_user_id: number,
   created: string;
   description: string;
   id: string;

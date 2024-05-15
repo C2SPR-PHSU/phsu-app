@@ -106,10 +106,7 @@ export default function BasicTable({
         <TableHead>
           <TableRow>
             <TableCell
-              sx={{
-                display: "flex",
-                justifyContent: "center",
-              }}
+              sx={{ textAlign: 'center' }}
             >
               <Typography
                 className={styles["typography"]}
@@ -120,11 +117,9 @@ export default function BasicTable({
                 Service
               </Typography>
             </TableCell>
+
             <TableCell
-              sx={{
-                paddingLeft: "8%",
-              }}
-            >
+              sx={{ textAlign: 'center' }}>
               <Typography
                 className={styles["typography"]}
                 sx={{
@@ -135,10 +130,7 @@ export default function BasicTable({
               </Typography>
             </TableCell>
             <TableCell
-              sx={{
-                paddingLeft: "4%",
-              }}
-            >
+              sx={{ textAlign: 'center' }}>
               <Typography
                 className={styles["typography"]}
                 sx={{
@@ -149,10 +141,7 @@ export default function BasicTable({
               </Typography>
             </TableCell>
             <TableCell
-              sx={{
-                paddingLeft: "4%",
-              }}
-            >
+              sx={{ textAlign: 'center' }}>
               <Typography
                 className={styles["typography"]}
                 sx={{
@@ -162,7 +151,7 @@ export default function BasicTable({
                 Status
               </Typography>
             </TableCell>
-            <TableCell align="center" sx={{}}>
+            <TableCell align="center" sx={{ textAlign: 'center' }}>
               <Typography
                 className={styles["typography"]}
                 sx={{
@@ -194,8 +183,14 @@ export default function BasicTable({
                   </Typography>
 
                   <Typography
+                    onClick={() => {
+                      handleModal(`${row.service} - ${row.campus_name}`);
+                      setCampusId(row.campus_id);
+                      setDocumentId(row.id);
+                    }}
                     className={styles["typography"]}
                     sx={{
+                      cursor: 'pointer',
                       display: "flex",
                     }}
                   >
