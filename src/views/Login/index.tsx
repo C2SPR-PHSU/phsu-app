@@ -34,6 +34,7 @@ const Login = () => {
               listItem={service.listItem}
               description={service.description}
               url={service.url}
+              note={service.note}
             />
           ))}
         </Box>

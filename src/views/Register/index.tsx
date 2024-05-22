@@ -20,6 +20,7 @@ import styles from "./Register.module.scss";
 import useAlert from "@/hooks/useAlert";
 import useAuthStore from "@/hooks/useAuthStore";
 import { CustomTextField } from '../Profile/constants';
+import { PhoneInput } from "@/components";
 
 export default function Registration() {
   const theme = useTheme();
@@ -324,7 +325,7 @@ export default function Registration() {
           {/* --------------------------------Phone Number-------------------------------------------------- */}
           <Grid item xs={12} sm={6} md={4}>
             <CustomLabel name="Phone Number" required={true} />
-            <TextField
+            {/* <TextField
               sx={customTextField}
               name="phoneNumber"
               type="text"
@@ -337,6 +338,14 @@ export default function Registration() {
               helperText={
                 formik.touched.phoneNumber && formik.errors.phoneNumber
               }
+            /> */}
+            <PhoneInput
+              sx={customTextField}
+              placeholder="Phone Number"
+              name="phoneNumber"
+              id="phone"
+              variant="outlined"
+              formik={formik}
             />
           </Grid>
 

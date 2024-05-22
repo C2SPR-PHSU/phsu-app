@@ -172,7 +172,7 @@ const ProfileButtons = ({ isEditMode, activateEditForm, submitForm, uploadPhoto 
         component="label"
       >
         Change
-        <input type="file" id="avatar" name="avatar" accept="image/png" onChange={(e) => uploadPhoto(e)} hidden />
+        <input type="file" id="avatar" name="avatar" accept="image/png, image/jpg, image/jpeg" onChange={(e) => uploadPhoto(e)} hidden />
         &nbsp;
         <CameraAltIcon sx={{ fontSize: '18px' }} />
       </Button>

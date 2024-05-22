@@ -80,6 +80,11 @@ const ActionButtons = ({
 
 
   function compareDocuments(campusDocuments: CampusDocumentData[], userDocuments: UserDocumentData[]): boolean {
+
+    if (!Array.isArray(campusDocuments) || !Array.isArray(userDocuments)) {
+      console.error('Error: Ambos parámetros deben ser arrays.');
+      return false;
+    }
     // Filtra los documentos obligatorios en campusDocuments
     const mandatoryCampusDocs = campusDocuments.filter(doc => doc.mandatory === "1");
 
@@ -139,7 +144,7 @@ const ActionButtons = ({
       );
       const response = await editProfile(token, personalForm);
       response.action;
-      setAlert("Info sent successfully!", "success");
+      setAlert("Info Saved successfully!", "success");
     } catch (error) {
       setAlert("Something happened. Try again later", "error");
     }

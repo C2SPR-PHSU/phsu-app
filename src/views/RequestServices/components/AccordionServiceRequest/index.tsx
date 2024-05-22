@@ -11,6 +11,7 @@ import { IUserInfoData } from '@/views/RequestServices/types';
 import useAuthStore from "@/hooks/useAuthStore";
 import useAlert from "@/hooks/useAlert";
 import dayjs, { Dayjs } from 'dayjs';
+import PhoneTextField from "@/components/PhoneTextfield";
 
 interface MyTextFieldProps {
   name: string;
@@ -18,6 +19,35 @@ interface MyTextFieldProps {
   value: string;
   onValueChange: (name: string, value: string) => void;
 }
+
+const primaryColor = "#009999";
+const placeholderColor = "rgba(51, 51, 51, 0.4)";
+
+const customTextField = {
+  backgroundColor: 'white',
+  "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
+    borderColor: primaryColor,
+    borderRadius: 0,
+    border: "2px solid " + primaryColor,
+  },
+  "&:hover .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
+    borderColor: primaryColor,
+  },
+  "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline": {
+    borderColor: primaryColor,
+  },
+  "& .MuiInputLabel-outlined": {
+    fontSize: "1rem",
+    color: placeholderColor,
+  },
+  "& .MuiInputLabel-outlined.Mui-focused": {
+    color: primaryColor,
+  },
+  "& .MuiOutlinedInput-input": {
+    padding: "0.7rem",
+  },
+};
+
 
 const MyTextField: React.FC<MyTextFieldProps> = ({
   name,
@@ -28,35 +58,6 @@ const MyTextField: React.FC<MyTextFieldProps> = ({
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const newValue = event.target.value;
     onValueChange(name, newValue);
-  };
-
-
-  const primaryColor = "#009999";
-  const placeholderColor = "rgba(51, 51, 51, 0.4)";
-
-  const customTextField = {
-    backgroundColor: 'white',
-    "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
-      borderColor: primaryColor,
-      borderRadius: 0,
-      border: "2px solid " + primaryColor,
-    },
-    "&:hover .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
-      borderColor: primaryColor,
-    },
-    "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline": {
-      borderColor: primaryColor,
-    },
-    "& .MuiInputLabel-outlined": {
-      fontSize: "1rem",
-      color: placeholderColor,
-    },
-    "& .MuiInputLabel-outlined.Mui-focused": {
-      color: primaryColor,
-    },
-    "& .MuiOutlinedInput-input": {
-      padding: "0.7rem",
-    },
   };
 
   return (
@@ -263,11 +264,18 @@ export default function BasicAccordion({ setPersonalForm, personalForm }: any) {
             </Grid>
             <Grid item xs={12} sm={6} md={4}>
               <CustomLabel name="Phone Number" required={true} />
-              <MyTextField
+              {/* <MyTextField
                 name="cell_phone"
                 placeholder="Phone Number"
                 value={personalForm?.cell_phone || ''}
                 onValueChange={(name, value) => handlePersonalFormChange(name, value)}
+              /> */}
+              <PhoneTextField
+                name="cell_phone"
+                placeholder="Phone Number"
+                value={personalForm?.cell_phone || ''}
+                onValueChange={(name, value) => handlePersonalFormChange(name, value)}
+                sx={customTextField}
               />
             </Grid>
             <Grid item xs={12} sm={6} md={4}>

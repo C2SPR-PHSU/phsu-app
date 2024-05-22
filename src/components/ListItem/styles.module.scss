@@ -40,11 +40,11 @@ $size-sm: 18px;
 .list-item {
   font-size: $size;
   font-weight: bold;
-  color: $mainBlue;
-  text-decoration: underline #009999;
+  color: #009999;
+  // text-decoration: underline #009999;
 
   &:hover {
-    text-decoration: underline #009999;
+    // text-decoration: underline #009999;
     cursor: pointer;
   }
 
@@ -61,4 +61,27 @@ $size-sm: 18px;
 .list-item-description {
   color: $blackText;
   font-weight: bold;
+}
+
+.list-item-note {
+  display: inline;
+  font-size: $size;
+  font-weight: bold;
+  color: #f7941d;
+  text-decoration: underline #f7941d;
+  text-decoration-thickness: 2px;
+
+  &:hover {
+    // text-decoration: underline #f7941d;
+    cursor: pointer;
+  }
+
+  @media (max-width: 899px) {
+    font-size: $size-md !important; // Tamaño para dispositivos md y menores
+  }
+
+  @media (max-width: 599px) {
+    font-size: $size-sm !important; // Tamaño para dispositivos sm y menores
+  }
+
 }
