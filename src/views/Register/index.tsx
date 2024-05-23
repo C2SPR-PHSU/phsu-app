@@ -59,19 +59,22 @@ export default function Registration() {
     },
     validationSchema: Yup.object({
       firstName: Yup.string()
-        .matches(/^[A-Za-z]+$/, "First Name should only contain letters")
+        .matches(/^[\p{L}]+$/u, "First Name should only contain letters")
         .required("First Name is required")
         .max(20, "First Name must be at most 20 characters"),
+
+      middleName: Yup.string()
+        .matches(/^[\p{L}]+$/u, "Middle Name should only contain letters")
+        .max(20, "Middle Name must be at most 20 characters"),
 
       lastName: Yup.string()
         .matches(/^[A-Za-z]+$/, "Last Name should only contain letters")
         .required("Last Name is required")
         .max(20, "Last Name must be at most 20 characters"),
 
-      secondLastName: Yup.string().max(
-        20,
-        "Second Last Name must be at most 20 characters"
-      ),
+      secondLastName: Yup.string()
+        .matches(/^[\p{L}]+$/u, "Second Last Name should only contain letters")
+        .max(20, "Second Last Name must be at most 20 characters"),
 
       email: Yup.string()
         .email("Invalid email address")
@@ -80,17 +83,14 @@ export default function Registration() {
 
       phoneNumber: Yup.string()
         .required("Cell Phone is required")
-        .matches(/^[0-9]+$/, "Cell Phone should only contain numbers")
-        .max(20, "Cell Phone must be at most 20 characters"),
+        .matches(/^[0-9*]+$/, "Phone number format (XXX) XXX-XXXX")
+        .test('len', "Phone number must contain 10 characters", val => val.length === 10),
+
 
       studentId: Yup.string()
         .required('Studen ID is Required')
         .matches(/^\d*$/, 'Only numbers are allowed'),
 
-      middleName: Yup.string().max(
-        20,
-        "Middle Name must be at most 20 characters"
-      ),
       birthdate: Yup.string().required("Birthdate is required"),
       addressLine1: Yup.string()
         .required("Address Line 1 is required")

@@ -38,7 +38,9 @@ const Profile = () => {
   const formik = useFormik({
     initialValues,
     validationSchema,
-    onSubmit: values => updateUserProfile(values)
+    onSubmit: values => updateUserProfile(values),
+    validateOnChange: true, // Esto garantiza que se validen los campos con cada cambio
+    validateOnBlur: true,
   })
 
   const fetchUserProfile = async () => {
@@ -101,7 +103,7 @@ const Profile = () => {
                 Personal Information
               </Typography>
             </Grid>
-            
+
             <Grid item xs={12} sm={6}>
               <PersonalInformation isEditMode={isEditMode} formik={formik} />
             </Grid>

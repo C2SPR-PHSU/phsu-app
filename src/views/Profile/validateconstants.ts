@@ -2,79 +2,58 @@ import * as Yup from "yup";
 
 export const validationSchema = Yup.object().shape({
   first_name: Yup.string()
-    .matches(/^[A-Za-z]+$/, "Only letters")
-    .nullable()
-    .min(3, "Minimum of 3 characters")
-    .max(20, "Maximum of 20 characters"),
+    .matches(/^[\p{L}]+$/u, "First Name should only contain letters")
+    .required("First Name is required")
+    .max(20, "First Name must be at most 20 characters"),
+
   middle_name: Yup.string()
-    .matches(/^[A-Za-z]+$/, "Only letters")
-    .nullable()
-    .min(3, "Minimum of 3 characters")
-    .max(20, "Maximum of 20 characters"),
+    .matches(/^[\p{L}]+$/u, "Middle Name should only contain letters")
+    .max(20, "Middle Name must be at most 20 characters"),
+
   last_name: Yup.string()
-    .matches(/^[A-Za-z]+$/, "Only letters")
-    .nullable()
-    .min(3, "Minimum of 3 characters")
-    .max(20, "Maximum of 20 characters"),
+    .matches(/^[A-Za-z]+$/, "Last Name should only contain letters")
+    .required("Last Name is required")
+    .max(20, "Last Name must be at most 20 characters"),
+
   second_last_name: Yup.string()
-    .matches(/^[A-Za-z]+$/, "Only letters")
-    .nullable()
-    .min(3, "Minimum of 3 characters")
-    .max(20, "Maximum of 20 characters"),
+    .matches(/^[\p{L}]+$/u, "Second Last Name should only contain letters")
+    .max(20, "Second Last Name must be at most 20 characters"),
+
   student_id: Yup.string()
-    .matches(/^[0-9]+$/, "Only numbers")
-    .nullable()
-    .max(15, "Maximum of 15 characters"),
+    .required('Studen ID is Required')
+    .matches(/^\d*$/, 'Only numbers are allowed'),
+
   birthdate: Yup.date().required("Required"),
+
   cell_phone: Yup.string()
-    .matches(/^[0-9]+$/, "Only numbers")
-    .nullable()
-    .max(30, "Maximum of 30 characters"),
-  alternative_phone: Yup.string()
-    .matches(/^[0-9-]+$/, "Only numbers and hyphens")
-    .nullable()
-    .max(15, "Maximum of 15 characters"),
-  email: Yup.string().email("Invalid email format").nullable(),
-  institucional_email: Yup.string()
-    .email("Invalid email format")
-    .nullable()
-    .max(100, "Maximum of 100 characters"),
-  entrance_year: Yup.string()
-    .matches(/^[0-9]+$/, "Only numbers")
-    .nullable()
-    .max(15, "Maximum of 15 characters"),
-  campus: Yup.string()
-    .matches(/^[A-Za-z]+$/, "Only letters")
-    .nullable()
-    .min(3, "Minimum of 3 characters")
-    .max(20, "Maximum of 20 characters"),
-  entrance_terms: Yup.string()
-    .matches(/^[A-Za-z]+$/, "Only letters")
-    .nullable()
-    .min(3, "Minimum of 3 characters")
-    .max(20, "Maximum of 20 characters"),
+    .required("Cell Phone is required")
+    .matches(/^[0-9*]+$/, "Phone number format (XXX) XXX-XXXX")
+    .test('len', "Phone number must contain 10 characters", val => val.length === 10),
+
+  email: Yup.string()
+    .email("Invalid email address")
+    .required("Email is required")
+    .max(100, "Email must be at most 100 characters"),
+
   address_line1: Yup.string()
-    .matches(/^[A-Za-z0-9\s]+$/, "Only letters, numbers, and spaces")
-    .max(15, "Maximum of 15 characters")
-    .nullable(),
+    .required("Address Line 1 is required")
+    .max(40, "Address Line 1 must be at most 40 characters"),
+
   address_line2: Yup.string()
-    .matches(/^[A-Za-z0-9\s]+$/, "Only letters, numbers, and spaces")
-    .max(15, "Maximum of 15 characters")
-    .nullable(),
+    .max(40, "Address Line 2 must be at most 40 characters"),
+
   address_city: Yup.string()
-    .matches(/^[A-Za-z\s]+$/, "Only letters and spaces")
-    .nullable()
-    .min(3, "Minimum of 3 characters")
-    .max(20, "Maximum of 20 characters"),
+    .required("Address City is required")
+    .max(25, "Address City must be at most 25 characters"),
+
   address_state: Yup.string()
-    .matches(/^[A-Za-z\s]+$/, "Only letters and spaces")
-    .nullable()
-    .min(3, "Minimum of 3 characters")
-    .max(20, "Maximum of 20 characters"),
-  address_zipcode: Yup.string()
-    .matches(/^[0-9]+$/, "Only numbers")
-    .nullable()
-    .max(15, "Maximum of 15 characters"),
+    .required("Address State is required")
+    .max(40, "Address State must be at most 40 characters"),
+
+  address_zipcode: Yup.number()
+    .typeError("Address Zip Code must be a number")
+    .required("Address Zip Code is required"),
+
   program: Yup.string()
     .matches(/^[A-Za-z-]+$/, "Only letters and hyphens are allowed")
     .nullable()

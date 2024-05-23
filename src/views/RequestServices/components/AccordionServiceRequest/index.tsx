@@ -18,6 +18,8 @@ interface MyTextFieldProps {
   placeholder: string;
   value: string;
   onValueChange: (name: string, value: string) => void;
+  error?: string | null;
+  helperText?: string | null;
 }
 
 const primaryColor = "#009999";
@@ -48,12 +50,13 @@ const customTextField = {
   },
 };
 
-
 const MyTextField: React.FC<MyTextFieldProps> = ({
   name,
   placeholder,
   value,
   onValueChange,
+  error,
+  helperText
 }) => {
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const newValue = event.target.value;
@@ -70,9 +73,63 @@ const MyTextField: React.FC<MyTextFieldProps> = ({
       value={value}
       onChange={handleChange}
       name={name}
-      inputProps={{ maxLength: name === 'student_id' ? '7' : '' }}
+      inputProps={{ maxLength: name === 'student_id' ? 7 : undefined }}
+      error={Boolean(error)}
+      helperText={helperText}
     />
   );
+};
+
+// Funciones de validación
+const validateFirstName = (value: string) => {
+  if (!value) return "First Name is required";
+  if (!/^[\p{L}]+$/u.test(value)) return "First Name should only contain letters";
+  if (value.length > 20) return "First Name must be at most 20 characters";
+  return "";
+};
+
+const validateMiddleName = (value: string) => {
+  if (value && !/^[\p{L}]+$/u.test(value)) return "Middle Name should only contain letters";
+  if (value && value.length > 20) return "Middle Name must be at most 20 characters";
+  return "";
+};
+
+const validateLastName = (value: string) => {
+  if (!value) return "Last Name is required";
+  if (!/^[A-Za-z]+$/.test(value)) return "Last Name should only contain letters";
+  if (value.length > 20) return "Last Name must be at most 20 characters";
+  return "";
+};
+
+const validateSecondLastName = (value: string) => {
+  if (value && !/^[\p{L}]+$/u.test(value)) return "Second Last Name should only contain letters";
+  if (value && value.length > 20) return "Second Last Name must be at most 20 characters";
+  return "";
+};
+
+const validateStudentId = (value: string) => {
+  if (!value) return "Student ID is required";
+  if (!/^\d*$/.test(value)) return "Only numbers are allowed";
+  return "";
+};
+
+const validateBirthdate = (value: string) => {
+  if (!value) return "Required";
+  return "";
+};
+
+const validateCellPhone = (value: string) => {
+  if (!value) return "Cell Phone is required";
+  if (!/^[0-9*]+$/.test(value)) return "Phone number format (XXX) XXX-XXXX";
+  if (value.length !== 10) return "Phone number must contain 10 characters";
+  return "";
+};
+
+const validateEmail = (value: string) => {
+  if (!value) return "Email is required";
+  if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(value)) return "Invalid email address";
+  if (value.length > 100) return "Email must be at most 100 characters";
+  return "";
 };
 
 export default function BasicAccordion({ setPersonalForm, personalForm }: any) {
@@ -82,15 +139,25 @@ export default function BasicAccordion({ setPersonalForm, personalForm }: any) {
 
   const [personalInfo, setPersonalInfo] = useState<IUserInfoData>();
 
+  const [errors, setErrors] = useState({
+    first_name: '',
+    middle_name: '',
+    last_name: '',
+    second_last_name: '',
+    student_id: '',
+    birthdate: '',
+    cell_phone: '',
+    email: '',
+  });
+
   useEffect(() => {
-    console.log(personalForm)
     getUserPersonalInformation();
-  }, [])
+  }, []);
 
   const getUserPersonalInformation = async () => {
     try {
       const response = await getUserInformation(token);
-      setPersonalInfo(response)
+      setPersonalInfo(response);
       const {
         first_name,
         middle_name,
@@ -114,12 +181,11 @@ export default function BasicAccordion({ setPersonalForm, personalForm }: any) {
       });
 
     } catch (error) {
-      setAlert('Personal Information failed', 'error')
+      setAlert('Personal Information failed', 'error');
     }
-  }
+  };
 
   const handlePersonalFormChange = (key: string, newValue: string) => {
-
     if (key === 'student_id') {
       const filteredValue = newValue.replace(/\D/g, '');
       setPersonalForm((prevState: any) => ({
@@ -127,30 +193,52 @@ export default function BasicAccordion({ setPersonalForm, personalForm }: any) {
         [key]: filteredValue,
       }));
 
-      return
+      return;
     }
 
     setPersonalForm((prevState: any) => ({
       ...prevState,
       [key]: newValue,
     }));
-  };
 
-  // const handleDateChange = (key: string, newDate: Dayjs | null) => {
-  //   if (newDate) {
-  //     setPersonalForm((prevState: any) => ({
-  //       ...prevState,
-  //       [key]: newDate.format(), // convertir la fecha Dayjs a string
-  //     }));
-  //   }
-  // };
+    let error = "";
+    switch (key) {
+      case 'first_name':
+        error = validateFirstName(newValue);
+        break;
+      case 'middle_name':
+        error = validateMiddleName(newValue);
+        break;
+      case 'last_name':
+        error = validateLastName(newValue);
+        break;
+      case 'second_last_name':
+        error = validateSecondLastName(newValue);
+        break;
+      case 'student_id':
+        error = validateStudentId(newValue);
+        break;
+      case 'birthdate':
+        error = validateBirthdate(newValue);
+        break;
+      case 'cell_phone':
+        error = validateCellPhone(newValue);
+        break;
+      case 'email':
+        error = validateEmail(newValue);
+        break;
+      default:
+        break;
+    }
+    setErrors((prev) => ({ ...prev, [key]: error }));
+  };
 
   const handleDateChange = (key: string, newDate: Dayjs | null) => {
     if (newDate) {
-      const adjustedDate = newDate.add(12, 'hour'); // agregar 12 horas a la fecha
+      const adjustedDate = newDate.add(12, 'hour');
       setPersonalForm((prevState: any) => ({
         ...prevState,
-        [key]: adjustedDate.format(), // convertir la fecha Dayjs a string
+        [key]: adjustedDate.format(),
       }));
     }
   };
@@ -171,11 +259,9 @@ export default function BasicAccordion({ setPersonalForm, personalForm }: any) {
           aria-controls="panel2a-content"
           id="panel2a-header"
         >
-
           <Typography className={styles["box-academic-i"]}>
             Personal Information
           </Typography>
-
         </AccordionSummary>
         <AccordionDetails sx={{ width: 'calc(100% - 1.5rem)' }}>
           <Typography sx={{ marginBottom: '1.5rem !important' }}>
@@ -190,7 +276,9 @@ export default function BasicAccordion({ setPersonalForm, personalForm }: any) {
                   name="first_name"
                   placeholder="First Name"
                   value={personalForm?.first_name || ''}
-                  onValueChange={(name, value) => handlePersonalFormChange(name, value)}
+                  onValueChange={handlePersonalFormChange}
+                  error={errors.first_name}
+                  helperText={errors.first_name}
                 />
               </div>
             </Grid>
@@ -201,7 +289,9 @@ export default function BasicAccordion({ setPersonalForm, personalForm }: any) {
                   name="middle_name"
                   placeholder="Middle Name"
                   value={personalForm?.middle_name || ''}
-                  onValueChange={(name, value) => handlePersonalFormChange(name, value)}
+                  onValueChange={handlePersonalFormChange}
+                  error={errors.middle_name}
+                  helperText={errors.middle_name}
                 />
               </div>
             </Grid>
@@ -212,18 +302,21 @@ export default function BasicAccordion({ setPersonalForm, personalForm }: any) {
                   name="last_name"
                   placeholder="Last Name"
                   value={personalForm?.last_name || ''}
-                  onValueChange={(name, value) => handlePersonalFormChange(name, value)}
+                  onValueChange={handlePersonalFormChange}
+                  error={errors.last_name}
+                  helperText={errors.last_name}
                 />
               </div>
             </Grid>
-            {/* Second Row */}
             <Grid item xs={12} sm={6} md={4}>
               <CustomLabel name="Second Last Name" required={false} />
               <MyTextField
                 name="second_last_name"
                 placeholder="Second Last Name"
                 value={personalForm?.second_last_name || ''}
-                onValueChange={(name, value) => handlePersonalFormChange(name, value)}
+                onValueChange={handlePersonalFormChange}
+                error={errors.second_last_name}
+                helperText={errors.second_last_name}
               />
             </Grid>
             <Grid item xs={12} sm={6} md={4}>
@@ -237,12 +330,10 @@ export default function BasicAccordion({ setPersonalForm, personalForm }: any) {
                       borderRadius: 0,
                       border: "2px solid " + "#009999",
                     },
-                    "&:hover .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline":
-                    {
+                    "&:hover .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
                       borderColor: "#009999",
                     },
-                    "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline":
-                    {
+                    "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline": {
                       borderColor: "#009999",
                     },
                     "& .MuiInputLabel-outlined": {
@@ -264,18 +355,14 @@ export default function BasicAccordion({ setPersonalForm, personalForm }: any) {
             </Grid>
             <Grid item xs={12} sm={6} md={4}>
               <CustomLabel name="Phone Number" required={true} />
-              {/* <MyTextField
-                name="cell_phone"
-                placeholder="Phone Number"
-                value={personalForm?.cell_phone || ''}
-                onValueChange={(name, value) => handlePersonalFormChange(name, value)}
-              /> */}
               <PhoneTextField
                 name="cell_phone"
                 placeholder="Phone Number"
                 value={personalForm?.cell_phone || ''}
-                onValueChange={(name, value) => handlePersonalFormChange(name, value)}
+                onValueChange={handlePersonalFormChange}
                 sx={customTextField}
+                error={errors.cell_phone}
+                helperText={errors.cell_phone}
               />
             </Grid>
             <Grid item xs={12} sm={6} md={4}>
@@ -284,7 +371,9 @@ export default function BasicAccordion({ setPersonalForm, personalForm }: any) {
                 name="email"
                 placeholder="Email"
                 value={personalForm?.email || ''}
-                onValueChange={(name, value) => handlePersonalFormChange(name, value)}
+                onValueChange={handlePersonalFormChange}
+                error={errors.email}
+                helperText={errors.email}
               />
             </Grid>
             <Grid item xs={12} sm={6} md={4}>
@@ -293,7 +382,9 @@ export default function BasicAccordion({ setPersonalForm, personalForm }: any) {
                 name="student_id"
                 placeholder="Student Id"
                 value={personalForm?.student_id || ''}
-                onValueChange={(name, value) => handlePersonalFormChange(name, value)}
+                onValueChange={handlePersonalFormChange}
+                error={errors.student_id}
+                helperText={errors.student_id}
               />
             </Grid>
           </Grid>

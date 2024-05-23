@@ -8,6 +8,8 @@ interface PhoneTextFieldProps {
     value: string;
     onValueChange: (name: string, value: string) => void;
     sx?: SxProps<Theme>; // Define la propiedad sx como opcional
+    error?: string | null;
+    helperText?: string | null;
 }
 
 const PhoneTextField: React.FC<PhoneTextFieldProps> = ({
@@ -15,7 +17,9 @@ const PhoneTextField: React.FC<PhoneTextFieldProps> = ({
     placeholder,
     value,
     onValueChange,
-    sx
+    sx,
+    error,
+    helperText
 }) => {
     const [displayValue, setDisplayValue] = useState<string>(value || "(___) ___-____");
 
@@ -51,6 +55,8 @@ const PhoneTextField: React.FC<PhoneTextFieldProps> = ({
                     sx={sx} // Aplica la propiedad sx pasada como prop
                     value={displayValue}
                     onChange={handleChange}
+                    error={Boolean(error)}
+                    helperText={helperText}
                 />
             )}
         </InputMask>
