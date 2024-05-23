@@ -244,6 +244,7 @@ export default function BasicTable({
                   <IconButton>
                     <DownloadIcon
                       sx={{
+                        cursor: 'default',
                         color: "rgba(0, 168, 168, 0.42)",
                       }}
                     />

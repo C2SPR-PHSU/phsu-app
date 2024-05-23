@@ -25,7 +25,7 @@ import { getAllUserDocuments } from "./functions";
 
 const RequestServices = () => {
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('lg'));
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const token = useAuthStore((state: any) => state.token);
 
   const [campusStatus, setCampusStatus] = useState(0);
@@ -136,17 +136,26 @@ const RequestServices = () => {
           sx={{ display: "flex", flexDirection: "column" }}
           py={4}
         >
-          <Typography className={styles["title-services"]} sx={{ pb: '2rem' }}>
+          <Typography className={styles["title-services"]}
+            sx={{
+              pb: '2rem',
+              fontSize: isMobile ? '1.5rem' : "2.2rem",
+              textAlign: isMobile ? 'center' : 'start'
+            }}>
             {servicesTextTitle}
           </Typography>
-          <Typography className={styles["description-view-services"]}>
+          <Typography className={styles["description-view-services"]}
+            sx={{
+              fontSize: isMobile ? '1rem' : "1.2rem",
+              paddingX: isMobile ? '1rem' : ''
+            }}>
             {servicesTextDescription}
           </Typography>
         </Grid>
 
 
         <Grid item xs={12} py={4}>
-          <Typography className={styles["campus-selection-title"]}>Campus Selection
+          <Typography className={styles["campus-selection-title"]} sx={{ textAlign: isMobile ? 'center' : 'start' }}>Campus Selection
           </Typography>
         </Grid>
 
@@ -211,7 +220,7 @@ const RequestServices = () => {
         >
           {!displayList || selectedCampus === "0" ? (
             <>
-              <Typography className={styles["campus-selection-title"]}>
+              <Typography className={styles["campus-selection-title"]} sx={{ textAlign: isMobile ? 'center' : 'start' }}>
                 Documents
               </Typography>
               <Typography sx={{ color: "gray" }}>
@@ -220,23 +229,22 @@ const RequestServices = () => {
             </>
           ) : (
             <Grid container>
-              <div className={styles["document-th-wrapper"]}>
-                <Grid item xs={8}>
-                  <Typography className={styles["documents-th"]}>
-                    Documents
-                  </Typography>
-                </Grid>
-                <Grid item xs={2}>
-                  <Typography className={styles["actions-th"]}>
-                    Actions
-                  </Typography>
-                </Grid>
-                <Grid item xs={2}>
-                  <Typography className={styles["actions-th"]}>
-                    Uploaded
-                  </Typography>
-                </Grid>
-              </div>
+
+              <Grid item xs={12} md={8} sx={{ marginBottom: '2rem !important' }}>
+                <Typography className={styles["documents-th"]} sx={{ textAlign: isMobile ? 'center' : 'start' }}>
+                  Documents
+                </Typography>
+              </Grid>
+              <Grid item md={2} sx={{ marginBottom: '2rem !important', display: isMobile ? 'none' : 'block' }}>
+                <Typography className={styles["actions-th"]}>
+                  Actions
+                </Typography>
+              </Grid>
+              <Grid item md={2} sx={{ marginBottom: '2rem !important', display: isMobile ? 'none' : 'block' }}>
+                <Typography className={styles["actions-th"]}>
+                  Uploaded
+                </Typography>
+              </Grid>
 
               {loading &&
                 <Grid item xs={12}>
@@ -257,6 +265,7 @@ const RequestServices = () => {
                       campusDocuments={documentList}
                       userDocuments={userDocuments}
                       requestUserDocuments={() => requestUserDocuments()}
+                      isMobile={isMobile}
                     />
                   </Grid>
                 );

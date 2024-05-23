@@ -60,20 +60,27 @@ const BasicTableMobile: React.FC<IBasicTableProps> = ({
       {userServices &&
         userServices?.map((row, index) => (
 
-          <Box sx={{
-            display: 'flex',
-            marginBottom: '2rem !important',
-            paddingX: '2rem',
-            padding: '1rem',
-            backgroundColor: 'white',
-            borderRadius: '8px',
-            boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
-          }}>
+          <Box
+            key={index}
+            sx={{
+              display: "flex",
+              marginBottom: "2rem !important",
+              padding: "1.5rem",
+              backgroundColor: "#ffffff",
+              borderRadius: "12px",
+              boxShadow: "0 6px 12px rgba(0, 0, 0, 0.1)",
+              transition: "transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out",
+              "&:hover": {
+                transform: "translateY(-4px)",
+                boxShadow: "0 12px 24px rgba(0, 0, 0, 0.2)",
+              },
+            }}
+          >
             <Grid container>
 
-              <Grid item xs={12}>
+              <Grid item xs={12} sx={{ textAlign: 'center' }}>
                 <Typography>
-                  Service:
+                  Service
                 </Typography>
                 <Typography
                   onClick={() => {
@@ -90,60 +97,46 @@ const BasicTableMobile: React.FC<IBasicTableProps> = ({
                 </Typography>
               </Grid>
 
-              <Grid item xs={12}>
-                <Typography>
-                  Date:
-                </Typography>
-                <Typography>
-                  {formatDate(row.created)}
-                </Typography>
+              <Grid container item xs={12} sx={{ marginY: '1rem !important' }}>
+                <StatusButton statusName={row.status_desc as string} />
               </Grid>
 
-              <Grid item xs={12}>
-                <Typography>
-                  Days Left:
-                </Typography>
-                <Typography>
-                  {row.days_to_expire}
-                </Typography>
-              </Grid>
 
-              <Grid item xs={6}>
-                <Typography>
-                  Status:
-                </Typography>
-                <Typography>
-                  <StatusButton statusName={row.status_desc as string} />
-                </Typography>
-              </Grid>
-
-              <Grid item xs={12}>
-                <Typography>
-                  Action:
-                </Typography>
-
-                <IconButton
-                  onClick={() => {
-                    handleModal(`${row.service} - ${row.campus_name}`);
-                    setCampusId(row.campus_id);
-                    setDocumentId(row.id);
-                  }}
-                >
-                  <VisibilityIcon
-                    sx={{
-                      color: "#009999",
-                      cursor: "pointer",
+              <Grid container item xs={12} justifyContent={'space-between'}>
+                <Grid item>
+                  <Typography>
+                    {formatDate(row.created)}
+                  </Typography>
+                </Grid>
+                <Grid item>
+                  <IconButton
+                    onClick={() => {
+                      handleModal(`${row.service} - ${row.campus_name}`);
+                      setCampusId(row.campus_id);
+                      setDocumentId(row.id);
                     }}
-                  />
-                </IconButton>
+                  >
+                    <VisibilityIcon
+                      sx={{
+                        color: "#009999",
+                        cursor: "pointer",
+                      }}
+                    />
+                  </IconButton>
 
-                <IconButton>
-                  <DownloadIcon
-                    sx={{
-                      color: "rgba(0, 168, 168, 0.42)",
-                    }}
-                  />
-                </IconButton>
+                  <IconButton>
+                    <DownloadIcon
+                      sx={{
+                        color: "rgba(0, 168, 168, 0.42)",
+                      }}
+                    />
+                  </IconButton>
+                </Grid>
+                <Grid item>
+                  <Typography>
+                    {row.days_to_expire} Days Left
+                  </Typography>
+                </Grid>
               </Grid>
 
             </Grid>

@@ -9,6 +9,7 @@ import { useTheme } from "@mui/material/styles";
 import useAuthStore from "@/hooks/useAuthStore";
 import { useNavigate } from "react-router-dom";
 import { logOut } from "@/utils/";
+import Logo from "../../assets/images/logo-phsu.png";
 
 const Home = () => {
   const { setAlert } = useAlert();
@@ -57,19 +58,35 @@ const Home = () => {
         }),
       }}
     >
-      <Grid
-        item
-        xs={12}
-        className={styles["image-banner"]}
-        sx={{
-          ...(isMobile && {
-            maxHeight: "25vh",
-            marginBottom: "0rem",
-          }),
-        }}
-      >
-        <Box className={styles["text-container"]}></Box>
-      </Grid>
+
+      {isMobile ?
+        <Grid sx={{
+          display: "flex",
+          justifyContent: 'center',
+          maxHeight: "25vh",
+          marginBottom: "0rem",
+          padding: '1rem'
+        }}>
+          <img
+            style={{
+              maxWidth: '100%',
+              maxHeight: '100%',
+              objectFit: 'contain',
+            }}
+            src={Logo}
+            alt="logo-phsu" />
+        </Grid>
+        :
+        <Grid
+          item
+          xs={12}
+          className={styles["image-banner"]}
+        >
+          <Box className={styles["text-container"]}></Box>
+        </Grid>
+
+      }
+
       <Grid
         item
         xs={12}
@@ -96,6 +113,7 @@ const Home = () => {
                 fontSize: "1.4rem",
                 paddingLeft: "1rem",
                 paddingTop: "2rem",
+                textAlign: 'center'
               }),
             }}
           >

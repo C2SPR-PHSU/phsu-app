@@ -154,7 +154,7 @@ const RequiredDocumentsTable = ({
 
                         ) :
                           <UploadIcon
-                            sx={{ color: "#009999", cursor: "pointer" }}
+                            sx={{ color: "#e0e0e0", cursor: "pointer" }}
                           />
                         }
 
