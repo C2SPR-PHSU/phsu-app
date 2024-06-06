@@ -38,6 +38,13 @@ export default function Registration() {
     formik.setFieldValue(name, filteredValue);
   };
 
+  // Función personalizada para validar la suma de los dígitos
+  const isValidSumForStudentId = (value) => {
+    if (!/^\d{7}$/.test(value)) return false; // Verifica que sean exactamente 7 dígitos numéricos
+    const sum = value.split('').reduce((acc, digit) => acc + parseInt(digit, 10), 0);
+    return sum > 1000000;
+  };
+
 
   const formik = useFormik({
     initialValues: {
@@ -88,8 +95,9 @@ export default function Registration() {
 
 
       studentId: Yup.string()
-        .required('Studen ID is Required')
-        .matches(/^\d*$/, 'Only numbers are allowed'),
+        .required('Student ID is Required')
+        .matches(/^\d{7}$/, 'Student ID must be exactly 7 digits')
+        .test('isValidSumForStudentId', 'The sum of the digits must be a number greater than 1000000', isValidSumForStudentId),
 
       birthdate: Yup.string().required("Birthdate is required"),
       addressLine1: Yup.string()

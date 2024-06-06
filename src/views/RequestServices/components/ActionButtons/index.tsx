@@ -37,7 +37,6 @@ interface UserDocumentData {
   url: string;
 }
 
-
 interface IActionButtonsProps {
   userDocuments: any,
   campusDocuments: any,
@@ -67,17 +66,14 @@ const ActionButtons = ({
   setLoading
 }: any) => {
 
-  useEffect(() => {
-    console.log('campusData info:')
-    console.log(campusData)
-  }, []);
+  const token = useAuthStore((state: any) => state.token);
+  const { setAlert } = useAlert();
 
   useEffect(() => {
-    console.log(userDocuments)
+    console.log('compare documents')
     console.log(compareDocuments(campusDocuments, userDocuments))
     // console.log(campusDocuments)
   }, [campusDocuments, userDocuments]);
-
 
   function compareDocuments(campusDocuments: CampusDocumentData[], userDocuments: UserDocumentData[]): boolean {
 
@@ -117,10 +113,6 @@ const ActionButtons = ({
     return allDocsExist;
   }
 
-
-  const token = useAuthStore((state: any) => state.token);
-  const { setAlert } = useAlert();
-
   const sendToOnBase = async () => {
     setLoading(true)
     try {
@@ -150,18 +142,16 @@ const ActionButtons = ({
     }
   };
 
-
-  // useEffect(() => {
-  //   console.log(academicForm)
-  //   checkFormsValid();
-  //   console.log(campusStatus, ' ', selectedCampus, checkFormsValid())
-  // }, [campusStatus, selectedCampus, academicForm, personalForm]);
-
+  useEffect(() => {
+    console.log(academicForm);
+    validateSubmit();
+    console.log(campusStatus, selectedCampus, checkFormsValid());
+  }, [campusStatus, selectedCampus, academicForm, personalForm]);
 
   const checkFormsValid = () => {
     const formValues = [{ ...personalForm }, { ...academicForm }];
 
-    const isValidField = (key, value) => {
+    const isValidField = (key: string, value: any) => {
       if (['middle_name', 'second_last_name'].includes(key)) {
         // Estos campos pueden estar vacíos, por lo que los consideramos válidos en cualquier caso
         return true;
@@ -172,7 +162,7 @@ const ActionButtons = ({
     formValues.forEach(form => {
       Object.entries(form).forEach(([key, value]) => {
         if (!isValidField(key, value)) {
-          // console.log(`Invalid field: ${key}, Value: ${value}`);
+          console.log(`Invalid field: ${key}, Value: ${value}`);
         }
       });
     });
@@ -180,6 +170,37 @@ const ActionButtons = ({
     return formValues.every(form =>
       Object.entries(form).every(([key, value]) => isValidField(key, value))
     );
+  };
+
+  const validateSubmit = () => {
+    // if (campusStatus === 0) {
+    //   console.log("Submit disabled: campusStatus is 0");
+    // }
+    if (!selectedCampus) {
+      console.log("Submit disabled: selectedCampus is not set");
+    }
+    if (!checkFormsValid()) {
+      console.log("Submit disabled: Forms are not valid");
+    }
+    if (!compareDocuments(campusDocuments, userDocuments)) {
+      console.log("Submit disabled: Documents are not valid");
+    }
+  };
+
+  const isSubmitDisabled = () => {
+    const conditions = {
+      selectedCampus: !selectedCampus,
+      formsValid: !checkFormsValid(),
+      documentsValid: !compareDocuments(campusDocuments, userDocuments),
+    };
+
+    Object.entries(conditions).forEach(([condition, isInvalid]) => {
+      if (isInvalid) {
+        console.log(`Submit disabled: ${condition} is invalid`);
+      }
+    });
+
+    return Object.values(conditions).some(isInvalid => isInvalid);
   };
 
   return (
@@ -204,7 +225,7 @@ const ActionButtons = ({
               marginRight: isMobile ? '0' : '1rem !important',
               marginBottom: isMobile ? '1rem !important' : '0rem !important'
             }}
-            disabled={campusStatus == 0 || !selectedCampus || !checkFormsValid() || !compareDocuments(campusDocuments, userDocuments)}
+            disabled={isSubmitDisabled()}
           >
             SUBMIT
           </Button>

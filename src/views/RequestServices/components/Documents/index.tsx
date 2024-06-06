@@ -246,7 +246,7 @@ const Documents = ({
                   null
               }
             </div>
-            {isMobile &&
+            {isMobile && currentDocument && currentDocument.status !== '0' &&
               <Typography
                 sx={{
                   fontSize: '0.8rem',

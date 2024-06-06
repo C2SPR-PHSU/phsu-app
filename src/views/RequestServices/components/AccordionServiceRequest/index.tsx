@@ -80,6 +80,15 @@ const MyTextField: React.FC<MyTextFieldProps> = ({
   );
 };
 
+
+// Función personalizada para validar la suma de los dígitos
+const isValidSumForStudentId = (value: any) => {
+  if (!/^\d{7}$/.test(value)) return false; // Verifica que sean exactamente 7 dígitos numéricos
+  const sum = value.split('').reduce((acc: any, digit: any) => acc + parseInt(digit, 10), 0);
+  return sum > 1000000;
+};
+
+
 // Funciones de validación
 const validateFirstName = (value: string) => {
   if (!value) return "First Name is required";
@@ -110,6 +119,7 @@ const validateSecondLastName = (value: string) => {
 const validateStudentId = (value: string) => {
   if (!value) return "Student ID is required";
   if (!/^\d*$/.test(value)) return "Only numbers are allowed";
+  if (!isValidSumForStudentId(value)) return "The sum of the digits must be a number greater than 1000000";
   return "";
 };
 

@@ -70,8 +70,10 @@ const RequestServices = () => {
   }, [selectedService]);
 
   useEffect(() => {
+    console.log('Selected Campus: ', selectedCampus)
     if (selectedCampus === "0") return;
-    requestUserDocuments();
+    handleCampusChange(selectedCampus)
+    // requestUserDocuments();
   }, [selectedCampus]);
 
   const getAllCampuses = async () => {
@@ -111,13 +113,14 @@ const RequestServices = () => {
     }
   };
 
-  const handleCampusChange = (idValue: any) => {
-    console.log('idValue ', idValue);
-    setSelectedCampus(idValue);
-    getUserCampusInfo(idValue);
-    getDocumentsByCampus(parseInt(idValue));
+  const handleCampusChange = (campus_id: any) => {
+    setSelectedCampus(campus_id);
+    console.log('NUEVO CAMPUS ', campus_id, ' Selected Campus: ' + selectedCampus);
+    getUserCampusInfo(campus_id);
+    getDocumentsByCampus(parseInt(campus_id));
     requestUserDocuments();
   };
+
 
   return (
     <Box
@@ -169,7 +172,8 @@ const RequestServices = () => {
             <CustomLabel name="Campus" required={true} />
             <Select
               value={selectedCampus || "placeholder"}
-              onChange={(e) => handleCampusChange(e.target.value)}
+              // onChange={(e) => handleCampusChange(e.target.value)}
+              onChange={(e) => setSelectedCampus(e.target.value)}
             >
               <MenuItem value={"placeholder"} disabled>
                 Select your Campus
@@ -298,7 +302,7 @@ const RequestServices = () => {
           isMobile={isMobile}
           campusData={campusData}
           campusStatus={campusStatus}
-          selectedCampus={selectedCampus}
+          selectedCampus={parseInt(selectedCampus, 10)}
           enabledSubmit={displayList}
           getUserCampusInfo={(id: any) => getUserCampusInfo(id)}
           personalForm={personalForm}

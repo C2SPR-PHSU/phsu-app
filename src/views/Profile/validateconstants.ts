@@ -1,5 +1,13 @@
 import * as Yup from "yup";
 
+// Función personalizada para validar la suma de los dígitos
+const isValidSumForStudentId = (value: any) => {
+  if (!/^\d{7}$/.test(value)) return false; // Verifica que sean exactamente 7 dígitos numéricos
+  const sum = value.split('').reduce((acc: any, digit: any) => acc + parseInt(digit, 10), 0);
+  return sum > 1000000;
+};
+
+
 export const validationSchema = Yup.object().shape({
   first_name: Yup.string()
     .matches(/^[\p{L}]+$/u, "First Name should only contain letters")
@@ -19,9 +27,10 @@ export const validationSchema = Yup.object().shape({
     .matches(/^[\p{L}]+$/u, "Second Last Name should only contain letters")
     .max(20, "Second Last Name must be at most 20 characters"),
 
-  student_id: Yup.string()
-    .required('Studen ID is Required')
-    .matches(/^\d*$/, 'Only numbers are allowed'),
+  studentId: Yup.string()
+    .required('Student ID is Required')
+    .matches(/^\d{7}$/, 'Student ID must be exactly 7 digits')
+    .test('isValidSumForStudentId', 'The sum of the digits must be a number greater than 1000000', isValidSumForStudentId),
 
   birthdate: Yup.date().required("Required"),
 
