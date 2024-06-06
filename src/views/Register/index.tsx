@@ -95,9 +95,9 @@ export default function Registration() {
 
 
       studentId: Yup.string()
-        .required('Student ID is Required')
+        .required('Student Id is Required')
         .matches(/^\d{7}$/, 'Student ID must be exactly 7 digits')
-        .test('isValidSumForStudentId', 'The sum of the digits must be a number greater than 1000000', isValidSumForStudentId),
+        .test('isValidSumForStudentId', 'Invalid Student Id', isValidSumForStudentId),
 
       birthdate: Yup.string().required("Birthdate is required"),
       addressLine1: Yup.string()

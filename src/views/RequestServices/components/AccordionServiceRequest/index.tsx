@@ -117,9 +117,9 @@ const validateSecondLastName = (value: string) => {
 };
 
 const validateStudentId = (value: string) => {
-  if (!value) return "Student ID is required";
+  if (!value) return "Student Id is required";
   if (!/^\d*$/.test(value)) return "Only numbers are allowed";
-  if (!isValidSumForStudentId(value)) return "The sum of the digits must be a number greater than 1000000";
+  if (!isValidSumForStudentId(value)) return "Invalid Student Id";
   return "";
 };
 
