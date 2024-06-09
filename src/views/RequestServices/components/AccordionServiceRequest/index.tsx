@@ -80,12 +80,10 @@ const MyTextField: React.FC<MyTextFieldProps> = ({
   );
 };
 
-
-// Función personalizada para validar la suma de los dígitos
-const isValidSumForStudentId = (value: any) => {
+const isValidSumForStudentId = (value) => {
   if (!/^\d{7}$/.test(value)) return false; // Verifica que sean exactamente 7 dígitos numéricos
-  const sum = value.split('').reduce((acc: any, digit: any) => acc + parseInt(digit, 10), 0);
-  return sum > 1000000;
+  const numericValue = parseInt(value, 10); // Convierte la cadena a un número entero
+  return numericValue > 1000000; // Verifica que el valor numérico sea mayor que 1000000
 };
 
 
@@ -118,7 +116,7 @@ const validateSecondLastName = (value: string) => {
 
 const validateStudentId = (value: string) => {
   if (!value) return "Student Id is required";
-  if (!/^\d*$/.test(value)) return "Only numbers are allowed";
+  if (!/^\d{7}$/.test(value)) return "Student ID must be exactly 7 digits";
   if (!isValidSumForStudentId(value)) return "Invalid Student Id";
   return "";
 };
@@ -196,52 +194,49 @@ export default function BasicAccordion({ setPersonalForm, personalForm }: any) {
   };
 
   const handlePersonalFormChange = (key: string, newValue: string) => {
-    if (key === 'student_id') {
-      const filteredValue = newValue.replace(/\D/g, '');
-      setPersonalForm((prevState: any) => ({
-        ...prevState,
-        [key]: filteredValue,
-      }));
+    let filteredValue = newValue;
 
-      return;
+    if (key === 'student_id') {
+      filteredValue = newValue.replace(/\D/g, ''); // Solo números
     }
 
     setPersonalForm((prevState: any) => ({
       ...prevState,
-      [key]: newValue,
+      [key]: filteredValue,
     }));
 
     let error = "";
     switch (key) {
       case 'first_name':
-        error = validateFirstName(newValue);
+        error = validateFirstName(filteredValue);
         break;
       case 'middle_name':
-        error = validateMiddleName(newValue);
+        error = validateMiddleName(filteredValue);
         break;
       case 'last_name':
-        error = validateLastName(newValue);
+        error = validateLastName(filteredValue);
         break;
       case 'second_last_name':
-        error = validateSecondLastName(newValue);
+        error = validateSecondLastName(filteredValue);
         break;
       case 'student_id':
-        error = validateStudentId(newValue);
+        error = validateStudentId(filteredValue);
         break;
       case 'birthdate':
-        error = validateBirthdate(newValue);
+        error = validateBirthdate(filteredValue);
         break;
       case 'cell_phone':
-        error = validateCellPhone(newValue);
+        error = validateCellPhone(filteredValue);
         break;
       case 'email':
-        error = validateEmail(newValue);
+        error = validateEmail(filteredValue);
         break;
       default:
         break;
     }
     setErrors((prev) => ({ ...prev, [key]: error }));
   };
+
 
   const handleDateChange = (key: string, newDate: Dayjs | null) => {
     if (newDate) {

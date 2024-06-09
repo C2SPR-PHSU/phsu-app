@@ -38,11 +38,11 @@ export default function Registration() {
     formik.setFieldValue(name, filteredValue);
   };
 
-  // Función personalizada para validar la suma de los dígitos
+  // Función personalizada para validar el Student ID
   const isValidSumForStudentId = (value) => {
     if (!/^\d{7}$/.test(value)) return false; // Verifica que sean exactamente 7 dígitos numéricos
-    const sum = value.split('').reduce((acc, digit) => acc + parseInt(digit, 10), 0);
-    return sum > 1000000;
+    const numericValue = parseInt(value, 10);
+    return numericValue > 1000000;
   };
 
 
