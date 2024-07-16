@@ -50,6 +50,7 @@ interface IActionButtonsProps {
   campusData: any;
   getUserCampusInfo: (id: string) => void;
   setLoading: (value: boolean) => void;
+  isSaveDisabled: boolean;
 }
 
 const ActionButtons = ({
@@ -63,7 +64,8 @@ const ActionButtons = ({
   academicForm,
   personalForm,
   campusData,
-  setLoading
+  setLoading,
+  isSaveDisabled
 }: any) => {
 
   const token = useAuthStore((state: any) => state.token);
@@ -113,12 +115,22 @@ const ActionButtons = ({
     return allDocsExist;
   }
 
+
+  const onSubmit = async (): Promise<void> => {
+    await sendAcademicInformation();
+    console.log('Academic Information saved');
+
+    await sendToOnBase();
+    console.log('Files and Data sent to Onbase');
+  };
+
   const sendToOnBase = async () => {
     setLoading(true)
     try {
       await submitDocument(parseInt(selectedCampus), token);
       getUserCampusInfo(selectedCampus);
       setAlert("Documents Sent to OnBase!", "success");
+      // sendAcademicInformation();
       setLoading(false)
     } catch (error) {
       setLoading(false)
@@ -143,8 +155,8 @@ const ActionButtons = ({
   };
 
   useEffect(() => {
-    console.log(academicForm);
-    validateSubmit();
+    // console.log(academicForm);
+    // validateSubmit();
     console.log(campusStatus, selectedCampus, checkFormsValid());
   }, [campusStatus, selectedCampus, academicForm, personalForm]);
 
@@ -212,9 +224,18 @@ const ActionButtons = ({
       sx={{ paddingBottom: "1.2rem", paddingTop: "1rem" }}
     >
       <Box sx={{ display: "flex", flexDirection: isMobile ? "column" : 'row' }}>
+        <Button
+          variant="contained"
+          className={styles["button-save"]}
+          disabled={!checkFormsValid() || isSaveDisabled}
+          onClick={() => sendAcademicInformation()}
+        >
+          SAVE
+        </Button>
+
         {campusStatus < 2 && (
           <Button
-            onClick={() => sendToOnBase()}
+            onClick={() => onSubmit()}
             variant="contained"
             className={styles["button-submit"]}
             sx={{
@@ -222,22 +243,14 @@ const ActionButtons = ({
                 opacity: "0.6",
                 color: "white",
               },
-              marginRight: isMobile ? '0' : '1rem !important',
+              marginLeft: isMobile ? '0' : '1rem !important',
               marginBottom: isMobile ? '1rem !important' : '0rem !important'
             }}
-            disabled={isSubmitDisabled()}
+            disabled={isSubmitDisabled() || isSaveDisabled}
           >
             SUBMIT
           </Button>
         )}
-        <Button
-          variant="contained"
-          className={styles["button-save"]}
-          disabled={!checkFormsValid()}
-          onClick={() => sendAcademicInformation()}
-        >
-          SAVE
-        </Button>
       </Box>
     </Grid>
   );

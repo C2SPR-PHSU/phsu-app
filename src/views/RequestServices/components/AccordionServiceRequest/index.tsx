@@ -80,67 +80,7 @@ const MyTextField: React.FC<MyTextFieldProps> = ({
   );
 };
 
-const isValidSumForStudentId = (value) => {
-  if (!/^\d{7}$/.test(value)) return false; // Verifica que sean exactamente 7 dígitos numéricos
-  const numericValue = parseInt(value, 10); // Convierte la cadena a un número entero
-  return numericValue > 1000000; // Verifica que el valor numérico sea mayor que 1000000
-};
-
-
-// Funciones de validación
-const validateFirstName = (value: string) => {
-  if (!value) return "First Name is required";
-  if (!/^[\p{L}]+$/u.test(value)) return "First Name should only contain letters";
-  if (value.length > 20) return "First Name must be at most 20 characters";
-  return "";
-};
-
-const validateMiddleName = (value: string) => {
-  if (value && !/^[\p{L}]+$/u.test(value)) return "Middle Name should only contain letters";
-  if (value && value.length > 20) return "Middle Name must be at most 20 characters";
-  return "";
-};
-
-const validateLastName = (value: string) => {
-  if (!value) return "Last Name is required";
-  if (!/^[A-Za-z]+$/.test(value)) return "Last Name should only contain letters";
-  if (value.length > 20) return "Last Name must be at most 20 characters";
-  return "";
-};
-
-const validateSecondLastName = (value: string) => {
-  if (value && !/^[\p{L}]+$/u.test(value)) return "Second Last Name should only contain letters";
-  if (value && value.length > 20) return "Second Last Name must be at most 20 characters";
-  return "";
-};
-
-const validateStudentId = (value: string) => {
-  if (!value) return "Student Id is required";
-  if (!/^\d{7}$/.test(value)) return "Student ID must be exactly 7 digits";
-  if (!isValidSumForStudentId(value)) return "Invalid Student Id";
-  return "";
-};
-
-const validateBirthdate = (value: string) => {
-  if (!value) return "Required";
-  return "";
-};
-
-const validateCellPhone = (value: string) => {
-  if (!value) return "Cell Phone is required";
-  if (!/^[0-9*]+$/.test(value)) return "Phone number format (XXX) XXX-XXXX";
-  if (value.length !== 10) return "Phone number must contain 10 characters";
-  return "";
-};
-
-const validateEmail = (value: string) => {
-  if (!value) return "Email is required";
-  if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(value)) return "Invalid email address";
-  if (value.length > 100) return "Email must be at most 100 characters";
-  return "";
-};
-
-export default function BasicAccordion({ setPersonalForm, personalForm }: any) {
+export default function BasicAccordion({ setPersonalForm, personalForm, setIsSaveDisabled }: any) {
 
   const token = useAuthStore((state: any) => state.token);
   const { setAlert } = useAlert();
@@ -209,27 +149,35 @@ export default function BasicAccordion({ setPersonalForm, personalForm }: any) {
     switch (key) {
       case 'first_name':
         error = validateFirstName(filteredValue);
+        validateFirstName(filteredValue) === "" ? setIsSaveDisabled(false) : setIsSaveDisabled(true);
         break;
       case 'middle_name':
         error = validateMiddleName(filteredValue);
+        validateMiddleName(filteredValue) === "" ? setIsSaveDisabled(false) : setIsSaveDisabled(true);
         break;
       case 'last_name':
         error = validateLastName(filteredValue);
+        validateLastName(filteredValue) === "" ? setIsSaveDisabled(false) : setIsSaveDisabled(true);
         break;
       case 'second_last_name':
         error = validateSecondLastName(filteredValue);
+        validateSecondLastName(filteredValue) === "" ? setIsSaveDisabled(false) : setIsSaveDisabled(true);
         break;
       case 'student_id':
         error = validateStudentId(filteredValue);
+        validateStudentId(filteredValue) === "" ? setIsSaveDisabled(false) : setIsSaveDisabled(true);
         break;
       case 'birthdate':
         error = validateBirthdate(filteredValue);
+        validateBirthdate(filteredValue) === "" ? setIsSaveDisabled(false) : setIsSaveDisabled(true);
         break;
       case 'cell_phone':
         error = validateCellPhone(filteredValue);
+        validateCellPhone(filteredValue) === "" ? setIsSaveDisabled(false) : setIsSaveDisabled(true);
         break;
       case 'email':
         error = validateEmail(filteredValue);
+        validateEmail(filteredValue) === "" ? setIsSaveDisabled(false) : setIsSaveDisabled(true);
         break;
       default:
         break;
@@ -247,6 +195,67 @@ export default function BasicAccordion({ setPersonalForm, personalForm }: any) {
       }));
     }
   };
+
+  const isValidSumForStudentId = (value) => {
+    if (!/^\d{7}$/.test(value)) return false; // Verifica que sean exactamente 7 dígitos numéricos
+    const numericValue = parseInt(value, 10); // Convierte la cadena a un número entero
+    return numericValue > 1000000; // Verifica que el valor numérico sea mayor que 1000000
+  };
+
+
+  // Funciones de validación
+  const validateFirstName = (value: string) => {
+    if (!value) return "First Name is required";
+    if (!/^[\p{L}]+$/u.test(value)) return "First Name should only contain letters";
+    if (value.length > 20) return "First Name must be at most 20 characters";
+    return "";
+  };
+
+  const validateMiddleName = (value: string) => {
+    if (value && !/^[\p{L}]+$/u.test(value)) return "Middle Name should only contain letters";
+    if (value && value.length > 20) return "Middle Name must be at most 20 characters";
+    return "";
+  };
+
+  const validateLastName = (value: string) => {
+    if (!value) return "Last Name is required";
+    if (!/^[A-Za-z]+$/.test(value)) return "Last Name should only contain letters";
+    if (value.length > 20) return "Last Name must be at most 20 characters";
+    return "";
+  };
+
+  const validateSecondLastName = (value: string) => {
+    if (value && !/^[\p{L}]+$/u.test(value)) return "Second Last Name should only contain letters";
+    if (value && value.length > 20) return "Second Last Name must be at most 20 characters";
+    return "";
+  };
+
+  const validateStudentId = (value: string) => {
+    if (!value) return "Student Id is required";
+    if (!/^\d{7}$/.test(value)) return "Student ID must be exactly 7 digits";
+    if (!isValidSumForStudentId(value)) return "Invalid Student Id";
+    return "";
+  };
+
+  const validateBirthdate = (value: string) => {
+    if (!value) return "Required";
+    return "";
+  };
+
+  const validateCellPhone = (value: string) => {
+    if (!value) return "Cell Phone is required";
+    if (!/^[0-9*]+$/.test(value)) return "Phone number format (XXX) XXX-XXXX";
+    if (value.length !== 10) return "Phone number must contain 10 characters";
+    return "";
+  };
+
+  const validateEmail = (value: string) => {
+    if (!value) return "Email is required";
+    if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(value)) return "Invalid email address";
+    if (value.length > 100) return "Email must be at most 100 characters";
+    return "";
+  };
+
 
   return (
     <>

@@ -8,20 +8,26 @@ import Options from "./components/Options";
 import { PATH } from "@/routes/constants";
 import useAuthStore from "@/hooks/useAuthStore";
 import { logOut } from "@/utils/";
+import { useEffect } from "react";
 
 const Sidebar = () => {
   const logout = useAuthStore((state: any) => state.setLogout);
   const token = useAuthStore((state: any) => state.token);
 
+  useEffect(() => {
+    console.log('token post logout: ', token);
+  }, [token]);  // Se ejecuta solo cuando 'token' cambia
+
   const handleLogout = async () => {
     try {
-      await logOut(token);
-      logout();
+      // await logOut(token); 
+      await logout();
     } catch (error) {
-      console.log("error");
+      console.log("error", error);
       logout();
     }
   };
+
 
   return (
     <Grid

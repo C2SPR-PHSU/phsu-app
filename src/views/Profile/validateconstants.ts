@@ -26,7 +26,7 @@ export const validationSchema = Yup.object().shape({
     .matches(/^[\p{L}]+$/u, "Second Last Name should only contain letters")
     .max(20, "Second Last Name must be at most 20 characters"),
 
-  studentId: Yup.string()
+  student_id: Yup.string()
     .required('Student Id is Required')
     .matches(/^\d{7}$/, 'Student ID must be exactly 7 digits')
     .test('isValidSumForStudentId', 'Invalid Student Id', isValidSumForStudentId),

@@ -123,14 +123,6 @@ const BasicTableMobile: React.FC<IBasicTableProps> = ({
                       }}
                     />
                   </IconButton>
-
-                  <IconButton>
-                    <DownloadIcon
-                      sx={{
-                        color: "rgba(0, 168, 168, 0.42)",
-                      }}
-                    />
-                  </IconButton>
                 </Grid>
                 <Grid item>
                   <Typography>

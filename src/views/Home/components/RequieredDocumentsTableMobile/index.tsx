@@ -24,10 +24,12 @@ import useAlert from "@/hooks/useAlert";
 import useAuthStore from "@/hooks/useAuthStore";
 interface RequiredDocumentsTableProps {
   documentList: IUserDocumentsData[];
+  tableType: "sent" | "received";
 }
 
 const RequiredDocumentsTableMobile: React.FC<RequiredDocumentsTableProps> = ({
   documentList,
+  tableType
 }) => {
   const [openModal, setOpenModal] = useState(false);
   const [modalMessage, setModalMessage] = useState("");
@@ -119,7 +121,7 @@ const RequiredDocumentsTableMobile: React.FC<RequiredDocumentsTableProps> = ({
                     </Typography>
                   </Grid>
                   <Grid item>
-                    {parseInt(row.status, 10) < 2 ? (
+                    {tableType === "sent" && row.status !== "4" && (
                       <Button
                         component="label"
                         sx={{
@@ -145,12 +147,7 @@ const RequiredDocumentsTableMobile: React.FC<RequiredDocumentsTableProps> = ({
                           hidden
                         />
                       </Button>
-
-
-                    ) :
-                      <UploadIcon
-                        sx={{ color: "#e0e0e0", cursor: "pointer" }}
-                      />
+                    )
                     }
 
                     <IconButton>

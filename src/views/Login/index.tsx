@@ -7,10 +7,18 @@ import {
   welcomeTitle,
   serviceTitle,
 } from "./constants";
+import useAuthStore from "@/hooks/useAuthStore";
+import { useEffect } from "react";
 
 const Login = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('lg'));
+
+  const token = useAuthStore((state: any) => state.token);
+  useEffect(() => {
+    console.log('token post logout: ', token);
+  }, [token]);  // Se ejecuta solo cuando 'token' cambia
+
 
   return (
     <Grid container style={{ width: "100%", margin: 0 }}>

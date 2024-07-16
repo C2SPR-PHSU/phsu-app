@@ -22,6 +22,7 @@ import { Documents, AccordionServiceRequest, AccordionAcademicInfo, ActionButton
 import { IAllCampusesData, ICampusDocumentsData, IUserDocumentsData, ICampusData } from './types'
 import styles from "./styles.module.scss";
 import { getAllUserDocuments } from "./functions";
+import { set } from "lodash";
 
 const RequestServices = () => {
   const theme = useTheme();
@@ -41,6 +42,7 @@ const RequestServices = () => {
   const [submitStatusCode, setSubmitStatusCode] = useState<number>();
   const [campusData, setCampusData] = useState<ICampusData | null>(null);
   const [loading, setLoading] = useState(false);
+  const [isSaveDisabled, setIsSaveDisabled] = useState(false);
 
 
   const [academicForm, setAcademicForm] = useState({
@@ -291,6 +293,7 @@ const RequestServices = () => {
 
           <div className={styles["accordions-wrapper"]}>
             <AccordionServiceRequest
+              setIsSaveDisabled={setIsSaveDisabled}
               personalForm={personalForm}
               setPersonalForm={setPersonalForm} />
           </div>
@@ -308,6 +311,7 @@ const RequestServices = () => {
           personalForm={personalForm}
           academicForm={academicForm}
           setLoading={setLoading}
+          isSaveDisabled={isSaveDisabled}
         />
       </Grid>
     </Box>

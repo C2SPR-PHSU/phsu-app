@@ -220,7 +220,7 @@ export default function BasicTable({
                 <TableCell
                   sx={{
                     paddingTop: "1.5rem",
-                    justifyContent: "space-around",
+                    justifyContent: "center",
                     display: "flex",
                     paddingLeft: "30%",
                     paddingRight: "30%",
@@ -237,15 +237,6 @@ export default function BasicTable({
                       sx={{
                         color: "#009999",
                         cursor: "pointer",
-                      }}
-                    />
-                  </IconButton>
-
-                  <IconButton>
-                    <DownloadIcon
-                      sx={{
-                        cursor: 'default',
-                        color: "rgba(0, 168, 168, 0.42)",
                       }}
                     />
                   </IconButton>

@@ -15,10 +15,13 @@ const useAuthStore = create(
         }));
       },
       setLogout: () => {
-        set(() => ({
-          isAuthenticated: false,
-          token: '',
-        }));
+        return new Promise<void>((resolve) => {
+          set({
+            isAuthenticated: false,
+            token: ''
+          });
+          resolve();
+        });
       },
     }),
     {

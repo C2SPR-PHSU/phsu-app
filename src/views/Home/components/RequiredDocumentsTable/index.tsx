@@ -27,10 +27,12 @@ import useAuthStore from "@/hooks/useAuthStore";
 
 interface RequiredDocumentsTableProps {
   documentList: IUserDocumentsData[];
+  tableType: "sent" | "received";
 }
 
 const RequiredDocumentsTable = ({
   documentList,
+  tableType
 }: RequiredDocumentsTableProps) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("lg"));
@@ -62,7 +64,7 @@ const RequiredDocumentsTable = ({
   if (isMobile) {
     return (
       <>
-        <RequiredDocumentsTableMobile documentList={documentList} />
+        <RequiredDocumentsTableMobile documentList={documentList} tableType={tableType} />
       </>
     );
   }
@@ -122,49 +124,48 @@ const RequiredDocumentsTable = ({
                     </TableCell>
 
                     {/* actions */}
-                    <TableCell align="center" sx={{ display: 'flex', justifyContent: 'center' }}>
+                    <TableCell align="center" sx={{ justifyContent: 'center', alignItems: 'center', display: 'flex' }}>
                       <>
-                        {parseInt(row.status, 10) < 2 ? (
+                        {tableType === "sent" && row.status !== "4" &&
                           <Button
                             component="label"
                             sx={{
-                              padding: '0 !important',
-                              margin: '0 !important',
-                              minWidth: 'auto',
-                              minHeight: 'auto',
+                              padding: 0,
+                              margin: 0,
+                              minWidth: 36,  // Establece un ancho mínimo común
+                              minHeight: 36, // Establece una altura mínima común
                               lineHeight: 0,
-                              display: 'inline-flex',
+                              display: 'flex',
                               alignItems: 'center',
                               justifyContent: 'center',
                             }}
                             startIcon={
                               <UploadIcon
-                                sx={{ color: "#009999", cursor: "pointer", fontSize: "1.4rem", }}
+                                sx={{ color: "#009999", cursor: "pointer", fontSize: "1.4rem" }}
                               />
                             }
                           >
                             <input
                               type="file"
                               accept=".pdf"
-                              onChange={(e) => handleUpload(e, row.campus_user_id, row.id)}
+                              onChange={(e) => handleUpload(e, row.campus_id, row.id)}
                               hidden
                             />
                           </Button>
-
-
-                        ) :
-                          <UploadIcon
-                            sx={{ color: "#e0e0e0", cursor: "pointer" }}
-                          />
                         }
 
                         {row.url ? (
                           <VisibilityIcon
-                            sx={{ color: "#009999", cursor: "pointer" }}
+                            sx={{
+                              color: "#009999",
+                              cursor: "pointer",
+                              fontSize: "1.4rem",
+                              marginX: '0.5rem', // Espacio horizontal para mantener la consistencia
+                            }}
                             onClick={() => {
                               if (row.url !== '') {
-                                console.log(row)
-                                window.open(row.url, "_blank")
+                                console.log(row);
+                                window.open(row.url, "_blank");
                               }
                             }}
                           />
@@ -174,6 +175,8 @@ const RequiredDocumentsTable = ({
                               color: "#e0e0e0",
                               cursor: "default",
                               opacity: 0.5,
+                              fontSize: "1.4rem",
+                              marginX: '0.5rem',
                             }}
                           />
                         )}
@@ -183,13 +186,14 @@ const RequiredDocumentsTable = ({
                               fontSize: "1.4rem",
                               color: "#f7941d",
                               cursor: "pointer",
-                              marginLeft: "0.5rem !important",
+                              marginX: '0.5rem',
                             }}
                             onClick={() => displayModal(row.ob_message)}
                           />
                         )}
                       </>
                     </TableCell>
+
                   </TableRow>
                 </>
               );

@@ -17,7 +17,7 @@ const RequiredDocuments = ({
   documentId,
   handleClose,
 }: IRequiredDocumentsProps) => {
-  const [value, setValue] = useState("1");
+  const [value, setValue] = useState("2");
   const [documentList, setDocumentList] = useState<IUserDocumentsData[]>([]);
   const token = useAuthStore((state: any) => state.token);
   const theme = useTheme();
@@ -143,8 +143,8 @@ const RequiredDocuments = ({
                     centered
                   >
                     <Tab
-                      label="Sent"
-                      value="1"
+                      label="Received"
+                      value="2"
                       sx={{
                         sdisplay: "flex",
                         textTransform: "none",
@@ -154,8 +154,8 @@ const RequiredDocuments = ({
                       }}
                     />
                     <Tab
-                      label="Received"
-                      value="2"
+                      label="Sent"
+                      value="1"
                       sx={{
                         sdisplay: "flex",
                         textTransform: "none",
@@ -177,7 +177,7 @@ const RequiredDocuments = ({
                   }),
                 }}
               >
-                <RequiredDocumentsTable documentList={documentList} />
+                <RequiredDocumentsTable documentList={documentList} tableType="sent" />
               </TabPanel>
               <TabPanel
                 value="2"
@@ -187,7 +187,7 @@ const RequiredDocuments = ({
                   }),
                 }}
               >
-                <RequiredDocumentsTable documentList={documentList} />
+                <RequiredDocumentsTable documentList={documentList} tableType="received" />
               </TabPanel>
             </Grid>
           </TabContext>
