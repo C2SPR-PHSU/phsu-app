@@ -2,6 +2,7 @@ import React, { ChangeEvent, useState } from "react";
 import {
   Box,
   Button,
+  CircularProgress,
   Grid,
   IconButton,
   Table,
@@ -25,11 +26,15 @@ import useAuthStore from "@/hooks/useAuthStore";
 interface RequiredDocumentsTableProps {
   documentList: IUserDocumentsData[];
   tableType: "sent" | "received";
+  loadingStates: { [documentId: string]: boolean };
+  setLoadingStates: (value: boolean) => void;
 }
 
 const RequiredDocumentsTableMobile: React.FC<RequiredDocumentsTableProps> = ({
   documentList,
-  tableType
+  tableType,
+  loadingStates,
+  setLoadingStates
 }) => {
   const [openModal, setOpenModal] = useState(false);
   const [modalMessage, setModalMessage] = useState("");
@@ -57,11 +62,16 @@ const RequiredDocumentsTableMobile: React.FC<RequiredDocumentsTableProps> = ({
     documentId: string
   ) => {
     if (!e.target.files) return;
+    // Activa el estado de carga para el documento específico
+    setLoadingStates(prev => ({ ...prev, [documentId]: true }));
     const document = e.target.files[0];
     try {
       await uploadDocument({ campusId, documentId, document, token });
+      // Desactiva el estado de carga tras completar la carga
+      setLoadingStates(prev => ({ ...prev, [documentId]: false }));
       setAlert('Documents uploaded Successfully!', 'success');
     } catch (error) {
+      setLoadingStates(prev => ({ ...prev, [documentId]: false }));
       setAlert('Something happened. Try again later', 'error');
     }
   };
@@ -121,62 +131,74 @@ const RequiredDocumentsTableMobile: React.FC<RequiredDocumentsTableProps> = ({
                     </Typography>
                   </Grid>
                   <Grid item>
-                    {tableType === "sent" && row.status !== "4" && (
-                      <Button
-                        component="label"
-                        sx={{
-                          padding: '0 !important',
-                          margin: '0 !important',
-                          minWidth: 'auto',
-                          minHeight: 'auto',
-                          lineHeight: 0,
-                          display: 'inline-flex',
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                        }}
-                        startIcon={
-                          <UploadIcon
-                            sx={{ color: "#009999", cursor: "pointer", fontSize: "1.4rem", }}
-                          />
+                    {loadingStates[row.id] ?
+                      <CircularProgress size={24} color="success" />
+
+                      :
+                      <>
+                        {tableType === "sent" && row.status !== "6" && (
+                          <Button
+                            component="label"
+                            sx={{
+                              padding: '0 !important',
+                              margin: '0 !important',
+                              minWidth: 'auto',
+                              minHeight: 'auto',
+                              lineHeight: 0,
+                              display: 'inline-flex',
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                            }}
+                            startIcon={
+                              <UploadIcon
+                                sx={{ color: "#009999", cursor: "pointer", fontSize: "1.4rem", }}
+                              />
+                            }
+                          >
+                            <input
+                              type="file"
+                              accept=".pdf"
+                              onChange={(e) => handleUpload(e, row.campus_id, row.id)}
+                              hidden
+                            />
+                          </Button>
+                        )
                         }
-                      >
-                        <input
-                          type="file"
-                          accept=".pdf"
-                          onChange={(e) => handleUpload(e, row.campus_user_id, row.id)}
-                          hidden
-                        />
-                      </Button>
-                    )
+                        <IconButton>
+                          <VisibilityIcon
+                            onClick={() => {
+                              if (row.url !== '') {
+                                console.log(row)
+                                window.open(row.url, "_blank")
+                              }
+                            }}
+                            sx={{
+                              color: "rgba(0, 168, 168, 1)",
+                            }}
+                          />
+                        </IconButton>
+
+                        {row.ob_message && (
+                          <IconButton>
+                            <ChatIcon
+                              sx={{
+                                fontSize: "1.4rem",
+                                color: "#f7941d",
+                                cursor: "pointer",
+                                marginLeft: "0.5rem !important",
+                              }}
+                              onClick={() => displayModal(row.ob_message)}
+                            />
+                          </IconButton>
+                        )}
+
+                      </>
                     }
 
-                    <IconButton>
-                      <VisibilityIcon
-                        onClick={() => {
-                          if (row.url !== '') {
-                            console.log(row)
-                            window.open(row.url, "_blank")
-                          }
-                        }}
-                        sx={{
-                          color: "rgba(0, 168, 168, 1)",
-                        }}
-                      />
-                    </IconButton>
 
-                    {row.ob_message && (
-                      <IconButton>
-                        <ChatIcon
-                          sx={{
-                            fontSize: "1.4rem",
-                            color: "#f7941d",
-                            cursor: "pointer",
-                            marginLeft: "0.5rem !important",
-                          }}
-                          onClick={() => displayModal(row.ob_message)}
-                        />
-                      </IconButton>
-                    )}
+
+
+
                   </Grid>
                 </Grid>
 

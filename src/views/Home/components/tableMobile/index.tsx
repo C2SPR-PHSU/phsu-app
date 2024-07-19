@@ -53,7 +53,7 @@ const BasicTableMobile: React.FC<IBasicTableProps> = ({
 
   useEffect(() => {
     getUserServicesRows();
-  });
+  }, []);
 
   return (
     <>

@@ -23,6 +23,7 @@ const RequiredDocuments = ({
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("lg"));
   const isMobileSmall = useMediaQuery(theme.breakpoints.down("sm"));
+  const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
     return () => {
@@ -60,6 +61,20 @@ const RequiredDocuments = ({
       console.log(error);
     }
   };
+
+  const [loadingStates, setLoadingStates] = useState({})
+
+  useEffect(() => {
+    const newLoadingStates = {};
+    documentList.forEach(doc => {
+      if (doc.id) {
+        newLoadingStates[doc.id] = false;
+      }
+    });
+    setLoadingStates(newLoadingStates);
+  }, [documentList]);
+
+
 
   return (
     <Modal
@@ -177,7 +192,7 @@ const RequiredDocuments = ({
                   }),
                 }}
               >
-                <RequiredDocumentsTable documentList={documentList} tableType="sent" />
+                <RequiredDocumentsTable documentList={documentList} tableType="sent" loadingStates={loadingStates} setLoadingStates={setLoadingStates} />
               </TabPanel>
               <TabPanel
                 value="2"
@@ -187,7 +202,7 @@ const RequiredDocuments = ({
                   }),
                 }}
               >
-                <RequiredDocumentsTable documentList={documentList} tableType="received" />
+                <RequiredDocumentsTable documentList={documentList} tableType="received" loadingStates={loadingStates} setLoadingStates={setLoadingStates} />
               </TabPanel>
             </Grid>
           </TabContext>
