@@ -14,12 +14,14 @@ const Root = () => {
   return (
     <Routes>
       {!isAuthenticated ? (
-        <Route path={PATH.ROOT} element={<UnauthorizedLayout />}>
-          <Route path={PATH.ROOT} element={<Login />} />
-          <Route path={PATH.REGISTER} element={<Register />} />
-          <Route path={PATH.RECOVERY} element={<Recovery />} />
-          <Route path={PATH.RECOVERY_TOKEN} element={<RecoveryToken />} />
-        </Route>
+        <>
+          <Route path={PATH.ROOT} element={<UnauthorizedLayout />}>
+            <Route path={PATH.ROOT} />
+            <Route path={PATH.REGISTER} />
+            <Route path={PATH.RECOVERY} />
+            <Route path={PATH.RECOVERY_TOKEN} element={<RecoveryToken />} />
+          </Route>
+        </>
       ) : (
         <Route path={PATH.ROOT} element={<AuthorizedLayout />}>
           <Route path={PATH.ROOT} element={<Home />}></Route>
