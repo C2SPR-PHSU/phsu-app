@@ -66,21 +66,24 @@ export default function Registration() {
     },
     validationSchema: Yup.object({
       firstName: Yup.string()
-        .matches(/^[\p{L}]+$/u, "First Name should only contain letters")
+        .matches(/^[^\d_!¡?÷?¿/\\+=@#$%^&*(){}|~<>;:[\]]+$/u
+          , "First Name Invalid")
         .required("First Name is required")
         .max(20, "First Name must be at most 20 characters"),
 
       middleName: Yup.string()
-        .matches(/^[\p{L}]+$/u, "Middle Name should only contain letters")
+        .matches(/^[^\d_!¡?÷?¿/\\+=@#$%^&*(){}|~<>;:[\]]+$/u
+          , "Middle Name Invalid")
         .max(20, "Middle Name must be at most 20 characters"),
 
       lastName: Yup.string()
-        .matches(/^[A-Za-z]+$/, "Last Name should only contain letters")
+        .matches(/^[^\d_!¡?÷?¿/\\+=@#$%^&*(){}|~<>;:[\]]+$/u, "Last Name Invalid")
         .required("Last Name is required")
         .max(20, "Last Name must be at most 20 characters"),
 
       secondLastName: Yup.string()
-        .matches(/^[\p{L}]+$/u, "Second Last Name should only contain letters")
+        .matches(/^[^\d_!¡?÷?¿/\\+=@#$%^&*(){}|~<>;:[\]]+$/u
+          , "Second Last Name Invalid")
         .max(20, "Second Last Name must be at most 20 characters"),
 
       email: Yup.string()
@@ -222,7 +225,7 @@ export default function Registration() {
       await setLogin(formik.values.email, formik.values.password);
       navigate("/");
     } catch (error) {
-      setAlert("Something happened. Try again", "error");
+      setAlert("Something happened: " + error.message, "error");
     }
   };
 

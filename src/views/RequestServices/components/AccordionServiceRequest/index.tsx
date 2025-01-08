@@ -206,26 +206,26 @@ export default function BasicAccordion({ setPersonalForm, personalForm, setIsSav
   // Funciones de validación
   const validateFirstName = (value: string) => {
     if (!value) return "First Name is required";
-    if (!/^[\p{L}]+$/u.test(value)) return "First Name should only contain letters";
+    if (!/^[^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$/u.test(value)) return "First Name Invalid";
     if (value.length > 20) return "First Name must be at most 20 characters";
     return "";
   };
 
   const validateMiddleName = (value: string) => {
-    if (value && !/^[\p{L}]+$/u.test(value)) return "Middle Name should only contain letters";
+    if (value && !/^[^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$/u.test(value)) return "Middle Name Invalid";
     if (value && value.length > 20) return "Middle Name must be at most 20 characters";
     return "";
   };
 
   const validateLastName = (value: string) => {
     if (!value) return "Last Name is required";
-    if (!/^[A-Za-z]+$/.test(value)) return "Last Name should only contain letters";
+    if (!/^[^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$/u.test(value)) return "Last Name Invalid";
     if (value.length > 20) return "Last Name must be at most 20 characters";
     return "";
   };
 
   const validateSecondLastName = (value: string) => {
-    if (value && !/^[\p{L}]+$/u.test(value)) return "Second Last Name should only contain letters";
+    if (value && !/^[^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$/u.test(value)) return "Second Last Name Invalid";
     if (value && value.length > 20) return "Second Last Name must be at most 20 characters";
     return "";
   };

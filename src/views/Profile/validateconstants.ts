@@ -9,21 +9,21 @@ const isValidSumForStudentId = (value) => {
 
 export const validationSchema = Yup.object().shape({
   first_name: Yup.string()
-    .matches(/^[\p{L}]+$/u, "First Name should only contain letters")
+    .matches(/^[^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$/u, "First Name Invalid")
     .required("First Name is required")
     .max(20, "First Name must be at most 20 characters"),
 
   middle_name: Yup.string()
-    .matches(/^[\p{L}]+$/u, "Middle Name should only contain letters")
+    .matches(/^[^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$/u, "Middle Name Invalid")
     .max(20, "Middle Name must be at most 20 characters"),
 
   last_name: Yup.string()
-    .matches(/^[A-Za-z]+$/, "Last Name should only contain letters")
+    .matches(/^[^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$/u, "Last Name Invalid")
     .required("Last Name is required")
     .max(20, "Last Name must be at most 20 characters"),
 
   second_last_name: Yup.string()
-    .matches(/^[\p{L}]+$/u, "Second Last Name should only contain letters")
+    .matches(/^[^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$/u, "Second Last Name Invalid")
     .max(20, "Second Last Name must be at most 20 characters"),
 
   student_id: Yup.string()
