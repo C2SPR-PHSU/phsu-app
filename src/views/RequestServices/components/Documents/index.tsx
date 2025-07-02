@@ -37,7 +37,6 @@ interface IDocumentsProps {
   campusDocuments: ICampusDocumentsData[];
   requestUserDocuments: () => void;
   isMobile: boolean;
-  // Nuevas props para manejar loading
   isUploading?: boolean;
   onUploadStart?: (documentId: string) => void;
   onUploadEnd?: (documentId: string) => void;
@@ -157,7 +156,7 @@ const Documents = ({
                   borderRadius: 2,
                   backgroundColor: "rgba(0, 0, 0, 0.1)",
                   "& .MuiLinearProgress-bar": {
-                    backgroundColor: "#f7941d",
+                    backgroundColor: "#009999",
                     borderRadius: 2,
                   },
                 }}
@@ -165,7 +164,7 @@ const Documents = ({
               <Typography
                 variant="caption"
                 sx={{
-                  color: "#f7941d",
+                  color: "#009999",
                   fontSize: "0.75rem",
                   marginTop: "0.5rem",
                   display: "block",
@@ -215,7 +214,6 @@ const Documents = ({
             md={2}
             sx={{ marginY: isMobile ? "1rem !important" : "0.5rem" }}
           >
-            {/* Ocultar botones cuando está cargando */}
             <Fade in={!isUploading}>
               <div className={styles["document-actions-button"]}>
                 <div className={styles["rounded-div"]}>
