@@ -18,19 +18,28 @@ import {
   servicesTextTitle,
 } from "./constants";
 import { getCampuses, getCampusDocuments, getUserCampus } from "./functions";
-import { Documents, AccordionServiceRequest, AccordionAcademicInfo, ActionButtons } from './components';
-import { IAllCampusesData, ICampusDocumentsData, IUserDocumentsData, ICampusData } from './types'
+import {
+  Documents,
+  AccordionServiceRequest,
+  AccordionAcademicInfo,
+  ActionButtons,
+} from "./components";
+import {
+  IAllCampusesData,
+  ICampusDocumentsData,
+  IUserDocumentsData,
+  ICampusData,
+} from "./types";
 import styles from "./styles.module.scss";
 import { getAllUserDocuments } from "./functions";
 import { set } from "lodash";
 
 const RequestServices = () => {
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
   const token = useAuthStore((state: any) => state.token);
 
   const [campusStatus, setCampusStatus] = useState(0);
-
   const [campuses, setCampuses] = useState<IAllCampusesData[]>([]);
   const [documentList, setDocumentList] = useState<ICampusDocumentsData[]>([]);
   const [displayList, setDisplayList] = useState(false);
@@ -44,22 +53,26 @@ const RequestServices = () => {
   const [loading, setLoading] = useState(false);
   const [isSaveDisabled, setIsSaveDisabled] = useState(false);
 
+  // Nuevo estado para manejar documentos que están siendo subidos
+  const [uploadingDocuments, setUploadingDocuments] = useState<Set<string>>(
+    new Set()
+  );
 
   const [academicForm, setAcademicForm] = useState({
-    campus_id: '',
-    term_id: '',
-    academic_year: ''
+    campus_id: "",
+    term_id: "",
+    academic_year: "",
   });
 
   const [personalForm, setPersonalForm] = useState({
-    first_name: '',
-    middle_name: '',
-    last_name: '',
-    second_last_name: '',
-    birthdate: '',
-    cell_phone: '',
-    student_id: '',
-    email: ''
+    first_name: "",
+    middle_name: "",
+    last_name: "",
+    second_last_name: "",
+    birthdate: "",
+    cell_phone: "",
+    student_id: "",
+    email: "",
   });
 
   useEffect(() => {
@@ -67,16 +80,29 @@ const RequestServices = () => {
   }, []);
 
   useEffect(() => {
-    if (selectedCampus !== "" && selectedService !== "") return setDisplayList(true);
+    if (selectedCampus !== "" && selectedService !== "")
+      return setDisplayList(true);
     setDisplayList(false);
   }, [selectedService]);
 
   useEffect(() => {
-    console.log('Selected Campus: ', selectedCampus)
+    console.log("Selected Campus: ", selectedCampus);
     if (selectedCampus === "0") return;
-    handleCampusChange(selectedCampus)
-    // requestUserDocuments();
+    handleCampusChange(selectedCampus);
   }, [selectedCampus]);
+
+  // Funciones para manejar el estado de upload por documento
+  const handleUploadStart = (documentId: string) => {
+    setUploadingDocuments((prev) => new Set([...prev, documentId]));
+  };
+
+  const handleUploadEnd = (documentId: string) => {
+    setUploadingDocuments((prev) => {
+      const newSet = new Set(prev);
+      newSet.delete(documentId);
+      return newSet;
+    });
+  };
 
   const getAllCampuses = async () => {
     try {
@@ -117,64 +143,67 @@ const RequestServices = () => {
 
   const handleCampusChange = (campus_id: any) => {
     setSelectedCampus(campus_id);
-    console.log('NUEVO CAMPUS ', campus_id, ' Selected Campus: ' + selectedCampus);
+    console.log(
+      "NUEVO CAMPUS ",
+      campus_id,
+      " Selected Campus: " + selectedCampus
+    );
     getUserCampusInfo(campus_id);
     getDocumentsByCampus(parseInt(campus_id));
     requestUserDocuments();
   };
-
 
   return (
     <Box
       sx={{
         display: "flex",
         flexDirection: "row",
-        padding: isMobile ? "0.5rem" : '2rem 2rem 2rem 7rem',
+        padding: isMobile ? "0.5rem" : "2rem 2rem 2rem 7rem",
         width: "100%",
-
       }}
     >
-      <Grid container >
+      <Grid container>
         <Grid
           item
           xs={12}
           sx={{ display: "flex", flexDirection: "column" }}
           py={4}
         >
-          <Typography className={styles["title-services"]}
+          <Typography
+            className={styles["title-services"]}
             sx={{
-              pb: '2rem',
-              fontSize: isMobile ? '1.5rem' : "2.2rem",
-              textAlign: isMobile ? 'center' : 'start'
-            }}>
+              pb: "2rem",
+              fontSize: isMobile ? "1.5rem" : "2.2rem",
+              textAlign: isMobile ? "center" : "start",
+            }}
+          >
             {servicesTextTitle}
           </Typography>
-          <Typography className={styles["description-view-services"]}
+          <Typography
+            className={styles["description-view-services"]}
             sx={{
-              fontSize: isMobile ? '1rem' : "1.2rem",
-              paddingX: isMobile ? '1rem' : ''
-            }}>
+              fontSize: isMobile ? "1rem" : "1.2rem",
+              paddingX: isMobile ? "1rem" : "",
+            }}
+          >
             {servicesTextDescription}
           </Typography>
         </Grid>
 
-
         <Grid item xs={12} py={4}>
-          <Typography className={styles["campus-selection-title"]} sx={{ textAlign: isMobile ? 'center' : 'start' }}>Campus Selection
+          <Typography
+            className={styles["campus-selection-title"]}
+            sx={{ textAlign: isMobile ? "center" : "start" }}
+          >
+            Campus Selection
           </Typography>
         </Grid>
 
-
         <Grid item xs={12} lg={6} paddingRight={"1rem"}>
-          <FormControl
-            fullWidth={true}
-            variant="outlined"
-            sx={selectStyles}
-          >
+          <FormControl fullWidth={true} variant="outlined" sx={selectStyles}>
             <CustomLabel name="Campus" required={true} />
             <Select
               value={selectedCampus || "placeholder"}
-              // onChange={(e) => handleCampusChange(e.target.value)}
               onChange={(e) => setSelectedCampus(e.target.value)}
             >
               <MenuItem value={"placeholder"} disabled>
@@ -205,14 +234,17 @@ const RequestServices = () => {
                 Select your Service
               </MenuItem>
               {optionsService?.map((option) => (
-                <MenuItem key={option} value={option} disabled={option === 'Credentialing Process' ? false : true}>
+                <MenuItem
+                  key={option}
+                  value={option}
+                  disabled={option === "Credentialing Process" ? false : true}
+                >
                   {option}
                 </MenuItem>
               ))}
             </Select>
           </FormControl>
         </Grid>
-
 
         <Grid
           item
@@ -226,7 +258,10 @@ const RequestServices = () => {
         >
           {!displayList || selectedCampus === "0" ? (
             <>
-              <Typography className={styles["campus-selection-title"]} sx={{ textAlign: isMobile ? 'center' : 'start' }}>
+              <Typography
+                className={styles["campus-selection-title"]}
+                sx={{ textAlign: isMobile ? "center" : "start" }}
+              >
                 Documents
               </Typography>
               <Typography sx={{ color: "gray" }}>
@@ -235,48 +270,76 @@ const RequestServices = () => {
             </>
           ) : (
             <Grid container>
-
-              <Grid item xs={12} md={8} sx={{ marginBottom: '2rem !important' }}>
-                <Typography className={styles["documents-th"]} sx={{ textAlign: isMobile ? 'center' : 'start' }}>
+              <Grid
+                item
+                xs={12}
+                md={8}
+                sx={{ marginBottom: "2rem !important" }}
+              >
+                <Typography
+                  className={styles["documents-th"]}
+                  sx={{ textAlign: isMobile ? "center" : "start" }}
+                >
                   Documents
                 </Typography>
               </Grid>
-              <Grid item md={2} sx={{ marginBottom: '2rem !important', display: isMobile ? 'none' : 'block' }}>
+              <Grid
+                item
+                md={2}
+                sx={{
+                  marginBottom: "2rem !important",
+                  display: isMobile ? "none" : "block",
+                }}
+              >
                 <Typography className={styles["actions-th"]}>
                   Actions
                 </Typography>
               </Grid>
-              <Grid item md={2} sx={{ marginBottom: '2rem !important', display: isMobile ? 'none' : 'block' }}>
+              <Grid
+                item
+                md={2}
+                sx={{
+                  marginBottom: "2rem !important",
+                  display: isMobile ? "none" : "block",
+                }}
+              >
                 <Typography className={styles["actions-th"]}>
                   Uploaded
                 </Typography>
               </Grid>
 
-              {loading &&
+              {loading && (
                 <Grid item xs={12}>
                   <LoadingComponent />
                 </Grid>
-              }
+              )}
 
-              {!loading && documentList?.map((document) => {
-                return (
-                  <Grid item xs={12} key={document.id}>
-                    <Documents
-                      title={document.description}
-                      campusId={parseInt(selectedCampus, 10)}
-                      campusStatus={campusStatus}
-                      documentId={document.id}
-                      mandatory={document.mandatory}
-                      getUserCampusInfo={(id) => getUserCampusInfo(id)}
-                      campusDocuments={documentList}
-                      userDocuments={userDocuments}
-                      requestUserDocuments={() => requestUserDocuments()}
-                      isMobile={isMobile}
-                    />
-                  </Grid>
-                );
-              })}
+              {!loading &&
+                documentList?.map((document) => {
+                  const isDocumentUploading = uploadingDocuments.has(
+                    document.id
+                  );
 
+                  return (
+                    <Grid item xs={12} key={document.id}>
+                      <Documents
+                        title={document.description}
+                        campusId={parseInt(selectedCampus, 10)}
+                        campusStatus={campusStatus}
+                        documentId={document.id}
+                        mandatory={document.mandatory}
+                        getUserCampusInfo={(id) => getUserCampusInfo(id)}
+                        campusDocuments={documentList}
+                        userDocuments={userDocuments}
+                        requestUserDocuments={() => requestUserDocuments()}
+                        isMobile={isMobile}
+                        isUploading={isDocumentUploading}
+                        onUploadStart={handleUploadStart}
+                        onUploadEnd={handleUploadEnd}
+                      />
+                    </Grid>
+                  );
+                })}
             </Grid>
           )}
         </Grid>
@@ -295,7 +358,8 @@ const RequestServices = () => {
             <AccordionServiceRequest
               setIsSaveDisabled={setIsSaveDisabled}
               personalForm={personalForm}
-              setPersonalForm={setPersonalForm} />
+              setPersonalForm={setPersonalForm}
+            />
           </div>
         </Grid>
 
@@ -311,7 +375,7 @@ const RequestServices = () => {
           personalForm={personalForm}
           academicForm={academicForm}
           setLoading={setLoading}
-          isSaveDisabled={isSaveDisabled}
+          isSaveDisabled={isSaveDisabled || uploadingDocuments.size > 0}
         />
       </Grid>
     </Box>
