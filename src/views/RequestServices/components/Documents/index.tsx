@@ -69,12 +69,34 @@ const Documents = ({
     setCurrentDocument(doc || null);
   }, [documentId, userDocuments, checked, currentDocument]);
 
+  const validateFile = (file: File): string[] => {
+    const errors: string[] = [];
+
+    if (file.type !== "application/pdf") {
+      errors.push("File must be a PDF");
+    }
+
+    const maxSize = 10 * 1024 * 1024; // 10MB
+    if (file.size > maxSize) {
+      errors.push("File must not exceed 10MB");
+    }
+
+    return errors;
+  };
+
   const handleUpload = async (e: ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files) return;
     const document = e.target.files[0];
 
+    const validationErrors = validateFile(document);
+
+    if (validationErrors.length > 0) {
+      setAlert(validationErrors.join(". "), "error");
+      e.target.value = "";
+      return;
+    }
+
     try {
-      // Notificar que el upload está comenzando
       onUploadStart?.(documentId);
 
       await uploadDocument({ campusId, documentId, document, token });
@@ -85,7 +107,6 @@ const Documents = ({
       setChecked(false);
       setAlert("Something happened. Try again later", "error");
     } finally {
-      // Notificar que el upload terminó
       onUploadEnd?.(documentId);
     }
   };
@@ -100,7 +121,6 @@ const Documents = ({
 
   const handleDeleteDocument = async () => {
     try {
-      // Notificar que la eliminación está comenzando
       onUploadStart?.(documentId);
 
       await deleteDocument({ campusId, documentId, token });
@@ -110,7 +130,6 @@ const Documents = ({
     } catch (error) {
       setAlert("Something happened. Try again later", "error");
     } finally {
-      // Notificar que la eliminación terminó
       onUploadEnd?.(documentId);
     }
     deleteDialogClose();
@@ -147,7 +166,6 @@ const Documents = ({
                 }
           }
         >
-          {/* Progress Bar - Solo visible cuando está cargando */}
           <Fade in={isUploading}>
             <Grid item xs={12} sx={{ marginBottom: "1rem" }}>
               <LinearProgress
