@@ -83,9 +83,9 @@ const RequiredDocumentsTable = ({
       errors.push("File must be a PDF");
     }
 
-    const maxSize = 10 * 1024 * 1024; // 10MB
+    const maxSize = 5 * 1024 * 1024; // 5MB
     if (file.size > maxSize) {
-      errors.push("File must not exceed 10MB");
+      errors.push("File must not exceed 5MB");
     }
 
     return errors;
